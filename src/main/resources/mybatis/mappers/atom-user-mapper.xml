@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ATOM-USER">
+	<resultMap id="UserMap" type="UserDO">
+		<id property="id" column="id" />
+		<result property="uname" column="uname" />
+		<result property="passwd" column="passwd" />
+		<result property="uemail" column="uemail" />
+		<result property="gmt_create" column="gmtCreate" />
+		<result property="gmt_modify" column="gmtModify" />
+	</resultMap>
+
+	<select id="findAll" resultMap="UserMap">
+		SELECT * FROM atom_user
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT COUNT(*) FROM atom_user;
+	</select>
+</mapper>
