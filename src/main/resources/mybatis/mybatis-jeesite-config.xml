@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="TopicDO" type="com.github.obullxl.jeesite.dal.dto.TopicDO"/>
+		<typeAlias alias="UserDO" type="com.github.obullxl.jeesite.dal.dto.UserDO"/>
+	</typeAliases>
+
+	<mappers>
+		<mapper resource="mybatis/jeesite/Topic-mapper.xml" />
+		<mapper resource="mybatis/jeesite/User-mapper.xml" />
+	</mappers>
+</configuration>

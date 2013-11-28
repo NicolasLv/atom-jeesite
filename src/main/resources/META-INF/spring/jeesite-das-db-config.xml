@@ -14,14 +14,25 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-jeesite-config.xml" />
 	</bean>
 
 	<bean id="abstractDAO" abstract="true">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
-	<bean id="userDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisUserDAO" />
-	
-	<bean id="userService" class="com.github.obullxl.jeesite.service.impl.UserServiceImpl" />
+
+	<bean id="abstractTicket" abstract="true">
+		<property name="ticketDAO">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketDAO">
+				<property name="dataSource" ref="dataSource" />
+				<property name="retryTimes" value="50" />
+				<property name="step" value="100" />
+				<property name="tableName" value="adm_mutex_ticket" />
+				<property name="nameColumnName" value="name" />
+				<property name="valueColumnName" value="value" />
+				<property name="stampColumnName" value="stamp" />
+			</bean>
+		</property>
+	</bean>
 
 </beans>

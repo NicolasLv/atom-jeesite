@@ -1,22 +1,79 @@
 /**
- * Author: obullxl@gmail.com
- * Copyright (c) 2004-2013 All Rights Reserved.
+ * obullxl@gmail.com
  */
 package com.github.obullxl.jeesite.dal.dao;
 
-import java.util.List;
-
 import com.github.obullxl.jeesite.dal.dto.UserDO;
 
-/**
- * 
- * @author obullxl@gmail.com
- * @version $Id: UserDAO.java, V1.0.1 2013年11月25日 下午12:49:02 $
- */
-public interface UserDAO {
+import java.util.List;
 
-    public int count();
-    
-    public List<UserDO> findAll();
+import org.springframework.dao.DataAccessException;
+
+
+/**
+ * A dao interface provides methods to access database table <tt>atom_user</tt>.
+ */
+public interface UserDAO extends BaseDAO {
+	/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select COUNT(*) from atom_user</tt>
+	 *
+	 *	@return long
+	 *	@throws DataAccessException
+	 */	 
+    public long count() throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_user where (id = ?)</tt>
+	 *
+	 *	@param id
+	 *	@return UserDO
+	 *	@throws DataAccessException
+	 */	 
+    public UserDO find(long id) throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_user</tt>
+	 *
+	 *	@return List<UserDO>
+	 *	@throws DataAccessException
+	 */	 
+    public List<UserDO> findAll() throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select uname from atom_user</tt>
+	 *
+	 *	@return List<String>
+	 *	@throws DataAccessException
+	 */	 
+    public List<String> findName() throws DataAccessException;
+
+	/**
+	 *  Delete records from DB table <tt>atom_user</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>delete from atom_user where (id = ?)</tt>
+	 *
+	 *	@param id
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    public int delete(long id) throws DataAccessException;
 
 }

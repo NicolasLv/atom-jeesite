@@ -1,47 +1,85 @@
 /**
- * Author: obullxl@gmail.com
- * Copyright (c) 2004-2013 All Rights Reserved.
+ * obullxl@gmail.com
  */
-package com.github.obullxl.jeesite.dal.mybatis;
-
-import java.util.List;
-
-import org.apache.ibatis.session.SqlSession;
-import org.mybatis.spring.support.SqlSessionDaoSupport;
-import org.springframework.beans.factory.InitializingBean;
-
-import com.github.obullxl.jeesite.dal.dao.UserDAO;
-import com.github.obullxl.jeesite.dal.dto.UserDO;
-
-/**
- * 
+package com.github.obullxl.jeesite.dal.mybatis;import com.github.obullxl.jeesite.dal.dao.UserDAO;import com.github.obullxl.jeesite.dal.dto.UserDO;import java.util.List;import org.springframework.dao.DataAccessException;import com.github.obullxl.ticket.TicketService;/** * An ibatis based implementation of dao interface <tt>com.github.obullxl.jeesite.dal.dao.UserDAO</tt>. *
  * @author obullxl@gmail.com
- * @version $Id: MyBatisUserDAO.java, V1.0.1 2013年11月25日 下午1:29:26 $
- */
-public class MyBatisUserDAO extends SqlSessionDaoSupport implements InitializingBean, UserDAO {
-    
-    /** 
-     * @see org.springframework.dao.support.DaoSupport#initDao()
-     */
-    protected void initDao() throws Exception {
-        super.initDao();
-        
-        SqlSession session = this.getSqlSession();
-        session.getConfiguration();
-    }
-    
-    /** 
-     * @see com.github.obullxl.jeesite.dal.dao.UserDAO#count()
-     */
-    public int count() {
-        return this.getSqlSession().selectOne("ATOM-USER.count");
-    }
+ */public class MyBatisUserDAO extends org.mybatis.spring.support.SqlSessionDaoSupport implements UserDAO {	/** TicketID */	private TicketService ticketService;		public void setTicketService(TicketService ticketService) {		this.ticketService = ticketService;	}		public TicketService getTicketService() {        return ticketService;    }	/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select COUNT(*) from atom_user</tt>
+	 *
+	 *	@return long
+	 *	@throws DataAccessException
+	 */	 
+    public long count() throws DataAccessException {
 
-    /** 
-     * @see com.github.obullxl.jeesite.dal.dao.UserDAO#findAll()
-     */
-    public List<UserDO> findAll() {
-        return this.getSqlSession().selectList("ATOM-USER.findAll");
-    }
+	    Long retObj = (Long) this.getSqlSession().selectOne("ATOM-USER.count", null);
 
-}
+		if (retObj == null) {
+		    return 0;
+		} else {
+		    return retObj.longValue();
+		}
+
+    }		/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_user where (id = ?)</tt>
+	 *
+	 *	@param id
+	 *	@return UserDO
+	 *	@throws DataAccessException
+	 */	 
+    public UserDO find(long id) throws DataAccessException {
+        Long param = new Long(id);
+
+        return this.getSqlSession().selectOne("ATOM-USER.find", param);
+
+    }		/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_user</tt>
+	 *
+	 *	@return List<UserDO>
+	 *	@throws DataAccessException
+	 */	 
+    public List<UserDO> findAll() throws DataAccessException {
+
+        return this.getSqlSession().selectList("ATOM-USER.findAll", null);
+
+    }		/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select uname from atom_user</tt>
+	 *
+	 *	@return List<String>
+	 *	@throws DataAccessException
+	 */	 
+    public List<String> findName() throws DataAccessException {
+
+        return this.getSqlSession().selectList("ATOM-USER.findName", null);
+
+    }		/**
+	 *  Delete records from DB table <tt>atom_user</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>delete from atom_user where (id = ?)</tt>
+	 *
+	 *	@param id
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    public int delete(long id) throws DataAccessException {
+        Long param = new Long(id);
+
+        return this.getSqlSession().delete("ATOM-USER.delete", param);
+    }}

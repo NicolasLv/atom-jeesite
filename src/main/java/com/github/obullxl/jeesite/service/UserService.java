@@ -14,6 +14,6 @@ import com.github.obullxl.jeesite.dal.dto.UserDO;
  * @version $Id: UserService.java, V1.0.1 2013年11月25日 下午12:52:29 $
  */
 public interface UserService {
-    public int count();
+    public long count();
     public List<UserDO> findAll();
 }

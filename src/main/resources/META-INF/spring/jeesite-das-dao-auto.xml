@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName">
+
+    <!-- ====================================== -->
+    <!--  DAO配置 -->
+    <!-- ====================================== -->
+    <bean id="topicDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisTopicDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Topic-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
+    <bean id="userDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisUserDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-User-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
+</beans>

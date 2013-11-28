@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ATOM-TOPIC">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+    
+    <!-- result maps for database table atom_topic -->
+    <resultMap id="RM-TOPIC" type="TopicDO">
+        <result property="id" column="id" javaType="long" />
+        <result property="state" column="state" javaType="java.lang.String" />
+        <result property="catg" column="catg" javaType="java.lang.String" />
+        <result property="tflag" column="tflag" javaType="java.lang.String" />
+        <result property="rflag" column="rflag" javaType="java.lang.String" />
+        <result property="rfrom" column="rfrom" javaType="java.lang.String" />
+        <result property="mflag" column="mflag" javaType="java.lang.String" />
+        <result property="mpath" column="mpath" javaType="java.lang.String" />
+        <result property="mcount" column="mcount" javaType="long" />
+        <result property="treply" column="treply" javaType="java.lang.String" />
+        <result property="visit" column="visit" javaType="long" />
+        <result property="reply" column="reply" javaType="long" />
+        <result property="title" column="title" javaType="java.lang.String" />
+        <result property="summary" column="summary" javaType="java.lang.String" />
+        <result property="content" column="content" javaType="java.lang.String" />
+        <result property="gmtCreate" column="gmt_create" javaType="java.util.Date" />
+        <result property="gmtModify" column="gmt_modify" javaType="java.util.Date" />
+    </resultMap>
+
+
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+	<sql id="abc">
+		abc
+	</sql>
+
+	<sql id="abcefg">
+	<![CDATA[
+		abcefg<efg & abcefg>abc
+	]]>
+	</sql>
+
+
+	<!-- ============================================= -->
+    <!-- Public CopyS                                  -->
+    <!-- ============================================= -->
+
+    <!-- ============================================= -->
+    <!-- mapped statements for MyBatisTopicDAO -->
+    <!-- ============================================= -->
+    
+    <!-- mapped statement for MyBatisTopicDAO.find -->
+    <select id="find" resultMap="RM-TOPIC" >
+    <![CDATA[
+        select * from atom_topic where (id = #value#)
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.findAll -->
+    <select id="findAll" resultMap="RM-TOPIC" >
+    <![CDATA[
+        select * from atom_topic
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.delete -->
+    <delete id="delete" >
+    <![CDATA[
+        delete from atom_topic where (id = #value#)
+    ]]>
+    </delete>
+
+</mapper>

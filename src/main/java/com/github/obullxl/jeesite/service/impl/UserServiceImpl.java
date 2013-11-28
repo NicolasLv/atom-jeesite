@@ -28,7 +28,7 @@ public class UserServiceImpl implements InitializingBean, UserService {
         Assert.notNull(this.userDAO, "DAO[UserDAO]注入失败!");
     }
 
-    public int count() {
+    public long count() {
         return this.userDAO.count();
     }
 
