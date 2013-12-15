@@ -6,7 +6,7 @@
     <!-- ============================================= -->
     
     <!-- result maps for database table atom_topic -->
-    <resultMap id="RM-TOPIC" type="TopicDO">
+    <resultMap id="RM-TOPIC" type="TopicDTO">
         <result property="id" column="id" javaType="long" />
         <result property="state" column="state" javaType="java.lang.String" />
         <result property="catg" column="catg" javaType="java.lang.String" />
@@ -30,29 +30,30 @@
 	<!-- ============================================= -->
     <!-- Public SQLS                                   -->
     <!-- ============================================= -->
-	<sql id="abc">
-		abc
-	</sql>
-
-	<sql id="abcefg">
-	<![CDATA[
-		abcefg<efg & abcefg>abc
-	]]>
-	</sql>
-
 
 	<!-- ============================================= -->
     <!-- Public CopyS                                  -->
     <!-- ============================================= -->
 
+
+
     <!-- ============================================= -->
     <!-- mapped statements for MyBatisTopicDAO -->
     <!-- ============================================= -->
     
+    <!-- mapped statement for MyBatisTopicDAO.insert -->
+    <insert id="insert">
+        INSERT INTO atom_topic(
+				id, state, catg, tflag, rflag, rfrom, mflag, mpath, mcount, treply, visit, reply, title, summary, content, gmt_create, gmt_modify
+			) VALUES(
+				#{id}, #{state}, #{catg}, #{tflag}, #{rflag}, #{rfrom}, #{mflag}, #{mpath}, #{mcount}, #{treply}, #{visit}, #{reply}, #{title}, #{summary}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
+			)
+    </insert>
+
     <!-- mapped statement for MyBatisTopicDAO.find -->
     <select id="find" resultMap="RM-TOPIC" >
     <![CDATA[
-        select * from atom_topic where (id = #value#)
+        select * from atom_topic where (id = #{value})
     ]]>
     </select>
 
@@ -63,10 +64,63 @@
     ]]>
     </select>
 
+    <!-- mapped statement for MyBatisTopicDAO.findCatgPage -->
+    <select id="findCatgPage" resultMap="RM-TOPIC" >
+        SELECT * FROM atom_topic
+				<if test="catg != null">
+					WHERE catg=#{catg}
+				</if>
+			ORDER BY id DESC
+			LIMIT #{offset},#{limit}
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.findCatgPageCount -->
+    <select id="findCatgPageCount" resultType="long" >
+        SELECT COUNT(*) FROM atom_topic
+				<if test="value != null">
+					WHERE catg=#{value}
+				</if>
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.findTopVisit -->
+    <select id="findTopVisit" resultMap="RM-TOPIC" >
+        SELECT * FROM atom_topic
+				<if test="catg != null">
+					WHERE catg=#{catg}
+				</if>
+			ORDER BY visit DESC
+			LIMIT 0,#{size}
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.findTopReply -->
+    <select id="findTopReply" resultMap="RM-TOPIC" >
+        SELECT * FROM atom_topic
+				<if test="catg != null">
+					WHERE catg=#{catg}
+				</if>
+			ORDER BY reply DESC
+			LIMIT 0,#{size}
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.update -->
+    <update id="update" >
+        UPDATE atom_topic SET catg=#{catg}, tflag=#{tflag}, rflag=#{rflag}, rfrom=#{rfrom}, mflag=#{mflag}, mpath=#{mpath}, treply=#{treply}, title=#{title}, summary=#{summary}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW() WHERE id=#{id}
+    </update>
+
+    <!-- mapped statement for MyBatisTopicDAO.updateVisit -->
+    <update id="updateVisit" >
+        UPDATE atom_topic SET visit=visit+#{count}, gmt_modify=NOW() WHERE id=#{id}
+    </update>
+
+    <!-- mapped statement for MyBatisTopicDAO.updateReply -->
+    <update id="updateReply" >
+        UPDATE atom_topic SET reply=reply+#{count}, gmt_modify=NOW() WHERE id=#{id}
+    </update>
+
     <!-- mapped statement for MyBatisTopicDAO.delete -->
     <delete id="delete" >
     <![CDATA[
-        delete from atom_topic where (id = #value#)
+        delete from atom_topic where (id = #{value})
     ]]>
     </delete>
 

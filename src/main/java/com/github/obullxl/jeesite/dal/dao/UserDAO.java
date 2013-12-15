@@ -1,11 +1,8 @@
-/**
- * obullxl@gmail.com
- */
 package com.github.obullxl.jeesite.dal.dao;
 
-import com.github.obullxl.jeesite.dal.dto.UserDO;
-
 import java.util.List;
+
+import com.github.obullxl.jeesite.dal.dto.UserDTO;
 
 import org.springframework.dao.DataAccessException;
 
@@ -14,6 +11,22 @@ import org.springframework.dao.DataAccessException;
  * A dao interface provides methods to access database table <tt>atom_user</tt>.
  */
 public interface UserDAO extends BaseDAO {
+    /** The name of the DAO */
+    public static final String NAME = "UserDAO";
+
+	/**
+	 *  Insert one <tt>UserDTO</tt> object to DB table <tt>atom_user</tt>, return primary key
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>insert into atom_user(id,uname,passwd,uemail,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?)</tt>
+	 *
+	 *	@param user
+	 *	@return long
+	 *	@throws DataAccessException
+	 */	 
+    public long insert(UserDTO user) throws DataAccessException;
+
 	/**
 	 *  Query DB table <tt>atom_user</tt> for records.
 	 *
@@ -34,10 +47,10 @@ public interface UserDAO extends BaseDAO {
 	 *  <tt>select * from atom_user where (id = ?)</tt>
 	 *
 	 *	@param id
-	 *	@return UserDO
+	 *	@return UserDTO
 	 *	@throws DataAccessException
 	 */	 
-    public UserDO find(long id) throws DataAccessException;
+    public UserDTO find(long id) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_user</tt> for records.
@@ -46,10 +59,10 @@ public interface UserDAO extends BaseDAO {
 	 *  The sql statement for this operation is <br>
 	 *  <tt>select * from atom_user</tt>
 	 *
-	 *	@return List<UserDO>
+	 *	@return List<UserDTO>
 	 *	@throws DataAccessException
 	 */	 
-    public List<UserDO> findAll() throws DataAccessException;
+    public List<UserDTO> findAll() throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_user</tt> for records.
@@ -64,16 +77,70 @@ public interface UserDAO extends BaseDAO {
     public List<String> findName() throws DataAccessException;
 
 	/**
+	 *  Query DB table <tt>atom_user</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_user where (uname = ?)</tt>
+	 *
+	 *	@param uname
+	 *	@return UserDTO
+	 *	@throws DataAccessException
+	 */	 
+    public UserDTO findByName(String uname) throws DataAccessException;
+
+	/**
+	 *  Update DB table <tt>atom_user</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>update atom_user set passwd=?, uemail=? where (uname = ?)</tt>
+	 *
+	 *	@param user
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    public int update(UserDTO user) throws DataAccessException;
+
+	/**
+	 *  Update DB table <tt>atom_user</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>update atom_user set passwd=? where (uname = ?)</tt>
+	 *
+	 *	@param passwd
+	 *	@param uname
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    public int updatePasswd(String passwd, String uname) throws DataAccessException;
+
+	/**
+	 *  Update DB table <tt>atom_user</tt>.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>update atom_user set uemail=? where (uname = ?)</tt>
+	 *
+	 *	@param uemail
+	 *	@param uname
+	 *	@return int
+	 *	@throws DataAccessException
+	 */	 
+    public int updateUEmail(String uemail, String uname) throws DataAccessException;
+
+	/**
 	 *  Delete records from DB table <tt>atom_user</tt>.
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>delete from atom_user where (id = ?)</tt>
+	 *  <tt>delete from atom_user where (uname = ?)</tt>
 	 *
-	 *	@param id
+	 *	@param uname
 	 *	@return int
 	 *	@throws DataAccessException
 	 */	 
-    public int delete(long id) throws DataAccessException;
+    public int delete(String uname) throws DataAccessException;
 
 }

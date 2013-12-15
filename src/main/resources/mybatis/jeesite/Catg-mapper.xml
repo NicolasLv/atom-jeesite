@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ATOM-CATG">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+    
+    <!-- result maps for database table atom_catg -->
+    <resultMap id="RM-CATG" type="CatgDTO">
+        <result property="id" column="id" javaType="long" />
+        <result property="top" column="top" javaType="java.lang.String" />
+        <result property="catg" column="catg" javaType="long" />
+        <result property="sort" column="sort" javaType="long" />
+        <result property="name" column="name" javaType="java.lang.String" />
+        <result property="gmtCreate" column="gmt_create" javaType="java.util.Date" />
+        <result property="gmtModify" column="gmt_modify" javaType="java.util.Date" />
+    </resultMap>
+
+
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+
+	<!-- ============================================= -->
+    <!-- Public CopyS                                  -->
+    <!-- ============================================= -->
+
+
+
+    <!-- ============================================= -->
+    <!-- mapped statements for MyBatisCatgDAO -->
+    <!-- ============================================= -->
+    
+    <!-- mapped statement for MyBatisCatgDAO.insert -->
+    <insert id="insert">
+        INSERT INTO atom_catg(
+			id, top, catg, sort, name, gmt_create, gmt_modify
+			) VALUES(
+			#{id}, #{top}, #{catg}, #{sort}, #{name}, NOW(), NOW()
+			)
+    </insert>
+
+    <!-- mapped statement for MyBatisCatgDAO.update -->
+    <update id="update" >
+        UPDATE atom_catg SET
+			top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify=NOW()
+			WHERE
+			id=#{id}
+    </update>
+
+    <!-- mapped statement for MyBatisCatgDAO.find -->
+    <select id="find" resultMap="RM-CATG" >
+    <![CDATA[
+        select * from atom_catg where (id = #{value})
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCatgDAO.findAll -->
+    <select id="findAll" resultMap="RM-CATG" >
+    <![CDATA[
+        select * from atom_catg order by sort ASC
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCatgDAO.delete -->
+    <delete id="delete" >
+    <![CDATA[
+        delete from atom_catg where (id = #{value})
+    ]]>
+    </delete>
+
+    <!-- mapped statement for MyBatisCatgDAO.deleteAll -->
+    <delete id="deleteAll" >
+    <![CDATA[
+        delete from atom_catg where (id >= 0)
+    ]]>
+    </delete>
+
+    <!-- mapped statement for MyBatisCatgDAO.deleteCatg -->
+    <delete id="deleteCatg" >
+        DELETE FROM atom_catg WHERE id=#{value} OR catg=#{value}
+    </delete>
+
+</mapper>

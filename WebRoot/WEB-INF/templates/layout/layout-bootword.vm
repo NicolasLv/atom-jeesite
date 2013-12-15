@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>#if($title) $title -#end做最好的Java,Node.js,Bootstrap,DWZ,Git,GitHub,阿里云 技术交流开发博客</title>
+<meta name="description" content="Java编程,Node.js Bootstrap Node Spring SpringMVC Struts1 Struts2 Webwork框架深入,Freemarker Velocity模板使用,XMLHTTP Ajax开发,Java Web开发,Java企业应用,Java设计模式,Java开源框架,Java应用服务器,Rich Client讨论,Ruby编程,Ruby DSL开发,Ruby on rails实践,JavaScript编程,敏捷软件开发XP TDD,软件配置管理,软件测试,项目管理UML,数据库,C#/.net C/C++ Erlang/FP PHP/Linux平台,精通Hibernate" />
+<meta name="keywords"  content="Java编程 Node.js框架 Spring框架 Ajax技术 agile敏捷软件开发 ruby on rails实践 ITeye深度技术社区" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic" />
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arizonia" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="$ctx/themes/$theme/css/front.css" />
+<script type="text/javascript" charset="utf-8" src="$ctx/public/js/jquery-2.0.3.js"></script>
+<script type="text/javascript" charset="utf-8" src="$ctx/public/js/bootstrap.js"></script>
+<!--[if lt IE 9]>
+	<script type="text/javascript" charset="utf-8" src="$ctx/public/js/html5shiv.js"></script>
+<![endif]-->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="$ctx/public/favicon.png" />
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="$ctx/public/favicon.png" />
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="$ctx/public/favicon.png" />
+<link rel="apple-touch-icon-precomposed" href="$ctx/public/favicon.png" />
+<link rel="shortcut icon" href="$ctx/public/favicon.png" />
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-static-top">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">导航菜单</a>
+			<div class="nav-collapse">
+				<ul class="nav">
+					<li id="vp-index"><a href="$ctx/index.html">首页</a></li>
+					<li id="vp-blog"><a href="$ctx/index-blog-1.html">博客</a></li>
+					<li id="vp-news"><a href="$ctx/index-news-1.html">资讯</a></li>
+					<li id="vp-album"><a href="$ctx/index-album-1.html">图片</a></li>
+					<li id="vp-misc"><a href="$ctx/index-misc-1.html">杂谈</a></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li id="vp-about"><a href="$ctx/about.html">关于</a></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#vp-${catg}").attr("class", "active");
+});
+</script>
+<!-- /.navbar -->
+<div class="container">
+    <div class="row">
+        <div class="span12">
+            <div class="alert alert-info">
+				<strong>公告：</strong>本系统为开源系统，可以自由的用于个人或商业组织， GitHub开源地址：<a href="https://github.com/obullxl/atom-jeesite" target="_blank">atom-jeesite</a>，有任何建议或合作，请邮件联系：<a href="mailto:obullxl@gmail.com">obullxl@gmail.com</a>，谢谢！
+				<br/>
+            </div>
+		</div>
+    </div>
+</div>
+$screen_placeholder
+<div class="footer">
+	<div class="container">
+		<div class="row">
+			<div id="footer-copyright" class="span6">
+				&copy; 2013 <a href="http://obullxl.github.io">obullxl@gmail.com</a>
+			</div>
+			<div id="footer-terms" class="span6">
+				<a href="http://anode.aliapp.com">云博客</a>
+				<a href="http://obullxl.cnblogs.com">博客园</a>
+				<script type="text/javascript" src="http://js.tongji.linezing.com/3298179/tongji.js"></script><noscript><a href="http://www.linezing.com"><img src="http://img.tongji.linezing.com/3298179/tongji.gif"/></a></noscript>
+				<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_5656609'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s9.cnzz.com/stat.php%3Fid%3D5656609%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));</script>
+				<script type="text/javascript" src="https://apis.google.com/js/plusone.js">{lang: 'zh-CN'}</script>
+				<div class="g-plusone" data-annotation="none"></div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /footer -->
+</body>
+</html>

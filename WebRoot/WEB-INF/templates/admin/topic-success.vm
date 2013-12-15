@@ -1,0 +1,2 @@
+#set($layout="/layout/layout-default.vm")
+#set($title="更新主题 - 主题管理")

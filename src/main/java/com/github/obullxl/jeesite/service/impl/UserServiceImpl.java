@@ -10,7 +10,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 import com.github.obullxl.jeesite.dal.dao.UserDAO;
-import com.github.obullxl.jeesite.dal.dto.UserDO;
+import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.service.UserService;
 
 /**
@@ -32,7 +32,7 @@ public class UserServiceImpl implements InitializingBean, UserService {
         return this.userDAO.count();
     }
 
-    public List<UserDO> findAll() {
+    public List<UserDTO> findAll() {
         return this.userDAO.findAll();
     }
 

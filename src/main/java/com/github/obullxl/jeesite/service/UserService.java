@@ -6,7 +6,7 @@ package com.github.obullxl.jeesite.service;
 
 import java.util.List;
 
-import com.github.obullxl.jeesite.dal.dto.UserDO;
+import com.github.obullxl.jeesite.dal.dto.UserDTO;
 
 /**
  * 
@@ -15,5 +15,5 @@ import com.github.obullxl.jeesite.dal.dto.UserDO;
  */
 public interface UserService {
     public long count();
-    public List<UserDO> findAll();
+    public List<UserDTO> findAll();
 }

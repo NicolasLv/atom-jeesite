@@ -6,6 +6,38 @@
     <!-- ====================================== -->
     <!--  DAO配置 -->
     <!-- ====================================== -->
+    <bean id="catgDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisCatgDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Catg-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
+    <bean id="configDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisConfigDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Config-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
+    <bean id="crawlDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisCrawlDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Crawl-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
+    <bean id="replyDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisReplyDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Reply-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
     <bean id="topicDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisTopicDAO">
 		<property name="ticketService">
 			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">

@@ -6,7 +6,7 @@
     <!-- ============================================= -->
     
     <!-- result maps for database table atom_user -->
-    <resultMap id="RM-USER" type="UserDO">
+    <resultMap id="RM-USER" type="UserDTO">
         <result property="id" column="id" javaType="long" />
         <result property="uname" column="uname" javaType="java.lang.String" />
         <result property="passwd" column="passwd" javaType="java.lang.String" />
@@ -42,6 +42,15 @@
     <!-- mapped statements for MyBatisUserDAO -->
     <!-- ============================================= -->
     
+    <!-- mapped statement for MyBatisUserDAO.insert -->
+    <insert id="insert">
+        INSERT INTO atom_user(
+				id, uname, passwd, uemail, gmt_create, gmt_modify
+			) VALUES(
+				#{id}, #{uname}, #{passwd}, #{uemail}, NOW(), NOW()
+			)
+    </insert>
+
     <!-- mapped statement for MyBatisUserDAO.count -->
     <select id="count" resultType="long" >
     <![CDATA[
@@ -52,7 +61,7 @@
     <!-- mapped statement for MyBatisUserDAO.find -->
     <select id="find" resultMap="RM-USER" >
     <![CDATA[
-        select * from atom_user where (id = #value#)
+        select * from atom_user where (id = #{value})
     ]]>
     </select>
 
@@ -70,10 +79,32 @@
     ]]>
     </select>
 
+    <!-- mapped statement for MyBatisUserDAO.findByName -->
+    <select id="findByName" resultMap="RM-USER" >
+    <![CDATA[
+        select * from atom_user where (uname = #{value})
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisUserDAO.update -->
+    <update id="update" >
+        UPDATE atom_user SET passwd=#{passwd}, uemail=#{uemail}, gmt_modify=NOW() WHERE uname=#{uname}
+    </update>
+
+    <!-- mapped statement for MyBatisUserDAO.updatePasswd -->
+    <update id="updatePasswd" >
+        UPDATE atom_user SET passwd=#{passwd}, gmt_modify=NOW() WHERE uname=#{uname}
+    </update>
+
+    <!-- mapped statement for MyBatisUserDAO.updateUEmail -->
+    <update id="updateUEmail" >
+        UPDATE atom_user SET uemail=#{uemail}, gmt_modify=NOW() WHERE uname=#{uname}
+    </update>
+
     <!-- mapped statement for MyBatisUserDAO.delete -->
     <delete id="delete" >
     <![CDATA[
-        delete from atom_user where (id = #value#)
+        delete from atom_user where (uname = #{value})
     ]]>
     </delete>
 

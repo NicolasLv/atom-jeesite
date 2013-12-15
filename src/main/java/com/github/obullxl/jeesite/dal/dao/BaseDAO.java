@@ -1,6 +1,3 @@
-/**
- * obullxl@gmail.com
- */
 package com.github.obullxl.jeesite.dal.dao;
 
 import org.slf4j.Logger;

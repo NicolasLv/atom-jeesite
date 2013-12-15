@@ -1,0 +1,26 @@
+<div class="navbar navbar-inverse">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">导航菜单</a>
+			<div class="nav-collapse collapse">
+				<ul class="nav" role="navigation">
+					<li class="divider-vertical"></li>
+					<li><a href="$ctx/admin/topic/manage.html"><span class="icon-home"></span>后台首页</a></li>
+					<li class="divider-vertical"></li>
+                #set($navCatgs=$CatgXHelper.findTopCatgs())
+                #foreach($navCatg in $navCatgs)
+                	#showCatgNavigation($navCatg)
+					<li class="divider-vertical"></li>
+                #end
+				</ul>
+				<ul class="nav pull-right">
+					<li class="divider-vertical"></li>
+					<li><a href="$ctx/logout.html"><span class="icon-share"></span>退出登录</a></li>
+					<li class="divider-vertical"></li>
+				</ul>
+			</div>
+			<!--/.nav-collapse -->
+		</div>
+	</div>
+</div>
+<!-- /.navbar -->

@@ -1,0 +1,56 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="数据抓取 - 爬虫管理")
+<script type="text/javascript">
+	$(document).ready(function() {
+		var _url = "$ctx/admin/crawl/input.html";
+		$("#crawl-form").submit(function(e) {
+			e.preventDefault();
+			jQuery.ajax({
+				type: "POST",
+				dataType: "json",
+				url: _url,
+				data: $("#crawl-form").serialize(),
+				beforeSend: function() {
+					fadeProgressModal(true);
+				},
+				success: function(result) {
+					fadeProgressModal(false);
+
+					if(result.success) {
+						fadeSuccessModal(result);
+					} else {
+						fadeFailureModal(result);
+					}
+				}
+			});
+		});
+	});
+</script>
+<form id="crawl-form" class="form-horizontal" name="crawl-form" method="post">
+	<div class="radius-block">
+		<ul class="breadcrumb">
+        	<li><span class="divider">/</span></li>
+        	<li>后台管理</li>
+			<li><span class="divider">/</span></li>
+        	<li id="form-opt-name">数据抓取</li>
+        </ul>
+		<div class="control-group">
+			<label for="catg"><span class="icon-chevron-right"></span><strong>爬虫选择</strong>-必选项！</label>
+			<select id="crawlId" name="crawlId" class="span3">
+				#formSelectOptions($crawls, "")
+			</select>
+		</div>
+		<div class="control-group">
+			<label for="name"><span class="icon-chevron-right"></span><strong>爬虫参数</strong>-键值对以‘|’分隔，键值间以‘=’分隔！</label>
+			<textarea rows="3" id="text" name="text" class="span12" style="font-family:courier new,courier;font-size:14px;">topic.tflag=F|topic.rflag=F|topic.treply=T</textarea>
+		</div>
+		<div class="control-group">
+			<label for="content"><span class="icon-chevron-right"></span><strong>URL列表</strong>-多个URL之间以‘|’分隔！</label>
+			<textarea rows="10" id="links" name="links" class="span12" style="font-family:courier new,courier;font-size:14px;" required="required"></textarea>
+		</div>
+		<div class="pull-right">
+			<button type="submit" class="btn btn-primary">提交保存</button>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+</form>

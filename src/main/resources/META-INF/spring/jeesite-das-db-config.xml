@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
 
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/osnode?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull" />
-		<property name="username" value="osnode" />
-		<property name="password" value="site" />
-		<property name="maxActive" value="10" />
-		<property name="maxIdle" value="30" />
-		<property name="maxWait" value="500" />
-		<property name="defaultAutoCommit" value="true" />
+	<bean id="jeesiteDataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbcDriver}" />
+		<property name="url" value="jdbc:mysql://localhost:3306/osnode?useUnicode=true&amp;characterEncoding=UTF8" />
+		<property name="username" value="${jdbcUserName}" />
+		<property name="password" value="${jdbcPassword}" />
+		<property name="initialSize" value="${jdbcInitialSize}" />
+		<property name="maxActive" value="${jdbcMaxActive}" />
+		<property name="minIdle" value="${jdbcMinIdle}" />
+		<property name="maxIdle" value="${jdbcMaxIdle}" />
+		<property name="defaultAutoCommit" value="${jdbcDefaultAutoCommit}" />
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="jeesiteDataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis-jeesite-config.xml" />
 	</bean>
 
@@ -24,12 +25,12 @@
 	<bean id="abstractTicket" abstract="true">
 		<property name="ticketDAO">
 			<bean class="com.github.obullxl.ticket.support.DefaultTicketDAO">
-				<property name="dataSource" ref="dataSource" />
-				<property name="retryTimes" value="50" />
+				<property name="dataSource" ref="jeesiteDataSource" />
+				<property name="retryTimes" value="5" />
 				<property name="step" value="100" />
-				<property name="tableName" value="adm_mutex_ticket" />
+				<property name="tableName" value="atom_ticket" />
 				<property name="nameColumnName" value="name" />
-				<property name="valueColumnName" value="value" />
+				<property name="valueColumnName" value="ticket" />
 				<property name="stampColumnName" value="stamp" />
 			</bean>
 		</property>

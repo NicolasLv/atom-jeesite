@@ -1,6 +1,3 @@
-/**
- * obullxl@gmail.com
- */
 package com.github.obullxl.jeesite.dal.field;
 
 import org.apache.commons.lang.StringUtils;
@@ -45,8 +42,7 @@ public enum UserFieldEnum implements EnumBase {
     }
 
     /**
-     * 根据字段名获取枚举内容
-	 */
+     * 根据字段名获取枚举内�?	 */
     public static UserFieldEnum findByField(String field) {
         field = StringUtils.lowerCase(field);
         if(StringUtils.isBlank(field)) {
