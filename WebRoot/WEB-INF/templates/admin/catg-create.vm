@@ -1,120 +1,52 @@
 #set($layout="/layout/layout-admin.vm")
 #set($title="新增分类 - 分类管理")
-<link rel="stylesheet" type="text/css" href="$ctx/public/zTreeStyle/zTreeStyle.css" />
-<script type="text/javascript" src="$ctx/public/js/jquery.ztree.all-3.5.js"></script>
+#set($catgMenuBody=true)
 <script type="text/javascript">
 <!--
-#set($catgs = $CatgXHelper.findAllCatgs())
-#set($count = $catgs.size())
-var ztreeNodes = [
-#foreach($catg in $catgs)
-	{id:$catg.id, pId:$catg.catg, catg:$catg.catg, name:"($catg.id)($EnumXHelper.toTrueFalseEnum($catg.top).code())($catg.sort)($catg.name)", sname:"$catg.name", open:true, top:"$catg.top", sort:$catg.sort} #if($velocityCount<$count),#end
-#end
-];
-	
-function onTreeCatgsClick(evt, treeId, catg, clickFlag) {
-	if(clickFlag !== 1) {
-		alert("请单选一个主题分类!");
-		return;
-	}
-	
-	$("#catgCatg").val(catg.id);
-	$("#catgText").val(catg.sname);
-};
-
-var ztreeSetting = {
-	view: {
-		dblClickExpand: false
-	},
-	data: {
-		simpleData: {
-			enable: true
-		}
-	},
-	callback: {
-		onClick: onTreeCatgsClick
-	}
-};
-
-function hideMenu() {
-	$("#menu-body").fadeOut("fast");
-	$("body").unbind("mousedown", onBodyDown);
-}
-		
-function onBodyDown(e) {
-	if (!(e.target.id == "catgText" || e.target.id == "menu-body" || $(e.target).parents("#menu-body").length>0)) {
-		hideMenu();
-	}
-}
-
 $(document).ready(function() {
-	$.fn.zTree.init($("#ztreeCatgs"), ztreeSetting, ztreeNodes);
-	
-	$("#catgText").click(function(e) {
-		var offset = $("#catgText").offset();
-		$("#menu-body").css({left:offset.left + "px", top:offset.top + $("#catgText").outerHeight() + "px"}).slideDown("fast");
-		
-		$("body").bind("mousedown", onBodyDown);
-	});
-	
 	$("#catg-form").submit(function(e) {
 		e.preventDefault();
-		jQuery.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "$ctx/admin/catg/create.html",
-			data: $("#catg-form").serialize(),
-			success: function(result) {
-				if(result.success) {
-					showSuccessTip({
-						msg:"恭喜您，分类新增成功！",
-						close: function(){
-                			location.href = "$ctx/admin/catg/create.html";
-                		}
-					});
-				} else {
-					showFailureTip(result);
-				}
-			}
-		});
+		ajaxRquest({
+    		form: "catg-form",
+    		url: "$ctx/admin/catg/create.html",
+    		sclose: function() {
+    			location.href = "$ctx/admin/catg/create.html";
+    		}
+    	});
 	});
 });
 //-->
 </script>
-<form id="catg-form" name="catg-form" class="form-horizontal" style="margin-bottom:0px">
-	<div class="radius-block">
-		<ul class="breadcrumb">
-        	<li><span class="divider">/</span></li>
-        	<li>后台管理</li>
-			<li><span class="divider">/</span></li>
-        	<li>分类管理</li>
-			<li><span class="divider">/</span></li>
-        	<li id="form-opt-name">新增分类</li>
-        </ul>
-		<input type="hidden" id="catgCatg" name="catgCatg" />
-    	<div class="control-group">
-    		<label for="catgText"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
-			<input type="text" id="catgText" name="catgText" class="span4" readonly="readonly" placeholder="上级分类名称" />
-    	</div>
-    	<div class="control-group">
-    		<label for="catgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
-    		<input type="number" id="catgSort" name="catgSort" class="span4" required="required" placeholder="分类排序值" />
-    	</div>
-    	<div class="control-group">
-    		<label for="catgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
-    		<input type="text" id="catgName" name="catgName" class="span12" required="required" placeholder="分类名称" />
-    	</div>
-    	<label class="checkbox">
-        	<input type="checkbox" id="catgTop" name="catgTop" value="T" /> 首页分类导航
-        </label>
-    	<div class="pull-right">
-    		<button id="btn-submit" type="submit" class="btn btn-success">提交保存</button>
-    	</div>
-    	<div class="clearfix"></div>
+<form id="catg-form" name="catg-form" class="form-horizontal" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+    	<li>分类管理</li>
+		<li><span class="divider">/</span></li>
+    	<li id="form-opt-name" class="active">新增分类</li>
+    </ul>
+	<input type="hidden" id="catgCatg" name="catgCatg" value="0" />
+	<div class="control-group">
+		<label for="catgText"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
+		<div class="input-append">
+			<input type="text" id="catgText" name="catgText" class="span12" readonly="readonly" placeholder="上级分类名称" />
+			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
+        </div>
 	</div>
+	<div class="control-group">
+		<label for="catgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
+		<input type="number" id="catgSort" name="catgSort" value="0" class="span4" required="required" placeholder="分类排序值" />
+	</div>
+	<div class="control-group">
+		<label for="catgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
+		<input type="text" id="catgName" name="catgName" class="span12" required="required" placeholder="分类名称" />
+	</div>
+	<label class="checkbox">
+    	<input type="checkbox" id="catgTop" name="catgTop" value="T" /> 首页分类导航
+    </label>
+	<div>
+		<button id="btn-submit" type="submit" class="btn btn-success">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
 </form>
-<div id="menu-body" class="hide" style="position:absolute">
-	<div class="radius-block well well-small">
-		<div id="ztreeCatgs" class="ztree" style="margin-top:0"></div>
-    </div>
-</div>

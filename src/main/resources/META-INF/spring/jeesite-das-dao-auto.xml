@@ -38,11 +38,22 @@
     	</property>
     </bean>
 	
+    <bean id="rightDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisRightDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Right-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
     <bean id="topicDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisTopicDAO">
 		<property name="ticketService">
 			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
 				<property name="name" value="TB-Topic-ID" />
 			</bean>
+    	</property>
+		<property name="ticketEncode">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketEncode" />
     	</property>
     </bean>
 	
@@ -50,6 +61,14 @@
 		<property name="ticketService">
 			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
 				<property name="name" value="TB-User-ID" />
+			</bean>
+    	</property>
+    </bean>
+	
+    <bean id="userRgtDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisUserRgtDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-UserRgt-ID" />
 			</bean>
     	</property>
     </bean>

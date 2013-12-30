@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.github.obullxl.jeesite.web.enums.TopicCatgEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
 import com.github.obullxl.lang.enums.EnumBaseUtils;
@@ -24,24 +23,10 @@ import com.github.obullxl.lang.xhelper.AbstractXHelper;
 public class EnumXHelper extends AbstractXHelper {
 
     /**
-     * 主题分类枚举
-     */
-    public static final TopicCatgEnum toTopicCatgEnum(String catg) {
-        return TopicCatgEnum.findByCode(catg);
-    }
-
-    /**
      * 主题状态枚举
      */
     public static final TopicStateEnum toTopicStateEnum(String state) {
         return TopicStateEnum.findByCode(state);
-    }
-
-    /**
-     * 主题分类枚举映射
-     */
-    public static final Map<String, String> toTopicCatgMap() {
-        return EnumBaseUtils.toMap(TopicCatgEnum.values());
     }
 
     /**
@@ -56,6 +41,13 @@ public class EnumXHelper extends AbstractXHelper {
      */
     public static final TrueFalseEnum toTrueFalseEnum(String code) {
         return TrueFalseEnum.findDefault(code);
+    }
+
+    /**
+     * 获取状态标志枚举映射
+     */
+    public static final Map<String, String> toTrueFalseMap() {
+        return EnumBaseUtils.toMap(TrueFalseEnum.values());
     }
 
 }

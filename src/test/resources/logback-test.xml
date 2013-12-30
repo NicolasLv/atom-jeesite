@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration debug="true" scan="true" scanPeriod="30 seconds">
+<configuration debug="false" scan="true" scanPeriod="30 seconds">
 	<contextName>TEST</contextName>
 	<property name="logPath" value="logs" />
 
 	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern>%date %-5level [%X{LogID}] - %msg%n</pattern>
+			<pattern>%date %c %-5level [%X{LogID}] - %msg%n</pattern>
 		</encoder>
 	</appender>
 	
@@ -18,7 +18,7 @@
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
-			<pattern>%date %-5level [%X{LogID}] - %msg%n</pattern>
+			<pattern>%date %c %-5level [%X{LogID}] - %msg%n</pattern>
 		</encoder>
 	</appender>
 
@@ -26,8 +26,13 @@
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="JeeSite" />
 	</logger>
+	
+	<logger name="jdbc.sqltiming" level="INFO" additivity="false">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="JeeSite" />
+	</logger>
 
-	<root level="INFO">
+	<root level="WARN">
 		<appender-ref ref="STDOUT" />
 		<appender-ref ref="JeeSite" />
 	</root>

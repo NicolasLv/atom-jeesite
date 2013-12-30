@@ -4,18 +4,24 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
+import com.github.obullxl.jeesite.dal.dto.UserRgtDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
+import com.github.obullxl.jeesite.web.enums.UserRightEnum;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.user.UserContext;
 import com.github.obullxl.lang.user.UserContextUtils;
-import com.github.obullxl.lang.utils.LogUtils;
 import com.github.obullxl.lang.utils.MD5Utils;
 import com.github.obullxl.lang.web.WebContext;
 
@@ -36,49 +42,65 @@ public class UserLogonController extends AbstractController {
         return this.toFrontView("/login");
     }
 
+    @ResponseBody
     @RequestMapping(value = "/login.html", method = RequestMethod.POST)
-    public String login(ModelMap model, String uname, String passwd, String extra) {
+    public BizResponse login(ModelMap model, String uname, String passwd, String extra) {
         // 操作结果
-        BizResponse response = new BizResponse();
-        model.put("result", response);
-
-        response.setBizLog(LogUtils.findLogID());
-        response.setSuccess(true);
-
-        response.getBizData().put("uname", String.valueOf(uname));
-        response.getBizData().put("passwd", String.valueOf(passwd));
-        response.getBizData().put("extra", String.valueOf(extra));
+        BizResponse response = this.newBizResponse();
 
         try {
             // 获取用户
             UserDTO user = this.userDAO.findByName(uname);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.USER_NOT_EXIST);
-                return this.toFrontView("/login");
+                return response;
             }
 
             if (!StringUtils.equals(user.getPasswd(), MD5Utils.digest(passwd))) {
                 this.buildResponse(response, BizResponseEnum.INVALID_PASSWD);
-                return this.toFrontView("/login");
+                return response;
             }
 
-            // TODO: 设置上下文
-            UserContext uctx = UserContext.newMockContext();
+            // 设置上下文
+            HttpSession session = WebContext.get().getSession();
+            UserContext uctx = UserContextUtils.findSessionContext(session);
+            if (uctx == null) {
+                uctx = UserContext.newMockContext();
+            }
+            
+            uctx.setUserId(user.getId());
+            uctx.setUserName(user.getUname());
+            uctx.setUserEmail(user.getUemail());
+            uctx.setUserNick(user.getUnick());
+            
+            UserContextUtils.setSessionContext(session, uctx);
+            String gotoUrl = UserContextUtils.findGotoURL(uctx);
+
+            // 设置用户信息
             UserContextUtils.setLogin(uctx, true);
-            UserContextUtils.setAdmin(uctx, true);
-            UserContextUtils.setSessionContext(WebContext.get().getSession(), uctx);
+            uctx.getUserRights().add(UserRightEnum.RGT_LOGIN_NORMAL.code());
 
-            String gotoUrl = UserContextUtils.findGotoURL();
-            if (StringUtils.isBlank(gotoUrl)) {
-                return this.redirectTo(gotoUrl);
+            boolean admin = user.findBitFlag().isAdmin();
+            UserContextUtils.setAdmin(uctx, admin);
+            if (!admin) {
+                List<UserRgtDTO> rgts = this.userRgtDAO.findByUser(uname);
+                for (UserRgtDTO rgt : rgts) {
+                    uctx.getUserRights().add(rgt.getRgtCode());
+                }
             }
+
+            // 页面跳转
+            if (StringUtils.isNotBlank(gotoUrl)) {
+                response.getBizData().put("gotoUrl", gotoUrl);
+            }
+
+            // 成功登录返回
+            return response;
         } catch (Exception e) {
             logger.error("用户登录异常[" + uname + "]!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
+            return response;
         }
-
-        // 成功登录返回
-        return this.toFrontView("/login");
     }
 
     /**
@@ -86,7 +108,9 @@ public class UserLogonController extends AbstractController {
      */
     @RequestMapping("/logout.html")
     public String logout() {
-        UserContextUtils.setSessionContext(WebContext.get().getSession(), UserContext.newMockContext());
+        HttpSession session = WebContext.get().getSession();
+        UserContextUtils.setSessionContext(session, UserContext.newMockContext());
+        
         return this.redirectTo("/");
     }
 

@@ -1,6 +1,12 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dto;
 
 
+	import java.util.Comparator;
+	import org.apache.commons.lang.StringUtils;
+	import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
 
 /**
  * A data object class directly models database table <tt>atom_config</tt>.
@@ -8,7 +14,40 @@ package com.github.obullxl.jeesite.dal.dto;
 public class ConfigDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
 
+	/**
+	 * 是否有效
+	 */
+	public boolean isActive() {
+        TrueFalseEnum enm = TrueFalseEnum.findByCode(this.state);
+        if (enm != TrueFalseEnum.TRUE) {
+            return false;
+        }
 
+        return true;
+    }
+    
+    /**
+     * 排序比较器
+     */
+    public static final Comparator<ConfigDTO> COMPARATOR       = new Comparator<ConfigDTO>() {
+        public int compare(ConfigDTO src, ConfigDTO dst) {
+            if (src == null) {
+                return -1;
+            }
+
+            if (dst == null) {
+                return 1;
+            }
+
+            String scatg = StringUtils.trimToEmpty(src.getCatg()) + StringUtils.trimToEmpty(src.getName());
+            String dcatg = StringUtils.trimToEmpty(dst.getCatg()) + StringUtils.trimToEmpty(dst.getName());
+
+            return scatg.compareTo(dcatg);
+        }
+    };
+
+	/** column:id */
+	private long id;
 
 	/** column:catg */
 	private String catg;
@@ -29,6 +68,13 @@ public class ConfigDTO extends BaseDTO {
 
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getCatg() {
 		return catg;
 	}

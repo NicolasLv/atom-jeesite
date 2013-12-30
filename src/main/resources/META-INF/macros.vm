@@ -6,7 +6,7 @@
 # 广告展示 #
 #################
 #macro(showAds $adCatg)
-	#if($CfgXHelper.findCfgValue("system", "show_ads") != "false")
+	#if($CfgXHelper.isShowAds())
 <div class="entry-ads">
 	<script type="text/javascript">
 		google_ad_client = "ca-pub-2548953017344039";
@@ -65,6 +65,12 @@
 	</li>
 	#end
 #end
+
+#################
+# 样式 #
+#################
+#macro(StyleMB0)style="margin-bottom:0px"#end
+
 
 #################
 # 错误提示 #

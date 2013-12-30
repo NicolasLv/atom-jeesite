@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dao;
 
 import java.util.List;
@@ -19,7 +22,7 @@ public interface UserDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>insert into atom_user(id,uname,passwd,uemail,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?)</tt>
+	 *  <tt>insert into atom_user(id,uname,passwd,uemail,uflag,unick,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?, ?, ?)</tt>
 	 *
 	 *	@param user
 	 *	@return long
@@ -94,7 +97,7 @@ public interface UserDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>update atom_user set passwd=?, uemail=? where (uname = ?)</tt>
+	 *  <tt>update atom_user set passwd=?, uemail=?, uflag=?, unick=? where (uname = ?)</tt>
 	 *
 	 *	@param user
 	 *	@return int

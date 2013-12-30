@@ -1,4 +1,13 @@
 <div class="span2">
+	<div class="well side-nav-fixed user-info-block">
+        <ul class="nav nav-list">
+			#set($sessionUser=$UserXHelper.findSessionUser())
+			<li class="nav-header"><span class="icon-user"></span>$sessionUser.unick</li>
+			<li id="vp-user-cinfo"><a href="$ctx/admin/user/cinfo-${sessionUser.id}.html"><span class="icon-chevron-right"></span>修改信息</a></li>
+			<li id="vp-user-cemail"><a href="$ctx/admin/user/cemail-${sessionUser.id}.html"><span class="icon-chevron-right"></span>修改邮箱</a></li>
+			<li id="vp-user-cpasswd"><a href="$ctx/admin/user/cpasswd-${sessionUser.id}.html"><span class="icon-chevron-right"></span>修改密码</a></li>
+        </ul>
+    </div>
 	<div class="well side-nav-fixed uniform-background">
 		<ul class="nav nav-list">
 			<li class="nav-header"><span class="icon-home"></span> 系统管理</li>
@@ -6,9 +15,17 @@
 			<li><a href="javascript:location.href=location.href">刷新页面</a></li>
 			<li><a href="$ctx/index.html" target="_blank">系统首页</a></li>
 			
+			<li class="nav-header"><span class="icon-home"></span> 系统维护</li>
+			<li id="vp-config-manage"><a href="$ctx/admin/config/manage.html">参数管理</a></li>
+			<li id="vp-config-create"><a href="$ctx/admin/config/create.html">新增参数</a></li>
+			
 			<li class="nav-header"><span class="icon-user"></span> 用户管理</li>
 			<li id="vp-user-create"><a href="$ctx/admin/user/create.html">新增用户</a></li>
 			<li id="vp-user-manage"><a href="$ctx/admin/user/manage.html">用户管理</a></li>
+			
+			<li class="nav-header"><span class="icon-user"></span> 权限管理</li>
+			<li id="vp-right-create"><a href="$ctx/admin/right/create.html">新增权限</a></li>
+			<li id="vp-right-manage"><a href="$ctx/admin/right/manage.html">权限管理</a></li>
 			
 			<li class="nav-header"><span class="icon-th-list"></span> 分类管理</li>
 			<li id="vp-catg-create"><a href="$ctx/admin/catg/create.html">新增分类</a></li>

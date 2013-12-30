@@ -5,12 +5,16 @@
 package com.github.obullxl.jeesite.web.xhelper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +30,7 @@ import com.github.obullxl.lang.xhelper.XHelper;
  * @version $Id: CfgXHelper.java, V1.0.1 2013年12月13日 下午1:09:17 $
  */
 @Component("cfgXHelper")
-public class CfgXHelper extends AbstractTickTimer implements XHelper {
+public class CfgXHelper extends AbstractTickTimer implements XHelper, InitializingBean {
     /** 分隔符 */
     private static final String                 DOT   = ".";
 
@@ -45,10 +49,24 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper {
     }
 
     /** 
+     * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
+     */
+    public void afterPropertiesSet() {
+        this.refresh();
+    }
+
+    /** 
      * @see com.github.obullxl.lang.xhelper.XHelper#findHelperName()
      */
     public String findHelperName() {
         return this.getClass().getSimpleName();
+    }
+
+    /**
+     * 刷新系统参数
+     */
+    public void refresh() {
+        this.tickInternal(new Date());
     }
 
     /** 
@@ -61,8 +79,8 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper {
             logger.info("[配置刷新]-开始刷新配置参数...");
         }
 
-        List<ConfigDTO> configs = this.configDAO.findAll();
-        refresh(configs);
+        // 加载所有
+        refresh(this.configDAO.findAll());
 
         if (logger.isInfoEnabled()) {
             logger.info("[配置刷新]-配置刷新完成, 耗时[{}]ms.", (System.currentTimeMillis() - now));
@@ -131,6 +149,45 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper {
         }
 
         return configs;
+    }
+
+    /**
+     * 业务功能-是否显示广告
+     */
+    public static boolean isShowAds() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.SHOW_ADS);
+        return BooleanUtils.toBoolean(value);
+    }
+
+    /**
+     * 业务功能-后台分页大小
+     */
+    public static int findMngtPageSize() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.MNGT_PAGE_SIZE);
+        return NumberUtils.toInt(value, 20);
+    }
+
+    /**
+     * 根据ID获取参数
+     */
+    public static ConfigDTO findByID(long id) {
+        for (ConfigDTO cfg : cache.values()) {
+            if (cfg.getId() == id) {
+                return cfg;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 获取缓存中所有系统参数
+     */
+    public static List<ConfigDTO> findAll() {
+        List<ConfigDTO> cfgs = new ArrayList<ConfigDTO>(cache.values());
+        Collections.sort(cfgs, ConfigDTO.COMPARATOR);
+
+        return cfgs;
     }
 
 }

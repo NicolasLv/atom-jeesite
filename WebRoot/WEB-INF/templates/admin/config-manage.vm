@@ -1,0 +1,66 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="参数管理 - 系统维护 - 后台管理")
+<script type="text/javascript">
+<!--
+$(document).ready(function(){
+	$("#btn-refresh").click(function(e) {
+		location.href = location.href;
+	});
+	
+	$("button").click(function(e) {
+		var btnId = $(this).attr("id");
+		var id = $(this).data("id");
+		console.log("BtnID:" + btnId + ", ID:" + id);
+		
+		if(btnId.indexOf("btn-update") == 0) {
+			location.href = "$ctx/admin/config/update-" + id + ".html";
+		} else if(btnId.indexOf("btn-delete") == 0) {
+			jQuery.post("$ctx/admin/config/delete-" + id + ".html", function(data) {
+            	location.href = location.href;
+            });
+		}
+	});
+});
+//-->
+</script>
+<div class="well well-small">
+	<button id="btn-refresh" type="button" class="btn btn-info"><span class="icon-refresh"></span> 刷新</button>
+</div>
+<table class="table table-striped table-bordered table-hover" #StyleMB0()>
+	<thead>
+		<tr>
+			<th class="span1"><div class="text-center">#</div></th>
+			<th>分类</th>
+			<th>参数名</th>
+			<th><div class="text-center">状态</div></th>
+			<th>当前值</th>
+			<th>最后值</th>
+			<th><div class="text-center">更新时间</div></th>
+			<th>&nbsp;</th>
+		</tr>
+	</thead>
+	<tbody>
+		#set($cfgs=$CfgXHelper.findAll())
+		#foreach($cfg in $cfgs)
+		<tr>
+			<td><div class="text-center">$cfg.id</div></td>
+			<td>$cfg.catg</td>
+			<td>$cfg.name</td>
+			<td><div class="text-center">
+			#if($cfg.isActive())
+				<div class="color-green">有效</div>
+			#else
+				<div class="color-red">无效</div>
+			#end
+            </div></td>
+			<td>$cfg.value</td>
+			<td>$!cfg.cvalue</td>
+			<td><div class="text-center">$DateUtils.toStringDL($cfg.gmtModify)</div></td>
+			<td><div class="pull-right">
+				<button type="button" id="btn-update-${cfg.id}" data-id="${cfg.id}" data-catg="${cfg.catg}" data-name="${cfg.name}" class="btn btn-info">更新</button>
+				<button type="button" id="btn-delete-${cfg.id}" data-id="${cfg.id}" data-catg="${cfg.catg}" data-name="${cfg.name}" class="btn btn-warning">删除</button>
+			</div></td>
+		</tr>
+		#end
+	</tbody>
+</table>

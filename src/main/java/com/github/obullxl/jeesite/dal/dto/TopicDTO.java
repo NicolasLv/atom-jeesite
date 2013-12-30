@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dto;
 
 
@@ -27,12 +30,14 @@ public class TopicDTO extends BaseDTO {
 		return replys;
 	}
 
+	/** column:id */
+	private String id;
 
 	/** column:state */
 	private String state;
 
 	/** column:catg */
-	private String catg;
+	private long catg;
 
 	/** column:tflag */
 	private String tflag;
@@ -74,6 +79,13 @@ public class TopicDTO extends BaseDTO {
 
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getState() {
 		return state;
 	}
@@ -81,11 +93,11 @@ public class TopicDTO extends BaseDTO {
 	public void setState(String state) {
 		this.state = state;
 	}
-	public String getCatg() {
+	public long getCatg() {
 		return catg;
 	}
 
-	public void setCatg(String catg) {
+	public void setCatg(long catg) {
 		this.catg = catg;
 	}
 	public String getTflag() {

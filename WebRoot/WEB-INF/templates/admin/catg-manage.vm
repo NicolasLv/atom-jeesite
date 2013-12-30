@@ -4,7 +4,7 @@
 <script type="text/javascript" src="$ctx/public/js/jquery.ztree.all-3.5.js"></script>
 <script type="text/javascript">
 <!--
-#set($catgs = $CatgXHelper.findAllCatgs())
+#set($catgs = $CatgXHelper.findAll())
 #set($count = $catgs.size())
 var ztreeNodes = [
 #foreach($catg in $catgs)
@@ -37,32 +37,35 @@ var ztreeSetting = {
 };
 
 $(document).ready(function(){
-	$.fn.zTree.init($("#ztreeCatgs"), ztreeSetting, ztreeNodes);
+	$.fn.zTree.init($("#ztreeMngt"), ztreeSetting, ztreeNodes);
 	
 	$("#btn-refresh").click(function(e) {
-		location.href = "$ctx/admin/catg/manage.html";
+		location.href = location.href;
 	});
 	
 	$("#btn-update").click(function(e) {
 		e.preventDefault();
 		location.href = "$ctx/admin/catg/update-" + $("#catgId").val() + ".html";
 	});
+	
+	$("#btn-delete").click(function(e) {
+		e.preventDefault();
+		alert("准备删除分类-" + $("#catgId").val() + " > " + $("#catgName").val());
+	});
 });
 //-->
 </script>
-<div class="radius-block">
-    <div class="well well-small" style="margin-bottom:0px">
-        <form id="catg-form" name="catg-form" class="form-inline" style="margin-bottom:0px">
-			<button id="btn-refresh" type="button" class="btn btn-info"><span class="icon-refresh"></span> 刷新</button>
-			
-			<div class="pull-right">
-    			<input type="hidden" id="catgId" name="catgId" />
-    			<input type="text" id="catgName" name="catgName" class="input-medium" readonly="readonly" placeholder="分类名称" />
-    			<button type="button" id="btn-update" class="btn btn-success">修改分类</button>
-			</div>
-        </form>
-    </div>
-	<div id="ztreeCatgs" class="ztree"></div>
-	<div class="clearfix"></div>
+<div class="well well-small">
+    <form id="catg-form" name="catg-form" class="form-inline" #StyleMB0()>
+		<button id="btn-refresh" type="button" class="btn btn-info"><span class="icon-refresh"></span> 刷新</button>
+		
+		<div class="pull-right">
+			<input type="hidden" id="catgId" name="catgId" />
+			<input type="text" id="catgName" name="catgName" class="input-medium" readonly="readonly" placeholder="分类名称" />
+			<button type="button" id="btn-update" class="btn btn-success">修改</button>
+			<button type="button" id="btn-delete" class="btn btn-warning">删除</button>
+		</div>
+    </form>
 </div>
-<div class="clearfix"></div>
+<div id="ztreeMngt" class="ztree radius-block" style="margin-top:0"></div>
+<div class="space-span"></div>

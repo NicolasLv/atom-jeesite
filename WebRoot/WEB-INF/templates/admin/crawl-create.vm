@@ -29,20 +29,19 @@
 	});
 </script>
 <form id="crawl-form" class="form-horizontal" name="crawl-form" method="post">
-	<div class="radius-block">
-		<ul class="breadcrumb">
-        	<li><span class="divider">/</span></li>
-        	<li>后台管理</li>
-			<li><span class="divider">/</span></li>
-        	<li id="form-opt-name">新增爬虫</li>
-        </ul>
-		<div class="control-group">
-			<label for="name"><span class="icon-chevron-right"></span><strong>爬虫名称</strong>-必输项！</label>
-			<input id="name" name="name" class="span12" type="text" required="required" placeholder="cnblogs用户博客爬虫" />
-		</div>
-		<div class="control-group">
-			<label for="content"><span class="icon-chevron-right"></span><strong>爬虫Groovy脚本</strong>-必输项！</label>
-			<textarea rows="20" id="content" name="content" class="span12" style="font-family:courier new,courier;font-size:14px;">
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+    	<li id="form-opt-name">新增爬虫</li>
+    </ul>
+	<div class="control-group">
+		<label for="name"><span class="icon-chevron-right"></span><strong>爬虫名称</strong>-必输项！</label>
+		<input id="name" name="name" class="span12" type="text" required="required" placeholder="cnblogs用户博客爬虫" />
+	</div>
+	<div class="control-group">
+		<label for="content"><span class="icon-chevron-right"></span><strong>爬虫Groovy脚本</strong>-必输项！</label>
+		<textarea rows="20" id="content" name="content" class="span12" style="font-family:courier new,courier;font-size:14px;">
 import org.apache.commons.lang.StringUtils;
 import org.jsoup.helper.StringUtil;
 import org.jsoup.nodes.Document;
@@ -54,46 +53,46 @@ import com.github.obullxl.lang.utils.TextUtils;
 public class CnblogsWebCrawler extends AbstractWebCrawler {
 
     public List<String> parseLinks(String url) {
-        return Arrays.asList(url);
+    return Arrays.asList(url);
+}
+
+public String parseTitle(Document document) {
+    // MyBatis3与Spring3无缝集成-从iBatis平滑过渡 - 老牛啊 - 博客园
+    String title = StringUtils.trim(document.title());
+
+    // MyBatis3与Spring3无缝集成-从iBatis平滑过渡 - 老牛啊
+    title = StringUtils.trim(StringUtils.substringBeforeLast(title, "-"));
+
+    // MyBatis3与Spring3无缝集成-从iBatis平滑过渡
+    title = StringUtils.trim(StringUtils.substringBeforeLast(title, "-"));
+
+    return title;
+}
+
+public String parseSummary(Document document) {
+    Element body = document.body();
+    if (body == null) {
+        return StringUtils.EMPTY;
     }
 
-    public String parseTitle(Document document) {
-        // MyBatis3与Spring3无缝集成-从iBatis平滑过渡 - 老牛啊 - 博客园
-        String title = StringUtils.trim(document.title());
+    Element blog = body.getElementById("cnblogs_post_body");
+    if (blog == null) {
+        return StringUtils.EMPTY;
+    }
+    
+    blog.ownText();
 
-        // MyBatis3与Spring3无缝集成-从iBatis平滑过渡 - 老牛啊
-        title = StringUtils.trim(StringUtils.substringBeforeLast(title, "-"));
+    String summary = StringUtils.trim(StringUtil.normaliseWhitespace(blog.text()));
+    return TextUtils.truncate(summary, 255);
+}
 
-        // MyBatis3与Spring3无缝集成-从iBatis平滑过渡
-        title = StringUtils.trim(StringUtils.substringBeforeLast(title, "-"));
-
-        return title;
+public String parseContent(Document document) {
+    Element body = document.body();
+    if (body == null) {
+        return StringUtils.EMPTY;
     }
 
-    public String parseSummary(Document document) {
-        Element body = document.body();
-        if (body == null) {
-            return StringUtils.EMPTY;
-        }
-
-        Element blog = body.getElementById("cnblogs_post_body");
-        if (blog == null) {
-            return StringUtils.EMPTY;
-        }
-        
-        blog.ownText();
-
-        String summary = StringUtils.trim(StringUtil.normaliseWhitespace(blog.text()));
-        return TextUtils.truncate(summary, 255);
-    }
-
-    public String parseContent(Document document) {
-        Element body = document.body();
-        if (body == null) {
-            return StringUtils.EMPTY;
-        }
-
-        Element blog = body.getElementById("cnblogs_post_body");
+    Element blog = body.getElementById("cnblogs_post_body");
         if (blog == null) {
             return StringUtils.EMPTY;
         }
@@ -103,10 +102,9 @@ public class CnblogsWebCrawler extends AbstractWebCrawler {
 
 }
 			</textarea>
-		</div>
-		<div class="pull-right">
-			<button type="submit" class="btn btn-primary">提交保存</button>
-		</div>
-		<div class="clearfix"></div>
 	</div>
+	<div class="pull-right">
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
 </form>

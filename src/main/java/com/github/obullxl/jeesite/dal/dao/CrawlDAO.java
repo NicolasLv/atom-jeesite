@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dao;
 
 import java.util.List;

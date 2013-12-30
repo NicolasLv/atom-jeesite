@@ -1,0 +1,28 @@
+<div class="comments">
+	<ul class="commentlist">
+#foreach($reply in $topic.replys)
+		<li class="comment even thread-even depth-1" id="comment-${reply.id}">
+			<div class="the-comment">
+				<div class="avatar pull-left">
+					<img src="http://www.gravatar.com/avatar/$MD5Utils.digest(${reply.uemail})?s=54" class="avatar avatar-54 photo" height="54" width="54" />
+					<div class="clearfix"></div>
+				</div>
+				<div class="comment-box">
+					<div class="comment-author meta">
+#if($StringUtils.isBlank($reply.usite))
+										<strong>${reply.uname}</strong>
+#else
+										<strong><a href="${reply.usite}" rel='external nofollow' class='url'>${reply.uname}</a></strong>
+#end
+										$DateUtils.toStringDL($reply.gmtModify)</a>
+					</div>
+					<div class="comment-text">
+						<p>${reply.content}</p>
+						<div class="clearfix"></div>
+					</div>
+				</div>
+			</div>
+		</li>
+#end
+	</ul>
+</div>

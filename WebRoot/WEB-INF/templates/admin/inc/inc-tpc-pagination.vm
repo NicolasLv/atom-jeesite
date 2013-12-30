@@ -1,0 +1,13 @@
+<div class="pagination" #StyleMB0()>
+	<ul>
+#set($pager=$PageList.pager)
+#set($pages=$pager.getSlider(11))
+	#foreach($idx in $pages)
+		#if($pager.isDisabledPage($idx))
+			<li class="active"><a id="page-current" href="javascript:void(0);">$idx</a></li>
+		#else
+			<li><a id="btn-page-$idx" href="$ctx/admin/topic/manage.html" data-page="$idx">$idx</a></li>
+		#end
+	#end
+	</ul>
+</div>

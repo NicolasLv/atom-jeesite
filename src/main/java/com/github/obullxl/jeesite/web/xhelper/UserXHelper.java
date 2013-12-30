@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.dal.dao.UserDAO;
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
+import com.github.obullxl.lang.user.UserContextHolder;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
 
 /**
@@ -38,6 +39,31 @@ public class UserXHelper extends AbstractXHelper {
      */
     public UserDTO findByUID(long userId) {
         return this.userDAO.find(userId);
+    }
+
+    /**
+     * 判断用户是否为管理员
+     */
+    public boolean isAdmin(long userId) {
+        return isAdmin(this.findByUID(userId));
+    }
+
+    /**
+     * 判断用户是否为管理员
+     */
+    public static boolean isAdmin(UserDTO user) {
+        if (user != null) {
+            return user.findBitFlag().isAdmin();
+        }
+
+        return false;
+    }
+
+    /**
+     * 获取登录用户
+     */
+    public UserDTO findSessionUser() {
+        return this.findByUID(UserContextHolder.get().getUserId());
     }
 
 }

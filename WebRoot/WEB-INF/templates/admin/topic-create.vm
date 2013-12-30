@@ -3,15 +3,55 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	var ue = UE.getEditor("content");
-	var _url = "$ctx/admin/topic/create.html";
 	
-	$("#topicForm").submit(function(e) {
+	$("#label-meta").click(function(e) {
+		if($("#meta").hasClass("hide")) {
+			$("#meta").removeClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-down");
+		} else {
+			$("#meta").addClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-right");
+		}
+	});
+	
+	$("#label-from").click(function(e) {
+		if($("#from").hasClass("hide")) {
+			$("#from").removeClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-down");
+		} else {
+			$("#from").addClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-right");
+		}
+	});
+	
+	$("#label-media").click(function(e) {
+		if($("#media").hasClass("hide")) {
+			$("#media").removeClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-down");
+		} else {
+			$("#media").addClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-right");
+		}
+	});
+	
+	$("#label-summary").click(function(e) {
+		if($("#summary").hasClass("hide")) {
+			$("#summary").removeClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-down");
+		} else {
+			$("#summary").addClass("hide");
+			$(this).children("span").attr("class", "icon-chevron-right");
+		}
+	});
+	
+	var _url = "$ctx/admin/topic/create.html";
+	$("#topic-form").submit(function(e) {
 		e.preventDefault();
 		jQuery.ajax({
 			type: "POST",
 			dataType: "json",
 			url: _url,
-			data: $("#topicForm").serialize(),
+			data: $("#topic-form").serialize(),
 			beforeSend: function() {
 				fadeProgressModal(true);
 			},
@@ -30,37 +70,70 @@ $(document).ready(function() {
 	});
 });
 </script>
-<form id="topicForm" class="form-horizontal" name="topicForm" method="post">
-	<div class="radius-block">
-		<ul class="breadcrumb">
-        	<li><span class="divider">/</span></li>
-        	<li>后台管理</li>
-			<li><span class="divider">/</span></li>
-        	<li id="form-opt-name">创建主题</li>
-        </ul>
-		<div class="control-group">
-			<label for="catg"><span class="icon-chevron-right"></span><strong>主题类型</strong>-必选项！</label>
-			<select id="catg" name="catg" class="span3">
-				#formSelectOptions($EnumXHelper.toTopicCatgMap(), "")
-			</select>
-		</div>
-		<div class="control-group">
-			<label for="title"><span class="icon-chevron-right"></span><strong>主题标题</strong>-必输项！</label> <input id="title" name="title" class="span12" type="text" required="required" />
-		</div>
-		<div class="control-group">
-			<label for="summary"><span class="icon-chevron-right"></span><strong>主题描述</strong>-必输项！</label>
-			<textarea rows="2" id="summary" name="summary" class="span12" placeholder="留空则截取主题内容"></textarea>
-		</div>
-		<div class="control-group">
-			<label for="content"><span class="icon-chevron-right"></span><strong>主题内容</strong>-必输项！</label>
-			<div>
-				<textarea id="content" name="content" class="span12" style="height: 150px" required="required"></textarea>
-			</div>
-		</div>
-		<div class="pull-right">
-			<button type="submit" class="btn btn-primary">提交保存</button>
-		</div>
-		<div class="clearfix"></div>
+<form id="topic-form" name="topic-form" class="form-horizontal" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+		<li>主题管理</li>
+		<li><span class="divider">/</span></li>
+    	<li id="form-opt-name" class="active">新增主题</li>
+    </ul>
+	<div class="control-group">
+		<label for="catg"><span class="icon-chevron-right"></span><strong>主题类型</strong>-必选项！</label>
+		<select id="catg" name="catg" class="span3">
+			#formSelectOptions($EnumXHelper.toTopicCatgMap(), "")
+		</select>
 	</div>
+	<div class="control-group">
+		<label for="title"><span class="icon-chevron-right"></span><strong>主题标题</strong>-必输项！</label> <input id="title" name="title" class="span12" type="text" required="required" />
+	</div>
+	
+	<div class="control-group">
+		<label for="nothing" id="label-meta"><span class="icon-chevron-right"></span><strong>元数据</strong>-留空则为默认！</label>
+        <div id="meta" name="meta" class="hide form-inline">
+            <label class="span3 checkbox">
+				<input id="tflag" name="tflag" type="checkbox" value="T" />置顶
+            </label>
+			<label class="span3 checkbox">
+				<input id="treply" name="treply" type="checkbox" value="T" />禁止评论
+            </label>
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="nothing" id="label-from"><span class="icon-chevron-right"></span><strong>内容引用</strong>-留空则为原创！</label>
+        <div id="from" name="from" class="hide form-inline">
+            <label class="span2 checkbox">
+				<input id="rflag" name="rflag" type="checkbox" checked="checked" value="T" />原创
+            </label>
+			<input id="rfrom" name="rfrom" type="url" class="span10" placeholder="原创或引用地址" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="nothing" id="label-media"><span class="icon-chevron-right"></span><strong>多媒体</strong>-留空则为普通类型！</label>
+        <div id="media" name="media" class="hide form-inline">
+            <select id="mflag" name="mflag" class="span2">
+				<option value="F">--</option>
+				<option value="IMAGE">图片</option>
+				<option value="AUDIO">音频</option>
+				<option value="VEDIO">视频</option>
+            </select>
+			<input id="mpath" name="mpath" type="text" class="span10" placeholder="多媒体地址" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="nothing" id="label-summary"><span class="icon-chevron-right"></span><strong>主题描述</strong>-留空则截取主题内容！</label>
+		<textarea rows="2" id="summary" name="summary" class="span12 hide" placeholder="留空则截取主题内容"></textarea>
+	</div>
+	<div class="control-group">
+		<label for="content"><span class="icon-chevron-right"></span><strong>主题内容</strong>-必输项！</label>
+		<div>
+			<textarea id="content" name="content" class="span12" style="height: 150px" required="required"></textarea>
+		</div>
+	</div>
+	<div class="pull-right">
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
 </form>
 #parse("/admin/inc/inc-ueditor.vm")

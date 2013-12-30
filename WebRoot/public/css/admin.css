@@ -7,6 +7,10 @@ body {
 	background-color: #ffffff;
 }
 
+.user-info-block {
+	background-color: #efefef;
+}
+
 .hide {
 	display: none;
 }
@@ -30,6 +34,9 @@ body {
 
 .color-red {
 	color: red;
+}
+
+.space-span {
 }
 
 /* Enable use of floated navbar text */

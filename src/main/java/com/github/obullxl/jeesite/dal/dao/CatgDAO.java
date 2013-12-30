@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dao;
 
 import com.github.obullxl.jeesite.dal.dto.CatgDTO;
@@ -64,6 +67,32 @@ public interface CatgDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     public List<CatgDTO> findAll() throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_catg</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_catg where (name = ?)</tt>
+	 *
+	 *	@param name
+	 *	@return CatgDTO
+	 *	@throws DataAccessException
+	 */	 
+    public CatgDTO findName(String name) throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_catg</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_catg where (catg = 'catg')</tt>
+	 *
+	 *	@param value
+	 *	@return CatgDTO
+	 *	@throws DataAccessException
+	 */	 
+    public CatgDTO findCatg(long value) throws DataAccessException;
 
 	/**
 	 *  Delete records from DB table <tt>atom_catg</tt>.

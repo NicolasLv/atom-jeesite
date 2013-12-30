@@ -5,22 +5,29 @@
 package com.github.obullxl.jeesite.web.controller;
 
 import java.net.URLClassLoader;
+import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.github.obullxl.jeesite.dal.dao.CatgDAO;
+import com.github.obullxl.jeesite.dal.dao.ConfigDAO;
 import com.github.obullxl.jeesite.dal.dao.CrawlDAO;
 import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
+import com.github.obullxl.jeesite.dal.dao.RightDAO;
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
 import com.github.obullxl.jeesite.dal.dao.UserDAO;
+import com.github.obullxl.jeesite.dal.dao.UserRgtDAO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
-import com.github.obullxl.jeesite.web.enums.TopicCatgEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.EnumBase;
+import com.github.obullxl.lang.spring.DatePropertyEditor;
 import com.github.obullxl.lang.utils.LogUtils;
 import com.github.obullxl.lang.web.WebContext;
 
@@ -32,27 +39,46 @@ import com.github.obullxl.lang.web.WebContext;
  */
 public abstract class AbstractController {
     /** Logger */
-    protected static final Logger logger            = LogUtils.get();
+    protected static final Logger logger             = LogUtils.get();
+
+    /** 后台主页 */
+    public static final String    ADMIN_INDEX        = "/admin/index.html";
 
     //~~~~~~~~~~~~~ 后台 ~~~~~~~~~~~~~//
-    public static final String    VOPT_ADMIN_HOME  = "admin-home";
-    
-  //~~~~~~~~~~~~~ 用户 ~~~~~~~~~~~~~//
-    public static final String    VOPT_USER_CREATE  = "user-create";
-    public static final String    VOPT_USER_MANAGE  = "user-manage";
+    public static final String    VOPT_ADMIN_HOME    = "admin-home";
+
+    //~~~~~~~~~~~~~ 用户 ~~~~~~~~~~~~~//
+    public static final String    VOPT_USER_CREATE   = "user-create";
+    public static final String    VOPT_USER_MANAGE   = "user-manage";
+
+    public static final String    VOPT_USER_CINFO    = "user-cinfo";
+    public static final String    VOPT_USER_CEMAIL   = "user-cemail";
+    public static final String    VOPT_USER_CPASSWD  = "user-cpasswd";
+
+    //~~~~~~~~~~~~~ 权限 ~~~~~~~~~~~~~//
+    public static final String    VOPT_RIGHT_CREATE  = "right-create";
+    public static final String    VOPT_RIGHT_MANAGE  = "right-manage";
+
+    //~~~~~~~~~~~~~ 参数 ~~~~~~~~~~~~~//
+    public static final String    VOPT_CONFIG_CREATE = "config-create";
+    public static final String    VOPT_CONFIG_MANAGE = "config-manage";
 
     //~~~~~~~~~~~~~ 主题 ~~~~~~~~~~~~~//
-    public static final String    VOPT_TOPIC_CREATE = "topic-create";
-    public static final String    VOPT_TOPIC_MANAGE = "topic-manage";
+    public static final String    VOPT_TOPIC_CREATE  = "topic-create";
+    public static final String    VOPT_TOPIC_MANAGE  = "topic-manage";
 
     //~~~~~~~~~~~~~ 分类 ~~~~~~~~~~~~~//
-    public static final String    VOPT_CATG_CREATE  = "catg-create";
-    public static final String    VOPT_CATG_MANAGE  = "catg-manage";
+    public static final String    VOPT_CATG_CREATE   = "catg-create";
+    public static final String    VOPT_CATG_MANAGE   = "catg-manage";
 
     //~~~~~~~~~~~~~ 爬虫 ~~~~~~~~~~~~~//
-    public static final String    VOPT_CRAWL_INPUT  = "crawl-input";
-    public static final String    VOPT_CRAWL_CREATE = "crawl-create";
-    public static final String    VOPT_CRAWL_MANAGE = "crawl-manage";
+    public static final String    VOPT_CRAWL_INPUT   = "crawl-input";
+    public static final String    VOPT_CRAWL_CREATE  = "crawl-create";
+    public static final String    VOPT_CRAWL_MANAGE  = "crawl-manage";
+
+    /** 参数DAO */
+    @Autowired
+    protected ConfigDAO           configDAO;
 
     /** 爬虫DAO */
     @Autowired
@@ -62,6 +88,10 @@ public abstract class AbstractController {
     @Autowired
     protected UserDAO             userDAO;
 
+    /** 用户权限DAO */
+    @Autowired
+    protected UserRgtDAO          userRgtDAO;
+
     /** 主题DAO */
     @Autowired
     protected TopicDAO            topicDAO;
@@ -70,22 +100,41 @@ public abstract class AbstractController {
     @Autowired
     protected ReplyDAO            replyDAO;
 
+    /** 权限DAO */
+    @Autowired
+    protected RightDAO            rightDAO;
+
     /** 分类DAO */
     @Autowired
     protected CatgDAO             catgDAO;
 
+    /** 校验器 */
+    @Autowired
+    private Validator             validator;
+
+    /**
+     * 初始化
+     */
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(this.validator);
+        binder.registerCustomEditor(Date.class, new DatePropertyEditor());
+    }
+
     /**
      * 设置Web数据值
      */
-    public void setWebData(String key, Object value) {
+    public AbstractController setWebData(String key, Object value) {
         WebContext.get().getData().put(key, value);
+        return this;
     }
 
     /**
      * 设置JSON请求标志
      */
-    public void setRequestJSON() {
+    public AbstractController setRequestJSON() {
         WebContext.get().setRequestJSON();
+        return this;
     }
 
     /**
@@ -156,9 +205,16 @@ public abstract class AbstractController {
      * 构建返回结果
      */
     public void buildResponse(BizResponse response, EnumBase enm) {
+        this.buildResponse(response, enm.code(), enm.desp());
+    }
+
+    /**
+     * 构建返回结果
+     */
+    public void buildResponse(BizResponse response, String code, String desp) {
         response.setSuccess(false);
-        response.setRespCode(enm.code());
-        response.setRespDesp(enm.desp());
+        response.setRespCode(code);
+        response.setRespDesp(desp);
     }
 
     /**
@@ -176,7 +232,7 @@ public abstract class AbstractController {
     public TopicDTO newInitTopic() {
         TopicDTO topic = new TopicDTO();
         topic.setState(TopicStateEnum.findInit().code());
-        topic.setCatg(TopicCatgEnum.findInit().code());
+        // topic.setCatg(TopicCatgEnum.findInit().code());
         topic.setTflag("T");
         topic.setRflag("F");
         topic.setRfrom(StringUtils.EMPTY);

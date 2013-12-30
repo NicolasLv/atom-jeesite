@@ -1,0 +1,38 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="修改权限 - 权限管理")
+#set($rgt=$RgtXHelper.find($rightId))
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+    $("#right-form").submit(function(e) {
+    	e.preventDefault();
+    	ajaxRquest({
+    		form: "right-form",
+    		url: "$ctx/admin/right/update-${rgt.id}.html"
+    	});
+    });
+});
+//-->
+</script>
+<form id="right-form" class="form-horizontal" name="right-form" method="post" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+		<li>权限管理</li>
+		<li><span class="divider">/</span></li>
+    	<li class="active">修改权限</li>
+    </ul>
+	<div class="control-group">
+		<label for="code"><span class="icon-chevron-right"></span><strong>权限码</strong>-必输项！</label>
+		<input id="code" name="code" value="$rgt.code" class="span12" type="text" required="required" />
+	</div>
+	<div class="control-group">
+		<label for="name"><span class="icon-chevron-right"></span><strong>权限描述</strong>-必输项！</label>
+		<input id="name" name="name" value="$rgt.name" class="span12" type="text" required="required" />
+	</div>
+	<div class="pull-right">
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
+</form>

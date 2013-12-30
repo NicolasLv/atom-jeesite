@@ -20,6 +20,8 @@ public enum BizResponseEnum implements EnumBase {
     //
     REQUIRE_PARAM("参数为空"),
     //
+    INVALID_PARAM("参数非法"),
+    //
     INVALID_PASSWD("密码错误"),
     //
     EXIST_UNAME("用户名存在"),
@@ -31,6 +33,10 @@ public enum BizResponseEnum implements EnumBase {
     USER_NOT_EXIST("用户不存在"),
     //
     CATG_NOT_EXIST("分类不存在"),
+    //
+    OBJECT_HAS_EXIST("对象已存在"),
+    //
+    OBJECT_NOT_EXIST("对象不存在"),
     //
     ;
 

@@ -3,7 +3,7 @@
 		<div class="row">
 			<div class="span8">
 				#showAds("itop")
-#set($PageList=$TopicXHelper.findPage())
+#set($PageList=$TopicXHelper.findPage($catg, $page))
 #foreach($topic in $PageList.items)
 				<div class="entry">
 					<h4>
@@ -36,7 +36,7 @@
 #end
 			</div>
 			<div class="span4">
-				#parse("/$theme/inc/inc-slide.vm")
+				#parse("/$ThemeXHelper.findTheme()/inc/inc-catg-slide.vm")
 			</div>
 		</div>
 	</div>

@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arizonia" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" href="$ctx/themes/$theme/css/front.css" />
+<link rel="stylesheet" type="text/css" href="$ctx/themes/$ThemeXHelper.findTheme()/css/front.css" />
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/jquery-2.0.3.js"></script>
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/bootstrap.js"></script>
 <!--[if lt IE 9]>
@@ -22,7 +22,7 @@
 <link rel="apple-touch-icon-precomposed" href="$ctx/public/favicon.png" />
 <link rel="shortcut icon" href="$ctx/public/favicon.png" />
 </head>
-<body>
+<body id="body">
 <div class="navbar navbar-inverse navbar-static-top">
 	<div class="navbar-inner">
 		<div class="container">
@@ -45,7 +45,11 @@
 </div>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#vp-${catg}").attr("class", "active");
+	try {
+		$("#vp-${catg}").attr("class", "active");
+	} catch(e) {
+		// ignore
+	}
 });
 </script>
 <!-- /.navbar -->
@@ -78,5 +82,6 @@ $screen_placeholder
 	</div>
 </div>
 <!-- /footer -->
+#parse("/public/back-to-top.vm")
 </body>
 </html>

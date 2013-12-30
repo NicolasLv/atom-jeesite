@@ -40,8 +40,7 @@ public class TopicXHelper extends AbstractXHelper {
     /**
      * 分页查询
      */
-    public TopicPageList findPage() {
-        String catg = WebDataUtils.findCatg();
+    public TopicPageList findPage(String catg, int page) {
         TopicCatgEnum enm = TopicCatgEnum.findByCode(catg);
         if (enm == null) {
             catg = null;
@@ -70,15 +69,10 @@ public class TopicXHelper extends AbstractXHelper {
     /**
      * 查询主题详情
      */
-    public TopicDTO findDetail() {
-        long id = WebDataUtils.findTopicID();
-        if (id < 1L) {
-            return new TopicDTO();
-        }
-
+    public TopicDTO findDetail(String id) {
         TopicDTO topic = this.topicDAO.find(id);
         if (topic != null) {
-            List<ReplyDTO> replys = this.replyDAO.findTopic(Long.toString(id));
+            List<ReplyDTO> replys = this.replyDAO.findTopic(id);
             if (replys != null) {
                 topic.setReplys(replys);
             }
@@ -92,8 +86,7 @@ public class TopicXHelper extends AbstractXHelper {
     /**
      * 阅读排行榜
      */
-    public List<TopicDTO> findTopVisit() {
-        String catg = WebDataUtils.findCatg();
+    public List<TopicDTO> findTopVisit(String catg) {
         TopicCatgEnum enm = TopicCatgEnum.findByCode(catg);
         if (enm == null) {
             catg = null;
@@ -105,8 +98,7 @@ public class TopicXHelper extends AbstractXHelper {
     /**
      * 阅读排行榜
      */
-    public List<TopicDTO> findTopReply() {
-        String catg = WebDataUtils.findCatg();
+    public List<TopicDTO> findTopReply(String catg) {
         TopicCatgEnum enm = TopicCatgEnum.findByCode(catg);
         if (enm == null) {
             catg = null;

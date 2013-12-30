@@ -1,0 +1,22 @@
+<form id="reply-form" name="reply-form" class="radius-block" method="post" action="$ctx/topic/post-reply.html" #StyleMB0()>
+	<div class="controls controls-row">
+    	<input id="uname" name="uname" type="text" class="span2" required="required" placeholder="*您的称呼:老牛啊" />
+    	<input id="uemail" name="uemail" type="email" class="span2" placeholder="您的邮箱:obullxl@gmail.com" />
+    	<input id="usite" name="usite" type="url" class="span3" placeholder="你的网站:www.somedomain.com" />
+    </div>
+	<div class="controls">
+		<textarea id="content" name="content" class="span7" rows="4" required="required" placeholder="*请留下您的评论的内容……"></textarea>
+    </div>
+	<input type="hidden" name="ufrom" id="ufrom" />
+	<input type="hidden" name="topic" value="${topic.id}" />
+	<input type="hidden" name="title" value="$topic.title}" />
+	<div class="controls">
+		<button type="submit" class="btn btn-primary">发表评论</button>
+    </div>
+	<div class="clearfix"></div>
+</form>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#ufrom").val(window.location.href);
+});
+</script>

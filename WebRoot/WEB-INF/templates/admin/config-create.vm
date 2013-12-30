@@ -1,0 +1,49 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="新增参数 - 系统维护 - 后台管理")
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#config-form").submit(function(e) {
+    	e.preventDefault();
+    	ajaxRquest({
+    		form: "config-form",
+    		url: "$ctx/admin/config/create.html",
+    		sclose: function() {
+    			location.href = "$ctx/admin/config/manage.html";
+    		}
+    	});
+    });
+});
+</script>
+<form id="config-form" name="config-form" class="form-horizontal" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+    	<li>系统维护</li>
+		<li><span class="divider">/</span></li>
+    	<li class="active">新增参数</li>
+    </ul>
+	<div class="control-group">
+		<label for="cfgCatg"><span class="icon-chevron-right"></span><strong>分类</strong>-必输项！</label>
+		<input id="cfgCatg" name="cfgCatg" class="span6" type="text" required="required" placeholder="system" />
+	</div>
+	<div class="control-group">
+		<label for="cfgName"><span class="icon-chevron-right"></span><strong>参数名</strong>-必输项！</label>
+		<input id="cfgName" name="cfgName" class="span6" type="text" required="required" placeholder="show_ads" />
+	</div>
+	<div class="control-group">
+		<label for="cfgState"><span class="icon-chevron-right"></span><strong>状态</strong>-必输项！</label>
+		<select id="cfgState" name="cfgState" class="span3">
+			<option value="T">有效</option>
+			<option value="F">无效</option>
+		</select>
+	</div>
+	<div class="control-group">
+		<label for="cfgValue"><span class="icon-chevron-right"></span><strong>参数值</strong>-必输项！</label>
+		<input id="cfgValue" name="cfgValue" class="span6" type="text" required="required" placeholder="true" />
+	</div>
+	<div>
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
+</form>

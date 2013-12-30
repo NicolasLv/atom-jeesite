@@ -1,0 +1,39 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="新增权限 - 权限管理")
+<script type="text/javascript">
+$(document).ready(function() {
+    var _url = "$ctx/admin/right/create.html";
+    $("#right-form").submit(function(e) {
+    	e.preventDefault();
+    	ajaxRquest({
+    		form: "right-form",
+    		url: _url,
+    		sclose: function() {
+    			location.href = _url;
+    		}
+    	});
+    });
+});
+</script>
+<form id="right-form" name="right-form" class="form-horizontal" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+		<li>权限管理</li>
+		<li><span class="divider">/</span></li>
+    	<li class="active">新增权限</li>
+    </ul>
+	<div class="control-group">
+		<label for="code"><span class="icon-chevron-right"></span><strong>权限码</strong>-必输项！</label>
+		<input id="code" name="code" class="span12" type="text" required="required" placeholder="RGT_LOGIN_NORMAL" />
+	</div>
+	<div class="control-group">
+		<label for="name"><span class="icon-chevron-right"></span><strong>权限描述</strong>-必输项！</label>
+		<input id="name" name="name" class="span12" type="text" required="required" placeholder="登录基本权限" />
+	</div>
+	<div class="pull-right">
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
+</form>

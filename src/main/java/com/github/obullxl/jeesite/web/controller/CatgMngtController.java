@@ -4,16 +4,21 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.dto.CatgDTO;
+import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
+import com.github.obullxl.jeesite.web.form.CatgForm;
 import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
 import com.github.obullxl.lang.biz.BizResponse;
 
@@ -35,7 +40,7 @@ public class CatgMngtController extends AbstractController {
      * 分类管理
      */
     @RequestMapping(value = "/catg/manage.html", method = RequestMethod.GET)
-    public String catgManage() {
+    public String manage() {
         return this.toAdminView(VOPT_CATG_MANAGE, "catg-manage");
     }
 
@@ -43,23 +48,35 @@ public class CatgMngtController extends AbstractController {
      * 新增分类
      */
     @RequestMapping(value = "/catg/create.html", method = RequestMethod.GET)
-    public String catgCreate() {
+    public String create() {
         return this.toAdminView(VOPT_CATG_CREATE, "catg-create");
     }
 
     @ResponseBody
     @RequestMapping(value = "/catg/create.html", method = RequestMethod.POST)
-    public BizResponse catgCreate(long catgCatg, String catgTop, long catgSort, String catgName) {
+    public BizResponse create(@Valid CatgForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
+            // 校验
+            if (errors.hasErrors()) {
+                this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
+                return response;
+            }
+
+            CatgDTO catg = this.catgDAO.findName(form.getCatgName());
+            if (catg != null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
+                return response;
+            }
+
             // 新增
-            CatgDTO catg = new CatgDTO();
-            catg.setCatg(catgCatg);
-            catg.setTop(TrueFalseEnum.findDefault(catgTop).code());
-            catg.setSort(Math.abs(catgSort));
-            catg.setName(catgName);
+            catg = new CatgDTO();
+            catg.setCatg(form.getCatgCatg());
+            catg.setTop(TrueFalseEnum.findDefault(form.getCatgTop()).code());
+            catg.setSort(Math.abs(form.getCatgSort()));
+            catg.setName(form.getCatgName());
 
             long id = this.catgDAO.insert(catg);
             response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(id));
@@ -79,14 +96,14 @@ public class CatgMngtController extends AbstractController {
      * 更新分类
      */
     @RequestMapping(value = "/catg/update-{id}.html", method = RequestMethod.GET)
-    public String catgUpdate(@PathVariable long id) {
+    public String update(@PathVariable long id) {
         this.setWebData("catgId", id);
         return this.toAdminView(VOPT_CATG_MANAGE, "catg-update");
     }
-    
+
     @ResponseBody
     @RequestMapping(value = "/catg/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse catgUpdate(@PathVariable long id, long catgCatg, String catgTop, long catgSort, String catgName) {
+    public BizResponse update(@PathVariable long id, long catgCatg, String catgTop, long catgSort, String catgName) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -110,6 +127,51 @@ public class CatgMngtController extends AbstractController {
             this.catgXHelper.refresh();
         } catch (Exception e) {
             logger.error("分类更新异常!", e);
+            this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
+        }
+
+        // JSON返回
+        return response;
+    }
+
+    /**
+     * 删除分类
+     */
+    @ResponseBody
+    @RequestMapping(value = "/catg/delete-{id}.html", method = RequestMethod.POST)
+    public BizResponse delete(@PathVariable long id) {
+        // 操作结果
+        BizResponse response = this.newBizResponse();
+
+        try {
+            // 查询
+            CatgDTO catg = this.catgDAO.find(id);
+            if (catg == null) {
+                this.buildResponse(response, BizResponseEnum.CATG_NOT_EXIST);
+                return response;
+            }
+
+            // 校验: 没有子分类
+            catg = this.catgDAO.findCatg(id);
+            if (catg != null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
+                return response;
+            }
+            
+            // 校验: 没有主题信息
+            TopicDTO topic = this.topicDAO.findCatgOne(Long.toString(id));
+            if(topic != null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
+                return response;
+            }
+            
+            // 执行删除操作
+            this.catgDAO.delete(id);
+
+            // 刷新缓存
+            this.catgXHelper.refresh();
+        } catch (Exception e) {
+            logger.error("删除分类异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
         }
 

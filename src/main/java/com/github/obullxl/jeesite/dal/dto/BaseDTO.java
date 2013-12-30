@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dto;
 
 import java.util.Date;
@@ -11,9 +14,6 @@ import com.github.obullxl.lang.ToString;
  */
 public abstract class BaseDTO extends ToString {
 	private static final long serialVersionUID = 2534171338675523870L;
-	
-	/** ID */
-    protected long                id;
 
     /** 创建时间 */
     protected Date                gmtCreate;
@@ -48,14 +48,6 @@ public abstract class BaseDTO extends ToString {
     }
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public Date getGmtCreate() {
         return gmtCreate;

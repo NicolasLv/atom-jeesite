@@ -115,6 +115,11 @@
 	</bean>
 
 	<!-- ================================================= -->
+	<!-- 校验器 -->
+	<!-- ================================================= -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+	<!-- ================================================= -->
 	<!-- 缓存配置 -->
 	<!-- ================================================= -->
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
@@ -132,9 +137,7 @@
 	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
 		<property name="customEditors">
 			<map>
-				<entry key="java.util.Date">
-					<bean class="com.github.obullxl.lang.spring.DatePropertyEditor" />
-				</entry>
+				<entry key="java.util.Date" value="com.github.obullxl.lang.spring.DatePropertyEditor" />
 			</map>
 		</property>
 	</bean>

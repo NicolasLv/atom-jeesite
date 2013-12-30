@@ -62,6 +62,18 @@
     ]]>
     </select>
 
+    <!-- mapped statement for MyBatisCatgDAO.findName -->
+    <select id="findName" resultMap="RM-CATG" >
+    <![CDATA[
+        select * from atom_catg where (name = #{value})
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCatgDAO.findCatg -->
+    <select id="findCatg" resultMap="RM-CATG" >
+        SELECT * FROM atom_catg WHERE catg=#{value} LIMIT 1
+    </select>
+
     <!-- mapped statement for MyBatisCatgDAO.delete -->
     <delete id="delete" >
     <![CDATA[

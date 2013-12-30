@@ -1,4 +1,9 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dao;
+
+import com.github.obullxl.jeesite.dal.query.TopicQuery;
 
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 
@@ -22,10 +27,10 @@ public interface TopicDAO extends BaseDAO {
 	 *  <tt>insert into atom_topic(id,state,catg,tflag,rflag,rfrom,mflag,mpath,mcount,treply,visit,reply,title,summary,content,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</tt>
 	 *
 	 *	@param topic
-	 *	@return long
+	 *	@return String
 	 *	@throws DataAccessException
 	 */	 
-    public long insert(TopicDTO topic) throws DataAccessException;
+    public String insert(TopicDTO topic) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_topic</tt> for records.
@@ -38,7 +43,7 @@ public interface TopicDAO extends BaseDAO {
 	 *	@return TopicDTO
 	 *	@throws DataAccessException
 	 */	 
-    public TopicDTO find(long id) throws DataAccessException;
+    public TopicDTO find(String id) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_topic</tt> for records.
@@ -51,6 +56,19 @@ public interface TopicDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     public List<TopicDTO> findAll() throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_topic</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_topic where (catg = 'catg')</tt>
+	 *
+	 *	@param value
+	 *	@return TopicDTO
+	 *	@throws DataAccessException
+	 */	 
+    public TopicDTO findCatgOne(String value) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_topic</tt> for records.
@@ -79,6 +97,32 @@ public interface TopicDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     public long findCatgPageCount(String value) throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_topic</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_topic where ((id = 'ID') AND (state = 'STATE') AND (catg = 'CATG') AND (title = 'TITLE'))</tt>
+	 *
+	 *	@param args
+	 *	@return List<TopicDTO>
+	 *	@throws DataAccessException
+	 */	 
+    public List<TopicDTO> findFuzzy(TopicQuery args) throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_topic</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select COUNT(*) from atom_topic where ((id = 'ID') AND (state = 'STATE') AND (catg = 'CATG') AND (title = 'TITLE'))</tt>
+	 *
+	 *	@param args
+	 *	@return long
+	 *	@throws DataAccessException
+	 */	 
+    public long findFuzzyCount(TopicQuery args) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_topic</tt> for records.
@@ -133,7 +177,7 @@ public interface TopicDAO extends BaseDAO {
 	 *	@return int
 	 *	@throws DataAccessException
 	 */	 
-    public int updateVisit(long id, int count) throws DataAccessException;
+    public int updateVisit(String id, int count) throws DataAccessException;
 
 	/**
 	 *  Update DB table <tt>atom_topic</tt>.
@@ -147,7 +191,7 @@ public interface TopicDAO extends BaseDAO {
 	 *	@return int
 	 *	@throws DataAccessException
 	 */	 
-    public int updateReply(long id, int count) throws DataAccessException;
+    public int updateReply(String id, int count) throws DataAccessException;
 
 	/**
 	 *  Delete records from DB table <tt>atom_topic</tt>.
@@ -160,6 +204,6 @@ public interface TopicDAO extends BaseDAO {
 	 *	@return int
 	 *	@throws DataAccessException
 	 */	 
-    public int delete(long id) throws DataAccessException;
+    public int delete(String id) throws DataAccessException;
 
 }

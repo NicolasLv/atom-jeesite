@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.obullxl.jeesite.dal.dto.CrawlDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
-import com.github.obullxl.jeesite.web.enums.TopicCatgEnum;
 import com.github.obullxl.lang.MapExt;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.EnumBase;
@@ -166,7 +165,7 @@ public class CrawlMngtController extends AbstractController {
                 List<CrawlData> datas = crawler.crawl(url, new HashMap<String, String>());
                 for (CrawlData data : datas) {
                     TopicDTO topic = this.newInitTopic();
-                    topic.setCatg(TopicCatgEnum.findInit().code());
+                    topic.setCatg(MapUtils.getLong(args, "topic.catg", 3001L));
                     topic.setTitle(data.getTitle());
                     topic.setSummary(data.getSummary());
                     topic.setContent(data.getContent());

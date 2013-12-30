@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dto;
 
 
@@ -9,6 +12,8 @@ public class CrawlDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
 
 
+	/** column:id */
+	private long id;
 
 	/** column:name */
 	private String name;
@@ -20,6 +25,13 @@ public class CrawlDTO extends BaseDTO {
 
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getName() {
 		return name;
 	}

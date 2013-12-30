@@ -1,0 +1,47 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="登录密码 - 修改信息 - 登录用户")
+#set($user=$UserXHelper.findSessionUser())
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#user-form").submit(function(e) {
+    	e.preventDefault();
+    	ajaxRquest({
+    		form: "user-form",
+    		url: "$ctx/admin/user/cpasswd-${user.id}.html",
+    		sclose: function() {
+    			location.href = location.href;
+    		}
+    	});
+    });
+});
+</script>
+<form id="user-form" name="user-form" class="form-horizontal" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>登录用户</li>
+		<li><span class="divider">/</span></li>
+    	<li>修改信息</li>
+		<li><span class="divider">/</span></li>
+    	<li class="active">登录密码</li>
+    </ul>
+	<div class="control-group">
+		<label for="title"><span class="icon-chevron-right"></span>用户名:</label>
+		<input id="uname" name="uname" class="span4" type="text" value="$user.uname" readonly="readonly" />
+	</div>
+	<div class="control-group">
+		<label for="title"><span class="icon-chevron-right"></span><strong>原密码</strong>-必输项！</label>
+		<input id="passwd" name="opasswd" class="span6" type="password" required="required" />
+	</div>
+	<div class="control-group">
+		<label for="title"><span class="icon-chevron-right"></span><strong>新密码</strong>-必输项！</label>
+		<input id="passwd2" name="passwd" class="span6" type="password" required="required" />
+	</div>
+	<div class="control-group">
+		<label for="title"><span class="icon-chevron-right"></span><strong>确认新密码</strong>-必输项！</label>
+		<input id="passwd2" name="passwd2" class="span6" type="password" required="required" />
+	</div>
+	<div>
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
+</form>

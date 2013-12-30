@@ -28,24 +28,22 @@
 	});
 </script>
 <form id="crawl-form" class="form-horizontal" name="crawl-form" method="post">
-	<div class="radius-block">
-		<ul class="breadcrumb">
-        	<li><span class="divider">/</span></li>
-        	<li>后台管理</li>
-			<li><span class="divider">/</span></li>
-        	<li id="form-opt-name">修改爬虫</li>
-        </ul>
-		<div class="control-group">
-			<label for="name"><span class="icon-chevron-right"></span><strong>爬虫名称</strong>-必输项！</label>
-			<input id="name" name="name" value="$crawl.name" class="span12" type="text" required="required" />
-		</div>
-		<div class="control-group">
-			<label for="content"><span class="icon-chevron-right"></span><strong>爬虫Groovy脚本</strong>-必输项！</label>
-			<textarea rows="20" id="content" name="content" class="span12" style="font-family:courier new,courier;font-size:14px;">$crawl.content</textarea>
-		</div>
-		<div class="pull-right">
-			<button type="submit" class="btn btn-primary">提交保存</button>
-		</div>
-		<div class="clearfix"></div>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+    	<li id="form-opt-name">修改爬虫</li>
+    </ul>
+	<div class="control-group">
+		<label for="name"><span class="icon-chevron-right"></span><strong>爬虫名称</strong>-必输项！</label>
+		<input id="name" name="name" value="$crawl.name" class="span12" type="text" required="required" />
 	</div>
+	<div class="control-group">
+		<label for="content"><span class="icon-chevron-right"></span><strong>爬虫Groovy脚本</strong>-必输项！</label>
+		<textarea rows="20" id="content" name="content" class="span12" style="font-family:courier new,courier;font-size:14px;">$crawl.content</textarea>
+	</div>
+	<div class="pull-right">
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
 </form>

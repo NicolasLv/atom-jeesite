@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.dto;
 
 
@@ -54,6 +57,8 @@ public class CatgDTO extends BaseDTO {
         }
     };
 
+	/** column:id */
+	private long id;
 
 	/** column:top */
 	private String top;
@@ -71,6 +76,13 @@ public class CatgDTO extends BaseDTO {
 
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 	public String getTop() {
 		return top;
 	}

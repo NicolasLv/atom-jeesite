@@ -1,0 +1,50 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="修改参数 - 系统维护 - 后台管理")
+#set($cfg=$CfgXHelper.findByID($cfgId))
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#config-form").submit(function(e) {
+    	e.preventDefault();
+    	ajaxRquest({
+    		form: "config-form",
+    		url: "$ctx/admin/config/update-${cfg.id}.html",
+    		sclose: function() {
+    			location.href = "$ctx/admin/config/update-${cfg.id}.html";
+    		}
+    	});
+    });
+});
+</script>
+<form id="config-form" name="config-form" class="form-horizontal" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+    	<li>系统维护</li>
+		<li><span class="divider">/</span></li>
+    	<li class="active">修改参数</li>
+    </ul>
+	<div class="control-group">
+		<label for="cfgCatg"><span class="icon-chevron-right"></span><strong>分类</strong>-必输项！</label>
+		<input id="cfgCatg" name="cfgCatg" class="span3" type="text" required="required" value="$cfg.catg" readonly="readonly" />
+	</div>
+	<div class="control-group">
+		<label for="cfgName"><span class="icon-chevron-right"></span><strong>参数名</strong>-必输项！</label>
+		<input id="cfgName" name="cfgName" class="span3" type="text" required="required" value="$cfg.name" readonly="readonly" />
+	</div>
+	<div class="control-group">
+		<label for="cfgState"><span class="icon-chevron-right"></span><strong>状态</strong>-必输项！</label>
+		<select id="cfgState" name="cfgState" class="span3">
+			<option value="T" #if($cfg.isActive())selected="selected"#end>有效</option>
+			<option value="F" #if(!$cfg.isActive())selected="selected"#end>无效</option>
+		</select>
+	</div>
+	<div class="control-group">
+		<label for="cfgValue"><span class="icon-chevron-right"></span><strong>参数值</strong>-必输项！</label>
+		<input id="cfgValue" name="cfgValue" class="span6" type="text" required="required" value="$cfg.value" />
+	</div>
+	<div>
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
+</form>

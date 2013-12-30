@@ -36,4 +36,30 @@
 		</property>
 	</bean>
 
+	<!-- ===================================== -->
+	<!-- 日志拦截器 -->
+	<!-- ===================================== -->
+	<bean id="log4jdbcTool" class="com.github.obullxl.lang.spring.PropertiesBean">
+		<property name="props">
+			<map>
+				<entry key="log4jdbc.dump.sql.maxlinelength" value="0" />
+				<entry key="log4jdbc.dump.sql.addsemicolon" value="true" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id="log4jdbcInterceptor" class="net.sf.log4jdbc.DataSourceSpyInterceptor" depends-on="log4jdbcTool" />
+	<bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+		<property name="interceptorNames">
+			<list>
+				<value>log4jdbcInterceptor</value>
+			</list>
+		</property>
+		<property name="beanNames">
+			<list>
+				<value>jeesiteDataSource</value>
+			</list>
+		</property>
+	</bean>
+
 </beans>

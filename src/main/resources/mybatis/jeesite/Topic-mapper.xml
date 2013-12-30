@@ -7,9 +7,9 @@
     
     <!-- result maps for database table atom_topic -->
     <resultMap id="RM-TOPIC" type="TopicDTO">
-        <result property="id" column="id" javaType="long" />
+        <result property="id" column="id" javaType="java.lang.String" />
         <result property="state" column="state" javaType="java.lang.String" />
-        <result property="catg" column="catg" javaType="java.lang.String" />
+        <result property="catg" column="catg" javaType="long" />
         <result property="tflag" column="tflag" javaType="java.lang.String" />
         <result property="rflag" column="rflag" javaType="java.lang.String" />
         <result property="rfrom" column="rfrom" javaType="java.lang.String" />
@@ -30,6 +30,24 @@
 	<!-- ============================================= -->
     <!-- Public SQLS                                   -->
     <!-- ============================================= -->
+	<sql id="findFuzzy-WHERE">
+		<where>
+			<if test="id != null">
+				AND id=#{id}
+			</if>
+			<if test="state != null">
+				AND state=#{state}
+			</if>
+			<if test="catgs != null">
+				AND catg IN
+				<foreach item="itm" index="idx" collection="catgs" open="(" separator="," close=")">#{itm}</foreach>
+			</if>
+			<if test="title != null">
+				AND title LIKE #{title}
+			</if>
+		</where>
+	</sql>
+
 
 	<!-- ============================================= -->
     <!-- Public CopyS                                  -->
@@ -64,6 +82,11 @@
     ]]>
     </select>
 
+    <!-- mapped statement for MyBatisTopicDAO.findCatgOne -->
+    <select id="findCatgOne" resultMap="RM-TOPIC" >
+        SELECT * FROM atom_topic WHERE catg=#{value} LIMIT 1
+    </select>
+
     <!-- mapped statement for MyBatisTopicDAO.findCatgPage -->
     <select id="findCatgPage" resultMap="RM-TOPIC" >
         SELECT * FROM atom_topic
@@ -80,6 +103,20 @@
 				<if test="value != null">
 					WHERE catg=#{value}
 				</if>
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.findFuzzy -->
+    <select id="findFuzzy" resultMap="RM-TOPIC" >
+        SELECT * FROM atom_topic
+				<include refid="findFuzzy-WHERE" />
+			ORDER BY id DESC
+			LIMIT #{offset},#{pageSize}
+    </select>
+
+    <!-- mapped statement for MyBatisTopicDAO.findFuzzyCount -->
+    <select id="findFuzzyCount" resultType="long" >
+        SELECT COUNT(*) FROM atom_topic
+				<include refid="findFuzzy-WHERE" />
     </select>
 
     <!-- mapped statement for MyBatisTopicDAO.findTopVisit -->

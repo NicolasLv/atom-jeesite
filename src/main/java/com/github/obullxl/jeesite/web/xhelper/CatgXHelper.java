@@ -6,6 +6,7 @@ package com.github.obullxl.jeesite.web.xhelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,8 @@ import org.springframework.stereotype.Component;
 import com.github.obullxl.jeesite.dal.dao.CatgDAO;
 import com.github.obullxl.jeesite.dal.dto.CatgDTO;
 import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
-import com.github.obullxl.lang.xhelper.AbstractXHelper;
+import com.github.obullxl.lang.timer.AbstractTickTimer;
+import com.github.obullxl.lang.xhelper.XHelper;
 
 /**
  * 主题分类X工具
@@ -29,7 +31,7 @@ import com.github.obullxl.lang.xhelper.AbstractXHelper;
  * @version $Id: CatgXHelper.java, V1.0.1 2013年12月13日 下午1:09:17 $
  */
 @Component("catgXHelper")
-public class CatgXHelper extends AbstractXHelper implements InitializingBean {
+public class CatgXHelper extends AbstractTickTimer implements XHelper, InitializingBean {
     /** 缓存对象 */
     private static final List<CatgDTO>      roots = new ArrayList<CatgDTO>();
     private static final Map<Long, CatgDTO> catgs = new ConcurrentHashMap<Long, CatgDTO>();
@@ -38,10 +40,31 @@ public class CatgXHelper extends AbstractXHelper implements InitializingBean {
     @Autowired
     private CatgDAO                         catgDAO;
 
+    /**
+     * 初始化
+     */
+    public CatgXHelper() {
+        super.setInterval(1 * 60 * 1000);
+    }
+
     /** 
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */
     public void afterPropertiesSet() {
+        this.refresh();
+    }
+
+    /** 
+     * @see com.github.obullxl.lang.xhelper.XHelper#findHelperName()
+     */
+    public String findHelperName() {
+        return this.getClass().getSimpleName();
+    }
+
+    /** 
+     * @see com.github.obullxl.lang.timer.AbstractTickTimer#tickInternal(java.util.Date)
+     */
+    public void tickInternal(Date start) {
         this.refresh();
     }
 
@@ -99,7 +122,7 @@ public class CatgXHelper extends AbstractXHelper implements InitializingBean {
     /**
      * 获取分类名称
      */
-    public static String findCatgName(long id) {
+    public static String findName(long id) {
         CatgDTO catg = catgs.get(id);
         if (catg != null) {
             return catg.getName();
@@ -163,6 +186,21 @@ public class CatgXHelper extends AbstractXHelper implements InitializingBean {
     }
 
     /**
+     * 获取所有分类ID
+     */
+    public static List<Long> findAllCatgID(long id) {
+        Set<Long> ids = new HashSet<Long>();
+        ids.add(id);
+
+        List<CatgDTO> catgs = findAllChildren(id);
+        for (CatgDTO catg : catgs) {
+            ids.add(catg.getId());
+        }
+
+        return new ArrayList<Long>(ids);
+    }
+
+    /**
      * 获取所有下属分类
      */
     public static List<CatgDTO> findAllChildren(long id) {
@@ -189,9 +227,9 @@ public class CatgXHelper extends AbstractXHelper implements InitializingBean {
     }
 
     /**
-     * 获取所有分类信息
+     * 获取缓存中所有分类信息
      */
-    public static List<CatgDTO> findAllCatgs() {
+    public static List<CatgDTO> findAll() {
         return new ArrayList<CatgDTO>(catgs.values());
     }
 

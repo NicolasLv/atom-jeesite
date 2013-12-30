@@ -1,3 +1,6 @@
+/**
+ * obullxl@gmail.com
+ */
 package com.github.obullxl.jeesite.dal.field;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,9 +20,13 @@ public enum UserFieldEnum implements EnumBase {
 	//
     UEMAIL(3, "uemail", "uemail"),
 	//
-    GMT_CREATE(4, "gmt_create", "gmt_create"),
+    UFLAG(4, "uflag", "uflag"),
 	//
-    GMT_MODIFY(5, "gmt_modify", "gmt_modify"),
+    UNICK(5, "unick", "unick"),
+	//
+    GMT_CREATE(6, "gmt_create", "gmt_create"),
+	//
+    GMT_MODIFY(7, "gmt_modify", "gmt_modify"),
     //
     ;
 

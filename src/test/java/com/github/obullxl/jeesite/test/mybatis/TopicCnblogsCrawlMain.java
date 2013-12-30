@@ -43,7 +43,7 @@ public class TopicCnblogsCrawlMain {
             TopicDTO topic = new TopicDTO();
 
             topic.setState("T");
-            topic.setCatg("blog");
+            topic.setCatg(3001);
             topic.setTflag("T");
             topic.setRflag("F");
             topic.setRfrom("");
@@ -61,7 +61,7 @@ public class TopicCnblogsCrawlMain {
             topic.setSummary(data.get(0).getSummary());
             topic.setContent(data.get(0).getContent());
 
-            long id = topicDAO.insert(topic);
+            String id = topicDAO.insert(topic);
             System.out.println(url + "-插入-" + "-ID: " + id);
         }
     }

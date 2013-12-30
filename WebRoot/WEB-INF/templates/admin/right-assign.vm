@@ -1,0 +1,105 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="分配权限 - 权限管理 - 后台管理")
+#set($user=$UserXHelper.findByUID($userId))
+#if($UserXHelper.isAdmin($user))
+    <div class="well well-small" #StyleMB0()><h3>用户[<strong class="color-red">$user.uname</strong>]为管理员，拥有所有的管理权限，无需额外分配任何权限！</h3></div>
+#else
+    <script type="text/javascript">
+    <!--
+    $(document).ready(function() {
+		var _url = "";
+    	$("button").click(function(e) {
+			var btnId = $(this).attr("id");
+			var rgtCode = $(this).data("rgt-code");
+			console.log("BtnID: " + btnId + ", RgtCode: " + rgtCode);
+			
+			$("#rgtCode").val(rgtCode);
+			if(btnId.indexOf("btn-grant") == 0) {
+				_url = "$ctx/admin/right/grant-${user.id}.html";
+				$("#right-assign-form").submit();
+			} else if(btnId.indexOf("btn-revoke") == 0) {
+				_url = "$ctx/admin/right/revoke-${user.id}.html";
+				$("#right-assign-form").submit();
+			}
+    	});
+		
+		$("#right-assign-form").submit(function(e) {
+        	e.preventDefault();
+        	ajaxRquest({
+        		form: "right-assign-form",
+        		url: _url,
+        		sclose: function() {
+        			location.href = location.href;
+        		}
+        	});
+        });
+    });
+    //-->
+    </script>
+	<form id="right-assign-form" class="hide">
+		<input id="rgtCode" name="rgtCode" type="text" />
+    </form>
+    <div class="well well-small">用户[<strong class="color-red">$user.uname</strong>]的权限</div>
+    <table class="table table-striped table-bordered table-hover">
+    	<thead>
+    		<tr>
+    			<th class="span1"><div class="text-center">#</div></th>
+    			<th>权限代码</th>
+    			<th>权限描述</th>
+    			<th>&nbsp;</th>
+    			<th>&nbsp;</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+			#set($urgts=$RgtXHelper.findUserRgts($user.uname))
+			#foreach($urgt in $urgts)
+    		<tr>
+    			<td><div class="text-center">$urgt.id</div></td>
+    			<td>$urgt.code</td>
+    			<td>$urgt.name</td>
+    			<td><div class="text-center">
+    			#if($RgtXHelper.isRgtEnum($urgt.code))
+    				<div class="color-green">已经配置</div>
+    			#else
+    				<div class="color-red">没有配置</div>
+    			#end
+                </div></td>
+    			<td><div class="pull-right"><button id="btn-revoke-${urgt.id}" data-rgt-code="${urgt.code}" class="btn btn-warning">取消</button></div></td>
+    		</tr>
+			#end
+    	</tbody>
+    </table>
+	
+	<div class="well well-small">可分配的权限</div>
+    <table class="table table-striped table-bordered table-hover" #StyleMB0()>
+    	<thead>
+    		<tr>
+    			<th class="span1"><div class="text-center">#</div></th>
+    			<th>权限代码</th>
+    			<th>权限描述</th>
+    			<th>&nbsp;</th>
+    			<th>&nbsp;</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+			#set($rgts=$RgtXHelper.findAll())
+			#foreach($rgt in $rgts)
+			#if(!$RgtXHelper.isRgtSet($rgt.code, $urgts))
+    		<tr>
+    			<td><div class="text-center">$rgt.id</div></td>
+    			<td>$rgt.code</td>
+    			<td>$rgt.name</td>
+    			<td><div class="text-center">
+    			#if($RgtXHelper.isRgtEnum($rgt.code))
+    				<div class="color-green">已经配置</div>
+    			#else
+    				<div class="color-red">没有配置</div>
+    			#end
+                </div></td>
+    			<td><div class="pull-right"><button id="btn-grant-${rgt.id}" data-rgt-code="${rgt.code}" class="btn btn-info">赋权</button></div></td>
+    		</tr>
+			#end
+			#end
+    	</tbody>
+    </table>
+#end

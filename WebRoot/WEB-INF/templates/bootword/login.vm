@@ -22,30 +22,89 @@
 }
 </style>
 #set($title="用户登录")
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#login-form").submit(function(e) {
+    	e.preventDefault();
+		jQuery.ajax({
+    		type: "POST",
+    		dataType: "json",
+    		url: "$ctx/login.html",
+    		data: $("#login-form").serialize(),
+    		success: function(rtn) {
+    			if(rtn.success) {
+    				if(rtn.bizData.gotoUrl) {
+        				top.location.href = rtn.bizData.gotoUrl;
+    				} else {
+    					top.location.href = "$ctx/admin/index.html";
+    				}
+    			} else {
+    				$("#tip-error-msg").html(rtn.respDesp);
+					$("#tip-error-msg").removeClass("hide");
+    			}
+    		}
+    	});
+    });
+	
+	$("#uname").change(function(e) {
+		if(!$("#tip-error-msg").hasClass("hide")) {
+			$("#tip-error-msg").addClass("hide");
+		}
+	});
+	
+	$("#passwd").change(function(e) {
+		if(!$("#tip-error-msg").hasClass("hide")) {
+			$("#tip-error-msg").addClass("hide");
+		}
+	});
+	
+	$("#regist-form").submit(function(e) {
+    	e.preventDefault();
+		alert("对不起，本系统未开放用户注册，请联系系统管理员，谢谢！");
+	});
+});
+</script>
 <div class="container">
 	<div class="row">
-		<div class="span5">
-			<form id="login-form" name="login-form" method="post" class="form-horizontal form-well">
+		<div class="span6">
+			<form id="login-form" name="login-form" class="form-horizontal form-well">
 				<h3>系统登录</h3>
-#if($result && !$result.success)
-				<div class="alert alert-error">$result.respDesp</div>
-#else
-	#if($result && $result.success)
-    <script type="text/javascript">
-    	top.location.href = "$ctx/admin/index.html";
-    </script>
-	#end
-#end
+				<div id="tip-error-msg" class="alert alert-error hide">&nbsp;</div>
 				<div class="control-group">
 					<label for="uname"><span class="icon-chevron-right"></span> 用户名：</label>
-					<input id="uname" name="uname" class="span3" type="text" required="required" />
+					<input id="uname" name="uname" class="span4" type="text" required="required" />
 				</div>
 				<div class="control-group">
 					<label for="passwd"><span class="icon-chevron-right"></span> 登录密码：</label>
-					<input id="passwd" name="passwd" class="span3" type="password" required="required" />
+					<input id="passwd" name="passwd" class="span4" type="password" required="required" />
 				</div>
 				<div>
 					<button type="submit" class="btn btn-primary">登录系统</button>
+				</div>
+				<div class="clearfix"></div>
+			</form>
+		</div>
+		<div class="span6 pull-right">
+			<form id="regist-form" name="regist-form" class="form-horizontal form-well">
+				<h3>新用户注册</h3>
+				<div class="control-group">
+					<label for="uname"><span class="icon-chevron-right"></span> 用户名：</label>
+					<input id="uname" name="uname" class="span4" type="text" required="required" />
+				</div>
+				<div class="control-group">
+					<label for="passwd"><span class="icon-chevron-right"></span> 登录密码：</label>
+					<input id="passwd" name="passwd" class="span4" type="password" required="required" />
+				</div>
+				<div class="control-group">
+					<label for="passwd2"><span class="icon-chevron-right"></span> 确认登录密码：</label>
+					<input id="passwd2" name="passwd2" class="span4" type="password" required="required" />
+				</div>
+				<div class="control-group">
+					<label for="uemail"><span class="icon-chevron-right"></span> 电子邮箱：</label>
+					<input id="uemail" name="uemail" class="span4" type="email" required="required" />
+				</div>
+				<div>
+					<button type="submit" class="btn btn-primary">用户注册</button>
 				</div>
 				<div class="clearfix"></div>
 			</form>

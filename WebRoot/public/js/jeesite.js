@@ -39,7 +39,7 @@ function showFailureTip(result) {
 function showSuccessTip(result) {
 	var cfn = function() {
 	};
-	
+
 	if(result.close) {
 		cfn = result.close;
 	}
@@ -50,4 +50,42 @@ function showSuccessTip(result) {
 		content: result.msg,
 		close: cfn
 	});
-}
+};
+
+/**
+ * 发起Ajax请求 <p/> 必须参数: form, url; <br/>可选参数: smsg, sclose, scallback
+ */
+function ajaxRquest(args) {
+	var smsg = "恭喜您，操作成功！";
+	if(args["smsg"]) {
+		smsg = args["smsg"];
+	}
+
+	var sclose = function() {
+	};
+	if(args["sclose"]) {
+		sclose = args["sclose"];
+	}
+
+	jQuery.ajax({
+		type: "POST",
+		dataType: "json",
+		url: args["url"],
+		data: $("#" + args["form"]).serialize(),
+		
+		success: function(result) {
+			if(result.success) {
+				showSuccessTip({
+					msg: smsg,
+					close: sclose(result)
+				});
+			} else {
+				showFailureTip(result);
+			}
+			
+			if(args["scallback"]) {
+				args["scallback"](result);
+			}
+		}
+	});
+};

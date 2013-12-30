@@ -4,6 +4,7 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,10 @@ public class HomePageController extends AbstractController {
         this.setWebData("catg", catg);
         this.setWebData("page", page);
 
+        if(StringUtils.equals(catg, "album")) {
+            return this.toFrontView("/album");
+        }
+        
         return this.toFrontView("/index");
     }
 
@@ -50,7 +55,7 @@ public class HomePageController extends AbstractController {
      * 主题详情页面
      */
     @RequestMapping("/topic/{catg}-{id}.html")
-    public String topicDetail(@PathVariable String catg, @PathVariable int id) {
+    public String topicDetail(@PathVariable String catg, @PathVariable String id) {
         this.setWebData("catg", catg);
         this.setWebData("topicId", id);
 
@@ -78,7 +83,7 @@ public class HomePageController extends AbstractController {
         this.replyDAO.insert(reply);
 
         // 更新主题评论次数
-        this.topicDAO.updateReply(Long.parseLong(topic), 1);
+        this.topicDAO.updateReply(topic, 1);
 
         // 页面跳转
         return this.redirectTo(ufrom);

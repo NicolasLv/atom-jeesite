@@ -27,7 +27,7 @@ public class TopicBatchInitMain {
     public static void main(String[] args) {
         @SuppressWarnings("resource")
         ApplicationContext context = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/*.xml");
-        
+
         TopicDAO topicDAO = context.getBean(TopicDAO.class);
 
         for (String catg : Arrays.asList("blog", "news", "album", "misc")) {
@@ -35,7 +35,7 @@ public class TopicBatchInitMain {
                 TopicDTO topic = new TopicDTO();
 
                 topic.setState("T");
-                topic.setCatg(catg);
+                topic.setCatg(3001);
                 topic.setTflag("T");
                 topic.setRflag("F");
                 topic.setRfrom("");
@@ -52,7 +52,7 @@ public class TopicBatchInitMain {
                 topic.setSummary(ucatg + "-测试摘要-" + idx);
                 topic.setContent(ucatg + "-测试内容-" + idx);
 
-                long id = topicDAO.insert(topic);
+                String id = topicDAO.insert(topic);
                 System.out.println(ucatg + "-插入-" + idx + "-ID: " + id);
             }
         }

@@ -11,10 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.utils.MD5Utils;
+import com.github.obullxl.lang.utils.TextUtils;
 
 /**
  * 用户后台管理控制器
@@ -38,13 +40,13 @@ public class UserMngtController extends AbstractController {
      * 新增用户
      */
     @RequestMapping(value = "/user/create.html", method = RequestMethod.GET)
-    public String userCreate() {
+    public String create() {
         return this.toAdminView(VOPT_USER_CREATE, "user-create");
     }
 
     @ResponseBody
     @RequestMapping(value = "/user/create.html", method = RequestMethod.POST)
-    public BizResponse userCreate(String uname, String passwd, String passwd2, String uemail) {
+    public BizResponse create(String uname, String passwd, String passwd2, String uemail) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -92,7 +94,7 @@ public class UserMngtController extends AbstractController {
      * 更新用户
      */
     @RequestMapping(value = "/user/update-{id}.html", method = RequestMethod.GET)
-    public String topicModify(@PathVariable long id) {
+    public String update(@PathVariable long id) {
         this.setWebData("userId", id);
 
         return this.toAdminView(VOPT_USER_MANAGE, "user-update");
@@ -100,7 +102,7 @@ public class UserMngtController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/user/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse topicUpdate(@PathVariable long id, String uname, String passwd, String passwd2, String uemail) {
+    public BizResponse update(@PathVariable long id, String uname, String passwd, String passwd2, String uemail) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -114,6 +116,140 @@ public class UserMngtController extends AbstractController {
             this.userDAO.update(user);
         } catch (Exception e) {
             logger.error("修改用户异常!", e);
+            this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
+        }
+
+        // JSON返回
+        return response;
+    }
+
+    /**
+     * 修改用户信息
+     */
+    @RequestMapping(value = "/user/cinfo-{id}.html", method = RequestMethod.GET)
+    public String cinfo(@PathVariable long id) {
+        this.setWebData("userId", id);
+
+        return this.toAdminView(VOPT_USER_CINFO, "user-cinfo");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/cinfo-{id}.html", method = RequestMethod.POST)
+    public BizResponse cinfo(@PathVariable long id, String unick) {
+        this.setWebData("userId", id);
+
+        // 操作结果
+        BizResponse response = this.newBizResponse();
+
+        try {
+            // 查找
+            UserDTO user = this.userDAO.find(id);
+            if (user == null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
+                return response;
+            }
+
+            // 长度
+            unick = StringUtils.trimToEmpty(unick);
+            user.setUnick(TextUtils.truncate(unick, DBSize.User.UNICK_MAX));
+
+            // 更新
+            this.userDAO.update(user);
+        } catch (Exception e) {
+            logger.error("修改登录用户基本信息异常!", e);
+            this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
+        }
+
+        // JSON返回
+        return response;
+    }
+
+    /**
+     * 修改用户邮箱
+     */
+    @RequestMapping(value = "/user/cemail-{id}.html", method = RequestMethod.GET)
+    public String cemail(@PathVariable long id) {
+        this.setWebData("userId", id);
+
+        return this.toAdminView(VOPT_USER_CEMAIL, "user-cemail");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/cemail-{id}.html", method = RequestMethod.POST)
+    public BizResponse cemail(@PathVariable long id, String uemail) {
+        this.setWebData("userId", id);
+
+        // 操作结果
+        BizResponse response = this.newBizResponse();
+
+        try {
+            // 查找
+            UserDTO user = this.userDAO.find(id);
+            if (user == null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
+                return response;
+            }
+
+            // 长度
+            uemail = StringUtils.trimToEmpty(uemail);
+            user.setUemail(TextUtils.truncate(uemail, DBSize.User.UEMAIL_MAX));
+
+            // 更新
+            this.userDAO.update(user);
+        } catch (Exception e) {
+            logger.error("修改登录用户电子邮箱异常!", e);
+            this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
+        }
+
+        // JSON返回
+        return response;
+    }
+
+    /**
+     * 修改用户密码
+     */
+    @RequestMapping(value = "/user/cpasswd-{id}.html", method = RequestMethod.GET)
+    public String cpasswd(@PathVariable long id) {
+        this.setWebData("userId", id);
+
+        return this.toAdminView(VOPT_USER_CPASSWD, "user-cpasswd");
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/user/cpasswd-{id}.html", method = RequestMethod.POST)
+    public BizResponse cpasswd(@PathVariable long id, String opasswd, String passwd, String passwd2) {
+        this.setWebData("userId", id);
+
+        // 操作结果
+        BizResponse response = this.newBizResponse();
+
+        try {
+            // 查找
+            UserDTO user = this.userDAO.find(id);
+            if (user == null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
+                return response;
+            }
+
+            // 原密码
+            if (!StringUtils.equals(user.getPasswd(), MD5Utils.digest(opasswd))) {
+                this.buildResponse(response, BizResponseEnum.INVALID_PASSWD);
+                return response;
+            }
+
+            // 新密码
+            if (!StringUtils.equals(passwd, passwd2)) {
+                this.buildResponse(response, BizResponseEnum.INVALID_PASSWD);
+                return response;
+            }
+
+            // 长度
+            user.setPasswd(MD5Utils.digest(passwd));
+
+            // 更新
+            this.userDAO.update(user);
+        } catch (Exception e) {
+            logger.error("修改登录用户密码异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
         }
 

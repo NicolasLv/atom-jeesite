@@ -6,4 +6,7 @@
 	<!-- ============================= -->
 	<bean class="com.github.obullxl.lang.xhelper.XHelperBean" />
 
+	<!-- Theme组件 -->
+	<bean id="themeXHelper" class="com.github.obullxl.lang.xhelper.ThemeXHelper" />
+
 </beans>

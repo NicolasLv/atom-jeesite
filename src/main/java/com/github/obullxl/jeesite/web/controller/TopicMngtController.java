@@ -4,6 +4,11 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,7 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
+import com.github.obullxl.jeesite.dal.query.TopicQuery;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
+import com.github.obullxl.jeesite.web.form.TopicQueryForm;
+import com.github.obullxl.jeesite.web.result.TopicPageList;
+import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.lang.Paginator;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.utils.TextUtils;
 
@@ -31,53 +41,69 @@ public class TopicMngtController extends AbstractController {
      */
     @RequestMapping("/topic/index.htm")
     public String indexHtm() {
-        return this.mngtCatgPage("index", 1);
+        return this.manage(new TopicQueryForm());
     }
 
     @RequestMapping("/topic/index.html")
     public String indexHtml() {
-        return this.mngtCatgPage("index", 1);
+        return this.manage(new TopicQueryForm());
     }
 
     /**
      * 主题管理
      */
     @RequestMapping("/topic/manage.html")
-    public String manage() {
-        return this.mngtCatgPage("index", 1);
-    }
+    public String manage(@Valid TopicQueryForm form) {
+        if (StringUtils.isBlank(form.getFormCatg()) || StringUtils.isBlank(form.getTpcId())) {
+            form.setFormCatg(TopicQueryForm.FUZZY);
+        }
 
-    @RequestMapping("/topic/manage-{catg}-{page}.html")
-    public String mngtCatgPage(@PathVariable String catg, @PathVariable int page) {
-        this.setWebData("catg", catg);
-        this.setWebData("page", page);
+        if (form.getPage() < 1) {
+            form.setPage(1);
+        }
 
+        if (logger.isInfoEnabled()) {
+            logger.info("[主题管理]-Web查询条件-{}.", form);
+        }
+
+        TopicQuery query = form.to();
+        query.setPageSize(CfgXHelper.findMngtPageSize());
+
+        // 统计
+        int count = (int) this.topicDAO.findFuzzyCount(query);
+        Paginator pager = new Paginator(query.getPageSize(), count);
+        pager.setPageNo(form.getPage());
+
+        query.setOffset(pager.getOffset());
+
+        if (logger.isInfoEnabled()) {
+            logger.info("[主题管理]-DB查询条件-{}.", query);
+        }
+
+        // 明细
+        List<TopicDTO> topics = null;
+        if (count <= 0) {
+            topics = new ArrayList<TopicDTO>();
+        } else {
+            topics = this.topicDAO.findFuzzy(query);
+        }
+
+        // 返回
+        this.setWebData("form", form).setWebData("topicPageList", new TopicPageList(pager, topics));
         return this.toAdminView(VOPT_TOPIC_MANAGE, "topic-manage");
-    }
-
-    /**
-     * 删除主题
-     */
-    @RequestMapping("/topic/delete-{catg}-{page}-{id}.html")
-    public String delete(@PathVariable String catg, @PathVariable int page, @PathVariable long id) {
-        // 删除
-        this.replyDAO.deleteTopic(Long.toString(id));
-        this.topicDAO.delete(id);
-
-        return this.mngtCatgPage(catg, page);
     }
 
     /**
      * 新增主题
      */
     @RequestMapping(value = "/topic/create.html", method = RequestMethod.GET)
-    public String topicCreate() {
+    public String create() {
         return this.toAdminView(VOPT_TOPIC_CREATE, "topic-create");
     }
 
     @ResponseBody
     @RequestMapping(value = "/topic/create.html", method = RequestMethod.POST)
-    public BizResponse topicCreate(String catg, String title, String summary, String content) {
+    public BizResponse create(long catg, String title, String summary, String content) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -94,8 +120,8 @@ public class TopicMngtController extends AbstractController {
             topic.setContent(content);
 
             // 新增
-            long id = this.topicDAO.insert(topic);
-            response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(id));
+            String id = this.topicDAO.insert(topic);
+            response.getBizData().put(BizResponse.BIZ_ID_KEY, id);
         } catch (Exception e) {
             logger.error("新增主题异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -109,7 +135,7 @@ public class TopicMngtController extends AbstractController {
      * 更新主题
      */
     @RequestMapping(value = "/topic/update-{id}.html", method = RequestMethod.GET)
-    public String topicModify(@PathVariable long id) {
+    public String update(@PathVariable String id) {
         this.setWebData("topicId", id);
 
         return this.toAdminView(VOPT_TOPIC_MANAGE, "topic-update");
@@ -117,7 +143,7 @@ public class TopicMngtController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/topic/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse topicUpdate(@PathVariable long id, String catg, String title, String summary, String content) {
+    public BizResponse update(@PathVariable String id, long catg, String title, String summary, String content) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -142,4 +168,24 @@ public class TopicMngtController extends AbstractController {
         return response;
     }
 
+
+    /**
+     * 删除主题
+     */
+    @ResponseBody
+    @RequestMapping(value = "/topic/delete.html", method = RequestMethod.POST)
+    public BizResponse delete(String id) {
+        BizResponse response = this.newBizResponse();
+
+        try {
+            this.replyDAO.deleteTopic(id);
+            this.topicDAO.delete(id);
+        } catch (Exception e) {
+            logger.error("删除主题异常!", e);
+            this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
+        }
+
+        return response;
+    }
+    
 }
