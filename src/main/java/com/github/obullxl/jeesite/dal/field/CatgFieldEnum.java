@@ -14,17 +14,19 @@ public enum CatgFieldEnum implements EnumBase {
 	//
     ID(0, "id", "id"),
 	//
-    TOP(1, "top", "top"),
+    CODE(1, "code", "code"),
 	//
-    CATG(2, "catg", "catg"),
+    TOP(2, "top", "top"),
 	//
-    SORT(3, "sort", "sort"),
+    CATG(3, "catg", "catg"),
 	//
-    NAME(4, "name", "name"),
+    SORT(4, "sort", "sort"),
 	//
-    GMT_CREATE(5, "gmt_create", "gmt_create"),
+    NAME(5, "name", "name"),
 	//
-    GMT_MODIFY(6, "gmt_modify", "gmt_modify"),
+    GMT_CREATE(6, "gmt_create", "gmt_create"),
+	//
+    GMT_MODIFY(7, "gmt_modify", "gmt_modify"),
     //
     ;
 

@@ -8,6 +8,7 @@ package com.github.obullxl.jeesite.dal.dto;
 	import org.apache.commons.lang.StringUtils;
 	import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
 
+
 /**
  * A data object class directly models database table <tt>atom_config</tt>.
  */
@@ -45,6 +46,7 @@ public class ConfigDTO extends BaseDTO {
             return scatg.compareTo(dcatg);
         }
     };
+
 
 	/** column:id */
 	private long id;

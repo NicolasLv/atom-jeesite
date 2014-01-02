@@ -4,6 +4,8 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,7 +67,13 @@ public class CatgMngtController extends AbstractController {
                 return response;
             }
 
-            CatgDTO catg = this.catgDAO.findName(form.getCatgName());
+            CatgDTO catg = this.catgDAO.findCode(form.getCatgCode());
+            if (catg != null) {
+                this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
+                return response;
+            }
+
+            catg = this.catgDAO.findName(form.getCatgName());
             if (catg != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
@@ -73,8 +81,9 @@ public class CatgMngtController extends AbstractController {
 
             // 新增
             catg = new CatgDTO();
-            catg.setCatg(form.getCatgCatg());
+            catg.setCode(form.getCatgCode());
             catg.setTop(TrueFalseEnum.findDefault(form.getCatgTop()).code());
+            catg.setCatg(form.getCatgCatg());
             catg.setSort(Math.abs(form.getCatgSort()));
             catg.setName(form.getCatgName());
 
@@ -103,23 +112,34 @@ public class CatgMngtController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/catg/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse update(@PathVariable long id, long catgCatg, String catgTop, long catgSort, String catgName) {
+    public BizResponse update(@PathVariable long id, @Valid CatgForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
+            // 校验
+            if (errors.hasErrors()) {
+                this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
+                return response;
+            }
+
             // 查询
             CatgDTO catg = this.catgDAO.find(id);
             if (catg == null) {
-                this.buildResponse(response, BizResponseEnum.CATG_NOT_EXIST);
+                this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
             }
 
             // 更新
-            catg.setCatg(catgCatg);
-            catg.setTop(TrueFalseEnum.findDefault(catgTop).code());
-            catg.setSort(catgSort);
-            catg.setName(catgName);
+            catg.setCode(form.getCatgCode());
+            catg.setTop(TrueFalseEnum.findDefault(form.getCatgTop()).code());
+
+            if (form.getCatgCatg() != catg.getId()) {
+                catg.setCatg(form.getCatgCatg());
+            }
+
+            catg.setSort(form.getCatgSort());
+            catg.setName(form.getCatgName());
 
             this.catgDAO.update(catg);
 
@@ -138,8 +158,8 @@ public class CatgMngtController extends AbstractController {
      * 删除分类
      */
     @ResponseBody
-    @RequestMapping(value = "/catg/delete-{id}.html", method = RequestMethod.POST)
-    public BizResponse delete(@PathVariable long id) {
+    @RequestMapping(value = "/catg/delete.html", method = RequestMethod.POST)
+    public BizResponse delete(long id) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -157,14 +177,15 @@ public class CatgMngtController extends AbstractController {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
-            
+
             // 校验: 没有主题信息
-            TopicDTO topic = this.topicDAO.findCatgOne(Long.toString(id));
-            if(topic != null) {
+            List<String> codes = CatgXHelper.findAllCatgCode(id);
+            TopicDTO topic = this.topicDAO.findCatgOne(codes);
+            if (topic != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
-            
+
             // 执行删除操作
             this.catgDAO.delete(id);
 

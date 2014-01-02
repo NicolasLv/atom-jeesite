@@ -9,24 +9,10 @@ $(document).ready(function() {
 	
 	$("#catg-form").submit(function(e) {
 		e.preventDefault();
-		jQuery.ajax({
-			type: "POST",
-			dataType: "json",
-			url: "$ctx/admin/catg/update-${catg.id}.html",
-			data: $("#catg-form").serialize(),
-			success: function(result) {
-				if(result.success) {
-					showSuccessTip({
-						msg:"恭喜您，分类新增成功！",
-						close: function(){
-                			location.href = "$ctx/admin/catg/update-${catg.id}.html";
-                		}
-					});
-				} else {
-					showFailureTip(result);
-				}
-			}
-		});
+		ajaxRquest({
+    		form: "catg-form",
+    		url: "$ctx/admin/catg/update-${catg.id}.html"
+    	});
 	});
 });
 //-->
@@ -38,8 +24,9 @@ $(document).ready(function() {
 		<li><span class="divider">/</span></li>
     	<li>分类管理</li>
 		<li><span class="divider">/</span></li>
-    	<li id="form-opt-name">修改分类</li>
+    	<li class="active">修改分类</li>
     </ul>
+	<input type="hidden" id="catgId" name="catgId" value="$catg.id" />
 	<input type="hidden" id="catgCatg" name="catgCatg" value="$catg.catg" />
 	<div class="control-group">
 		<label for="catgText"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
@@ -47,6 +34,10 @@ $(document).ready(function() {
 			<input type="text" id="catgText" name="catgText" class="span12" readonly="readonly" placeholder="上级分类名称" />
 			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
         </div>
+	</div>
+	<div class="control-group">
+		<label for="catgCode"><span class="icon-chevron-right"></span><strong>分类代码</strong>-唯一，必输项！</label>
+		<input type="text" id="catgCode" name="catgCode" value="$catg.code" class="span4" required="required" placeholder="blog" />
 	</div>
 	<div class="control-group">
 		<label for="catgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>

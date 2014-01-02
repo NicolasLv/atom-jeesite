@@ -24,7 +24,7 @@ public interface TopicDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>insert into atom_topic(id,state,catg,tflag,rflag,rfrom,mflag,mpath,mcount,treply,visit,reply,title,summary,content,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</tt>
+	 *  <tt>insert into atom_topic(id,flag,catg,link_url,media_url,visit_cnt,reply_cnt,title,summary,content,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</tt>
 	 *
 	 *	@param topic
 	 *	@return String
@@ -64,46 +64,18 @@ public interface TopicDAO extends BaseDAO {
 	 *  The sql statement for this operation is <br>
 	 *  <tt>select * from atom_topic where (catg = 'catg')</tt>
 	 *
-	 *	@param value
+	 *	@param catgs
 	 *	@return TopicDTO
 	 *	@throws DataAccessException
 	 */	 
-    public TopicDTO findCatgOne(String value) throws DataAccessException;
+    public TopicDTO findCatgOne(List catgs) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_topic</tt> for records.
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>select * from atom_topic where (catg = 'CATG')</tt>
-	 *
-	 *	@param catg
-	 *	@param offset
-	 *	@param limit
-	 *	@return List<TopicDTO>
-	 *	@throws DataAccessException
-	 */	 
-    public List<TopicDTO> findCatgPage(String catg, int offset, int limit) throws DataAccessException;
-
-	/**
-	 *  Query DB table <tt>atom_topic</tt> for records.
-	 *
-	 *  <p>
-	 *  The sql statement for this operation is <br>
-	 *  <tt>select COUNT(*) from atom_topic where (catg = 'CATG')</tt>
-	 *
-	 *	@param value
-	 *	@return long
-	 *	@throws DataAccessException
-	 */	 
-    public long findCatgPageCount(String value) throws DataAccessException;
-
-	/**
-	 *  Query DB table <tt>atom_topic</tt> for records.
-	 *
-	 *  <p>
-	 *  The sql statement for this operation is <br>
-	 *  <tt>select * from atom_topic where ((id = 'ID') AND (state = 'STATE') AND (catg = 'CATG') AND (title = 'TITLE'))</tt>
+	 *  <tt>select * from atom_topic where ((id = 'ID') AND (catg = 'CATG') AND (title = 'TITLE'))</tt>
 	 *
 	 *	@param args
 	 *	@return List<TopicDTO>
@@ -116,7 +88,7 @@ public interface TopicDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>select COUNT(*) from atom_topic where ((id = 'ID') AND (state = 'STATE') AND (catg = 'CATG') AND (title = 'TITLE'))</tt>
+	 *  <tt>select COUNT(*) from atom_topic where ((id = 'ID') AND (catg = 'CATG') AND (title = 'TITLE'))</tt>
 	 *
 	 *	@param args
 	 *	@return long
@@ -131,12 +103,12 @@ public interface TopicDAO extends BaseDAO {
 	 *  The sql statement for this operation is <br>
 	 *  <tt>select * from atom_topic where (catg = 'CATG')</tt>
 	 *
-	 *	@param catg
+	 *	@param catgs
 	 *	@param size
 	 *	@return List<TopicDTO>
 	 *	@throws DataAccessException
 	 */	 
-    public List<TopicDTO> findTopVisit(String catg, int size) throws DataAccessException;
+    public List<TopicDTO> findTopVisit(List catgs, int size) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_topic</tt> for records.
@@ -145,19 +117,19 @@ public interface TopicDAO extends BaseDAO {
 	 *  The sql statement for this operation is <br>
 	 *  <tt>select * from atom_topic where (catg = 'CATG')</tt>
 	 *
-	 *	@param catg
+	 *	@param catgs
 	 *	@param size
 	 *	@return List<TopicDTO>
 	 *	@throws DataAccessException
 	 */	 
-    public List<TopicDTO> findTopReply(String catg, int size) throws DataAccessException;
+    public List<TopicDTO> findTopReply(List catgs, int size) throws DataAccessException;
 
 	/**
 	 *  Update DB table <tt>atom_topic</tt>.
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>update atom_topic set catg=?, tflag=?, rflag=?, rfrom=?, mflag=?, mpath=?, treply=?, title=?, summary=?, content=? where (id = ?)</tt>
+	 *  <tt>update atom_topic set flag=?, catg=?, link_url=?, media_url=?, title=?, summary=?, content=? where (id = ?)</tt>
 	 *
 	 *	@param topic
 	 *	@return int
@@ -170,7 +142,7 @@ public interface TopicDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>update atom_topic set visit='visit+1', gmt_modify='NOW' where (id = '1')</tt>
+	 *  <tt>update atom_topic set visit_cnt='visit+1', gmt_modify='NOW' where (id = '1')</tt>
 	 *
 	 *	@param id
 	 *	@param count
@@ -184,7 +156,7 @@ public interface TopicDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>update atom_topic set reply='reply+1', gmt_modify='NOW' where (id = '1')</tt>
+	 *  <tt>update atom_topic set reply_cnt='reply+1', gmt_modify='NOW' where (id = '1')</tt>
 	 *
 	 *	@param id
 	 *	@param count

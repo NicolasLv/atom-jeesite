@@ -1,0 +1,18 @@
+#set($title="系统参数设置")
+<form action="${ctx}/install/install.html" method="post">
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>系统安装</li>
+		<li><span class="divider">/</span></li>
+    	<li class="active">系统参数设置</li>
+    </ul>
+	<textarea rows="20" id="args" name="args" class="span12" style="font-family:courier new,courier;font-size:14px;">
+DB_HOST=${MOPAAS_MYSQL5739_HOST}
+DB_PORT=${MOPAAS_MYSQL5739_PORT}
+DB_NAME=${MOPAAS_MYSQL5739_NAME}
+DB_USERNAME=${MOPAAS_MYSQL5739_USERNAME}
+DB_PASSWORD=${MOPAAS_MYSQL5739_PASSWORD}
+	</textarea>
+	<br/>
+    <button type="submit" class="btn btn-info">提交参数</button>
+</form>

@@ -6,6 +6,7 @@ package com.github.obullxl.jeesite.dal.dto;
 
 	import com.github.obullxl.jeesite.flag.UserBitFlag;
 
+
 /**
  * A data object class directly models database table <tt>atom_user</tt>.
  */
@@ -32,6 +33,7 @@ public class UserDTO extends BaseDTO {
     public void resetBitFlag() {
         this.bitFlag = null;
     }
+
 
 	/** column:id */
 	private long id;

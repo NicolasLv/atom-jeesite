@@ -16,15 +16,11 @@
 	<!-- ================================ -->
 	<!-- JDBC配置 -->
 	<!-- ================================ -->
-	<entry key="jdbcDriver">com.mysql.jdbc.Driver</entry>
-	<entry key="jdbcUrl"><![CDATA[jdbc:mysql://localhost:3306/osnode?useUnicode=true&amp;characterEncoding=UTF8]]></entry>
-	<entry key="jdbcUserName">osnode</entry>
-	<entry key="jdbcPassword">site</entry>
-	<entry key="jdbcInitialSize">1</entry>
-	<entry key="jdbcMinIdle">1</entry>
-	<entry key="jdbcMaxIdle">2</entry>
-	<entry key="jdbcMaxActive">3</entry>
-	<entry key="jdbcDefaultAutoCommit">true</entry>
+	<entry key="MOPAAS_MYSQL5739_HOST">127.0.0.1</entry>
+	<entry key="MOPAAS_MYSQL5739_PORT">3306</entry>
+	<entry key="MOPAAS_MYSQL5739_NAME">osnode</entry>
+	<entry key="MOPAAS_MYSQL5739_USERNAME">osnode</entry>
+	<entry key="MOPAAS_MYSQL5739_PASSWORD">site</entry>
 
 	<!-- ================================ -->
 	<!-- 框架配置 -->

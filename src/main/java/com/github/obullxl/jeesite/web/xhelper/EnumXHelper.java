@@ -26,7 +26,7 @@ public class EnumXHelper extends AbstractXHelper {
      * 主题状态枚举
      */
     public static final TopicStateEnum toTopicStateEnum(String state) {
-        return TopicStateEnum.findByCode(state);
+        return TopicStateEnum.findDefault(state);
     }
 
     /**

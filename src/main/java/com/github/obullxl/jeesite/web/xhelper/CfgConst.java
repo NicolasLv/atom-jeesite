@@ -17,13 +17,22 @@ public interface CfgConst {
      */
     public static interface SYSTEM {
         // 
-        public static final String CATG           = "system";
+        public static final String CATG            = "system";
 
         // 是否展示广告
-        public static final String SHOW_ADS       = "show_ads";
+        public static final String SHOW_ADS        = "show_ads";
 
         // 后台分页大小
-        public static final String MNGT_PAGE_SIZE = "mngt_page_size";
+        public static final String MNGT_PAGE_SIZE  = "mngt_page_size";
+
+        // 前台排行榜大小
+        public static final String FRONT_TOP_SIZE  = "front_top_size";
+
+        // 前台分页大小
+        public static final String FRONT_PAGE_SIZE = "front_page_size";
+
+        // 数据同步主机
+        public static final String DATA_SYNC_HOST  = "data_sync_host";
     }
 
 }

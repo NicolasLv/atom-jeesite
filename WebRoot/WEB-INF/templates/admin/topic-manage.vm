@@ -46,13 +46,29 @@ $(document).ready(function() {
 		}
 	});
 	
+	/** 同步 */
+	$("button").click(function(e) {
+		var btnId = $(this).attr("id");
+		if(btnId.indexOf("btn-sync-") == 0) {
+			e.preventDefault();
+			var tpcId = $(this).data("tpcid");
+			console.log("DataSync-BtnID: " + btnId + ", TpcID: " + tpcId);
+			
+        	jQuery.post("$ctx/data/sync/topic-apply.html", {id: tpcId}, function(rtn) {
+				if(!rtn.success) {
+					window.alert("同步失败-" + rtn.respDesp);
+				}
+			});
+		}
+	});
+	
 	/** 删除 */
 	$("button").click(function(e) {
 		var btnId = $(this).attr("id");
 		if(btnId.indexOf("btn-delete-") == 0) {
 			e.preventDefault();
 			var tpcId = $(this).data("tpcid");
-			console.log("BtnID: " + btnId + ", TpcID: " + tpcId);
+			console.log("TpcDelete-BtnID: " + btnId + ", TpcID: " + tpcId);
 			
             if (window.confirm("主题[" + tpcId + "]删除操作不可撤销，确定执行吗？")){
             	jQuery.post("$ctx/admin/topic/delete.html", {id: tpcId}, function(e) {
@@ -129,6 +145,7 @@ $(document).ready(function() {
 			#else
 				<a class="btn btn-info" href="$ctx/admin/topic/update-${topic.id}.html">编辑</a>
 			#end
+				<button type="button" id="btn-sync-${topic.id}" class="btn btn-success" data-tpcid="${topic.id}">同步</button>
 				<button type="button" id="btn-delete-${topic.id}" class="btn btn-danger" data-tpcid="${topic.id}">删除</button>
 			</div></td>
 		</tr>

@@ -14,37 +14,27 @@ public enum TopicFieldEnum implements EnumBase {
 	//
     ID(0, "id", "id"),
 	//
-    STATE(1, "state", "state"),
+    FLAG(1, "flag", "flag"),
 	//
     CATG(2, "catg", "catg"),
 	//
-    TFLAG(3, "tflag", "tflag"),
+    LINK_URL(3, "link_url", "link_url"),
 	//
-    RFLAG(4, "rflag", "rflag"),
+    MEDIA_URL(4, "media_url", "media_url"),
 	//
-    RFROM(5, "rfrom", "rfrom"),
+    VISIT_CNT(5, "visit_cnt", "visit_cnt"),
 	//
-    MFLAG(6, "mflag", "mflag"),
+    REPLY_CNT(6, "reply_cnt", "reply_cnt"),
 	//
-    MPATH(7, "mpath", "mpath"),
+    TITLE(7, "title", "title"),
 	//
-    MCOUNT(8, "mcount", "mcount"),
+    SUMMARY(8, "summary", "summary"),
 	//
-    TREPLY(9, "treply", "treply"),
+    CONTENT(9, "content", "content"),
 	//
-    VISIT(10, "visit", "visit"),
+    GMT_CREATE(10, "gmt_create", "gmt_create"),
 	//
-    REPLY(11, "reply", "reply"),
-	//
-    TITLE(12, "title", "title"),
-	//
-    SUMMARY(13, "summary", "summary"),
-	//
-    CONTENT(14, "content", "content"),
-	//
-    GMT_CREATE(15, "gmt_create", "gmt_create"),
-	//
-    GMT_MODIFY(16, "gmt_modify", "gmt_modify"),
+    GMT_MODIFY(11, "gmt_modify", "gmt_modify"),
     //
     ;
 

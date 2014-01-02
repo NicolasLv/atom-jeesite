@@ -4,6 +4,9 @@
  */
 package com.github.obullxl.jeesite.web.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 
 import com.github.obullxl.lang.enums.EnumBase;
@@ -20,9 +23,9 @@ public enum TopicStateEnum implements EnumBase {
     //
     AUDIT(2, "A", "审核"),
     //
-    DRAFT(2, "D", "草稿"),
+    DRAFT(3, "D", "草稿"),
     //
-    INVALID(3, "F", "无效"),
+    INVALID(4, "F", "无效"),
     //
     ;
 
@@ -37,20 +40,33 @@ public enum TopicStateEnum implements EnumBase {
     }
 
     /**
+     * 获取所有代码
+     */
+    public static final String[] findAllCodes() {
+        List<String> codes = new ArrayList<String>();
+
+        for (EnumBase enm : values()) {
+            codes.add(enm.code());
+        }
+
+        return codes.toArray(new String[0]);
+    }
+
+    /**
      * 初始状态
      */
-    public static final TopicStateEnum findInit() {
+    public static final TopicStateEnum findDefault() {
         return VALID;
     }
 
-    public static final TopicStateEnum findByCode(String code) {
+    public static final TopicStateEnum findDefault(String code) {
         for (TopicStateEnum enm : values()) {
             if (StringUtils.equalsIgnoreCase(enm.code(), code)) {
                 return enm;
             }
         }
 
-        return null;
+        return VALID;
     }
 
     /** 

@@ -22,12 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.jeesite.dal.dto.CrawlDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
+import com.github.obullxl.jeesite.dal.valve.TopicValve;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
+import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
+import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
+import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.github.obullxl.jeesite.web.enums.ValveBoolEnum;
 import com.github.obullxl.lang.MapExt;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.EnumBase;
+import com.github.obullxl.lang.utils.TextUtils;
 import com.github.obullxl.lang.web.WebContext;
 import com.github.obullxl.lang.web.crawl.CrawlData;
 import com.github.obullxl.lang.web.crawl.WebCrawler;
@@ -165,15 +172,28 @@ public class CrawlMngtController extends AbstractController {
                 List<CrawlData> datas = crawler.crawl(url, new HashMap<String, String>());
                 for (CrawlData data : datas) {
                     TopicDTO topic = this.newInitTopic();
-                    topic.setCatg(MapUtils.getLong(args, "topic.catg", 3001L));
-                    topic.setTitle(data.getTitle());
-                    topic.setSummary(data.getSummary());
-                    topic.setContent(data.getContent());
 
-                    topic.setTflag(MapUtils.getString(args, "topic.tflag", "F"));
-                    topic.setRflag(MapUtils.getString(args, "topic.rflag", "F"));
-                    topic.setRfrom(data.getUrl());
-                    topic.setTreply(MapUtils.getString(args, "topic.treply", "T"));
+                    TopicValve valve = topic.findValve();
+                    valve.sotState(TopicStateEnum.findDefault(MapUtils.getString(args, "topic.state")));
+                    valve.sotTop(ValveBoolEnum.is(MapUtils.getString(args, "topic.top")));
+                    valve.sotLink(ValveBoolEnum.is(MapUtils.getString(args, "topic.link")));
+                    valve.sotMedia(TopicMediaEnum.findDefault(MapUtils.getString(args, "topic.media")));
+                    valve.sotReply(TopicReplyEnum.findDefault(MapUtils.getString(args, "topic.reply")));
+                    
+                    topic.setFlag(valve.getValve());
+                    topic.setCatg(StringUtils.trimToEmpty(MapUtils.getString(args, "topic.catg")));
+                    topic.setLinkUrl(data.getUrl());
+                    topic.setMediaUrl(StringUtils.trimToEmpty(MapUtils.getString(args, "topic.media_url")));
+                    topic.setTitle(data.getTitle());
+                    
+                    if (StringUtils.isBlank(data.getSummary())) {
+                        data.setSummary(TextUtils.truncate(data.getContent(), DBSize.Topic.SUMMARY_MAX));
+                    } else {
+                        data.setSummary(TextUtils.truncate(data.getSummary(), DBSize.Topic.SUMMARY_MAX));
+                    }
+                    topic.setSummary(data.getSummary());
+                    
+                    topic.setContent(data.getContent());
 
                     if (logger.isInfoEnabled()) {
                         logger.info("解析URL-{}-{}.", url, data.getTitle());

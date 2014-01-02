@@ -22,7 +22,7 @@ public interface CatgDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>insert into atom_catg(id,top,catg,sort,name,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?, ?)</tt>
+	 *  <tt>insert into atom_catg(id,code,top,catg,sort,name,gmt_create,gmt_modify) values (?, ?, ?, ?, ?, ?, ?, ?)</tt>
 	 *
 	 *	@param catg
 	 *	@return long
@@ -35,7 +35,7 @@ public interface CatgDAO extends BaseDAO {
 	 *
 	 *  <p>
 	 *  The sql statement for this operation is <br>
-	 *  <tt>update atom_catg set top=?, catg=?, sort=?, name=?, gmt_modify=? where (id = ?)</tt>
+	 *  <tt>update atom_catg set code=?, top=?, catg=?, sort=?, name=?, gmt_modify=? where (id = ?)</tt>
 	 *
 	 *	@param catg
 	 *	@return int
@@ -67,6 +67,19 @@ public interface CatgDAO extends BaseDAO {
 	 *	@throws DataAccessException
 	 */	 
     public List<CatgDTO> findAll() throws DataAccessException;
+
+	/**
+	 *  Query DB table <tt>atom_catg</tt> for records.
+	 *
+	 *  <p>
+	 *  The sql statement for this operation is <br>
+	 *  <tt>select * from atom_catg where (code = ?)</tt>
+	 *
+	 *	@param code
+	 *	@return CatgDTO
+	 *	@throws DataAccessException
+	 */	 
+    public CatgDTO findCode(String code) throws DataAccessException;
 
 	/**
 	 *  Query DB table <tt>atom_catg</tt> for records.

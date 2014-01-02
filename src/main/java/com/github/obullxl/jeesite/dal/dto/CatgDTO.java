@@ -8,6 +8,7 @@ package com.github.obullxl.jeesite.dal.dto;
 	import java.util.ArrayList;
 	import java.util.Comparator;
 
+
 /**
  * A data object class directly models database table <tt>atom_catg</tt>.
  */
@@ -57,8 +58,12 @@ public class CatgDTO extends BaseDTO {
         }
     };
 
+
 	/** column:id */
 	private long id;
+
+	/** column:code */
+	private String code;
 
 	/** column:top */
 	private String top;
@@ -82,6 +87,13 @@ public class CatgDTO extends BaseDTO {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	public String getTop() {
 		return top;

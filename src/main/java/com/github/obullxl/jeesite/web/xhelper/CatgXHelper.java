@@ -120,6 +120,32 @@ public class CatgXHelper extends AbstractTickTimer implements XHelper, Initializ
     }
 
     /**
+     * 根据代码获取分类
+     */
+    public static CatgDTO findByCode(String code) {
+        for (CatgDTO catg : catgs.values()) {
+            if (StringUtils.equals(catg.getCode(), code)) {
+                return catg;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * 根据名称获取分类
+     */
+    public static CatgDTO findByName(String name) {
+        for (CatgDTO catg : catgs.values()) {
+            if (StringUtils.equals(catg.getName(), name)) {
+                return catg;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * 获取分类名称
      */
     public static String findName(long id) {
@@ -138,6 +164,7 @@ public class CatgXHelper extends AbstractTickTimer implements XHelper, Initializ
         CatgDTO dst = new CatgDTO();
 
         dst.setId(src.getId());
+        dst.setCode(src.getCode());
         dst.setTop(src.getTop());
         dst.setCatg(src.getCatg());
         dst.setSort(src.getSort());
@@ -198,6 +225,39 @@ public class CatgXHelper extends AbstractTickTimer implements XHelper, Initializ
         }
 
         return new ArrayList<Long>(ids);
+    }
+
+    /**
+     * 获取所有分类代码
+     */
+    public static List<String> findAllCatgCode(long id) {
+        Set<String> codes = new HashSet<String>();
+
+        CatgDTO ctg = find(id);
+        if (ctg == null) {
+            return new ArrayList<String>();
+        } else {
+            codes.add(ctg.getCode());
+        }
+
+        List<CatgDTO> catgs = findAllChildren(id);
+        for (CatgDTO catg : catgs) {
+            codes.add(catg.getCode());
+        }
+
+        return new ArrayList<String>(codes);
+    }
+    
+    /**
+     * 获取所有分类代码
+     */
+    public static List<String> findAllCatgCode(String code) {
+        CatgDTO ctg = findByCode(code);
+        if (ctg != null) {
+            return findAllCatgCode(ctg.getId());
+        }
+
+        return new ArrayList<String>();
     }
 
     /**

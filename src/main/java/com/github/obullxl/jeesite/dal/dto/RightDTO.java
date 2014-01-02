@@ -5,11 +5,13 @@ package com.github.obullxl.jeesite.dal.dto;
 
 
 
+
 /**
  * A data object class directly models database table <tt>atom_right</tt>.
  */
 public class RightDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
+
 
 
 	/** column:id */

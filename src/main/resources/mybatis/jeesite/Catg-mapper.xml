@@ -8,6 +8,7 @@
     <!-- result maps for database table atom_catg -->
     <resultMap id="RM-CATG" type="CatgDTO">
         <result property="id" column="id" javaType="long" />
+        <result property="code" column="code" javaType="java.lang.String" />
         <result property="top" column="top" javaType="java.lang.String" />
         <result property="catg" column="catg" javaType="long" />
         <result property="sort" column="sort" javaType="long" />
@@ -34,16 +35,16 @@
     <!-- mapped statement for MyBatisCatgDAO.insert -->
     <insert id="insert">
         INSERT INTO atom_catg(
-			id, top, catg, sort, name, gmt_create, gmt_modify
+			id, code, top, catg, sort, name, gmt_create, gmt_modify
 			) VALUES(
-			#{id}, #{top}, #{catg}, #{sort}, #{name}, NOW(), NOW()
+			#{id}, #{code}, #{top}, #{catg}, #{sort}, #{name}, NOW(), NOW()
 			)
     </insert>
 
     <!-- mapped statement for MyBatisCatgDAO.update -->
     <update id="update" >
         UPDATE atom_catg SET
-			top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify=NOW()
+			code=#{code}, top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify=NOW()
 			WHERE
 			id=#{id}
     </update>
@@ -59,6 +60,13 @@
     <select id="findAll" resultMap="RM-CATG" >
     <![CDATA[
         select * from atom_catg order by sort ASC
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCatgDAO.findCode -->
+    <select id="findCode" resultMap="RM-CATG" >
+    <![CDATA[
+        select * from atom_catg where (code = #{value})
     ]]>
     </select>
 

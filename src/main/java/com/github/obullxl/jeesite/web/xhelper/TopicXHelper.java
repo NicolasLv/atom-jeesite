@@ -7,6 +7,7 @@ package com.github.obullxl.jeesite.web.xhelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +15,7 @@ import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
 import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.utils.WebDataUtils;
-import com.github.obullxl.jeesite.web.enums.TopicCatgEnum;
+import com.github.obullxl.jeesite.dal.query.TopicQuery;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.lang.Paginator;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
@@ -41,25 +41,29 @@ public class TopicXHelper extends AbstractXHelper {
      * 分页查询
      */
     public TopicPageList findPage(String catg, int page) {
-        TopicCatgEnum enm = TopicCatgEnum.findByCode(catg);
-        if (enm == null) {
-            catg = null;
+        // 统计
+        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
+
+        TopicQuery args = new TopicQuery();
+        if (CollectionUtils.isNotEmpty(catgs)) {
+            args.setCatgs(catgs);
         }
 
-        // 统计
-        int count = (int) this.topicDAO.findCatgPageCount(catg);
-        int pageNo = WebDataUtils.findPage();
-        int pageSize = 20;
+        int count = (int) this.topicDAO.findFuzzyCount(args);
+        int pageSize = CfgXHelper.findFrontPageSize();
 
         Paginator pager = new Paginator(pageSize, count);
-        pager.setPageNo(pageNo);
+        pager.setPageNo(page);
 
         // 明细
         List<TopicDTO> topics = null;
         if (count <= 0) {
             topics = new ArrayList<TopicDTO>();
         } else {
-            topics = this.topicDAO.findCatgPage(catg, pager.getOffset(), pager.getPageSize());
+            args.setOffset(pager.getOffset());
+            args.setPageSize(pager.getPageSize());
+
+            topics = this.topicDAO.findFuzzy(args);
         }
 
         // 分页结果
@@ -87,24 +91,28 @@ public class TopicXHelper extends AbstractXHelper {
      * 阅读排行榜
      */
     public List<TopicDTO> findTopVisit(String catg) {
-        TopicCatgEnum enm = TopicCatgEnum.findByCode(catg);
-        if (enm == null) {
-            catg = null;
-        }
+        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
+        int size = CfgXHelper.findFrontTopSize();
 
-        return this.topicDAO.findTopVisit(catg, 10);
+        if (CollectionUtils.isEmpty(catgs)) {
+            return this.topicDAO.findTopVisit(null, size);
+        } else {
+            return this.topicDAO.findTopVisit(catgs, size);
+        }
     }
 
     /**
      * 阅读排行榜
      */
     public List<TopicDTO> findTopReply(String catg) {
-        TopicCatgEnum enm = TopicCatgEnum.findByCode(catg);
-        if (enm == null) {
-            catg = null;
-        }
+        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
+        int size = CfgXHelper.findFrontTopSize();
 
-        return this.topicDAO.findTopReply(catg, 10);
+        if (CollectionUtils.isEmpty(catgs)) {
+            return this.topicDAO.findTopReply(null, size);
+        } else {
+            return this.topicDAO.findTopReply(catgs, size);
+        }
     }
 
 }

@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
 
-	<bean id="jeesiteDataSource" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="driverClassName" value="${jdbcDriver}" />
-		<property name="url" value="jdbc:mysql://localhost:3306/osnode?useUnicode=true&amp;characterEncoding=UTF8" />
-		<property name="username" value="${jdbcUserName}" />
-		<property name="password" value="${jdbcPassword}" />
-		<property name="initialSize" value="${jdbcInitialSize}" />
-		<property name="maxActive" value="${jdbcMaxActive}" />
-		<property name="minIdle" value="${jdbcMinIdle}" />
-		<property name="maxIdle" value="${jdbcMaxIdle}" />
-		<property name="defaultAutoCommit" value="${jdbcDefaultAutoCommit}" />
-	</bean>
-
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="jeesiteDataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis-jeesite-config.xml" />

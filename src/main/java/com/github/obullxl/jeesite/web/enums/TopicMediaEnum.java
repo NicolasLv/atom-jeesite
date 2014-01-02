@@ -1,6 +1,6 @@
 /**
  * Author: obullxl@gmail.com
- * Copyright (c) 2004-2013 All Rights Reserved.
+ * Copyright (c) 2004-2014 All Rights Reserved.
  */
 package com.github.obullxl.jeesite.web.enums;
 
@@ -9,48 +9,46 @@ import org.apache.commons.lang.StringUtils;
 import com.github.obullxl.lang.enums.EnumBase;
 
 /**
- * 主题分类枚举
+ * 主题多媒体类型
  * 
  * @author obullxl@gmail.com
- * @version $Id: TopicCatgEnum.java, V1.0.1 2013年12月6日 上午9:56:16 $
+ * @version $Id: TopicMediaEnum.java, V1.0.1 2014年1月1日 下午4:56:18 $
  */
-public enum TopicCatgEnum implements EnumBase {
+public enum TopicMediaEnum implements EnumBase {
     //
-    BLOG(1, "blog", "博客"),
+    TEXT(1, "T", "文本"),
     //
-    NEWS(2, "news", "资讯"),
+    IMAGE(2, "I", "图+文"),
     //
-    ALBUM(3, "album", "美图"),
-    //
-    MISC(4, "misc", "杂谈"),
+    ALBUM(3, "A", "相册"),
     //
     ;
-    
-    private final int id;
+
+    private final int    id;
     private final String code;
     private final String desp;
-    
-    private TopicCatgEnum(int id, String code, String desp) {
+
+    private TopicMediaEnum(int id, String code, String desp) {
         this.id = id;
         this.code = code;
         this.desp = desp;
     }
-    
+
     /**
-     * 初始分类
+     * 初始状态
      */
-    public static final TopicCatgEnum findInit() {
-        return BLOG;
+    public static final TopicMediaEnum findDefault() {
+        return TEXT;
     }
-    
-    public static final TopicCatgEnum findByCode(String code) {
-        for(TopicCatgEnum enm : values()) {
-            if(StringUtils.equalsIgnoreCase(enm.code(), code)) {
+
+    public static final TopicMediaEnum findDefault(String code) {
+        for (TopicMediaEnum enm : values()) {
+            if (StringUtils.equalsIgnoreCase(enm.code(), code)) {
                 return enm;
             }
         }
-        
-        return null;
+
+        return TEXT;
     }
 
     /** 

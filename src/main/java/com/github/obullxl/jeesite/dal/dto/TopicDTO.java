@@ -7,6 +7,8 @@ package com.github.obullxl.jeesite.dal.dto;
 	import java.util.List;
 	import java.util.ArrayList;
 
+import com.github.obullxl.jeesite.dal.valve.TopicValve;
+
 /**
  * A data object class directly models database table <tt>atom_topic</tt>.
  */
@@ -30,41 +32,46 @@ public class TopicDTO extends BaseDTO {
 		return replys;
 	}
 
+	/** Âº?Ö≥ÂÄ?*/
+	private TopicValve valve;
+	
+	/**
+     * Ëé∑ÂèñÂº?Ö≥ÂÄ?     */
+    public TopicValve findValve() {
+        if (this.valve == null) {
+            this.valve = new TopicValve(this);
+        }
+
+        return this.valve;
+    }
+    
+    /**
+     * ÈáçÁΩÆÂº?Ö≥ÂÄ?     */
+    public TopicDTO resetValve() {
+        this.valve = null;
+		return this;
+    }
+
 	/** column:id */
 	private String id;
 
-	/** column:state */
-	private String state;
+	/** column:flag */
+	private String flag;
 
 	/** column:catg */
-	private long catg;
+	private String catg;
 
-	/** column:tflag */
-	private String tflag;
+	/** column:link_url */
+	private String linkUrl;
 
-	/** column:rflag */
-	private String rflag;
+	/** column:media_url */
+	private String mediaUrl;
 
-	/** column:rfrom */
-	private String rfrom;
+	/** column:visit_cnt */
+	private long visitCnt;
 
-	/** column:mflag */
-	private String mflag;
-
-	/** column:mpath */
-	private String mpath;
-
-	/** column:mcount */
-	private long mcount;
-
-	/** column:treply */
-	private String treply;
-
-	/** column:visit */
-	private long visit;
-
-	/** column:reply */
-	private long reply;
+	/** column:reply_cnt */
+	private long replyCnt;
 
 	/** column:title */
 	private String title;
@@ -86,82 +93,47 @@ public class TopicDTO extends BaseDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getState() {
-		return state;
+	public String getFlag() {
+		return flag;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
-	public long getCatg() {
+	public String getCatg() {
 		return catg;
 	}
 
-	public void setCatg(long catg) {
+	public void setCatg(String catg) {
 		this.catg = catg;
 	}
-	public String getTflag() {
-		return tflag;
+	public String getLinkUrl() {
+		return linkUrl;
 	}
 
-	public void setTflag(String tflag) {
-		this.tflag = tflag;
+	public void setLinkUrl(String linkUrl) {
+		this.linkUrl = linkUrl;
 	}
-	public String getRflag() {
-		return rflag;
-	}
-
-	public void setRflag(String rflag) {
-		this.rflag = rflag;
-	}
-	public String getRfrom() {
-		return rfrom;
+	public String getMediaUrl() {
+		return mediaUrl;
 	}
 
-	public void setRfrom(String rfrom) {
-		this.rfrom = rfrom;
+	public void setMediaUrl(String mediaUrl) {
+		this.mediaUrl = mediaUrl;
 	}
-	public String getMflag() {
-		return mflag;
-	}
-
-	public void setMflag(String mflag) {
-		this.mflag = mflag;
-	}
-	public String getMpath() {
-		return mpath;
+	public long getVisitCnt() {
+		return visitCnt;
 	}
 
-	public void setMpath(String mpath) {
-		this.mpath = mpath;
+	public void setVisitCnt(long visitCnt) {
+		this.visitCnt = visitCnt;
 	}
-	public long getMcount() {
-		return mcount;
-	}
-
-	public void setMcount(long mcount) {
-		this.mcount = mcount;
-	}
-	public String getTreply() {
-		return treply;
+	public long getReplyCnt() {
+		return replyCnt;
 	}
 
-	public void setTreply(String treply) {
-		this.treply = treply;
-	}
-	public long getVisit() {
-		return visit;
-	}
-
-	public void setVisit(long visit) {
-		this.visit = visit;
-	}
-	public long getReply() {
-		return reply;
-	}
-
-	public void setReply(long reply) {
-		this.reply = reply;
+	public void setReplyCnt(long replyCnt) {
+		this.replyCnt = replyCnt;
 	}
 	public String getTitle() {
 		return title;

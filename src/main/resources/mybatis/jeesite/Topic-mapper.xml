@@ -8,17 +8,12 @@
     <!-- result maps for database table atom_topic -->
     <resultMap id="RM-TOPIC" type="TopicDTO">
         <result property="id" column="id" javaType="java.lang.String" />
-        <result property="state" column="state" javaType="java.lang.String" />
-        <result property="catg" column="catg" javaType="long" />
-        <result property="tflag" column="tflag" javaType="java.lang.String" />
-        <result property="rflag" column="rflag" javaType="java.lang.String" />
-        <result property="rfrom" column="rfrom" javaType="java.lang.String" />
-        <result property="mflag" column="mflag" javaType="java.lang.String" />
-        <result property="mpath" column="mpath" javaType="java.lang.String" />
-        <result property="mcount" column="mcount" javaType="long" />
-        <result property="treply" column="treply" javaType="java.lang.String" />
-        <result property="visit" column="visit" javaType="long" />
-        <result property="reply" column="reply" javaType="long" />
+        <result property="flag" column="flag" javaType="java.lang.String" />
+        <result property="catg" column="catg" javaType="java.lang.String" />
+        <result property="linkUrl" column="link_url" javaType="java.lang.String" />
+        <result property="mediaUrl" column="media_url" javaType="java.lang.String" />
+        <result property="visitCnt" column="visit_cnt" javaType="long" />
+        <result property="replyCnt" column="reply_cnt" javaType="long" />
         <result property="title" column="title" javaType="java.lang.String" />
         <result property="summary" column="summary" javaType="java.lang.String" />
         <result property="content" column="content" javaType="java.lang.String" />
@@ -30,13 +25,17 @@
 	<!-- ============================================= -->
     <!-- Public SQLS                                   -->
     <!-- ============================================= -->
+	<sql id="fieldTitle">
+		id, flag, catg, link_url, media_url, visit_cnt, reply_cnt, title, '' AS summary, '' AS content, gmt_create, gmt_modify
+	</sql>
+
 	<sql id="findFuzzy-WHERE">
 		<where>
 			<if test="id != null">
 				AND id=#{id}
 			</if>
 			<if test="state != null">
-				AND state=#{state}
+				AND SUBSTRING(flag, 1, 1)=#{state}
 			</if>
 			<if test="catgs != null">
 				AND catg IN
@@ -44,6 +43,15 @@
 			</if>
 			<if test="title != null">
 				AND title LIKE #{title}
+			</if>
+		</where>
+	</sql>
+
+	<sql id="findTopXXX-WHERE">
+		<where>
+			<if test="catgs != null">
+				AND catg IN
+				<foreach item="itm" index="idx" collection="catgs" open="(" separator="," close=")">#{itm}</foreach>
 			</if>
 		</where>
 	</sql>
@@ -62,9 +70,9 @@
     <!-- mapped statement for MyBatisTopicDAO.insert -->
     <insert id="insert">
         INSERT INTO atom_topic(
-				id, state, catg, tflag, rflag, rfrom, mflag, mpath, mcount, treply, visit, reply, title, summary, content, gmt_create, gmt_modify
+				id, flag, catg, link_url, media_url, visit_cnt, reply_cnt, title, summary, content, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{state}, #{catg}, #{tflag}, #{rflag}, #{rfrom}, #{mflag}, #{mpath}, #{mcount}, #{treply}, #{visit}, #{reply}, #{title}, #{summary}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
+				#{id}, #{flag}, #{catg}, #{linkUrl}, #{mediaUrl}, #{visitCnt}, #{replyCnt}, #{title}, #{summary}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
 			)
     </insert>
 
@@ -84,25 +92,10 @@
 
     <!-- mapped statement for MyBatisTopicDAO.findCatgOne -->
     <select id="findCatgOne" resultMap="RM-TOPIC" >
-        SELECT * FROM atom_topic WHERE catg=#{value} LIMIT 1
-    </select>
-
-    <!-- mapped statement for MyBatisTopicDAO.findCatgPage -->
-    <select id="findCatgPage" resultMap="RM-TOPIC" >
         SELECT * FROM atom_topic
-				<if test="catg != null">
-					WHERE catg=#{catg}
-				</if>
-			ORDER BY id DESC
-			LIMIT #{offset},#{limit}
-    </select>
-
-    <!-- mapped statement for MyBatisTopicDAO.findCatgPageCount -->
-    <select id="findCatgPageCount" resultType="long" >
-        SELECT COUNT(*) FROM atom_topic
-				<if test="value != null">
-					WHERE catg=#{value}
-				</if>
+			WHERE catg IN
+				<foreach item="itm" index="idx" collection="list" open="(" separator="," close=")">#{itm}</foreach>
+			LIMIT 1
     </select>
 
     <!-- mapped statement for MyBatisTopicDAO.findFuzzy -->
@@ -121,37 +114,33 @@
 
     <!-- mapped statement for MyBatisTopicDAO.findTopVisit -->
     <select id="findTopVisit" resultMap="RM-TOPIC" >
-        SELECT * FROM atom_topic
-				<if test="catg != null">
-					WHERE catg=#{catg}
-				</if>
+        SELECT <include refid="fieldTitle" /> FROM atom_topic
+				<include refid="findTopXXX-WHERE" />
 			ORDER BY visit DESC
 			LIMIT 0,#{size}
     </select>
 
     <!-- mapped statement for MyBatisTopicDAO.findTopReply -->
     <select id="findTopReply" resultMap="RM-TOPIC" >
-        SELECT * FROM atom_topic
-				<if test="catg != null">
-					WHERE catg=#{catg}
-				</if>
+        SELECT <include refid="fieldTitle" /> FROM atom_topic
+				<include refid="findTopXXX-WHERE" />
 			ORDER BY reply DESC
 			LIMIT 0,#{size}
     </select>
 
     <!-- mapped statement for MyBatisTopicDAO.update -->
     <update id="update" >
-        UPDATE atom_topic SET catg=#{catg}, tflag=#{tflag}, rflag=#{rflag}, rfrom=#{rfrom}, mflag=#{mflag}, mpath=#{mpath}, treply=#{treply}, title=#{title}, summary=#{summary}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_topic SET flag=#{flag}, catg=#{catg}, link_url=#{linkUrl}, media_url=#{mediaUrl}, title=#{title}, summary=#{summary}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW() WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisTopicDAO.updateVisit -->
     <update id="updateVisit" >
-        UPDATE atom_topic SET visit=visit+#{count}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_topic SET visit_cnt=visit_cnt+#{count}, gmt_modify=NOW() WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisTopicDAO.updateReply -->
     <update id="updateReply" >
-        UPDATE atom_topic SET reply=reply+#{count}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_topic SET reply_cnt=reply_cnt+#{count}, gmt_modify=NOW() WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisTopicDAO.delete -->

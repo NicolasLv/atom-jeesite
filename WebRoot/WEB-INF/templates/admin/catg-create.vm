@@ -10,7 +10,9 @@ $(document).ready(function() {
     		form: "catg-form",
     		url: "$ctx/admin/catg/create.html",
     		sclose: function() {
-    			location.href = "$ctx/admin/catg/create.html";
+				$("#tip-success").show(100, function(e) {
+					$("tip-success").hide(3000);
+				});
     		}
     	});
 	});
@@ -24,8 +26,12 @@ $(document).ready(function() {
 		<li><span class="divider">/</span></li>
     	<li>分类管理</li>
 		<li><span class="divider">/</span></li>
-    	<li id="form-opt-name" class="active">新增分类</li>
+    	<li class="active">新增分类</li>
     </ul>
+	<div id="tip-success" class="alert alert-info hide">
+		<strong>新增分类成功！</strong>
+    </div>
+	<input type="hidden" id="catgId" name="catgId" value="0" />
 	<input type="hidden" id="catgCatg" name="catgCatg" value="0" />
 	<div class="control-group">
 		<label for="catgText"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
@@ -35,6 +41,10 @@ $(document).ready(function() {
         </div>
 	</div>
 	<div class="control-group">
+		<label for="catgCode"><span class="icon-chevron-right"></span><strong>分类代码</strong>-唯一，必输项！</label>
+		<input type="text" id="catgCode" name="catgCode" class="span4" required="required" placeholder="blog" />
+	</div>
+	<div class="control-group">
 		<label for="catgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
 		<input type="number" id="catgSort" name="catgSort" value="0" class="span4" required="required" placeholder="分类排序值" />
 	</div>
@@ -42,9 +52,18 @@ $(document).ready(function() {
 		<label for="catgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
 		<input type="text" id="catgName" name="catgName" class="span12" required="required" placeholder="分类名称" />
 	</div>
+	<!--
 	<label class="checkbox">
     	<input type="checkbox" id="catgTop" name="catgTop" value="T" /> 首页分类导航
     </label>
+	-->
+	<div class="control-group">
+		<label for="catgTop"><span class="icon-chevron-right"></span><strong>首页导航</strong>-是否首页分类导航！</label>
+		<select id="catgTop" name="catgTop" class="span3">
+			<option value="0">否</option>
+			<option value="1">是</option>
+		</select>
+    </div>
 	<div>
 		<button id="btn-submit" type="submit" class="btn btn-success">提交保存</button>
 	</div>

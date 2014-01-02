@@ -24,6 +24,9 @@ import com.github.obullxl.jeesite.dal.dao.UserDAO;
 import com.github.obullxl.jeesite.dal.dao.UserRgtDAO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
+import com.github.obullxl.jeesite.dal.valve.TopicValve;
+import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
+import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.EnumBase;
@@ -231,15 +234,18 @@ public abstract class AbstractController {
      */
     public TopicDTO newInitTopic() {
         TopicDTO topic = new TopicDTO();
-        topic.setState(TopicStateEnum.findInit().code());
+        
+        TopicValve valve = topic.findValve();
+        valve.sotState(TopicStateEnum.findDefault());
+        valve.sotTop(false);
+        valve.sotLink(false);
+        valve.sotMedia(TopicMediaEnum.findDefault());
+        valve.sotReply(TopicReplyEnum.findDefault());
+        topic.setFlag(valve.getValve());
+        
         // topic.setCatg(TopicCatgEnum.findInit().code());
-        topic.setTflag("T");
-        topic.setRflag("F");
-        topic.setRfrom(StringUtils.EMPTY);
-        topic.setMflag("F");
-        topic.setMpath(StringUtils.EMPTY);
-        topic.setMcount(0L);
-        topic.setTreply("T");
+        topic.setLinkUrl(StringUtils.EMPTY);
+        topic.setMediaUrl(StringUtils.EMPTY);
         topic.setTitle(StringUtils.EMPTY);
         topic.setSummary(StringUtils.EMPTY);
         topic.setContent(StringUtils.EMPTY);

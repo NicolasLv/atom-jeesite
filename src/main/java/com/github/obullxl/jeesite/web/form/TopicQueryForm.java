@@ -6,6 +6,7 @@ package com.github.obullxl.jeesite.web.form;
 
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.github.obullxl.jeesite.dal.query.TopicQuery;
@@ -51,9 +52,9 @@ public class TopicQueryForm extends ToString {
             dst.setRflag(StringUtils.trimToNull(this.tpcFrom));
 
             if (this.tpcCatg > 0L) {
-                List<Long> ids = CatgXHelper.findAllCatgID(this.tpcCatg);
-                if (!ids.isEmpty()) {
-                    dst.setCatgs(ids);
+                List<String> codes = CatgXHelper.findAllCatgCode(this.tpcCatg);
+                if (CollectionUtils.isNotEmpty(codes)) {
+                    dst.setCatgs(codes);
                 }
             }
 

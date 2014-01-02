@@ -41,8 +41,7 @@ public class HomePageController extends AbstractController {
      */
     @RequestMapping("/index-{catg}-{page}.html")
     public String indexCatgPage(@PathVariable String catg, @PathVariable int page) {
-        this.setWebData("catg", catg);
-        this.setWebData("page", page);
+        this.setWebData("catg", catg).setWebData("page", page);
 
         if(StringUtils.equals(catg, "album")) {
             return this.toFrontView("/album");
@@ -56,8 +55,7 @@ public class HomePageController extends AbstractController {
      */
     @RequestMapping("/topic/{catg}-{id}.html")
     public String topicDetail(@PathVariable String catg, @PathVariable String id) {
-        this.setWebData("catg", catg);
-        this.setWebData("topicId", id);
+        this.setWebData("catg", catg).setWebData("topicId", id);
 
         // 更新主题访问次数
         this.topicDAO.updateVisit(id, 1);
@@ -72,7 +70,7 @@ public class HomePageController extends AbstractController {
     public String postReply(String uname, String uemail, String usite, String content, String ufrom, String topic, String title) {
         // 存储评论
         ReplyDTO reply = new ReplyDTO();
-        reply.setState(TopicStateEnum.findInit().code());
+        reply.setState(TopicStateEnum.findDefault().code());
         reply.setTopic(topic);
         reply.setTitle(title);
         reply.setUname(uname);

@@ -11,15 +11,23 @@ import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.query.TopicQuery;
+import com.github.obullxl.jeesite.dal.valve.TopicValve;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
+import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
+import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
+import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.github.obullxl.jeesite.web.enums.ValveBoolEnum;
 import com.github.obullxl.jeesite.web.form.TopicQueryForm;
+import com.github.obullxl.jeesite.web.form.TopicStoreForm;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
 import com.github.obullxl.lang.Paginator;
@@ -103,21 +111,24 @@ public class TopicMngtController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/topic/create.html", method = RequestMethod.POST)
-    public BizResponse create(long catg, String title, String summary, String content) {
+    public BizResponse create(@Valid TopicStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
+            // 校验
+            form.validateEnumBase(errors);
+
+            if (errors.hasErrors()) {
+                this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
+                return response;
+            }
+
             // 新建
             TopicDTO topic = this.newInitTopic();
-            topic.setCatg(catg);
-            topic.setTitle(title);
 
-            if (StringUtils.isBlank(summary)) {
-                summary = TextUtils.truncate(content, 255);
-            }
-            topic.setSummary(summary);
-            topic.setContent(content);
+            // 填充
+            this.fillTopic(form, topic);
 
             // 新增
             String id = this.topicDAO.insert(topic);
@@ -142,20 +153,25 @@ public class TopicMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/topic/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse update(@PathVariable String id, long catg, String title, String summary, String content) {
+    @RequestMapping(value = "/topic/update.html", method = RequestMethod.POST)
+    public BizResponse update(@Valid TopicStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
-            // 查询
-            TopicDTO topic = this.topicDAO.find(id);
-            topic.setCatg(catg);
-            topic.setTitle(title);
-            if (StringUtils.isBlank(summary)) {
-                summary = TextUtils.truncate(content, 255);
+            // 校验
+            form.validateEnumBase(errors);
+
+            if (errors.hasErrors()) {
+                this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
+                return response;
             }
-            topic.setContent(content);
+
+            // 查询
+            TopicDTO topic = this.topicDAO.find(form.getTpcId());
+
+            // 填充
+            this.fillTopic(form, topic);
 
             // 更新
             this.topicDAO.update(topic);
@@ -167,7 +183,6 @@ public class TopicMngtController extends AbstractController {
         // JSON返回
         return response;
     }
-
 
     /**
      * 删除主题
@@ -187,5 +202,29 @@ public class TopicMngtController extends AbstractController {
 
         return response;
     }
-    
+
+    /**
+     * 填充主题信息
+     */
+    private void fillTopic(TopicStoreForm form, TopicDTO topic) {
+        TopicValve valve = topic.findValve();
+        valve.sotState(TopicStateEnum.findDefault(form.getTpcStateFlag()));
+        valve.sotTop(ValveBoolEnum.is(form.getTpcTopFlag()));
+        valve.sotLink(ValveBoolEnum.is(form.getTpcLinkFlag()));
+        valve.sotMedia(TopicMediaEnum.findDefault(form.getTpcMediaFlag()));
+        valve.sotReply(TopicReplyEnum.findDefault(form.getTpcReplyFlag()));
+
+        topic.setFlag(valve.getValve());
+        topic.setCatg(form.getTpcCatg());
+        topic.setLinkUrl(StringUtils.trimToEmpty(form.getTpcLinkUrl()));
+        topic.setMediaUrl(StringUtils.trimToEmpty(form.getTpcMediaUrl()));
+        topic.setTitle(form.getTpcTitle());
+
+        if (StringUtils.isBlank(form.getTpcSummary())) {
+            form.setTpcSummary(TextUtils.truncate(form.getTpcContent(), DBSize.Topic.SUMMARY_MAX));
+        }
+        topic.setSummary(form.getTpcSummary());
+        topic.setContent(form.getTpcContent());
+    }
+
 }

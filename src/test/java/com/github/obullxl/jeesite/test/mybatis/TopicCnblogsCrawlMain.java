@@ -18,6 +18,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
+import com.github.obullxl.jeesite.dal.valve.TopicValve;
+import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
+import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
+import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.web.crawl.CrawlData;
 import com.github.obullxl.lang.web.crawl.support.CnblogsWebCrawler;
 
@@ -42,17 +46,17 @@ public class TopicCnblogsCrawlMain {
         for (String url : urls) {
             TopicDTO topic = new TopicDTO();
 
-            topic.setState("T");
-            topic.setCatg(3001);
-            topic.setTflag("T");
-            topic.setRflag("F");
-            topic.setRfrom("");
-            topic.setMflag("F");
-            topic.setMpath("");
-            topic.setMcount(0);
-            topic.setTreply("T");
-            topic.setVisit(0);
-            topic.setReply(0);
+            TopicValve valve = topic.findValve();
+            valve.sotState(TopicStateEnum.findDefault());
+            valve.sotTop(true);
+            valve.sotLink(false);
+            valve.sotMedia(TopicMediaEnum.findDefault());
+            valve.sotReply(TopicReplyEnum.findDefault());
+            
+            topic.setFlag(valve.getValve());
+            topic.setCatg("blog");
+            topic.setVisitCnt(0);
+            topic.setReplyCnt(0);
 
             CnblogsWebCrawler crawler = new CnblogsWebCrawler();
             List<CrawlData> data = crawler.crawl(url, new HashMap<String, String>());

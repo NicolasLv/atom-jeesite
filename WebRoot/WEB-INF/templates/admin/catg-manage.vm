@@ -8,7 +8,7 @@
 #set($count = $catgs.size())
 var ztreeNodes = [
 #foreach($catg in $catgs)
-	{id:$catg.id, pId:$catg.catg, catg:$catg.catg, name:"($catg.id)($EnumXHelper.toTrueFalseEnum($catg.top).code())($catg.sort)($catg.name)", sname:"$catg.name", open:true, top:"$catg.top", sort:$catg.sort} #if($velocityCount<$count),#end
+	{id:$catg.id, pId:$catg.catg, catg:$catg.catg, name:"($catg.code)($catg.name)", sname:"$catg.name", open:true, top:"$catg.top", sort:$catg.sort} #if($velocityCount<$count),#end
 #end
 ];
 	
@@ -50,7 +50,17 @@ $(document).ready(function(){
 	
 	$("#btn-delete").click(function(e) {
 		e.preventDefault();
-		alert("准备删除分类-" + $("#catgId").val() + " > " + $("#catgName").val());
+		
+		var catgId = $("#catgId").val();
+		if(window.confirm("确定删除分类[" + $("#catgName").val() + "]吗，删除操作不可撤销？")) {
+			jQuery.post("$ctx/admin/catg/delete.html", {id: catgId}, function(rtn) {
+				if(rtn.success) {
+					location.href = location.href;
+				} else {
+					window.alert("分类删除失败: " + rtn.respDesp);
+				}
+			});
+		}
 	});
 });
 //-->

@@ -5,6 +5,7 @@
 package com.github.obullxl.jeesite.web.xhelper;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -165,6 +166,35 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
     public static int findMngtPageSize() {
         String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.MNGT_PAGE_SIZE);
         return NumberUtils.toInt(value, 20);
+    }
+
+    /**
+     * 业务功能-前台排行榜大小
+     */
+    public static int findFrontTopSize() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.FRONT_TOP_SIZE);
+        return NumberUtils.toInt(value, 10);
+    }
+
+    /**
+     * 业务功能-前台分页大小
+     */
+    public static int findFrontPageSize() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.FRONT_PAGE_SIZE);
+        return NumberUtils.toInt(value, 20);
+    }
+
+    /**
+     * 业务功能-获取数据同步主机
+     */
+    public static List<String> findDataSyncHosts() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.DATA_SYNC_HOST);
+        value = StringUtils.trimToEmpty(value);
+        if (StringUtils.isBlank(value)) {
+            return new ArrayList<String>();
+        }
+
+        return Arrays.asList(StringUtils.split(value, "|"));
     }
 
     /**

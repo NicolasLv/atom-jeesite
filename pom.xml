@@ -308,7 +308,7 @@
 	</repositories>
 
 	<build>
-		<finalName>atom-jeesite-${project.version}</finalName>
+		<finalName>ROOT</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

@@ -29,7 +29,7 @@ public class TopicQuery extends ToString {
     private String            tflag;
     private String            treply;
     private String            rflag;
-    private List<Long>        catgs;
+    private List<String>      catgs;
     private String            title;
 
     public int getOffset() {
@@ -88,11 +88,11 @@ public class TopicQuery extends ToString {
         this.rflag = rflag;
     }
 
-    public List<Long> getCatgs() {
+    public List<String> getCatgs() {
         return catgs;
     }
 
-    public void setCatgs(List<Long> catgs) {
+    public void setCatgs(List<String> catgs) {
         this.catgs = catgs;
     }
 

@@ -8,6 +8,8 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.lang.ToString;
 
@@ -20,21 +22,44 @@ import com.github.obullxl.lang.ToString;
 public class CatgForm extends ToString {
     private static final long serialVersionUID = -273118024735820451L;
 
+    @DecimalMin("0")
+    private long              catgId           = 0L;
+
+    @NotNull
+    @Size(min = 1, max = DBSize.Catg.CODE_MAX)
+    private String            catgCode;
+
     @NotNull
     @Size(min = 1, max = DBSize.Catg.TOP_MAX)
     private String            catgTop;
 
     @DecimalMin("0")
-    private long              catgCatg;
+    private long              catgCatg         = 0L;
 
     @DecimalMin("0")
-    private long              catgSort;
+    private long              catgSort         = 0L;
 
     @NotNull
     @Size(min = 1, max = DBSize.Catg.NAME_MAX)
     private String            catgName;
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
+
+    public long getCatgId() {
+        return catgId;
+    }
+
+    public void setCatgId(long catgId) {
+        this.catgId = catgId;
+    }
+
+    public String getCatgCode() {
+        return StringUtils.lowerCase(catgCode);
+    }
+
+    public void setCatgCode(String catgCode) {
+        this.catgCode = catgCode;
+    }
 
     public String getCatgTop() {
         return catgTop;

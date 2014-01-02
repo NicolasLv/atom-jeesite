@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"
+	default-autowire="byName">
+
+	<!-- ================================================= -->
+	<!-- 静态资源 -->
+	<!-- ================================================= -->
+	<mvc:resources location="/pulbic/" mapping="/public/**" />
+	<mvc:resources location="/themes/" mapping="/themes/**" />
+	<mvc:resources location="/favicon.ico" mapping="/favicon.ico" />
+
+	<!-- ================================================= -->
+	<!-- 组件自动扫描 -->
+	<!-- ================================================= -->
+	<context:component-scan base-package="com.github.obullxl.jeesite.web.install" />
+
+	<!-- ================================================= -->
+	<!-- 注解配置扫描 -->
+	<!-- ================================================= -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 模型视图配置 -->
+	<!-- ================================================= -->
+	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+		<property name="resourceLoaderPath" value="/WEB-INF/templates/install" />
+		<property name="velocityProperties">
+			<props>
+				<prop key="input.encoding">UTF-8</prop>
+				<prop key="output.encoding">UTF-8</prop>
+				<prop key="parser.pool.size">100</prop>
+				<prop key="velocimacro.library">/META-INF/macros.vm</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.velocity.VelocityLayoutViewResolver">
+		<property name="suffix" value=".vm" />
+		<property name="contentType" value="text/html;charset=UTF-8" />
+		<property name="exposeRequestAttributes" value="true" />
+		<property name="exposeSessionAttributes" value="true" />
+		<property name="exposeSpringMacroHelpers" value="true" />
+		<property name="layoutKey" value="layout" />
+		<property name="layoutUrl" value="/layout-install.vm" />
+		<property name="screenContentKey" value="screen_placeholder" />
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 上传文件 -->
+	<!-- ================================================= -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="104857600" /><!-- 100MB -->
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 异常处理器 -->
+	<!-- ================================================= -->
+	<!-- <bean name="exceptionResolver" class="com.aptech.atom.web.shared.exception.WebExceptionResolver" /> -->
+
+	<!-- ================================================= -->
+	<!-- 国际化资源 -->
+	<!-- ================================================= -->
+	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:/META-INF/msgs</value>
+			</list>
+		</property>
+		<property name="defaultEncoding" value="UTF-8" />
+		<property name="cacheSeconds" value="60" />
+	</bean>
+
+	<!-- ================================================= -->
+	<!-- 属性编辑器配置 -->
+	<!-- ================================================= -->
+	<bean id="customEditorConfigurer" class="org.springframework.beans.factory.config.CustomEditorConfigurer">
+		<property name="customEditors">
+			<map>
+				<entry key="java.util.Date" value="com.github.obullxl.lang.spring.DatePropertyEditor" />
+			</map>
+		</property>
+	</bean>
+
+</beans>

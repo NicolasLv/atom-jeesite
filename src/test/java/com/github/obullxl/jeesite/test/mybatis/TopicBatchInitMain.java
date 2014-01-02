@@ -12,6 +12,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
+import com.github.obullxl.jeesite.dal.valve.TopicValve;
+import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
+import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
+import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 
 /**
  * 批量初始化主题
@@ -34,17 +38,17 @@ public class TopicBatchInitMain {
             for (int i = 1; i <= 1001; i++) {
                 TopicDTO topic = new TopicDTO();
 
-                topic.setState("T");
-                topic.setCatg(3001);
-                topic.setTflag("T");
-                topic.setRflag("F");
-                topic.setRfrom("");
-                topic.setMflag("F");
-                topic.setMpath("");
-                topic.setMcount(0);
-                topic.setTreply("T");
-                topic.setVisit(0);
-                topic.setReply(0);
+                TopicValve valve = topic.findValve();
+                valve.sotState(TopicStateEnum.findDefault());
+                valve.sotTop(true);
+                valve.sotLink(false);
+                valve.sotMedia(TopicMediaEnum.findDefault());
+                valve.sotReply(TopicReplyEnum.findDefault());
+                
+                topic.setFlag(valve.getValve());
+                topic.setCatg(catg);
+                topic.setVisitCnt(0L);
+                topic.setReplyCnt(0L);
 
                 String ucatg = StringUtils.upperCase(catg);
                 String idx = StringUtils.leftPad(Integer.toString(i), 3, "0");
