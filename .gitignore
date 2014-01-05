@@ -5,5 +5,9 @@
 
 /.settings
 
+
 /target
 /logs
+
+/WebRoot/public/album
+
