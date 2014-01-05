@@ -89,3 +89,16 @@ function ajaxRquest(args) {
 		}
 	});
 };
+
+/* 查看图片 */
+var viewImage = function(args) {
+	$.dialog.setting.min = true;
+	$.dialog.setting.max = true;
+	$.dialog({
+        title: args.title || "查看相册图片",
+		padding: args.padding || 0,
+		width: args.width || '700px',
+        height: args.height || '500px',
+        content: '<img src="' + args.url + '"/>'
+    });
+};

@@ -19,10 +19,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.obullxl.jeesite.dal.dto.CatgDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
-import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
-import com.github.obullxl.jeesite.web.form.CatgForm;
+import com.github.obullxl.jeesite.web.form.CatgStoreForm;
 import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 
 /**
  * 主题分类控制器
@@ -56,24 +56,26 @@ public class CatgMngtController extends AbstractController {
 
     @ResponseBody
     @RequestMapping(value = "/catg/create.html", method = RequestMethod.POST)
-    public BizResponse create(@Valid CatgForm form, BindingResult errors) {
+    public BizResponse create(@Valid CatgStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
             // 校验
+            form.validateEnumBase(errors);
+
             if (errors.hasErrors()) {
                 this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
                 return response;
             }
 
-            CatgDTO catg = this.catgDAO.findCode(form.getCatgCode());
+            CatgDTO catg = this.catgDAO.findCode(form.getCtgCode());
             if (catg != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
 
-            catg = this.catgDAO.findName(form.getCatgName());
+            catg = this.catgDAO.findName(form.getCtgName());
             if (catg != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
@@ -81,11 +83,11 @@ public class CatgMngtController extends AbstractController {
 
             // 新增
             catg = new CatgDTO();
-            catg.setCode(form.getCatgCode());
-            catg.setTop(TrueFalseEnum.findDefault(form.getCatgTop()).code());
-            catg.setCatg(form.getCatgCatg());
-            catg.setSort(Math.abs(form.getCatgSort()));
-            catg.setName(form.getCatgName());
+            catg.setCode(form.getCtgCode());
+            catg.setTop(ValveBoolEnum.findDefault(form.getCtgTop()).code());
+            catg.setCatg(form.getCtgCatg());
+            catg.setSort(Math.abs(form.getCtgSort()));
+            catg.setName(form.getCtgName());
 
             long id = this.catgDAO.insert(catg);
             response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(id));
@@ -111,35 +113,37 @@ public class CatgMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/catg/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse update(@PathVariable long id, @Valid CatgForm form, BindingResult errors) {
+    @RequestMapping(value = "/catg/update.html", method = RequestMethod.POST)
+    public BizResponse update(@Valid CatgStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
             // 校验
+            form.validateEnumBase(errors);
+            
             if (errors.hasErrors()) {
                 this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
                 return response;
             }
 
             // 查询
-            CatgDTO catg = this.catgDAO.find(id);
+            CatgDTO catg = this.catgDAO.find(form.getCtgId());
             if (catg == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
             }
 
             // 更新
-            catg.setCode(form.getCatgCode());
-            catg.setTop(TrueFalseEnum.findDefault(form.getCatgTop()).code());
+            catg.setCode(form.getCtgCode());
+            catg.setTop(ValveBoolEnum.findDefault(form.getCtgTop()).code());
 
-            if (form.getCatgCatg() != catg.getId()) {
-                catg.setCatg(form.getCatgCatg());
+            if (form.getCtgCatg() != catg.getId()) {
+                catg.setCatg(form.getCtgCatg());
             }
 
-            catg.setSort(form.getCatgSort());
-            catg.setName(form.getCatgName());
+            catg.setSort(form.getCtgSort());
+            catg.setName(form.getCtgName());
 
             this.catgDAO.update(catg);
 

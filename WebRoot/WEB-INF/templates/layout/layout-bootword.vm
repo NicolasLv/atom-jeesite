@@ -17,7 +17,6 @@
 	<script type="text/javascript" charset="utf-8" src="$ctx/public/js/html5shiv.js"></script>
 <![endif]-->
 <link rel="apple-touch-icon-precomposed" sizes="144x144" href="$ctx/public/favicon.png" />
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="$ctx/public/favicon.png" />
 <link rel="apple-touch-icon-precomposed" sizes="72x72" href="$ctx/public/favicon.png" />
 <link rel="apple-touch-icon-precomposed" href="$ctx/public/favicon.png" />
 <link rel="shortcut icon" href="$ctx/public/favicon.png" />
@@ -43,21 +42,12 @@
 		</div>
 	</div>
 </div>
-<script type="text/javascript">
-$(document).ready(function() {
-	try {
-		$("#vp-${catg}").attr("class", "active");
-	} catch(e) {
-		// ignore
-	}
-});
-</script>
 <!-- /.navbar -->
 <div class="container">
     <div class="row">
         <div class="span12">
             <div class="alert alert-info">
-				<strong>公告：</strong>本系统为开源系统，可以自由的用于个人或商业组织， GitHub开源地址：<a href="https://github.com/obullxl/atom-jeesite" target="_blank">atom-jeesite</a>，有任何建议或合作，请邮件联系：<a href="mailto:obullxl@gmail.com">obullxl@gmail.com</a>，谢谢！
+				<span class="icon-hand-right"></span> <strong>公告：</strong>本系统完全开放源代码，可以自由的用于个人或商业组织， 技术讨论等请移步QQ群:334182994，谢谢！
 				<br/>
             </div>
 		</div>
@@ -83,5 +73,17 @@ $screen_placeholder
 </div>
 <!-- /footer -->
 #parse("/public/back-to-top.vm")
+<script type="text/javascript">
+$(document).ready(function() {
+	#set($topCode=$CatgXHelper.findTopCode($!{catg}))
+	if($("#vp-$!{topCode}").length>0) {
+		$("#vp-$!{topCode}").attr("class", "active");
+	} else {
+		if($("#vp-index").length>0) {
+			$("#vp-index").attr("class", "active");
+		}
+	}
+});
+</script>
 </body>
 </html>

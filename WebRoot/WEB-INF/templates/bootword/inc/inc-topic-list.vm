@@ -1,0 +1,40 @@
+#if($StringUtils.isBlank($topic.mediaUrl))
+<div class="entry">
+	<h4>
+		[<a href="$ctx/index-${topic.catg}-1.html">$CatgXHelper.findName($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" rel="bookmark">$topic.title</a>
+	</h4>
+	<p>$topic.summary [&hellip;]</p>
+	<div class="clearfix"></div>
+	<p class="meta">
+		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
+		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.html#respond">${topic.replyCnt}</a>
+		- <i class="icon-film"></i>${topic.visitCnt}
+		<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="pull-right readmore">阅读全文 &raquo;</a>
+	</p>
+	<div class="clearfix"></div>
+</div>
+#else
+<div class="entry">
+	<div class="pull-right">
+    	<div class="thumb">
+    		<a href="$ctx/topic/${topic.catg}-${topic.id}.html">
+    			<img id="topic-image-${topic.id}" height="50" src="$ctx/public/album/${topic.mediaUrl}" alt="$topic.title" title="$topic.title" />
+            </a>
+    	</div>
+	</div>
+	<div class="pull-left">
+    	<h4>
+    		[<a href="$ctx/index-${topic.catg}-1.html">$CatgXHelper.findName($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" rel="bookmark">$topic.title</a>
+    	</h4>
+    	<p>$topic.summary [&hellip;]</p>
+    	<div class="clearfix"></div>
+	</div>
+	<div class="clearfix"></div>
+	<p class="meta">
+		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
+		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.html#respond">${topic.replyCnt}</a>
+		- <i class="icon-film"></i>${topic.visitCnt}
+		<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="pull-right readmore">阅读全文 &raquo;</a>
+	</p>
+</div>
+#end

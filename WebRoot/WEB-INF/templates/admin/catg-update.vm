@@ -11,7 +11,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		ajaxRquest({
     		form: "catg-form",
-    		url: "$ctx/admin/catg/update-${catg.id}.html"
+    		url: "$ctx/admin/catg/update.html"
     	});
 	});
 });
@@ -26,30 +26,33 @@ $(document).ready(function() {
 		<li><span class="divider">/</span></li>
     	<li class="active">修改分类</li>
     </ul>
-	<input type="hidden" id="catgId" name="catgId" value="$catg.id" />
-	<input type="hidden" id="catgCatg" name="catgCatg" value="$catg.catg" />
+	<input type="hidden" id="ctgId" name="ctgId" value="$catg.id" />
+	<input type="hidden" id="catgId" name="ctgCatg" value="$catg.catg" />
 	<div class="control-group">
-		<label for="catgText"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
+		<label for="catgName"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
 		<div class="input-append">
-			<input type="text" id="catgText" name="catgText" class="span12" readonly="readonly" placeholder="上级分类名称" />
+			<input type="text" id="catgName" name="ctgText" value="$CatgXHelper.findName($catg.catg)" class="span12" readonly="readonly" placeholder="上级分类名称" />
 			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
         </div>
 	</div>
 	<div class="control-group">
-		<label for="catgCode"><span class="icon-chevron-right"></span><strong>分类代码</strong>-唯一，必输项！</label>
-		<input type="text" id="catgCode" name="catgCode" value="$catg.code" class="span4" required="required" placeholder="blog" />
+		<label for="ctgCode"><span class="icon-chevron-right"></span><strong>分类代码</strong>-唯一，必输项！</label>
+		<input type="text" id="ctgCode" name="ctgCode" value="$catg.code" class="span4" required="required" placeholder="blog" />
 	</div>
 	<div class="control-group">
-		<label for="catgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
-		<input type="number" id="catgSort" name="catgSort" value="$catg.sort" class="span4" required="required" placeholder="分类排序值" />
+		<label for="ctgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
+		<input type="number" id="ctgSort" name="ctgSort" value="$catg.sort" class="span4" required="required" placeholder="分类排序值" />
 	</div>
 	<div class="control-group">
-		<label for="catgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
-		<input type="text" id="catgName" name="catgName" value="$catg.name" class="span12" required="required" placeholder="分类名称" />
+		<label for="ctgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
+		<input type="text" id="ctgName" name="ctgName" value="$catg.name" class="span12" required="required" placeholder="分类名称" />
 	</div>
-	<label class="checkbox">
-    	<input type="checkbox" id="catgTop" name="catgTop" value="T" /> 首页分类导航
-    </label>
+	<div class="control-group">
+		<label for="ctgTop"><span class="icon-chevron-right"></span><strong>首页导航</strong>-是否首页分类导航！</label>
+		<select id="ctgTop" name="ctgTop" class="span3">
+			#formSelectOptions($EnumXHelper.toValveBoolMap(), $catg.top)
+		</select>
+    </div>
 	<div>
 		<button id="btn-submit" type="submit" class="btn btn-success">提交保存</button>
 	</div>

@@ -16,6 +16,7 @@ import com.github.obullxl.jeesite.dal.valve.TopicValve;
 import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
 import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 
 /**
  * 批量初始化主题
@@ -40,8 +41,8 @@ public class TopicBatchInitMain {
 
                 TopicValve valve = topic.findValve();
                 valve.sotState(TopicStateEnum.findDefault());
-                valve.sotTop(true);
-                valve.sotLink(false);
+                valve.sotTop(ValveBoolEnum.TRUE);
+                valve.sotLink(ValveBoolEnum.FALSE);
                 valve.sotMedia(TopicMediaEnum.findDefault());
                 valve.sotReply(TopicReplyEnum.findDefault());
                 

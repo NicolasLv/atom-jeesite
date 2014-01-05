@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.dal.dao.UserDAO;
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
+import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.lang.user.UserContextHolder;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
 
@@ -63,7 +64,10 @@ public class UserXHelper extends AbstractXHelper {
      * 获取登录用户
      */
     public UserDTO findSessionUser() {
-        return this.findByUID(UserContextHolder.get().getUserId());
+        UserDTO user = new UserDTO();
+        UserConverter.convert(user, UserContextHolder.get());
+        
+        return user;
     }
 
 }

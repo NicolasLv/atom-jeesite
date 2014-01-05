@@ -5,6 +5,7 @@
 		<typeAlias alias="CatgDTO" type="com.github.obullxl.jeesite.dal.dto.CatgDTO"/>
 		<typeAlias alias="ConfigDTO" type="com.github.obullxl.jeesite.dal.dto.ConfigDTO"/>
 		<typeAlias alias="CrawlDTO" type="com.github.obullxl.jeesite.dal.dto.CrawlDTO"/>
+		<typeAlias alias="ImageDTO" type="com.github.obullxl.jeesite.dal.dto.ImageDTO"/>
 		<typeAlias alias="ReplyDTO" type="com.github.obullxl.jeesite.dal.dto.ReplyDTO"/>
 		<typeAlias alias="RightDTO" type="com.github.obullxl.jeesite.dal.dto.RightDTO"/>
 		<typeAlias alias="TopicDTO" type="com.github.obullxl.jeesite.dal.dto.TopicDTO"/>
@@ -16,6 +17,7 @@
 		<mapper resource="mybatis/jeesite/Catg-mapper.xml" />
 		<mapper resource="mybatis/jeesite/Config-mapper.xml" />
 		<mapper resource="mybatis/jeesite/Crawl-mapper.xml" />
+		<mapper resource="mybatis/jeesite/Image-mapper.xml" />
 		<mapper resource="mybatis/jeesite/Reply-mapper.xml" />
 		<mapper resource="mybatis/jeesite/Right-mapper.xml" />
 		<mapper resource="mybatis/jeesite/Topic-mapper.xml" />

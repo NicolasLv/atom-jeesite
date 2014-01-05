@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.dal.dto.UserRgtDTO;
+import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.enums.UserRightEnum;
 import com.github.obullxl.lang.biz.BizResponse;
@@ -68,10 +69,7 @@ public class UserLogonController extends AbstractController {
                 uctx = UserContext.newMockContext();
             }
             
-            uctx.setUserId(user.getId());
-            uctx.setUserName(user.getUname());
-            uctx.setUserEmail(user.getUemail());
-            uctx.setUserNick(user.getUnick());
+            UserConverter.convert(uctx, user);
             
             UserContextUtils.setSessionContext(session, uctx);
             String gotoUrl = UserContextUtils.findGotoURL(uctx);

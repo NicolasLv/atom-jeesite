@@ -1,0 +1,81 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="模板管理 - 后台管理")
+<link rel="stylesheet" type="text/css" href="$ctx/public/zTreeStyle/zTreeStyle.css" />
+<script type="text/javascript" src="$ctx/public/js/jquery.ztree.all-3.5.js"></script>
+<script type="text/javascript">
+<!--
+var ctxPath = "$ctxPath";
+var realPath = "$realPath";
+
+var ztreeNodes = $ztreeNodes;
+
+function onTreeNodeClick(evt, treeId, node, clickFlag) {
+	if(clickFlag !== 1) {
+		alert("请单选一个主题文件!");
+		return;
+	}
+	
+	$("#tmptName").val(node.path);
+	
+	if(node.isParent) {
+		$("#btn-update").attr("disabled", "disabled");
+		$("#btn-delete").removeAttr("disabled");
+	} else {
+		$("#btn-update").removeAttr("disabled");
+		$("#btn-delete").removeAttr("disabled");
+	}
+};
+
+var ztreeSetting = {
+	view: {
+		dblClickExpand: false
+	},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	},
+	callback: {
+		onClick: onTreeNodeClick
+	}
+};
+
+$(document).ready(function(){
+	$.fn.zTree.init($("#ztreeMngt"), ztreeSetting, ztreeNodes);
+	
+	$("#btn-update").attr("disabled", "disabled");
+	$("#btn-delete").attr("disabled", "disabled");
+	
+	$("#btn-refresh").click(function(e) {
+		location.href = location.href;
+	});
+	
+	$("#btn-delete").click(function(e) {
+		e.preventDefault();
+		var tmptName = $("#tmptName").val();
+		if(window.confirm("确定删除模板[" + tmptName + "]吗，删除操作不可撤销？")) {
+			jQuery.post("$ctx/admin/tmpt/delete.html", {tmptName: tmptName}, function(rtn) {
+				if(rtn.success) {
+					location.href = location.href;
+				} else {
+					window.alert("模板删除失败: " + rtn.respDesp);
+				}
+			});
+		}
+	});
+});
+//-->
+</script>
+<div class="well well-small">
+    <form id="tmpt-form" name="tmpt-form" method="get" action="$ctx/admin/tmpt/update.html" class="form-inline" #StyleMB0()>
+		<button id="btn-refresh" type="button" class="btn btn-info"><span class="icon-refresh"></span> 刷新</button>
+		
+		<div class="pull-right">
+			<input type="text" id="tmptName" name="tmptName" class="input-large" readonly="readonly" placeholder="分类名称" />
+			<button type="submit" id="btn-update" class="btn btn-success">修改</button>
+			<button type="button" id="btn-delete" class="btn btn-danger">删除</button>
+		</div>
+    </form>
+</div>
+<div id="ztreeMngt" class="ztree radius-block" style="margin-top:0"></div>
+<div class="space-span"></div>

@@ -28,6 +28,9 @@
 			#parse("/admin/inc/inc-nav-list.vm")
 			<!--/span-->
 			<div class="span10">
+                <div class="alert alert-info">
+    				<span class="icon-hand-right"></span> <strong>公告：</strong>本系统完全开放源代码，可以自由的用于个人或商业组织， 技术讨论等请移步QQ群:334182994，谢谢！
+                </div>
 				<div class="radius-block">
     				##parse("/admin/inc/inc-crumbs.vm")
     				$screen_placeholder
@@ -44,7 +47,7 @@
 #set($count = $catgs.size())
 var ztreeNodes = [
 #foreach($catg in $catgs)
-	{id:$catg.id, pId:$catg.catg, catg:$catg.catg, name:"($catg.id)($EnumXHelper.toTrueFalseEnum($catg.top).code())($catg.sort)($catg.name)", sname:"$catg.name", open:true, top:"$catg.top", sort:$catg.sort} #if($velocityCount<$count),#end
+	{id:$catg.id, pId:$catg.catg, catg:$catg.catg, code:"$catg.code", name:"($catg.code)($catg.name)", sname:"$catg.name", open:true, top:"$catg.top", sort:$catg.sort} #if($velocityCount<$count),#end
 #end
 ];
 	
@@ -54,8 +57,21 @@ function onTreeCatgsClick(evt, treeId, catg, clickFlag) {
 		return;
 	}
 	
-	$("#catgCatg").val(catg.id);
-	$("#catgText").val(catg.sname);
+	if($("#catgId").length>0) {
+		$("#catgId").val(catg.id);
+	}
+	
+	if($("#catgCode").length>0) {
+		$("#catgCode").val(catg.code);
+	}
+	
+	if($("#catgCatg").length>0) {
+		$("#catgCatg").val(catg.catg);
+	}
+	
+	if($("#catgName").length>0) {
+		$("#catgName").val(catg.sname);
+	}
 };
 
 var ztreeSetting = {
@@ -73,7 +89,7 @@ var ztreeSetting = {
 };
 		
 function onCatgBodyDown(e) {
-	if (!(e.target.id == "catgText" || e.target.id == "menu-body" || $(e.target).parents("#menu-body").length>0)) {
+	if (!(e.target.id == "catgName" || e.target.id == "menu-body" || $(e.target).parents("#menu-body").length>0)) {
 		$("#menu-body").fadeOut("fast");
 		$("body").unbind("mousedown", onCatgBodyDown);
 	}
@@ -85,8 +101,8 @@ $(document).ready(function() {
 	$.fn.zTree.init($("#ztreeCatgs"), ztreeSetting, ztreeNodes);
 	
 	$("#btnSelectCatg").click(function(e) {
-		var offset = $("#catgText").offset();
-		$("#menu-body").css({left:offset.left + "px", top:offset.top + $("#catgText").outerHeight() + "px"}).slideDown("fast");
+		var offset = $("#catgName").offset();
+		$("#menu-body").css({left:offset.left + "px", top:offset.top + $("#catgName").outerHeight() + "px"}).slideDown("fast");
 		
 		$("body").bind("mousedown", onCatgBodyDown);
 	});

@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="row">
+        <div class="span12">
+			<div class="radius-block">
+<div class="page-header">
+	<h4><small>1、</small>系统架构</h4>
+</div>
+<div>
+	<p>本JeeSite(<strong>JES</strong>)系统在Spring/SpringMVC基础之上，开发了各种插件，包括：</p>
+	<p><strong>主控制器</strong>：增加了请求上下文、数据上下文、线程全局日志ID、Profile性能监控组件；</p>
+	<p><strong>Spring上下文加载器</strong>：在XML配置中，可以增加Velocity脚本，在加载之前，执行该XML文件得到最终结果；</p>
+	<p><strong>表单验证</strong>：在Spring的验证其基础之上，增加表单的验证，主要是请求参数枚举的验证，并且输出结果与Spring保持一致；</p>
+	<p><strong>动态爬虫</strong>：作为CMS系统，信息采集必不可少，本系统增加Groovy动态爬虫功能，实时动态采集数据信息；</p>
+	<p><strong>无限极分类</strong>：分类也称系统模块，本系统的模块完全为树状模块，无限极分类，父类模块在数据查询时包含子类模块；</p>
+</div>
+<hr/>
+<div class="page-header">
+	<h4><small>2、</small>版权说明</h4>
+</div>
+<div>
+	<p>本JeeSite(<strong>JES</strong>)系统为开源CMS系统，可以自由的用于个人或商业组织；</p>
+	<p>GitHub代码地址：<a href="https://github.com/obullxl/atom-jeesite" target="_blank">atom-jeesite</a></p>
+	<p>技术讨论、模板开发、二次开发等咨询、问题和建议，请移步QQ群<strong>334182994</strong>，或者邮件<strong>obullxl@gmail.com</strong>，我会在第一时间进行解答和回复！</p>
+</div>
+			</div>
+        </div>
+    </div>
+</div>

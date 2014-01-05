@@ -11,13 +11,16 @@ import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.obullxl.jeesite.dal.dao.ImageDAO;
 import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
+import com.github.obullxl.jeesite.dal.dto.ImageDTO;
 import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.query.TopicQuery;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.lang.Paginator;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
 
 /**
@@ -33,9 +36,47 @@ public class TopicXHelper extends AbstractXHelper {
     @Autowired
     private TopicDAO topicDAO;
 
+    /** 图片DAO */
+    @Autowired
+    private ImageDAO imageDAO;
+
     /** 评论DAO */
     @Autowired
     private ReplyDAO replyDAO;
+
+    /**
+     * 查询所有置顶主题
+     */
+    public TopicPageList findTop(String catg) {
+        // 统计
+        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
+
+        TopicQuery args = new TopicQuery();
+        args.setTop(ValveBoolEnum.TRUE.code());
+
+        if (CollectionUtils.isNotEmpty(catgs)) {
+            args.setCatgs(catgs);
+        }
+
+        int count = (int) this.topicDAO.findFuzzyCount(args);
+
+        Paginator pager = new Paginator(Integer.MAX_VALUE, count);
+        pager.setPageNo(1);
+
+        // 明细
+        List<TopicDTO> topics = null;
+        if (count <= 0) {
+            topics = new ArrayList<TopicDTO>();
+        } else {
+            args.setOffset(pager.getOffset());
+            args.setPageSize(pager.getPageSize());
+
+            topics = this.topicDAO.findFuzzy(args);
+        }
+
+        // 分页结果
+        return new TopicPageList(pager, topics);
+    }
 
     /**
      * 分页查询
@@ -72,6 +113,13 @@ public class TopicXHelper extends AbstractXHelper {
 
     /**
      * 查询主题详情
+     */
+    public TopicDTO findTopic(String id) {
+        return this.topicDAO.find(id);
+    }
+
+    /**
+     * 查询主题详情，包括评论列表
      */
     public TopicDTO findDetail(String id) {
         TopicDTO topic = this.topicDAO.find(id);
@@ -115,4 +163,10 @@ public class TopicXHelper extends AbstractXHelper {
         }
     }
 
+    /**
+     * 获取相册图片列表
+     */
+    public List<ImageDTO> findAlbumImages(String topicId) {
+        return this.imageDAO.findTopic(topicId);
+    }
 }

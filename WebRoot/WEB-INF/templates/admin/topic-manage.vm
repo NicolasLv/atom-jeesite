@@ -46,38 +46,85 @@ $(document).ready(function() {
 		}
 	});
 	
-	/** 同步 */
-	$("button").click(function(e) {
-		var btnId = $(this).attr("id");
-		if(btnId.indexOf("btn-sync-") == 0) {
-			e.preventDefault();
-			var tpcId = $(this).data("tpcid");
-			console.log("DataSync-BtnID: " + btnId + ", TpcID: " + tpcId);
+	/** 全选/全不选 */
+	$("#cbox-all").click(function(e) {
+		var checked = $(this).is(":checked");
+		$("#topic-list input[type=checkbox]").each(function(e) {
+			if(checked) {
+            	$(this).attr("checked", checked);
+			} else {
+				$(this).removeAttr("checked");
+			}
 			
-        	jQuery.post("$ctx/data/sync/topic-apply.html", {id: tpcId}, function(rtn) {
-				if(!rtn.success) {
-					window.alert("同步失败-" + rtn.respDesp);
-				}
-			});
+			console.log(checked + ": " + $(this).attr("value") + " > " + $(this).is(":checked"));
+        });
+    });
+	
+	/** 获取ID */
+	var findSelectTopicID = function() {
+		var value = "";
+    	$("#topic-list input[name=formTopicID]").each(function(e) {
+			if($(this).is(":checked")) {
+            	value = $(this).val();
+			}
+        });
+		
+		return value;
+	};
+	
+	/** 管理 */
+	$("#btn-topic-manage").click(function(e) {
+		var topicId = findSelectTopicID();
+		
+		if(topicId === "") {
+			return;
 		}
+		
+		// location.href = "$ctx/admin/topic/update-" + topicId + ".html";
+	});
+	
+	/** 编辑 */
+	$("#btn-topic-update").click(function(e) {
+		var topicId = findSelectTopicID();
+		
+		if(topicId === "") {
+			return;
+		}
+		
+		location.href = "$ctx/admin/topic/update-" + topicId + ".html";
+	});
+	
+	/** 同步 */
+	$("#btn-topic-sync").click(function(e) {
+		var topicId = findSelectTopicID();
+		
+		if(topicId === "") {
+			return;
+		}
+			
+    	jQuery.post("$ctx/data/sync/topic-apply.html", {id: topicId}, function(rtn) {
+			if(rtn.success) {
+				window.alert("同步成功！");
+			} else {
+				window.alert("同步失败-" + rtn.respDesp);
+			}
+		});
 	});
 	
 	/** 删除 */
-	$("button").click(function(e) {
-		var btnId = $(this).attr("id");
-		if(btnId.indexOf("btn-delete-") == 0) {
-			e.preventDefault();
-			var tpcId = $(this).data("tpcid");
-			console.log("TpcDelete-BtnID: " + btnId + ", TpcID: " + tpcId);
-			
-            if (window.confirm("主题[" + tpcId + "]删除操作不可撤销，确定执行吗？")){
-            	jQuery.post("$ctx/admin/topic/delete.html", {id: tpcId}, function(e) {
-					$("#topic-form").submit();
-				});
-            }
+	$("#btn-topic-delete").click(function(e) {
+		var topicId = findSelectTopicID();
+		
+		if(topicId === "") {
+			return;
 		}
+		
+        if (window.confirm("主题[" + topicId + "]删除操作不可撤销，确定执行吗？")){
+        	jQuery.post("$ctx/admin/topic/delete.html", {id: topicId}, function(e) {
+				$("#topic-form").submit();
+			});
+        }
 	});
-
 });
 </script>
 <div class="well well-small">
@@ -94,60 +141,61 @@ $(document).ready(function() {
     		</div>
 			<div id="form-fuzzy">
 				<select id="tpcState" name="tpcState" class="input-small">
-					<option value="">状态</option>
+					<option value="">[状态]</option>
         			#formSelectOptions($EnumXHelper.toTopicStateMap(), $!form.tpcState)
         		</select>
+				<div class="input-append">
+        			<input type="text" id="catgName" name="tpcCatgText" value="$!form.tpcCatgText" class="input-small" readonly="readonly" placeholder="分类名称" />
+        			<button id="btnSelectCatg" class="btn btn-success" type="button">分类</button>
+                </div>
 				<select id="tpcTop" name="tpcTop" class="input-small">
-					<option value="">置顶</option>
-        			#formSelectOptions($EnumXHelper.toTrueFalseMap(), $!form.tpcState)
+					<option value="">[置顶]</option>
+        			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!form.tpcTop)
         		</select>
-				<select id="tpcTop" name="tpcReply" class="input-small">
-					<option value="">评论</option>
-        			#formSelectOptions($EnumXHelper.toTrueFalseMap(), $!form.tpcState)
+				<select id="tpcLink" name="tpcLink" class="input-small">
+					<option value="">[原创]</option>
+        			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!form.tpcLink)
         		</select>
-				<select id="tpcTop" name="tpcFrom" class="input-small">
-					<option value="">原创</option>
-        			#formSelectOptions($EnumXHelper.toTrueFalseMap(), $!form.tpcState)
+				<select id="tpcMedia" name="tpcMedia" class="input-small">
+					<option value="">[媒体]</option>
+        			#formSelectOptions($EnumXHelper.toTopicMediaMap(), $!form.tpcMedia)
+        		</select>
+				<select id="tpcReply" name="tpcReply" class="input-small">
+					<option value="">[评论]</option>
+        			#formSelectOptions($EnumXHelper.toTopicReplyMap(), $!form.tpcReply)
         		</select>
 				<input type="hidden" id="page" name="page" value="$!form.page" />
-				<input type="hidden" id="catgCatg" name="tpcCatg" value="$!form.tpcCatg" />
-				<div class="input-append">
-        			<input type="text" id="catgText" name="tpcCatgText" value="$!form.tpcCatgText" class="input-small" readonly="readonly" placeholder="分类名称" />
-        			<button id="btnSelectCatg" class="btn btn-success" type="button">选择分类</button>
-                </div>
+				<input type="hidden" id="catgId" name="tpcCatg" value="$!form.tpcCatg" />
 				<input type="text" id="tpcTitle" name="tpcTitle" value="$!form.tpcTitle" class="input-medium" placeholder="标题" />
 				<button type="submit" id="btn-fuzzy-query" class="btn btn-success">模糊查询</button>
     		</div>
         </div>
     </form>
 </div>
-#parse("/admin/inc/inc-tpc-pagination.vm")
+<div class="well well-small">
+	<div class="pull-right">
+		<button type="button" id="btn-topic-update" class="btn btn-info">编辑</button>
+		<button type="button" id="btn-topic-sync" class="btn btn-success">同步</button>
+		<button type="button" id="btn-topic-delete" class="btn btn-danger">删除</button>
+    </div>
+	<div class="clearfix"></div>
+</div>
 <table class="table table-striped table-bordered table-hover">
 	<thead>
 		<tr>
-			<th><div class="text-center">#</div></th>
-			<th><div class="text-center">状态</div></th>
+            <th class="span1"><div class="text-center">#</div></th>
+			<th class="span1"><div class="text-center">ID</div></th>
+			<th class="span2"><div class="text-center">状态</div></th>
 			<th>标题</th>
-			<th><div class="text-center">更新时间</div></th>
-			<th><div class="text-center">操作</div></th>
 		</tr>
 	</thead>
-	<tbody>
+	<tbody id="topic-list">
 #foreach($topic in $PageList.items)
 		<tr>
+            <td><div class="text-center"><input type="radio" name="formTopicID" value="$topic.id" /></div></td>
 			<td><div class="text-center">$topic.id</div></td>
-            <td><div class="text-center #if($topic.state=='T') color-green #elseif($topic.state=='F') color-red #end">$EnumXHelper.toTopicStateEnum($topic.state).desp()</div></td>
-			<td>[$CatgXHelper.findName($topic.catg)] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" target="_blank">${topic.title}</a></td>
-			<td><div class="text-center">$DateUtils.toStringDL($topic.gmtModify)</div></td>
-			<td><div class="pull-right">
-			#if($topic.catg == "album")
-				<a class="btn btn-info" href="$ctx/admin/album/update-${topic.id}.html">编辑</a>
-			#else
-				<a class="btn btn-info" href="$ctx/admin/topic/update-${topic.id}.html">编辑</a>
-			#end
-				<button type="button" id="btn-sync-${topic.id}" class="btn btn-success" data-tpcid="${topic.id}">同步</button>
-				<button type="button" id="btn-delete-${topic.id}" class="btn btn-danger" data-tpcid="${topic.id}">删除</button>
-			</div></td>
+            <td><div class="text-center #if($topic.state=='T') color-green #elseif($topic.state=='F') color-red #end">$topic.findValve().gotState().desp()</div></td>
+			<td>[$DateUtils.toStringDL($topic.gmtModify)]-[$CatgXHelper.findName($topic.catg)] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" target="_blank">${topic.title}</a></td>
 		</tr>
 #end
 	</tbody>

@@ -1,20 +1,11 @@
 #set($topic=$TopicXHelper.findDetail($topicId))
+#set($images=$TopicXHelper.findAlbumImages($topicId))
 <div class="blog">
 	<div class="container">
 		<div class="row">
 			<div class="span8">
 				#showAds("itop")
-				<div class="entry">
-					<h4>${topic.title}</h4>
-					<p class="meta">
-						<i class="icon-calendar"></i> $DateUtils.toStringDW($topic.gmtModify)
-						- <i class="icon-user"></i>老牛啊
-						- <i class="icon-film"></i>${topic.visit}
-						- <i class="icon-comment"></i><a href="#respond">${topic.reply}</a>
-					</p>
-					<p>${topic.summary}</p>
-					<p>${topic.content}</p>
-				</div>
+				#parse("/$ThemeXHelper.findTheme()/inc/inc-album-detail.vm")
 				#showAds("ibottom")
 				#parse("/$ThemeXHelper.findTheme()/inc/inc-reply-form.vm")
 				<a name="respond"></a>

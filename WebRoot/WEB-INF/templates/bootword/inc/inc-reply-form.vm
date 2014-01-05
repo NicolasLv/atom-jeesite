@@ -1,3 +1,5 @@
+#set($valve=$topic.findValve())
+#if($StringUtils.equals($valve.gotReply().code(), "T"))
 <form id="reply-form" name="reply-form" class="radius-block" method="post" action="$ctx/topic/post-reply.html" #StyleMB0()>
 	<div class="controls controls-row">
     	<input id="uname" name="uname" type="text" class="span2" required="required" placeholder="*您的称呼:老牛啊" />
@@ -20,3 +22,6 @@ $(document).ready(function() {
 	$("#ufrom").val(window.location.href);
 });
 </script>
+#else
+<div class="radius-block">评论已经关闭！</div>
+#end

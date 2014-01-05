@@ -9,16 +9,16 @@ import org.apache.commons.lang.StringUtils;
 import com.github.obullxl.lang.enums.EnumBase;
 
 /**
- * 布尔开关枚举值
+ * 模板分类枚举
  * 
  * @author obullxl@gmail.com
- * @version $Id: ValveBoolEnum.java, V1.0.1 2014年1月1日 下午7:17:15 $
+ * @version $Id: TmptCatgEnum.java, V1.0.1 2014年1月3日 下午2:43:16 $
  */
-public enum ValveBoolEnum implements EnumBase {
+public enum TmptCatgEnum implements EnumBase {
     //
-    TRUE(1, "1", "是"),
+    FILE(1, "F", "文件"),
     //
-    FALSE(2, "0", "否"),
+    DIRECTORY(2, "D", "目录"),
     //
     ;
 
@@ -26,37 +26,23 @@ public enum ValveBoolEnum implements EnumBase {
     private final String code;
     private final String desp;
 
-    private ValveBoolEnum(int id, String code, String desp) {
+    private TmptCatgEnum(int id, String code, String desp) {
         this.id = id;
         this.code = code;
         this.desp = desp;
     }
 
     /**
-     * 布尔值
-     */
-    public static final boolean is(String code) {
-        return findDefault() == ValveBoolEnum.TRUE;
-    }
-
-    /**
-     * 初始状态
-     */
-    public static final ValveBoolEnum findDefault() {
-        return FALSE;
-    }
-
-    /**
      * 根据代码获取枚举
      */
-    public static final ValveBoolEnum findDefault(String code) {
-        for (ValveBoolEnum enm : values()) {
+    public static final TmptCatgEnum findByCode(String code) {
+        for (TmptCatgEnum enm : values()) {
             if (StringUtils.equalsIgnoreCase(enm.code(), code)) {
                 return enm;
             }
         }
 
-        return FALSE;
+        return null;
     }
 
     /** 

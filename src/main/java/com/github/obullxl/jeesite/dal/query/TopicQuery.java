@@ -26,9 +26,11 @@ public class TopicQuery extends ToString {
     private String            id;
 
     private String            state;
-    private String            tflag;
-    private String            treply;
-    private String            rflag;
+    private String            top;
+    private String            link;
+    private String            media;
+    private String            reply;
+    
     private List<String>      catgs;
     private String            title;
 
@@ -64,28 +66,36 @@ public class TopicQuery extends ToString {
         this.state = state;
     }
 
-    public String getTflag() {
-        return tflag;
+    public String getTop() {
+        return top;
     }
 
-    public void setTflag(String tflag) {
-        this.tflag = tflag;
+    public void setTop(String top) {
+        this.top = top;
     }
 
-    public String getTreply() {
-        return treply;
+    public String getLink() {
+        return link;
     }
 
-    public void setTreply(String treply) {
-        this.treply = treply;
+    public void setLink(String link) {
+        this.link = link;
     }
 
-    public String getRflag() {
-        return rflag;
+    public String getMedia() {
+        return media;
     }
 
-    public void setRflag(String rflag) {
-        this.rflag = rflag;
+    public void setMedia(String media) {
+        this.media = media;
+    }
+
+    public String getReply() {
+        return reply;
+    }
+
+    public void setReply(String reply) {
+        this.reply = reply;
     }
 
     public List<String> getCatgs() {

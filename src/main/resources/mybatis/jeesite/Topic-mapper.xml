@@ -29,6 +29,10 @@
 		id, flag, catg, link_url, media_url, visit_cnt, reply_cnt, title, '' AS summary, '' AS content, gmt_create, gmt_modify
 	</sql>
 
+	<sql id="fieldSummary">
+		id, flag, catg, link_url, media_url, visit_cnt, reply_cnt, title, summary, '' AS content, gmt_create, gmt_modify
+	</sql>
+
 	<sql id="findFuzzy-WHERE">
 		<where>
 			<if test="id != null">
@@ -36,6 +40,18 @@
 			</if>
 			<if test="state != null">
 				AND SUBSTRING(flag, 1, 1)=#{state}
+			</if>
+			<if test="top != null">
+				AND SUBSTRING(flag, 2, 1)=#{top}
+			</if>
+			<if test="link != null">
+				AND SUBSTRING(flag, 3, 1)=#{link}
+			</if>
+			<if test="media != null">
+				AND SUBSTRING(flag, 4, 1)=#{media}
+			</if>
+			<if test="reply != null">
+				AND SUBSTRING(flag, 5, 1)=#{reply}
 			</if>
 			<if test="catgs != null">
 				AND catg IN
@@ -85,9 +101,7 @@
 
     <!-- mapped statement for MyBatisTopicDAO.findAll -->
     <select id="findAll" resultMap="RM-TOPIC" >
-    <![CDATA[
-        select * from atom_topic
-    ]]>
+        SELECT <include refid="fieldTitle" /> FROM atom_topic
     </select>
 
     <!-- mapped statement for MyBatisTopicDAO.findCatgOne -->
@@ -100,7 +114,7 @@
 
     <!-- mapped statement for MyBatisTopicDAO.findFuzzy -->
     <select id="findFuzzy" resultMap="RM-TOPIC" >
-        SELECT * FROM atom_topic
+        SELECT <include refid="fieldSummary" /> FROM atom_topic
 				<include refid="findFuzzy-WHERE" />
 			ORDER BY id DESC
 			LIMIT #{offset},#{pageSize}
@@ -116,7 +130,7 @@
     <select id="findTopVisit" resultMap="RM-TOPIC" >
         SELECT <include refid="fieldTitle" /> FROM atom_topic
 				<include refid="findTopXXX-WHERE" />
-			ORDER BY visit DESC
+			ORDER BY visit_cnt DESC
 			LIMIT 0,#{size}
     </select>
 
@@ -124,7 +138,7 @@
     <select id="findTopReply" resultMap="RM-TOPIC" >
         SELECT <include refid="fieldTitle" /> FROM atom_topic
 				<include refid="findTopXXX-WHERE" />
-			ORDER BY reply DESC
+			ORDER BY reply_cnt DESC
 			LIMIT 0,#{size}
     </select>
 

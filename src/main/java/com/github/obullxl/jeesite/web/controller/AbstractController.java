@@ -7,6 +7,8 @@ package com.github.obullxl.jeesite.web.controller;
 import java.net.URLClassLoader;
 import java.util.Date;
 
+import javax.servlet.ServletContext;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import com.github.obullxl.jeesite.dal.dao.CatgDAO;
 import com.github.obullxl.jeesite.dal.dao.ConfigDAO;
 import com.github.obullxl.jeesite.dal.dao.CrawlDAO;
+import com.github.obullxl.jeesite.dal.dao.ImageDAO;
 import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
 import com.github.obullxl.jeesite.dal.dao.RightDAO;
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
@@ -30,6 +33,7 @@ import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.EnumBase;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.spring.DatePropertyEditor;
 import com.github.obullxl.lang.utils.LogUtils;
 import com.github.obullxl.lang.web.WebContext;
@@ -66,6 +70,10 @@ public abstract class AbstractController {
     public static final String    VOPT_CONFIG_CREATE = "config-create";
     public static final String    VOPT_CONFIG_MANAGE = "config-manage";
 
+    //~~~~~~~~~~~~~ 模板 ~~~~~~~~~~~~~//
+    public static final String    VOPT_TMPT_CREATE   = "tmpt-create";
+    public static final String    VOPT_TMPT_MANAGE   = "tmpt-manage";
+
     //~~~~~~~~~~~~~ 主题 ~~~~~~~~~~~~~//
     public static final String    VOPT_TOPIC_CREATE  = "topic-create";
     public static final String    VOPT_TOPIC_MANAGE  = "topic-manage";
@@ -98,6 +106,10 @@ public abstract class AbstractController {
     /** 主题DAO */
     @Autowired
     protected TopicDAO            topicDAO;
+
+    /** 图片DAO */
+    @Autowired
+    protected ImageDAO            imageDAO;
 
     /** 评论DAO */
     @Autowired
@@ -190,7 +202,22 @@ public abstract class AbstractController {
      * 重定向页面
      */
     public String redirectTo(String url) {
+        WebContext.get().setRequestRedirect();
         return "redirect:" + url;
+    }
+
+    /**
+     * Servlet上下文
+     */
+    public ServletContext findServletContext() {
+        return WebContext.get().getServletContext();
+    }
+
+    /**
+     * 获取Servlet真实路径
+     */
+    public String findServletRealPath(String path) {
+        return this.findServletContext().getRealPath(path);
     }
 
     /**
@@ -234,15 +261,15 @@ public abstract class AbstractController {
      */
     public TopicDTO newInitTopic() {
         TopicDTO topic = new TopicDTO();
-        
+
         TopicValve valve = topic.findValve();
         valve.sotState(TopicStateEnum.findDefault());
-        valve.sotTop(false);
-        valve.sotLink(false);
+        valve.sotTop(ValveBoolEnum.findDefault());
+        valve.sotLink(ValveBoolEnum.findDefault());
         valve.sotMedia(TopicMediaEnum.findDefault());
         valve.sotReply(TopicReplyEnum.findDefault());
         topic.setFlag(valve.getValve());
-        
+
         // topic.setCatg(TopicCatgEnum.findInit().code());
         topic.setLinkUrl(StringUtils.EMPTY);
         topic.setMediaUrl(StringUtils.EMPTY);

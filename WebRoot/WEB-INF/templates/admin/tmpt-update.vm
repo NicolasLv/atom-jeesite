@@ -1,0 +1,42 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="修改爬虫 - 爬虫管理")
+#set($crawl=$CrawlXHelper.findDetail($crawlId))
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#tmpt-form").submit(function(e) {
+        e.preventDefault();
+        ajaxRquest({
+        	form: "tmpt-form",
+        	url: "$ctx/admin/tmpt/update.html"
+        });
+    });
+});
+</script>
+<form id="tmpt-form" name="tmpt-form" class="form-horizontal" method="post" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="divider">/</span></li>
+    	<li>后台管理</li>
+		<li><span class="divider">/</span></li>
+    	<li>模板管理</li>
+		<li><span class="divider">/</span></li>
+    	<li>修改模板</li>
+    </ul>
+	<div class="control-group">
+		<label for="backFlag"><span class="icon-chevron-right"></span><strong>备份</strong>-是否备份原内容！</label>
+		<select id="backFlag" name="backFlag" class="input-small">
+			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+		</select>
+	</div>
+	<div class="control-group">
+		<label for="tmptName"><span class="icon-chevron-right"></span><strong>名称</strong>-必输项！</label>
+		<input id="tmptName" name="tmptName" value="$!tmptName" class="span12" type="text" required="required" />
+	</div>
+	<div class="control-group">
+		<label for="content"><span class="icon-chevron-right"></span><strong>内容</strong>-必输项！</label>
+		<textarea rows="30" id="content" name="content" class="span12" style="font-family:courier new,courier;font-size:14px;">$!content</textarea>
+	</div>
+	<div class="pull-right">
+		<button type="submit" class="btn btn-primary">提交保存</button>
+	</div>
+	<div class="clearfix"></div>
+</form>

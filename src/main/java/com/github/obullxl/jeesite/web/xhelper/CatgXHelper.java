@@ -146,10 +146,49 @@ public class CatgXHelper extends AbstractTickTimer implements XHelper, Initializ
     }
 
     /**
-     * 获取分类名称
+     * 根据ID获取分类名称
      */
     public static String findName(long id) {
         CatgDTO catg = catgs.get(id);
+        if (catg != null) {
+            return catg.getName();
+        }
+
+        return StringUtils.EMPTY;
+    }
+
+    /**
+     * 根据代码获取Top分类代码
+     */
+    public static String findTopCode(String code) {
+        return findTopCode(findByCode(code));
+    }
+
+    public static String findTopCode(CatgDTO catg) {
+        if (catg == null) {
+            return StringUtils.EMPTY;
+        }
+
+        CatgDTO parent = catg.getParent();
+        if (parent == null) {
+            return catg.getCode();
+        }
+
+        return findTopCode(parent);
+    }
+
+    /**
+     * 是否为相册分类
+     */
+    public static boolean isAlbumCatg(String catg) {
+        return StringUtils.equalsIgnoreCase(catg, CfgXHelper.findCatgAlbumCode());
+    }
+
+    /**
+     * 根据代码获取分类名称
+     */
+    public static String findName(String code) {
+        CatgDTO catg = findByCode(code);
         if (catg != null) {
             return catg.getName();
         }
@@ -247,7 +286,7 @@ public class CatgXHelper extends AbstractTickTimer implements XHelper, Initializ
 
         return new ArrayList<String>(codes);
     }
-    
+
     /**
      * 获取所有分类代码
      */

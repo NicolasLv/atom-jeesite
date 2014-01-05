@@ -7,6 +7,6 @@
 	config["okVal"] = "确定";
 	config["cancelVal"] = "取消";
 	// [more..]
-	config["icon"] = "/public/favicon.png";
+	// config["icon"] = "favicon.png";
 	config["title"] = "弹出窗口";
 })($.dialog.setting);

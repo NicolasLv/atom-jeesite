@@ -22,6 +22,7 @@ import com.github.obullxl.jeesite.dal.valve.TopicValve;
 import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
 import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.web.crawl.CrawlData;
 import com.github.obullxl.lang.web.crawl.support.CnblogsWebCrawler;
 
@@ -48,8 +49,8 @@ public class TopicCnblogsCrawlMain {
 
             TopicValve valve = topic.findValve();
             valve.sotState(TopicStateEnum.findDefault());
-            valve.sotTop(true);
-            valve.sotLink(false);
+            valve.sotTop(ValveBoolEnum.TRUE);
+            valve.sotLink(ValveBoolEnum.FALSE);
             valve.sotMedia(TopicMediaEnum.findDefault());
             valve.sotReply(TopicReplyEnum.findDefault());
             

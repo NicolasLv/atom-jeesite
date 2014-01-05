@@ -67,7 +67,7 @@ $(document).ready(function() {
 <div class="container">
 	<div class="row">
 		<div class="span6">
-			<form id="login-form" name="login-form" class="form-horizontal form-well">
+			<form id="login-form" name="login-form" method="post" class="form-horizontal form-well">
 				<h3>系统登录</h3>
 				<div id="tip-error-msg" class="alert alert-error hide">&nbsp;</div>
 				<div class="control-group">

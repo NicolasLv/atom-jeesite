@@ -15,6 +15,15 @@ body {
 	position: fixed;
 }
 
+/** 相册 */
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
 /*------------------------------------------------------------------
 [ 圆角区域 / .radius-block ]
 */
@@ -345,7 +354,7 @@ body {
 }
 
 .entry img {
-	margin: 5px 0px;
+	margin: 0px;
 }
 
 .entry hr {
@@ -356,7 +365,7 @@ body {
 }
 
 .entry .thumb img {
-	margin: 5px 0px 0px 0px;
+	margin: 0px 0px 10px 0px;
 	box-shadow: 0px 0px 2px #000;
 }
 

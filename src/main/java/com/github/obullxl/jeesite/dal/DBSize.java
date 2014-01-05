@@ -41,6 +41,22 @@ public interface DBSize {
 	}
 	
 	//
+	public static interface Image {
+		//
+		public static final int ID_MAX = 32;
+		//
+		public static final int FLAG_MAX = 20;
+		//
+		public static final int TOPIC_MAX = 32;
+		//
+		public static final int TITLE_MAX = 255;
+		//
+		public static final int URL_MAX = 255;
+		//
+		public static final int SUMMARY_MAX = 255;
+	}
+	
+	//
 	public static interface Reply {
 		//
 		public static final int STATE_MAX = 20;

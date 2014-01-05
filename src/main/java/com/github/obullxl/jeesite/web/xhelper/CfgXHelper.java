@@ -161,6 +161,30 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
     }
 
     /**
+     * 业务功能-获取关于分类代码
+     */
+    public static String findCatgAboutCode() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.CATG_ABOUT_CODE);
+        if (StringUtils.isBlank(value)) {
+            value = "about";
+        }
+
+        return value;
+    }
+
+    /**
+     * 业务功能-获取相册分类代码
+     */
+    public static String findCatgAlbumCode() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.CATG_ALBUM_CODE);
+        if (StringUtils.isBlank(value)) {
+            value = "album";
+        }
+
+        return value;
+    }
+
+    /**
      * 业务功能-后台分页大小
      */
     public static int findMngtPageSize() {
@@ -195,6 +219,34 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
         }
 
         return Arrays.asList(StringUtils.split(value, "|"));
+    }
+
+    /**
+     * 业务功能-获取模板Context相对路径
+     */
+    public static String findTmptContextPath() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.TMPT_CONTEXT_PATH);
+        if (StringUtils.isBlank(value)) {
+            value = "/WEB-INF/templates";
+        }
+
+        return value;
+    }
+
+    /**
+     * 业务功能-获取相册封面宽度
+     */
+    public static int findAlbumCoverWidth() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.ALBUM_COVER_WIDTH);
+        return NumberUtils.toInt(value, 400);
+    }
+
+    /**
+     * 业务功能-获取相册封面高度
+     */
+    public static int findAlbumCoverHeight() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.ALBUM_COVER_HEIGHT);
+        return NumberUtils.toInt(value, 350);
     }
 
     /**

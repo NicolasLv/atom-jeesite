@@ -1,0 +1,174 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="相册管理")
+#set($topic=$TopicXHelper.findTopic($topicId))
+<script type="text/javascript">
+$(document).ready(function() {
+	/* 图片上传方式 */
+	var imageFormToggle = function(show, hide) {
+		$("#image-" + show).show();
+		$("#btn-" + show).removeClass("btn-info");
+		$("#btn-" + show).addClass("btn-success");
+	
+		$("#image-" + hide).hide();
+		$("#btn-" + hide).addClass("btn-info");
+		$("#btn-" + hide).removeClass("btn-success");
+	};
+	
+	imageFormToggle("local", "network");
+	
+	$("#btn-local").click(function(e) {
+		e.preventDefault();
+		imageFormToggle("local", "network");
+	});
+	
+	$("#btn-network").click(function(e) {
+		e.preventDefault();
+		imageFormToggle("network", "local");
+	});
+	
+	/* 提交图片上传表单 */
+	/*
+	$("#image-form").submit(function(e) {
+		alert("OK");
+		e.preventDefault();
+		ajaxRquest({
+    		form: "image-form",
+    		url: "$ctx/admin/album/create.html"
+    	});
+	});
+	*/
+	
+	/* 操作 */
+	$("button").click(function(e) {
+		var btnId = $(this).attr("id");
+		var imgId = $(this).data("id");
+		if(btnId === "btn-img-view") {
+			viewImage({
+				url: "$ctx/public/album/" + $(this).data("url")
+			});
+		} else if(btnId === "btn-cover-view") {
+			viewImage({
+				url: "$ctx/public/album/" + $(this).data("url")
+			});
+		} else if(btnId === "btn-img-cover") {
+			jQuery.post("$ctx/admin/album/cover.html", {id: imgId}, function(rtn) {
+    			if(rtn.success) {
+    				window.alert("设置成功！");
+					location.href = location.href;
+    			} else {
+    				window.alert("设置失败-" + rtn.respDesp);
+    			}
+    		});
+		} else if(btnId === "btn-img-delete") {
+			if (window.confirm("相册图片[" + imgId + "]删除操作不可撤销，确定执行吗？")){
+    			jQuery.post("$ctx/admin/album/delete.html", {id: imgId}, function(rtn) {
+        			if(rtn.success) {
+        				window.alert("删除成功！");
+						location.href = location.href;
+        			} else {
+        				window.alert("删除失败-" + rtn.respDesp);
+        			}
+        		});
+			}
+		}
+	});
+});
+</script>
+<ul class="breadcrumb">
+	<li><span class="divider">/</span></li>
+	<li>后台管理</li>
+	<li><span class="divider">/</span></li>
+	<li><a href="$ctx/admin/topic/manage.html">主题管理</a></li>
+	<li><span class="divider">/</span></li>
+	<li class="active">相册管理</li>
+</ul>
+<div class="well well-small radius-block">
+    <ul class="breadcrumb">
+    	<li><span class="icon-hand-right"></span> 相册基本信息</li>
+    </ul>
+	<div class="control-group">
+		<span class="icon-chevron-right"></span><strong>标题：</strong>$topic.title
+	</div>
+	<div class="control-group">
+		#if($StringUtils.startsWidth($topic.mediaUrl, "http"))
+			#set($imgUrl=$topic.mediaUrl)
+		#else
+			#set($imgUrl="${ctx}/public/album/${topic.mediaUrl}")
+		#end
+		<span class="icon-chevron-right"></span><strong>封面：</strong> <a href="javascript:void(0)">$imgUrl</a>
+		<button type="button" id="btn-cover-view" data-url="$topic.mediaUrl" class="btn btn-info pull-right">查看相册封面</button>
+	</div>
+	<div class="control-group">
+		<label for="summary"><span class="icon-chevron-right"></span><strong>相册描述</strong></label>
+		<textarea rows="2" id="summary" name="summary" class="span12" readonly="readonly">$topic.summary</textarea>
+	</div>
+	<div>
+		<a class="btn btn-info" href="$ctx/admin/topic/update-${topic.id}.html">修改相册基本信息</a>
+	</div>
+	<div class="clearfix"></div>
+</div>
+
+<div class="well well-small radius-block">
+	<ul class="breadcrumb">
+    	<li><span class="icon-hand-right"></span> 增加相册图片</li>
+    </ul>
+	#if($errorMessage)<div class="alert alert-error">$errorMessage</div>#end
+	<form id="image-form" name="image-form" class="form-inline" method="post" action="$ctx/admin/album/create.html" enctype="multipart/form-data" #StyleMB0()>
+		<div class="btn-group">
+            <button type="button" id="btn-local" class="btn btn-info">本地</button>
+            <button type="button" id="btn-network" class="btn btn-info">网络</button>
+        </div>
+		<input type="hidden" name="imgTopic" value="$topic.id" />
+		<input type="hidden" name="imgTitle" value="$topic.title" />
+		<div class="pull-right">
+			<div id="image-local">
+    			<input type="file" name="imgFile" class="input-medium" />
+    			<button id="btn-submit-local" type="submit" class="btn btn-primary">增加相册图片</button>
+			</div>
+			<div id="image-network">
+    			<input type="text" name="imgNetUrl" class="input-xxlarge" placeholder="网络图片URL" />
+				<button id="btn-submit-network" type="submit" class="btn btn-primary">增加相册图片</button>
+			</div>
+        </div>
+		<div class="space-span"></div>
+		<div>
+			<textarea rows="2" name="imgSummary" class="span12">$topic.summary</textarea>
+		</div>
+	</form>
+</div>
+<div class="well well-small radius-block" #StyleMB0()>
+	<ul class="breadcrumb">
+    	<li><span class="icon-hand-right"></span> 相册图片管理</li>
+    </ul>
+	<table class="table table-striped table-bordered table-hover" #StyleMB0()>
+    	<thead>
+    		<tr>
+    			<th><div class="text-center">ID</div></th>
+    			<th>路径</th>
+				<th>大小</th>
+				<th>W×H</th>
+    			<th><div class="text-center">&nbsp;</div></th>
+    		</tr>
+    	</thead>
+    	<tbody>
+			#foreach($image in $TopicXHelper.findAlbumImages($topicId))
+    		<tr>
+                <td><div class="text-center">$image.id</div></td>
+				#if($StringUtils.startsWidth($image.url, "http"))
+					#set($imgUrl=$image.url)
+				#else
+					#set($imgUrl="${ctx}/public/album/$image.url")
+				#end
+    			<td><a href="$imgUrl" target="_blank">$image.url</a></td>
+				<td>$FileUtils.byteCountToDisplaySize($!image.size)</td>
+				<td>$!{image.width}×$!{image.height}</td>
+    			<td><div class="pull-right">
+					<button type="button" id="btn-img-view" data-url="$image.url" class="btn btn-info">查看</button>
+					<button type="button" id="btn-img-cover" data-id="$image.id" class="btn btn-success">设为封面</button>
+					<button type="button" id="btn-img-delete" data-id="$image.id" class="btn btn-danger">删除</button>
+                </div></td>
+    		</tr>
+			#end
+    	</tbody>
+    </table>
+</div>

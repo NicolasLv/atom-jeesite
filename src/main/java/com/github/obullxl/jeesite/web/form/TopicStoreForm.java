@@ -14,7 +14,9 @@ import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
 import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
-import com.github.obullxl.jeesite.web.enums.ValveBoolEnum;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.web.form.AbstractForm;
+import com.github.obullxl.lang.web.form.EnumBaseValidate;
 
 /**
  * 更新/创建主题存储表单
@@ -35,6 +37,7 @@ public class TopicStoreForm extends AbstractForm {
     @NotNull
     @Size(min = 1, max = DBSize.Topic.CATG_MAX)
     private String            tpcCatg;
+    private String            tpcCatgName;
 
     @NotNull
     @Size(min = 1, max = 1)
@@ -79,11 +82,11 @@ public class TopicStoreForm extends AbstractForm {
      * @see com.github.obullxl.jeesite.web.form.AbstractForm#enumBases(java.util.List)
      */
     public void enumBases(List<EnumBaseValidate> validates) {
-        validates.add(new EnumBaseValidate("state", this.tpcStateFlag, TopicStateEnum.values()));
-        validates.add(new EnumBaseValidate("top", this.tpcTopFlag, ValveBoolEnum.values()));
-        validates.add(new EnumBaseValidate("link", this.tpcLinkFlag, ValveBoolEnum.values()));
-        validates.add(new EnumBaseValidate("media", this.tpcMediaFlag, TopicMediaEnum.values()));
-        validates.add(new EnumBaseValidate("reply", this.tpcReplyFlag, TopicReplyEnum.values()));
+        validates.add(new EnumBaseValidate("tpcStateFlag", this.tpcStateFlag, TopicStateEnum.values()));
+        validates.add(new EnumBaseValidate("tpcTopFlag", this.tpcTopFlag, ValveBoolEnum.values()));
+        validates.add(new EnumBaseValidate("tpcLinkFlag", this.tpcLinkFlag, ValveBoolEnum.values()));
+        validates.add(new EnumBaseValidate("tpcMediaFlag", this.tpcMediaFlag, TopicMediaEnum.values()));
+        validates.add(new EnumBaseValidate("tpcReplyFlag", this.tpcReplyFlag, TopicReplyEnum.values()));
     }
 
     public String getTpcId() {
@@ -108,6 +111,14 @@ public class TopicStoreForm extends AbstractForm {
 
     public void setTpcCatg(String tpcCatg) {
         this.tpcCatg = tpcCatg;
+    }
+
+    public String getTpcCatgName() {
+        return tpcCatgName;
+    }
+
+    public void setTpcCatgName(String tpcCatgName) {
+        this.tpcCatgName = tpcCatgName;
     }
 
     public String getTpcTopFlag() {

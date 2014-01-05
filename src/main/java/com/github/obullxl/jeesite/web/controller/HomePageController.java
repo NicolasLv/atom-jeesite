@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
+import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
 
 /**
  * 主页控制器
@@ -20,6 +22,10 @@ import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
  */
 @Controller
 public class HomePageController extends AbstractController {
+
+    /**
+     * 前台首页
+     */
 
     @RequestMapping("/")
     public String index() {
@@ -36,6 +42,16 @@ public class HomePageController extends AbstractController {
         return this.indexCatgPage("index", 1);
     }
 
+    @RequestMapping("/default.htm")
+    public String defaultHtm() {
+        return this.indexCatgPage("index", 1);
+    }
+
+    @RequestMapping("/default.html")
+    public String defaultHtml() {
+        return this.indexCatgPage("index", 1);
+    }
+
     /**
      * 分类分页主页
      */
@@ -43,11 +59,11 @@ public class HomePageController extends AbstractController {
     public String indexCatgPage(@PathVariable String catg, @PathVariable int page) {
         this.setWebData("catg", catg).setWebData("page", page);
 
-        if(StringUtils.equals(catg, "album")) {
-            return this.toFrontView("/album");
+        if (CatgXHelper.isAlbumCatg(catg)) {
+            return this.toFrontView("/index-album");
         }
-        
-        return this.toFrontView("/index");
+
+        return this.toFrontView("/index-topic");
     }
 
     /**
@@ -60,7 +76,18 @@ public class HomePageController extends AbstractController {
         // 更新主题访问次数
         this.topicDAO.updateVisit(id, 1);
 
-        return this.toFrontView("/topic");
+        if (CatgXHelper.isAlbumCatg(catg)) {
+            this.setWebData("topicId", id).setWebData("imageIndex", "0");
+            
+            String[] args = StringUtils.split(id, "-");
+            if (args != null && args.length >= 2) {
+                this.setWebData("topicId", args[0]).setWebData("imageIndex", args[1]);
+            }
+            
+            return this.toFrontView("/detail-album");
+        }
+
+        return this.toFrontView("/detail-topic");
     }
 
     /**
@@ -92,7 +119,8 @@ public class HomePageController extends AbstractController {
      */
     @RequestMapping("/about.html")
     public String about() {
-        return this.toFrontView("/about");
+        this.setWebData("catg", CfgXHelper.findCatgAboutCode());
+        return this.toFrontView("/detail-about");
     }
-    
+
 }

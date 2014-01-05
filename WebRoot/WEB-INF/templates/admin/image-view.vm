@@ -1,0 +1,19 @@
+#set($layout="/layout/layout-admin.vm")
+#set($title="相册管理")
+#set($topic=$TopicXHelper.findTopic($topicId))
+<script type="text/javascript">
+<!--
+$(document).ready(function() {
+	/* 查看图片 */
+	var viewImage = function(url) {
+		$.dialog.setting.min = true;
+		$.dialog.setting.max = true;
+    	$.dialog({
+            width: '700px',
+            height: 500,
+            content: 'url:http://www.baidu.com'
+        });
+	};
+});
+//-->
+</script>

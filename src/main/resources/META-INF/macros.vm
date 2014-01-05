@@ -29,6 +29,15 @@
 #################
 # SELECT #
 #################
+#macro(formSelect $id $name $clazz $style $empty $emptyText $mapValues $selectValue)
+	<select id="$id" name="$name" class="$clazz" style="$style">
+		#if($empty)
+		<option value="">$emptyText</option>
+		#end
+		#formSelectOptions($EnumXHelper.toTopicMediaMap(), $!form.tpcMedia)
+	</select>
+#end
+
 #macro(formSelectOptions $mapValues $selectValue)
     #foreach($option in $mapValues.keySet())
 	<option value="${option}" #if($selectValue == $option) selected="selected" #end>${mapValues.get($option)}</option>

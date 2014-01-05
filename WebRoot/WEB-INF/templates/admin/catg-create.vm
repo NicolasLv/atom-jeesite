@@ -31,37 +31,30 @@ $(document).ready(function() {
 	<div id="tip-success" class="alert alert-info hide">
 		<strong>新增分类成功！</strong>
     </div>
-	<input type="hidden" id="catgId" name="catgId" value="0" />
-	<input type="hidden" id="catgCatg" name="catgCatg" value="0" />
+	<input type="hidden" id="catgId" name="ctgCatg" value="0" />
 	<div class="control-group">
-		<label for="catgText"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
+		<label for="catgName"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
 		<div class="input-append">
-			<input type="text" id="catgText" name="catgText" class="span12" readonly="readonly" placeholder="上级分类名称" />
+			<input type="text" id="catgName" name="ctgText" class="span12" readonly="readonly" placeholder="上级分类名称" />
 			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
         </div>
 	</div>
 	<div class="control-group">
-		<label for="catgCode"><span class="icon-chevron-right"></span><strong>分类代码</strong>-唯一，必输项！</label>
-		<input type="text" id="catgCode" name="catgCode" class="span4" required="required" placeholder="blog" />
+		<label for="ctgCode"><span class="icon-chevron-right"></span><strong>分类代码</strong>-唯一，必输项！</label>
+		<input type="text" id="ctgCode" name="ctgCode" class="span4" required="required" placeholder="blog" />
 	</div>
 	<div class="control-group">
-		<label for="catgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
-		<input type="number" id="catgSort" name="catgSort" value="0" class="span4" required="required" placeholder="分类排序值" />
+		<label for="ctgSort"><span class="icon-chevron-right"></span><strong>分类排序值</strong>-必输项！</label>
+		<input type="number" id="ctgSort" name="ctgSort" value="0" class="span4" required="required" placeholder="分类排序值" />
 	</div>
 	<div class="control-group">
-		<label for="catgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
-		<input type="text" id="catgName" name="catgName" class="span12" required="required" placeholder="分类名称" />
+		<label for="ctgName"><span class="icon-chevron-right"></span><strong>分类名称</strong>-必输项！</label>
+		<input type="text" id="ctgName" name="ctgName" class="span12" required="required" placeholder="分类名称" />
 	</div>
-	<!--
-	<label class="checkbox">
-    	<input type="checkbox" id="catgTop" name="catgTop" value="T" /> 首页分类导航
-    </label>
-	-->
 	<div class="control-group">
-		<label for="catgTop"><span class="icon-chevron-right"></span><strong>首页导航</strong>-是否首页分类导航！</label>
-		<select id="catgTop" name="catgTop" class="span3">
-			<option value="0">否</option>
-			<option value="1">是</option>
+		<label for="ctgTop"><span class="icon-chevron-right"></span><strong>首页导航</strong>-是否首页分类导航！</label>
+		<select id="ctgTop" name="ctgTop" class="span3">
+			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
 		</select>
     </div>
 	<div>

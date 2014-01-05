@@ -6,10 +6,7 @@ $(document).ready(function() {
     	e.preventDefault();
     	ajaxRquest({
     		form: "config-form",
-    		url: "$ctx/admin/config/create.html",
-    		sclose: function() {
-    			location.href = "$ctx/admin/config/manage.html";
-    		}
+    		url: "$ctx/admin/config/create.html"
     	});
     });
 });

@@ -30,6 +30,17 @@
     	</property>
     </bean>
 	
+    <bean id="imageDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisImageDAO">
+		<property name="ticketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Image-ID" />
+			</bean>
+    	</property>
+		<property name="ticketEncode">
+			<bean class="com.github.obullxl.jeesite.dal.ticket.ImageTicketEncode" />
+    	</property>
+    </bean>
+	
     <bean id="replyDAO" parent="abstractDAO" class="com.github.obullxl.jeesite.dal.mybatis.MyBatisReplyDAO">
 		<property name="ticketService">
 			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
@@ -53,7 +64,7 @@
 			</bean>
     	</property>
 		<property name="ticketEncode">
-			<bean class="com.github.obullxl.ticket.support.DefaultTicketEncode" />
+			<bean class="com.github.obullxl.jeesite.dal.ticket.TopicTicketEncode" />
     	</property>
     </bean>
 	

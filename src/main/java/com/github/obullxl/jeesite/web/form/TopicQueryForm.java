@@ -34,8 +34,9 @@ public class TopicQueryForm extends ToString {
 
     private String             tpcState;
     private String             tpcTop;
+    private String             tpcLink;
+    private String             tpcMedia;
     private String             tpcReply;
-    private String             tpcFrom;
     private long               tpcCatg;
     private String             tpcCatgText;
     private String             tpcTitle;
@@ -47,9 +48,10 @@ public class TopicQueryForm extends ToString {
             dst.setId(StringUtils.trimToNull(this.tpcId));
         } else {
             dst.setState(StringUtils.trimToNull(this.tpcState));
-            dst.setTflag(StringUtils.trimToNull(this.tpcTop));
-            dst.setTreply(StringUtils.trimToNull(this.tpcReply));
-            dst.setRflag(StringUtils.trimToNull(this.tpcFrom));
+            dst.setTop(StringUtils.trimToNull(this.tpcTop));
+            dst.setLink(StringUtils.trimToNull(this.tpcLink));
+            dst.setMedia(StringUtils.trimToNull(this.tpcMedia));
+            dst.setReply(StringUtils.trimToNull(this.tpcReply));
 
             if (this.tpcCatg > 0L) {
                 List<String> codes = CatgXHelper.findAllCatgCode(this.tpcCatg);
@@ -112,12 +114,21 @@ public class TopicQueryForm extends ToString {
         this.tpcReply = tpcReply;
     }
 
-    public String getTpcFrom() {
-        return tpcFrom;
+
+    public String getTpcLink() {
+        return tpcLink;
     }
 
-    public void setTpcFrom(String tpcFrom) {
-        this.tpcFrom = tpcFrom;
+    public void setTpcLink(String tpcLink) {
+        this.tpcLink = tpcLink;
+    }
+
+    public String getTpcMedia() {
+        return tpcMedia;
+    }
+
+    public void setTpcMedia(String tpcMedia) {
+        this.tpcMedia = tpcMedia;
     }
 
     public long getTpcCatg() {

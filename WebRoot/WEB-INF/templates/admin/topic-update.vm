@@ -1,32 +1,48 @@
 #set($layout="/layout/layout-admin.vm")
-#set($title="更新主题 - 主题管理")
-#set($topic=$TopicXHelper.findDetail($topicId))
+#set($title="修改主题 - 主题管理")
+#set($catgMenuBody=true)
+#set($topic=$TopicXHelper.findTopic($topicId))
+#set($valve=$topic.findValve())
+#set($catg=$CatgXHelper.findByCode($topic.catg))
 <script type="text/javascript">
-	$(document).ready(function() {
-		var ue = UE.getEditor("content");
-
-		$("#topic-form").submit(function(e) {
-			e.preventDefault();
-			jQuery.ajax({
-				type: "POST",
-				dataType: "json",
-				url: "$ctx/admin/topic/update-${topic.id}.html",
-				data: $("#topic-form").serialize(),
-				beforeSend: function() {
-					fadeProgressModal(true);
-				},
-				success: function(result) {
-					fadeProgressModal(false);
-
-					if(result.success) {
-						fadeSuccessModal(result);
-					} else {
-						fadeFailureModal(result);
-					}
-				}
-			});
-		});
+$(document).ready(function() {
+	UE.getEditor("tpcContent");
+	
+	var toggleFormBlock = function(labelId, blockId) {
+		$("#" + labelId).click(function(e) {
+    		if($("#" + blockId).hasClass("hide")) {
+    			$("#" + blockId).removeClass("hide");
+    			$(this).children("span").attr("class", "icon-chevron-down");
+    		} else {
+    			$("#" + blockId).addClass("hide");
+    			$(this).children("span").attr("class", "icon-chevron-right");
+    		}
+    	});
+	};
+	
+	toggleFormBlock("label-meta", "meta");
+	toggleFormBlock("label-link", "link");
+	toggleFormBlock("label-media", "media");
+	toggleFormBlock("label-summary", "tpcSummary");
+	
+	$("#topic-form").submit(function(e) {
+		e.preventDefault();
+		ajaxRquest({
+    		form: "topic-form",
+    		url: "$ctx/admin/topic/update.html"
+    	});
 	});
+	
+	$("#btn-album-manage").click(function(e) {
+		e.preventDefault();
+		var tpcId = $(this).data("tpcid");
+		location.href = "$ctx/admin/album/manage-" + tpcId + ".html";
+	});
+	
+	/* 初始化 */
+	// $("#catgCatg").val("$!catg.code");
+	// $("#catgName").val("$!catg.name");
+});
 </script>
 <form id="topic-form" name="topic-form" class="form-horizontal" #StyleMB0()>
 	<ul class="breadcrumb">
@@ -37,27 +53,72 @@
 		<li><span class="divider">/</span></li>
     	<li class="active">修改主题</li>
     </ul>
+	<input type="hidden" id="tpcId" name="tpcId" value="${topic.id}" />
+	<input type="hidden" id="catgCode" name="tpcCatg" value="$!catg.code" />
 	<div class="control-group">
-		<label for="catg"><span class="icon-chevron-right"></span><strong>主题类型</strong>-必选项！</label>
-		<select id="catg" name="catg" class="span3">
-			#formSelectOptions($EnumXHelper.toTopicCatgMap(), $topic.catg)
-		</select>
+		<label for="catgText"><span class="icon-chevron-right"></span><strong>分类</strong>-必输项！</label>
+		<div class="input-append">
+			<input type="text" id="catgName" name="tpcCatgName" value="$!catg.name" class="span12" readonly="readonly" />
+			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
+        </div>
 	</div>
 	<div class="control-group">
-		<label for="title"><span class="icon-chevron-right"></span><strong>主题标题</strong>-必输项！</label> <input id="title" name="title" value="${topic.title}" class="span12" type="text" required="required" />
+		<label for="tpcTitle"><span class="icon-chevron-right"></span><strong>标题</strong>-必输项！</label>
+		<input id="tpcTitle" name="tpcTitle" value="$!topic.title" class="span12" type="text" required="required" />
+	</div>
+	
+	<div class="control-group">
+		<label for="nothing" id="label-meta"><span class="icon-chevron-right"></span><strong>元数据</strong>-留空则为默认！</label>
+        <div id="meta" name="meta" class="hide form-inline">
+            <label for="tpcStateFlag">状态</label>
+            <select id="tpcStateFlag" name="tpcStateFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toTopicStateMap(), $!valve.gotState().code())
+    		</select>
+			<label for="tpcTopFlag">置顶</label>
+            <select id="tpcTopFlag" name="tpcTopFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!valve.gotTop().code())
+    		</select>
+			<label for="tpcReplyFlag">评论</label>
+			<select id="tpcReplyFlag" name="tpcReplyFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toTopicReplyMap(), $!valve.gotReply().code())
+    		</select>
+		</div>
 	</div>
 	<div class="control-group">
-		<label for="summary"><span class="icon-chevron-right"></span><strong>主题描述</strong>-必输项！</label>
-		<textarea rows="2" id="summary" name="summary" class="span12" placeholder="留空则截取主题内容">${topic.summary}</textarea>
+		<label for="nothing" id="label-link"><span class="icon-chevron-right"></span><strong>内容引用</strong>-留空则为原创！</label>
+        <div id="link" name="link" class="hide form-inline">
+			<label for="tpcLinkFlag">原创</label>
+			<select id="tpcLinkFlag" name="tpcLinkFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!valve.gotLink().code())
+    		</select>
+			<input id="tpcLinkUrl" name="tpcLinkUrl" value="$topic.linkUrl" type="url" class="span10" placeholder="原创或引用地址" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="nothing" id="label-media"><span class="icon-chevron-right"></span><strong>多媒体</strong>-留空则为普通类型！</label>
+        <div id="media" name="media" class="hide form-inline">
+			<label for="tpcMediaFlag">多媒体</label>
+			<select id="tpcMediaFlag" name="tpcMediaFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toTopicMediaMap(), $!valve.gotMedia().code())
+    		</select>
+			<input id="tpcMediaUrl" name="tpcMediaUrl" value="$topic.mediaUrl" type="text" class="span10" placeholder="多媒体地址" />
+		</div>
+	</div>
+	<div class="control-group">
+		<label for="nothing" id="label-summary"><span class="icon-chevron-right"></span><strong>主题描述</strong>-留空则截取主题内容！</label>
+		<textarea rows="2" id="tpcSummary" name="tpcSummary" class="span12 hide" placeholder="留空则截取主题内容">$topic.summary</textarea>
 	</div>
 	<div class="control-group">
 		<label for="content"><span class="icon-chevron-right"></span><strong>主题内容</strong>-必输项！</label>
 		<div>
-			<textarea id="content" name="content" class="span12" style="height: 150px" required="required">${topic.content}</textarea>
+			<textarea id="tpcContent" name="tpcContent" class="span12" style="height: 150px" required="required">$topic.content</textarea>
 		</div>
 	</div>
-	<div class="pull-right">
+	<div>
 		<button type="submit" class="btn btn-primary">提交保存</button>
+		#if($CatgXHelper.isAlbumCatg($topic.catg))
+			<button type="button" id="btn-album-manage" data-tpcid="$topic.id" class="btn btn-info">管理相册</button>
+		#end
 	</div>
 	<div class="clearfix"></div>
 </form>

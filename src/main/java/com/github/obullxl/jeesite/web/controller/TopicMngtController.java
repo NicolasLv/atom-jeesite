@@ -25,13 +25,13 @@ import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
 import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
-import com.github.obullxl.jeesite.web.enums.ValveBoolEnum;
 import com.github.obullxl.jeesite.web.form.TopicQueryForm;
 import com.github.obullxl.jeesite.web.form.TopicStoreForm;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
 import com.github.obullxl.lang.Paginator;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.utils.TextUtils;
 
 /**
@@ -209,8 +209,8 @@ public class TopicMngtController extends AbstractController {
     private void fillTopic(TopicStoreForm form, TopicDTO topic) {
         TopicValve valve = topic.findValve();
         valve.sotState(TopicStateEnum.findDefault(form.getTpcStateFlag()));
-        valve.sotTop(ValveBoolEnum.is(form.getTpcTopFlag()));
-        valve.sotLink(ValveBoolEnum.is(form.getTpcLinkFlag()));
+        valve.sotTop(ValveBoolEnum.findDefault(form.getTpcTopFlag()));
+        valve.sotLink(ValveBoolEnum.findDefault(form.getTpcLinkFlag()));
         valve.sotMedia(TopicMediaEnum.findDefault(form.getTpcMediaFlag()));
         valve.sotReply(TopicReplyEnum.findDefault(form.getTpcReplyFlag()));
 

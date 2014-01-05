@@ -8,9 +8,13 @@ import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
+import com.github.obullxl.jeesite.web.enums.TmptCatgEnum;
+import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
+import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
 import com.github.obullxl.lang.enums.EnumBaseUtils;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
 
 /**
@@ -48,6 +52,34 @@ public class EnumXHelper extends AbstractXHelper {
      */
     public static final Map<String, String> toTrueFalseMap() {
         return EnumBaseUtils.toMap(TrueFalseEnum.values());
+    }
+
+    /**
+     * 获取布尔开关枚举映射
+     */
+    public static final Map<String, String> toValveBoolMap() {
+        return EnumBaseUtils.toMap(ValveBoolEnum.values());
+    }
+
+    /**
+     * 获取主题多媒体枚举映射
+     */
+    public static final Map<String, String> toTopicMediaMap() {
+        return EnumBaseUtils.toMap(TopicMediaEnum.values());
+    }
+
+    /**
+     * 获取主题评论枚举映射
+     */
+    public static final Map<String, String> toTopicReplyMap() {
+        return EnumBaseUtils.toMap(TopicReplyEnum.values());
+    }
+
+    /**
+     * 获取模板类型枚举映射
+     */
+    public static final Map<String, String> toTmptCatgMap() {
+        return EnumBaseUtils.toMap(TmptCatgEnum.values());
     }
 
 }

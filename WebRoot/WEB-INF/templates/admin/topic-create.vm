@@ -1,72 +1,33 @@
 #set($layout="/layout/layout-admin.vm")
 #set($title="新增主题 - 主题管理")
+#set($catgMenuBody=true)
 <script type="text/javascript">
 $(document).ready(function() {
-	var ue = UE.getEditor("content");
+	UE.getEditor("tpcContent");
 	
-	$("#label-meta").click(function(e) {
-		if($("#meta").hasClass("hide")) {
-			$("#meta").removeClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-down");
-		} else {
-			$("#meta").addClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-right");
-		}
-	});
+	var toggleFormBlock = function(labelId, blockId) {
+		$("#" + labelId).click(function(e) {
+    		if($("#" + blockId).hasClass("hide")) {
+    			$("#" + blockId).removeClass("hide");
+    			$(this).children("span").attr("class", "icon-chevron-down");
+    		} else {
+    			$("#" + blockId).addClass("hide");
+    			$(this).children("span").attr("class", "icon-chevron-right");
+    		}
+    	});
+	};
 	
-	$("#label-from").click(function(e) {
-		if($("#from").hasClass("hide")) {
-			$("#from").removeClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-down");
-		} else {
-			$("#from").addClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-right");
-		}
-	});
+	toggleFormBlock("label-meta", "meta");
+	toggleFormBlock("label-link", "link");
+	toggleFormBlock("label-media", "media");
+	toggleFormBlock("label-summary", "tpcSummary");
 	
-	$("#label-media").click(function(e) {
-		if($("#media").hasClass("hide")) {
-			$("#media").removeClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-down");
-		} else {
-			$("#media").addClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-right");
-		}
-	});
-	
-	$("#label-summary").click(function(e) {
-		if($("#summary").hasClass("hide")) {
-			$("#summary").removeClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-down");
-		} else {
-			$("#summary").addClass("hide");
-			$(this).children("span").attr("class", "icon-chevron-right");
-		}
-	});
-	
-	var _url = "$ctx/admin/topic/create.html";
 	$("#topic-form").submit(function(e) {
 		e.preventDefault();
-		jQuery.ajax({
-			type: "POST",
-			dataType: "json",
-			url: _url,
-			data: $("#topic-form").serialize(),
-			beforeSend: function() {
-				fadeProgressModal(true);
-			},
-			success: function(result) {
-				fadeProgressModal(false);
-
-				if(result.success) {
-					fadeSuccessModal(result);
-					_url = "$ctx/admin/topic/update-"+(result.bizData.biz_id)+".html";
-					$("#form-opt-name").text("更新主题");
-				} else {
-					fadeFailureModal(result);
-				}
-			}
-		});
+		ajaxRquest({
+    		form: "topic-form",
+    		url: "$ctx/admin/topic/create.html"
+    	});
 	});
 });
 </script>
@@ -77,58 +38,66 @@ $(document).ready(function() {
 		<li><span class="divider">/</span></li>
 		<li>主题管理</li>
 		<li><span class="divider">/</span></li>
-    	<li id="form-opt-name" class="active">新增主题</li>
+    	<li class="active">新增主题</li>
     </ul>
+	<input type="hidden" id="catgCode" name="tpcCatg" value="0" />
 	<div class="control-group">
-		<label for="catg"><span class="icon-chevron-right"></span><strong>主题类型</strong>-必选项！</label>
-		<select id="catg" name="catg" class="span3">
-			#formSelectOptions($EnumXHelper.toTopicCatgMap(), "")
-		</select>
+		<label for="catgText"><span class="icon-chevron-right"></span><strong>分类</strong>-必输项！</label>
+		<div class="input-append">
+			<input type="text" id="catgName" name="tpcCatgName" class="span12" readonly="readonly" placeholder="分类名称" />
+			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
+        </div>
 	</div>
 	<div class="control-group">
-		<label for="title"><span class="icon-chevron-right"></span><strong>主题标题</strong>-必输项！</label> <input id="title" name="title" class="span12" type="text" required="required" />
+		<label for="tpcTitle"><span class="icon-chevron-right"></span><strong>标题</strong>-必输项！</label>
+		<input id="tpcTitle" name="tpcTitle" class="span12" type="text" required="required" />
 	</div>
 	
 	<div class="control-group">
 		<label for="nothing" id="label-meta"><span class="icon-chevron-right"></span><strong>元数据</strong>-留空则为默认！</label>
         <div id="meta" name="meta" class="hide form-inline">
-            <label class="span3 checkbox">
-				<input id="tflag" name="tflag" type="checkbox" value="T" />置顶
-            </label>
-			<label class="span3 checkbox">
-				<input id="treply" name="treply" type="checkbox" value="T" />禁止评论
-            </label>
+            <label for="tpcStateFlag">状态</label>
+            <select id="tpcStateFlag" name="tpcStateFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toTopicStateMap(), "")
+    		</select>
+			<label for="tpcTopFlag">置顶</label>
+            <select id="tpcTopFlag" name="tpcTopFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+    		</select>
+			<label for="tpcReplyFlag">评论</label>
+			<select id="tpcReplyFlag" name="tpcReplyFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toTopicReplyMap(), "")
+    		</select>
 		</div>
 	</div>
 	<div class="control-group">
-		<label for="nothing" id="label-from"><span class="icon-chevron-right"></span><strong>内容引用</strong>-留空则为原创！</label>
-        <div id="from" name="from" class="hide form-inline">
-            <label class="span2 checkbox">
-				<input id="rflag" name="rflag" type="checkbox" checked="checked" value="T" />原创
-            </label>
-			<input id="rfrom" name="rfrom" type="url" class="span10" placeholder="原创或引用地址" />
+		<label for="nothing" id="label-link"><span class="icon-chevron-right"></span><strong>内容引用</strong>-留空则为原创！</label>
+        <div id="link" name="link" class="hide form-inline">
+			<label for="tpcLinkFlag">原创</label>
+			<select id="tpcLinkFlag" name="tpcLinkFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+    		</select>
+			<input id="tpcLinkUrl" name="tpcLinkUrl" type="url" class="span10" placeholder="原创或引用地址" />
 		</div>
 	</div>
 	<div class="control-group">
 		<label for="nothing" id="label-media"><span class="icon-chevron-right"></span><strong>多媒体</strong>-留空则为普通类型！</label>
         <div id="media" name="media" class="hide form-inline">
-            <select id="mflag" name="mflag" class="span2">
-				<option value="F">--</option>
-				<option value="IMAGE">图片</option>
-				<option value="AUDIO">音频</option>
-				<option value="VEDIO">视频</option>
-            </select>
-			<input id="mpath" name="mpath" type="text" class="span10" placeholder="多媒体地址" />
+			<label for="tpcMediaFlag">多媒体</label>
+			<select id="tpcMediaFlag" name="tpcMediaFlag" class="input-small">
+    			#formSelectOptions($EnumXHelper.toTopicMediaMap(), "")
+    		</select>
+			<input id="tpcMediaUrl" name="tpcMediaUrl" type="text" class="span10" placeholder="多媒体地址" />
 		</div>
 	</div>
 	<div class="control-group">
 		<label for="nothing" id="label-summary"><span class="icon-chevron-right"></span><strong>主题描述</strong>-留空则截取主题内容！</label>
-		<textarea rows="2" id="summary" name="summary" class="span12 hide" placeholder="留空则截取主题内容"></textarea>
+		<textarea rows="2" id="tpcSummary" name="tpcSummary" class="span12 hide" placeholder="留空则截取主题内容"></textarea>
 	</div>
 	<div class="control-group">
 		<label for="content"><span class="icon-chevron-right"></span><strong>主题内容</strong>-必输项！</label>
 		<div>
-			<textarea id="content" name="content" class="span12" style="height: 150px" required="required"></textarea>
+			<textarea id="tpcContent" name="tpcContent" class="span12" style="height: 150px" required="required"></textarea>
 		</div>
 	</div>
 	<div class="pull-right">

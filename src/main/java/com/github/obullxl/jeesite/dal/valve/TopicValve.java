@@ -8,6 +8,7 @@ import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
 import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.FlagValve;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 
 /**
  * Valve for TopicDTO.
@@ -52,14 +53,14 @@ public class TopicValve extends FlagValve {
     /**
      * 1-置顶
      */
-    public boolean isTop() {
-        return super.gotBoolean(1);
+    public ValveBoolEnum gotTop() {
+        return ValveBoolEnum.findDefault(super.gotString(1));
     }
 
     /**
      * 1-置顶
      */
-    public TopicValve sotTop(boolean value) {
+    public TopicValve sotTop(ValveBoolEnum value) {
         super.sotValue(1, value);
         return this;
     }
@@ -67,14 +68,14 @@ public class TopicValve extends FlagValve {
     /**
      * 2-引用
      */
-    public boolean isLink() {
-        return super.gotBoolean(2);
+    public ValveBoolEnum gotLink() {
+        return ValveBoolEnum.findDefault(super.gotString(2));
     }
 
     /**
      * 2-引用
      */
-    public TopicValve sotLink(boolean value) {
+    public TopicValve sotLink(ValveBoolEnum value) {
         super.sotValue(2, value);
         return this;
     }

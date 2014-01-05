@@ -215,6 +215,11 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.7</version>
 		</dependency>
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.0</version>
+		</dependency>
 
 		<!-- ======================================== -->
 		<!-- Jsoup依赖 -->
