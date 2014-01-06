@@ -344,9 +344,10 @@
 				<version>2.2</version>
 				<configuration>
 					<attachClasses>true</attachClasses>
+					<outputDirectory>dist</outputDirectory>
 					<webXml>WebRoot/WEB-INF/web.xml</webXml>
 					<warSourceDirectory>WebRoot</warSourceDirectory>
-					<packagingExcludes>WEB-INF/deploy/**</packagingExcludes>
+					<packagingExcludes>albums/*</packagingExcludes>
 				</configuration>
 			</plugin>
 			<plugin>
