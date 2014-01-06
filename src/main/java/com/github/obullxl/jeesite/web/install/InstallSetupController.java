@@ -47,7 +47,7 @@ public class InstallSetupController {
         // Spring配置文件
         MapExt map = MapExt.parse(args, "\n", "=");
 
-        String springConfig = WebContext.get().getServletContext().getRealPath("/WEB-INF/config/spring-config.xml");
+        String springConfig = WebContext.getServletContext().getRealPath("/WEB-INF/config/spring-config.xml");
         String txt = FileUtils.readFileToString(new File(springConfig));
         for (Map.Entry<String, String> entry : map.entrySet()) {
             String key = "{{" + StringUtils.trim(entry.getKey()) + "}}";
@@ -59,8 +59,8 @@ public class InstallSetupController {
         String webXmlFrom = "/WEB-INF/config/web-prod.xml";
         String webXmlTo = "/WEB-INF/web.xml";
 
-        String webXmlFromPath = WebContext.get().getServletContext().getRealPath(webXmlFrom);
-        String webXmlToPath = WebContext.get().getServletContext().getRealPath(webXmlTo);
+        String webXmlFromPath = WebContext.getServletContext().getRealPath(webXmlFrom);
+        String webXmlToPath = WebContext.getServletContext().getRealPath(webXmlTo);
         FileUtils.copyFile(new File(webXmlFromPath), new File(webXmlToPath));
 
         return "install-setup";

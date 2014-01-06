@@ -22,6 +22,7 @@ import org.springframework.stereotype.Component;
 import com.github.obullxl.jeesite.dal.dao.ConfigDAO;
 import com.github.obullxl.jeesite.dal.dto.ConfigDTO;
 import com.github.obullxl.lang.timer.AbstractTickTimer;
+import com.github.obullxl.lang.web.WebContext;
 import com.github.obullxl.lang.xhelper.XHelper;
 
 /**
@@ -100,6 +101,12 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
             if (logger.isInfoEnabled()) {
                 logger.info("[配置刷新]-{}.", config);
             }
+        }
+
+        // 设置图片主机
+        String ictx = findAlbumImageHost();
+        if (StringUtils.isNotBlank(ictx)) {
+            WebContext.setImageHostCtx(StringUtils.trim(ictx));
         }
     }
 
@@ -247,6 +254,13 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
     public static int findAlbumCoverHeight() {
         String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.ALBUM_COVER_HEIGHT);
         return NumberUtils.toInt(value, 350);
+    }
+
+    /**
+     * 业务功能-获取相册图片主机
+     */
+    public static final String findAlbumImageHost() {
+        return findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.ALBUM_IMAGE_HOST);
     }
 
     /**

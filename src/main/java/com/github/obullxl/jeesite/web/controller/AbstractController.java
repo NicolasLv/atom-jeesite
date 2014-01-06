@@ -210,7 +210,7 @@ public abstract class AbstractController {
      * Servlet上下文
      */
     public ServletContext findServletContext() {
-        return WebContext.get().getServletContext();
+        return WebContext.getServletContext();
     }
 
     /**

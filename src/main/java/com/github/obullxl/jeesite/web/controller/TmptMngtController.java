@@ -47,7 +47,7 @@ public class TmptMngtController extends AbstractController {
     @RequestMapping("/tmpt/manage.html")
     public String manage() {
         String ctxPath = CfgXHelper.findTmptContextPath();
-        String realPath = WebContext.get().getServletContext().getRealPath(ctxPath);
+        String realPath = WebContext.getServletContext().getRealPath(ctxPath);
 
         this.setWebData("ctxPath", ctxPath).setWebData("realPath", realPath);
         this.setWebData("ztreeNodes", JSON.toJSONString(FileTreeUtils.parse(realPath)));
@@ -222,7 +222,7 @@ public class TmptMngtController extends AbstractController {
      * 获取模板实际路径
      */
     private String findRealPath(String tmptName) {
-        String root = WebContext.get().getServletContext().getRealPath(CfgXHelper.findTmptContextPath());
+        String root = WebContext.getServletContext().getRealPath(CfgXHelper.findTmptContextPath());
         if (!StringUtils.startsWith(tmptName, "/")) {
             tmptName = "/" + tmptName;
         }

@@ -117,6 +117,7 @@
 	<!-- ================================================= -->
 	<!-- 缓存配置 -->
 	<!-- ================================================= -->
+	<!--
 	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
 		<property name="shared" value="true" />
 		<property name="cacheManagerName" value="jeesite-ehcache" />
@@ -125,6 +126,7 @@
 	<bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
 		<property name="cacheManager" ref="cacheManager" />
 	</bean>
+	-->
 
 	<!-- ================================================= -->
 	<!-- 属性编辑器配置 -->

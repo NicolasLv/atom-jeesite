@@ -35,8 +35,6 @@
 	<!-- ============================================= -->
     <!-- Public CopyS                                  -->
     <!-- ============================================= -->
-
-
 	<resultMap id="RM-UNAME" type="java.lang.String">
 		<result property="uname" column="uname" javaType="java.lang.String" />
 	</resultMap>

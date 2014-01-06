@@ -4,8 +4,8 @@
 package com.github.obullxl.jeesite.dal.dto;
 
 
-	import com.github.obullxl.jeesite.flag.UserBitFlag;
 
+import com.github.obullxl.jeesite.dal.valve.UserValve;
 
 /**
  * A data object class directly models database table <tt>atom_user</tt>.
@@ -13,27 +13,26 @@ package com.github.obullxl.jeesite.dal.dto;
 public class UserDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
 
-	/** 用户位标志 */
-    private UserBitFlag       bitFlag;
 
-    /**
-     * 获取用户位标志
-     */
-    public UserBitFlag findBitFlag() {
-        if (this.bitFlag == null) {
-            this.bitFlag = new UserBitFlag(this.uflag);
+	/** 寮?叧鍊?*/
+	private UserValve valve;
+	
+	/**
+     * 鑾峰彇寮?叧鍊?     */
+    public UserValve findValve() {
+        if (this.valve == null) {
+            this.valve = new UserValve(this);
         }
 
-        return this.bitFlag;
+        return this.valve;
     }
     
     /**
-     * 重置用户位标志
-     */
-    public void resetBitFlag() {
-        this.bitFlag = null;
+     * 閲嶇疆寮?叧鍊?     */
+    public UserDTO resetValve() {
+        this.valve = null;
+		return this;
     }
-
 
 	/** column:id */
 	private long id;

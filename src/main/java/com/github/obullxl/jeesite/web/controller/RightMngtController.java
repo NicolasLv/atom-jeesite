@@ -16,6 +16,7 @@ import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.dal.dto.UserRgtDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 
 /**
  * 权限管理控制器
@@ -145,7 +146,7 @@ public class RightMngtController extends AbstractController {
 
         try {
             UserDTO user = this.userDAO.find(id);
-            if (user != null && !user.findBitFlag().isAdmin()) {
+            if (user != null && (user.findValve().gotAdmin() != ValveBoolEnum.TRUE)) {
                 UserRgtDTO userRgt = this.userRgtDAO.find(user.getUname(), rgtCode);
                 if (userRgt == null) {
                     userRgt = new UserRgtDTO();

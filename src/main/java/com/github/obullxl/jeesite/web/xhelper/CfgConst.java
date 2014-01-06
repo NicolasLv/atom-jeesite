@@ -48,6 +48,9 @@ public interface CfgConst {
 
         // 相册封面高
         public static final String ALBUM_COVER_HEIGHT = "album_cover_height";
+
+        // 相册图片主机
+        public static final String ALBUM_IMAGE_HOST   = "album_image_host";
     }
 
 }

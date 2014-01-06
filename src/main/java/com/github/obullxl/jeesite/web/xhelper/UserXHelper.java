@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 import com.github.obullxl.jeesite.dal.dao.UserDAO;
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.utils.UserConverter;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.user.UserContextHolder;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
 
@@ -54,7 +55,7 @@ public class UserXHelper extends AbstractXHelper {
      */
     public static boolean isAdmin(UserDTO user) {
         if (user != null) {
-            return user.findBitFlag().isAdmin();
+            return (user.findValve().gotAdmin() == ValveBoolEnum.TRUE);
         }
 
         return false;
@@ -66,7 +67,7 @@ public class UserXHelper extends AbstractXHelper {
     public UserDTO findSessionUser() {
         UserDTO user = new UserDTO();
         UserConverter.convert(user, UserContextHolder.get());
-        
+
         return user;
     }
 

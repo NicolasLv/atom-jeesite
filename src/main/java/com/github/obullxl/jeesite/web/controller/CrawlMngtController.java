@@ -35,7 +35,6 @@ import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.EnumBase;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.utils.TextUtils;
-import com.github.obullxl.lang.web.WebContext;
 import com.github.obullxl.lang.web.crawl.CrawlData;
 import com.github.obullxl.lang.web.crawl.WebCrawler;
 
@@ -179,20 +178,20 @@ public class CrawlMngtController extends AbstractController {
                     valve.sotLink(ValveBoolEnum.findDefault(MapUtils.getString(args, "topic.link")));
                     valve.sotMedia(TopicMediaEnum.findDefault(MapUtils.getString(args, "topic.media")));
                     valve.sotReply(TopicReplyEnum.findDefault(MapUtils.getString(args, "topic.reply")));
-                    
+
                     topic.setFlag(valve.getValve());
                     topic.setCatg(StringUtils.trimToEmpty(MapUtils.getString(args, "topic.catg")));
                     topic.setLinkUrl(data.getUrl());
                     topic.setMediaUrl(StringUtils.trimToEmpty(MapUtils.getString(args, "topic.media_url")));
                     topic.setTitle(data.getTitle());
-                    
+
                     if (StringUtils.isBlank(data.getSummary())) {
                         data.setSummary(TextUtils.truncate(data.getContent(), DBSize.Topic.SUMMARY_MAX));
                     } else {
                         data.setSummary(TextUtils.truncate(data.getSummary(), DBSize.Topic.SUMMARY_MAX));
                     }
                     topic.setSummary(data.getSummary());
-                    
+
                     topic.setContent(data.getContent());
 
                     if (logger.isInfoEnabled()) {
@@ -246,7 +245,7 @@ public class CrawlMngtController extends AbstractController {
      */
     private void saveGroovy(long id, String content) {
         try {
-            String path = WebContext.get().getServletContext().getRealPath("/WEB-INF/groovy/crawler/" + id + ".groovy");
+            String path = this.findServletContext().getRealPath("/WEB-INF/groovy/crawler/" + id + ".groovy");
             FileUtils.writeStringToFile(new File(path), content);
         } catch (Exception e) {
             logger.error("保存Groovy异常-[{}].", id, e);

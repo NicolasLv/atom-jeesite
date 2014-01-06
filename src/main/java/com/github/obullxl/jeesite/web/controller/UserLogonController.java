@@ -21,6 +21,7 @@ import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.enums.UserRightEnum;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.user.UserContext;
 import com.github.obullxl.lang.user.UserContextUtils;
 import com.github.obullxl.lang.utils.MD5Utils;
@@ -68,9 +69,9 @@ public class UserLogonController extends AbstractController {
             if (uctx == null) {
                 uctx = UserContext.newMockContext();
             }
-            
+
             UserConverter.convert(uctx, user);
-            
+
             UserContextUtils.setSessionContext(session, uctx);
             String gotoUrl = UserContextUtils.findGotoURL(uctx);
 
@@ -78,7 +79,7 @@ public class UserLogonController extends AbstractController {
             UserContextUtils.setLogin(uctx, true);
             uctx.getUserRights().add(UserRightEnum.RGT_LOGIN_NORMAL.code());
 
-            boolean admin = user.findBitFlag().isAdmin();
+            boolean admin = (user.findValve().gotAdmin() == ValveBoolEnum.TRUE);
             UserContextUtils.setAdmin(uctx, admin);
             if (!admin) {
                 List<UserRgtDTO> rgts = this.userRgtDAO.findByUser(uname);
@@ -108,7 +109,7 @@ public class UserLogonController extends AbstractController {
     public String logout() {
         HttpSession session = WebContext.get().getSession();
         UserContextUtils.setSessionContext(session, UserContext.newMockContext());
-        
+
         return this.redirectTo("/");
     }
 
