@@ -9,7 +9,7 @@
 	#foreach($image in $images)
 	<div>
 		<p>${image.summary}</p>
-		<p><image src="$ctx/public/album/${image.url}" /></p>
+		<p><image src="$StaticXHelper.findImageURL(${image.url})" /></p>
 	</div>
 	#end
 </div>

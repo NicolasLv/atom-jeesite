@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ATOM-CRAWL">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+    
+    <!-- result maps for database table atom_crawl -->
+    <resultMap id="RM-CRAWL" type="CrawlDTO">
+        <result property="id" column="id" javaType="long" />
+        <result property="name" column="name" javaType="java.lang.String" />
+        <result property="content" column="content" javaType="java.lang.String" />
+        <result property="gmtCreate" column="gmt_create" javaType="java.util.Date" />
+        <result property="gmtModify" column="gmt_modify" javaType="java.util.Date" />
+    </resultMap>
+
+
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+
+	<!-- ============================================= -->
+    <!-- Public CopyS                                  -->
+    <!-- ============================================= -->
+
+    <!-- ============================================= -->
+    <!-- mapped statements for MyBatisCrawlDAO -->
+    <!-- ============================================= -->
+    
+    <!-- mapped statement for MyBatisCrawlDAO.insert -->
+    <insert id="insert">
+        INSERT INTO atom_crawl(
+				id, name, content, gmt_create, gmt_modify
+			) VALUES(
+				#{id}, #{name}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
+			)
+    </insert>
+
+    <!-- mapped statement for MyBatisCrawlDAO.update -->
+    <update id="update" >
+        UPDATE atom_crawl SET
+				name=#{name}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW()
+			WHERE
+				id=#{id}
+    </update>
+
+    <!-- mapped statement for MyBatisCrawlDAO.find -->
+    <select id="find" resultMap="RM-CRAWL" >
+    <![CDATA[
+        select * from atom_crawl where (id = #{value})
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCrawlDAO.findNames -->
+    <select id="findNames" resultMap="RM-CRAWL" >
+    <![CDATA[
+        select id, name, '' content, gmt_create, gmt_modify from atom_crawl
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCrawlDAO.findAll -->
+    <select id="findAll" resultMap="RM-CRAWL" >
+    <![CDATA[
+        select * from atom_crawl
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisCrawlDAO.delete -->
+    <delete id="delete" >
+    <![CDATA[
+        delete from atom_crawl where (id = #{value})
+    ]]>
+    </delete>
+
+    <!-- mapped statement for MyBatisCrawlDAO.deleteAll -->
+    <delete id="deleteAll" >
+    <![CDATA[
+        delete from atom_config where (id >= 0)
+    ]]>
+    </delete>
+
+</mapper>

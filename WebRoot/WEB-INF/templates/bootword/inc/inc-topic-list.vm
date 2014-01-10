@@ -18,7 +18,7 @@
 	<div class="pull-right">
     	<div class="thumb">
     		<a href="$ctx/topic/${topic.catg}-${topic.id}.html">
-    			<img id="topic-image-${topic.id}" height="50" src="$ctx/public/album/${topic.mediaUrl}" alt="$topic.title" title="$topic.title" />
+    			<img id="topic-image-${topic.id}" height="50" src="$StaticXHelper.findImageURL(${topic.mediaUrl})" alt="$topic.title" title="$topic.title" />
             </a>
     	</div>
 	</div>

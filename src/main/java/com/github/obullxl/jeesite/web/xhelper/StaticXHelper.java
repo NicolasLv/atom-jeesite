@@ -20,14 +20,21 @@ import com.github.obullxl.lang.xhelper.AbstractXHelper;
 public class StaticXHelper extends AbstractXHelper {
 
     /**
+     * 检查URL是否为网络路径
+     */
+    public static boolean isNetworkURL(String url) {
+        if (StringUtils.startsWith(url, "http") || StringUtils.contains(url, "://")) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
      * 检查URL是否为本地路径
      */
     public static boolean isRelativeURL(String url) {
-        if (StringUtils.startsWith(url, "http") || StringUtils.contains(url, "://")) {
-            return false;
-        }
-
-        return true;
+        return !isNetworkURL(url);
     }
 
     /**
@@ -36,7 +43,7 @@ public class StaticXHelper extends AbstractXHelper {
     public static String findImageURL(String url) {
         url = StringUtils.trimToEmpty(url);
 
-        if (isRelativeURL(url)) {
+        if (!isRelativeURL(url)) {
             return url;
         }
 

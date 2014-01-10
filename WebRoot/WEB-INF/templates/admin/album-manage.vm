@@ -44,11 +44,11 @@ $(document).ready(function() {
 		var imgId = $(this).data("id");
 		if(btnId === "btn-img-view") {
 			viewImage({
-				url: "$ctx/public/album/" + $(this).data("url")
+				url: $(this).data("url")
 			});
 		} else if(btnId === "btn-cover-view") {
 			viewImage({
-				url: "$ctx/public/album/" + $(this).data("url")
+				url: $(this).data("url")
 			});
 		} else if(btnId === "btn-img-cover") {
 			jQuery.post("$ctx/admin/album/cover.html", {id: imgId}, function(rtn) {
@@ -90,13 +90,8 @@ $(document).ready(function() {
 		<span class="icon-chevron-right"></span><strong>标题：</strong>$topic.title
 	</div>
 	<div class="control-group">
-		#if($StringUtils.startsWidth($topic.mediaUrl, "http"))
-			#set($imgUrl=$topic.mediaUrl)
-		#else
-			#set($imgUrl="${ctx}/public/album/${topic.mediaUrl}")
-		#end
-		<span class="icon-chevron-right"></span><strong>封面：</strong> <a href="javascript:void(0)">$imgUrl</a>
-		<button type="button" id="btn-cover-view" data-url="$topic.mediaUrl" class="btn btn-info pull-right">查看相册封面</button>
+		<span class="icon-chevron-right"></span><strong>封面：</strong> <a href="javascript:void(0)">$StaticXHelper.findImageURL($topic.mediaUrl)</a>
+		<button type="button" id="btn-cover-view" data-url="$StaticXHelper.findImageURL($topic.mediaUrl)" class="btn btn-info pull-right">查看相册封面</button>
 	</div>
 	<div class="control-group">
 		<label for="summary"><span class="icon-chevron-right"></span><strong>相册描述</strong></label>
@@ -154,16 +149,11 @@ $(document).ready(function() {
 			#foreach($image in $TopicXHelper.findAlbumImages($topicId))
     		<tr>
                 <td><div class="text-center">$image.id</div></td>
-				#if($StringUtils.startsWidth($image.url, "http"))
-					#set($imgUrl=$image.url)
-				#else
-					#set($imgUrl="${ctx}/public/album/$image.url")
-				#end
-    			<td><a href="$imgUrl" target="_blank">$image.url</a></td>
+    			<td><a href="$StaticXHelper.findImageURL($image.url)" target="_blank">$image.url</a></td>
 				<td>$FileUtils.byteCountToDisplaySize($!image.size)</td>
 				<td>$!{image.width}×$!{image.height}</td>
     			<td><div class="pull-right">
-					<button type="button" id="btn-img-view" data-url="$image.url" class="btn btn-info">查看</button>
+					<button type="button" id="btn-img-view" data-url="$StaticXHelper.findImageURL($image.url)" class="btn btn-info">查看</button>
 					<button type="button" id="btn-img-cover" data-id="$image.id" class="btn btn-success">设为封面</button>
 					<button type="button" id="btn-img-delete" data-id="$image.id" class="btn btn-danger">删除</button>
                 </div></td>

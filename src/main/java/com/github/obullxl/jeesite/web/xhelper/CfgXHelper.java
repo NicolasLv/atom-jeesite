@@ -17,10 +17,12 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.dal.dao.ConfigDAO;
 import com.github.obullxl.jeesite.dal.dto.ConfigDTO;
+import com.github.obullxl.lang.spring.ServletReadyEvent;
 import com.github.obullxl.lang.timer.AbstractTickTimer;
 import com.github.obullxl.lang.web.WebContext;
 import com.github.obullxl.lang.xhelper.XHelper;
@@ -32,7 +34,7 @@ import com.github.obullxl.lang.xhelper.XHelper;
  * @version $Id: CfgXHelper.java, V1.0.1 2013年12月13日 下午1:09:17 $
  */
 @Component("cfgXHelper")
-public class CfgXHelper extends AbstractTickTimer implements XHelper, InitializingBean {
+public class CfgXHelper extends AbstractTickTimer implements XHelper, InitializingBean, ApplicationListener<ServletReadyEvent> {
     /** 分隔符 */
     private static final String                 DOT   = ".";
 
@@ -104,9 +106,25 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
         }
 
         // 设置图片主机
+        setAlbumImageHost();
+    }
+
+    /** 
+     * @see org.springframework.context.ApplicationListener#onApplicationEvent(org.springframework.context.ApplicationEvent)
+     */
+    public void onApplicationEvent(ServletReadyEvent event) {
+        setAlbumImageHost();
+    }
+
+    /**
+     * 设置图片主机
+     */
+    public static void setAlbumImageHost() {
         String ictx = findAlbumImageHost();
         if (StringUtils.isNotBlank(ictx)) {
-            WebContext.setImageHostCtx(StringUtils.trim(ictx));
+            if (WebContext.isReady()) {
+                WebContext.setImageHostCtx(StringUtils.trim(ictx));
+            }
         }
     }
 

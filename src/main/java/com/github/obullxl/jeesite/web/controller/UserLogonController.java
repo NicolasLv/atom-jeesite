@@ -7,20 +7,19 @@ package com.github.obullxl.jeesite.web.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.dal.dto.UserRgtDTO;
 import com.github.obullxl.jeesite.utils.UserConverter;
-import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.enums.UserRightEnum;
-import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.jeesite.web.form.UserLoginForm;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.user.UserContext;
 import com.github.obullxl.lang.user.UserContextUtils;
@@ -41,26 +40,38 @@ public class UserLogonController extends AbstractController {
      */
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login() {
+        this.setWebData("form", new UserLoginForm());
         return this.toFrontView("/login");
     }
 
-    @ResponseBody
     @RequestMapping(value = "/login.html", method = RequestMethod.POST)
-    public BizResponse login(ModelMap model, String uname, String passwd, String extra) {
-        // 操作结果
-        BizResponse response = this.newBizResponse();
+    public String login(@Valid UserLoginForm form, BindingResult errors) {
+        this.setWebData("form", form);
 
         try {
-            // 获取用户
-            UserDTO user = this.userDAO.findByName(uname);
-            if (user == null) {
-                this.buildResponse(response, BizResponseEnum.USER_NOT_EXIST);
-                return response;
+            // 校验
+            form.validateEnumBase(errors);
+
+            if (errors.hasErrors()) {
+                this.setWebData("errorMessage", "参数输入错误！");
+                return this.toFrontView("/login");
             }
 
-            if (!StringUtils.equals(user.getPasswd(), MD5Utils.digest(passwd))) {
-                this.buildResponse(response, BizResponseEnum.INVALID_PASSWD);
-                return response;
+            // 获取用户
+            UserDTO user = this.userDAO.findByName(form.getUsrName());
+            if (user == null) {
+                this.setWebData("errorMessage", "用户不存在！");
+                return this.toFrontView("/login");
+            }
+
+            if (user.findValve().gotState() != ValveBoolEnum.TRUE) {
+                this.setWebData("errorMessage", "用户未激活，请联系管理员！");
+                return this.toFrontView("/login");
+            }
+
+            if (!StringUtils.equals(user.getPasswd(), MD5Utils.digest(form.getUsrPasswd()))) {
+                this.setWebData("errorMessage", "密码输入错误！");
+                return this.toFrontView("/login");
             }
 
             // 设置上下文
@@ -71,9 +82,7 @@ public class UserLogonController extends AbstractController {
             }
 
             UserConverter.convert(uctx, user);
-
             UserContextUtils.setSessionContext(session, uctx);
-            String gotoUrl = UserContextUtils.findGotoURL(uctx);
 
             // 设置用户信息
             UserContextUtils.setLogin(uctx, true);
@@ -82,23 +91,24 @@ public class UserLogonController extends AbstractController {
             boolean admin = (user.findValve().gotAdmin() == ValveBoolEnum.TRUE);
             UserContextUtils.setAdmin(uctx, admin);
             if (!admin) {
-                List<UserRgtDTO> rgts = this.userRgtDAO.findByUser(uname);
+                List<UserRgtDTO> rgts = this.userRgtDAO.findByUser(form.getUsrName());
                 for (UserRgtDTO rgt : rgts) {
                     uctx.getUserRights().add(rgt.getRgtCode());
                 }
             }
 
             // 页面跳转
-            if (StringUtils.isNotBlank(gotoUrl)) {
-                response.getBizData().put("gotoUrl", gotoUrl);
+            String gotoUrl = UserContextUtils.findGotoURL(uctx);
+            if (StringUtils.isBlank(gotoUrl)) {
+                gotoUrl = ADMIN_INDEX;
             }
 
             // 成功登录返回
-            return response;
+            return this.redirectTo(gotoUrl);
         } catch (Exception e) {
-            logger.error("用户登录异常[" + uname + "]!", e);
-            this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
-            return response;
+            logger.error("用户登录异常-{}", form, e);
+            this.setWebData("errorMessage", "系统异常，请联系管理员！");
+            return this.toFrontView("/login");
         }
     }
 

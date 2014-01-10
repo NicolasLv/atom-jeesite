@@ -24,40 +24,6 @@
 #set($title="用户登录")
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#login-form").submit(function(e) {
-    	e.preventDefault();
-		jQuery.ajax({
-    		type: "POST",
-    		dataType: "json",
-    		url: "$ctx/login.html",
-    		data: $("#login-form").serialize(),
-    		success: function(rtn) {
-    			if(rtn.success) {
-    				if(rtn.bizData.gotoUrl) {
-        				top.location.href = rtn.bizData.gotoUrl;
-    				} else {
-    					top.location.href = "$ctx/admin/index.html";
-    				}
-    			} else {
-    				$("#tip-error-msg").html(rtn.respDesp);
-					$("#tip-error-msg").removeClass("hide");
-    			}
-    		}
-    	});
-    });
-	
-	$("#uname").change(function(e) {
-		if(!$("#tip-error-msg").hasClass("hide")) {
-			$("#tip-error-msg").addClass("hide");
-		}
-	});
-	
-	$("#passwd").change(function(e) {
-		if(!$("#tip-error-msg").hasClass("hide")) {
-			$("#tip-error-msg").addClass("hide");
-		}
-	});
-	
 	$("#regist-form").submit(function(e) {
     	e.preventDefault();
 		alert("对不起，本系统未开放用户注册，请联系系统管理员，谢谢！");
@@ -67,16 +33,18 @@ $(document).ready(function() {
 <div class="container">
 	<div class="row">
 		<div class="span6">
-			<form id="login-form" name="login-form" method="post" class="form-horizontal form-well">
+			<form id="login-form" name="login-form" method="post" action="$ctx/login.html" class="form-horizontal form-well">
 				<h3>系统登录</h3>
-				<div id="tip-error-msg" class="alert alert-error hide">&nbsp;</div>
+				#if($errorMessage)
+				<div class="alert alert-error">$errorMessage</div>
+				#end
 				<div class="control-group">
 					<label for="uname"><span class="icon-chevron-right"></span> 用户名：</label>
-					<input id="uname" name="uname" class="span4" type="text" required="required" />
+					<input id="uname" name="uname" value="$!form.usrName" class="span4" type="text" required="required" />
 				</div>
 				<div class="control-group">
 					<label for="passwd"><span class="icon-chevron-right"></span> 登录密码：</label>
-					<input id="passwd" name="passwd" class="span4" type="password" required="required" />
+					<input id="passwd" name="passwd" value="$!form.usrPasswd" class="span4" type="password" required="required" />
 				</div>
 				<div>
 					<button type="submit" class="btn btn-primary">登录系统</button>

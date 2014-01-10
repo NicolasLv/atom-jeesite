@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ATOM-IMAGE">
+    <!-- ============================================= -->
+    <!-- RESULT MAPS                                   -->
+    <!-- ============================================= -->
+    
+    <!-- result maps for database table atom_image -->
+    <resultMap id="RM-IMAGE" type="ImageDTO">
+        <result property="id" column="id" javaType="java.lang.String" />
+        <result property="flag" column="flag" javaType="java.lang.String" />
+        <result property="topic" column="topic" javaType="java.lang.String" />
+        <result property="title" column="title" javaType="java.lang.String" />
+        <result property="size" column="size" javaType="long" />
+        <result property="width" column="width" javaType="long" />
+        <result property="height" column="height" javaType="long" />
+        <result property="url" column="url" javaType="java.lang.String" />
+        <result property="summary" column="summary" javaType="java.lang.String" />
+        <result property="gmtCreate" column="gmt_create" javaType="java.util.Date" />
+        <result property="gmtModify" column="gmt_modify" javaType="java.util.Date" />
+    </resultMap>
+
+
+	<!-- ============================================= -->
+    <!-- Public SQLS                                   -->
+    <!-- ============================================= -->
+
+	<!-- ============================================= -->
+    <!-- Public CopyS                                  -->
+    <!-- ============================================= -->
+
+    <!-- ============================================= -->
+    <!-- mapped statements for MyBatisImageDAO -->
+    <!-- ============================================= -->
+    
+    <!-- mapped statement for MyBatisImageDAO.insert -->
+    <insert id="insert">
+        INSERT INTO atom_image(
+				id, flag, topic, title, size, width, height, url, summary, gmt_create, gmt_modify
+			) VALUES(
+				#{id}, #{flag}, #{topic}, #{title}, #{size}, #{width}, #{height}, #{url}, #{summary}, NOW(), NOW()
+			)
+    </insert>
+
+    <!-- mapped statement for MyBatisImageDAO.update -->
+    <update id="update" >
+        UPDATE atom_image SET flag=#{flag}, topic=#{topic}, title=#{title}, size=#{size}, width=#{width}, height=#{height}, url=#{url}, summary=#{summary}, gmt_modify=NOW() WHERE id=#{id}
+    </update>
+
+    <!-- mapped statement for MyBatisImageDAO.updateUrl -->
+    <update id="updateUrl" >
+        UPDATE atom_image SET flag=#{flag}, url=#{url}, gmt_modify=NOW() WHERE id=#{id}
+    </update>
+
+    <!-- mapped statement for MyBatisImageDAO.find -->
+    <select id="find" resultMap="RM-IMAGE" >
+    <![CDATA[
+        select * from atom_image where (id = #{value})
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisImageDAO.findAll -->
+    <select id="findAll" resultMap="RM-IMAGE" >
+    <![CDATA[
+        select * from atom_image
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisImageDAO.findTopic -->
+    <select id="findTopic" resultMap="RM-IMAGE" >
+    <![CDATA[
+        select * from atom_image where (topic = #{value})
+    ]]>
+    </select>
+
+    <!-- mapped statement for MyBatisImageDAO.delete -->
+    <delete id="delete" >
+    <![CDATA[
+        delete from atom_image where (id = #{value})
+    ]]>
+    </delete>
+
+    <!-- mapped statement for MyBatisImageDAO.deleteTopic -->
+    <delete id="deleteTopic" >
+    <![CDATA[
+        delete from atom_image where (topic = #{value})
+    ]]>
+    </delete>
+
+</mapper>

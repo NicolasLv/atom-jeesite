@@ -14,14 +14,14 @@
 	</typeAliases>
 
 	<mappers>
-		<mapper resource="mybatis/jeesite/Catg-mapper.xml" />
-		<mapper resource="mybatis/jeesite/Config-mapper.xml" />
-		<mapper resource="mybatis/jeesite/Crawl-mapper.xml" />
-		<mapper resource="mybatis/jeesite/Image-mapper.xml" />
-		<mapper resource="mybatis/jeesite/Reply-mapper.xml" />
-		<mapper resource="mybatis/jeesite/Right-mapper.xml" />
-		<mapper resource="mybatis/jeesite/Topic-mapper.xml" />
-		<mapper resource="mybatis/jeesite/User-mapper.xml" />
-		<mapper resource="mybatis/jeesite/UserRgt-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Catg-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Config-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Crawl-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Image-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Reply-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Right-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/Topic-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/User-mapper.xml" />
+		<mapper resource="mybatis/jeesite/sqlite/UserRgt-mapper.xml" />
 	</mappers>
 </configuration>

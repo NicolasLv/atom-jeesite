@@ -5,7 +5,7 @@
 package com.github.obullxl.jeesite.web.controller;
 
 import java.io.File;
-import java.net.URL;
+import java.util.Date;
 
 import javax.validation.Valid;
 
@@ -27,9 +27,12 @@ import com.github.obullxl.jeesite.dal.valve.ImageValve;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.ImageStoreForm;
 import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.jeesite.web.xhelper.StaticXHelper;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.biz.ImageMeta;
+import com.github.obullxl.lang.enums.ImageTypeEnum;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.utils.DateUtils;
 import com.github.obullxl.lang.utils.ImageUtils;
 
 /**
@@ -78,62 +81,60 @@ public class AlbumMngtController extends AbstractController {
                 return this.toAdminView(VOPT_TOPIC_MANAGE, "album-manage");
             }
 
-            // 创建目录
-            String path = this.findAlbumPath();
-            FileUtils.forceMkdir(new File(path));
+            // 本地上传
+            boolean local = (imgFile != null && !imgFile.isEmpty());
 
-            // 图片数据
-            ImageMeta meta = null;
-            if (imgFile != null && !imgFile.isEmpty()) {
-                meta = ImageUtils.findImgMeta(imgFile.getInputStream());
+            if (!local) {
+                this.createNetwork(topic, form);
             } else {
-                URL url = new URL(form.getImgNetUrl());
-                meta = ImageUtils.findImgMeta(url.openStream());
-            }
+                // 创建目录
+                String path = this.findAlbumPath();
+                FileUtils.forceMkdir(new File(path));
 
-            if (!meta.isImage()) {
-                this.setWebData("errorMessage", "请上传图片文件！");
-                return this.toAdminView(VOPT_TOPIC_MANAGE, "album-manage");
-            }
+                // 图片数据
+                ImageMeta meta = ImageUtils.findImgMeta(imgFile.getInputStream());
+                if (!meta.isImage()) {
+                    this.setWebData("errorMessage", "请上传图片文件！");
+                    return this.toAdminView(VOPT_TOPIC_MANAGE, "album-manage");
+                }
 
-            // 存储对象
-            ImageDTO image = new ImageDTO();
+                // 存储对象
+                ImageDTO image = new ImageDTO();
 
-            ImageValve valve = image.findValve();
-            valve.sotState(ValveBoolEnum.FALSE);
-            valve.sotImgType(meta.getImgTypeEnum());
+                ImageValve valve = image.findValve();
+                valve.sotState(ValveBoolEnum.FALSE);
+                valve.sotImgType(meta.getImgTypeEnum());
 
-            image.setFlag(valve.getValve());
-            image.setTopic(topic.getId());
-            image.setTitle(topic.getTitle());
-            image.setUrl(StringUtils.EMPTY);
-            image.setSize(meta.getLength());
-            image.setWidth(meta.getWidth());
-            image.setHeight(meta.getHeight());
-            image.setSummary(form.getImgSummary());
+                image.setFlag(valve.getValve());
+                image.setTopic(topic.getId());
+                image.setTitle(topic.getTitle());
+                image.setUrl(StringUtils.EMPTY);
+                image.setSize(meta.getLength());
+                image.setWidth(meta.getWidth());
+                image.setHeight(meta.getHeight());
+                image.setSummary(form.getImgSummary());
 
-            String id = this.imageDAO.insert(image);
+                String id = this.imageDAO.insert(image);
 
-            // 处理图片
-            String name = id + meta.getImgTypeEnum().findImageExt();
-            String imgPath = FilenameUtils.normalize(path + "/" + name);
-            if (imgFile != null && !imgFile.isEmpty()) {
                 // 本地上传
+                String rpath = "/" + DateUtils.toString(new Date(), "yyyyMM") + "/" + form.getImgTopic();
+                String fpath = FilenameUtils.normalize(FilenameUtils.normalizeNoEndSeparator(path) + rpath);
+                FileUtils.forceMkdir(new File(fpath));
+
+                String name = id + meta.getImgTypeEnum().findImageExt();
+                String imgPath = FilenameUtils.normalize(fpath + "/" + name);
+
                 FileUtils.copyInputStreamToFile(imgFile.getInputStream(), new File(imgPath));
-            } else {
-                // 网络下载
-                FileUtils.copyURLToFile(new URL(form.getImgNetUrl()), new File(imgPath));
-            }
 
-            // 更新
-            valve.sotState(ValveBoolEnum.TRUE);
-            image.setFlag(valve.getValve());
-            image.setUrl(name);
+                image.setUrl(rpath + "/" + name);
 
-            this.imageDAO.updateUrl(image);
+                // 更新
+                valve.sotState(ValveBoolEnum.TRUE);
+                image.setFlag(valve.getValve());
 
-            // 设置封面
-            if (StringUtils.isBlank(topic.getMediaUrl())) {
+                this.imageDAO.updateUrl(image);
+
+                // 设置封面
                 this.setAlbumCover(topic, image);
             }
         } catch (Exception e) {
@@ -143,6 +144,32 @@ public class AlbumMngtController extends AbstractController {
 
         // 成功返回
         return this.redirectTo("/admin/album/manage-" + form.getImgTopic() + ".html");
+    }
+
+    /**
+     * 创建网络图片
+     */
+    private void createNetwork(TopicDTO topic, ImageStoreForm form) throws Exception {
+        // 存储对象
+        ImageDTO image = new ImageDTO();
+
+        ImageValve valve = image.findValve();
+        valve.sotState(ValveBoolEnum.TRUE);
+        valve.sotImgType(ImageTypeEnum.IMG_JPG);
+
+        image.setFlag(valve.getValve());
+        image.setTopic(topic.getId());
+        image.setTitle(topic.getTitle());
+        image.setSize(0L);
+        image.setWidth(0L);
+        image.setHeight(0L);
+        image.setUrl(form.getImgNetUrl());
+        image.setSummary(form.getImgSummary());
+
+        this.imageDAO.insert(image);
+
+        // 设置封面
+        this.setAlbumCover(topic, image);
     }
 
     /**
@@ -169,6 +196,7 @@ public class AlbumMngtController extends AbstractController {
             }
 
             // 设置封面
+            topic.setMediaUrl(StringUtils.EMPTY);
             this.setAlbumCover(topic, image);
         } catch (Exception e) {
             logger.error("设置相册封面异常!", e);
@@ -197,10 +225,11 @@ public class AlbumMngtController extends AbstractController {
             }
 
             // 源图片
-            String srcPath = this.findImagePath(image.getUrl());
+            if (StaticXHelper.isRelativeURL(image.getUrl())) {
+                String srcPath = this.findImagePath(image.getUrl());
+                FileUtils.deleteQuietly(new File(srcPath));
+            }
 
-            // 删除
-            FileUtils.deleteQuietly(new File(srcPath));
             this.imageDAO.delete(id);
         } catch (Exception e) {
             logger.error("删除相册图片异常!", e);
@@ -215,7 +244,18 @@ public class AlbumMngtController extends AbstractController {
      * 设置相册主题封面
      */
     private void setAlbumCover(TopicDTO topic, ImageDTO image) throws Exception {
-        // 源图片
+        if (StringUtils.isNotBlank(topic.getMediaUrl())) {
+            return;
+        }
+
+        if (StaticXHelper.isNetworkURL(image.getUrl())) {
+            // 网络图片
+            topic.setMediaUrl(image.getUrl());
+            this.topicDAO.update(topic);
+            return;
+        }
+
+        // 本地图片
         String srcPath = this.findImagePath(image.getUrl());
         File srcFile = new File(srcPath);
         if (!srcFile.exists()) {
@@ -223,13 +263,14 @@ public class AlbumMngtController extends AbstractController {
         }
 
         // 缩略图
-        String name = topic.getId() + ".pre." + FilenameUtils.getExtension(srcFile.getName());
+        String name = topic.getId() + image.findValve().gotImgType().findImageExt();
         String dstPath = new File(srcFile.getParentFile(), name).getAbsolutePath();
 
         ImageUtils.preview(srcPath, dstPath, CfgXHelper.findAlbumCoverWidth(), CfgXHelper.findAlbumCoverHeight());
 
         // 更新
-        topic.setMediaUrl(name);
+        String rpath = StringUtils.substringBeforeLast(image.getUrl(), "/");
+        topic.setMediaUrl(rpath + "/" + name);
         this.topicDAO.update(topic);
     }
 
@@ -237,7 +278,7 @@ public class AlbumMngtController extends AbstractController {
      * 获取相册路径
      */
     private String findAlbumPath() {
-        return this.findServletRealPath("/public/album");
+        return this.findServletRealPath("/albums");
     }
 
     /**

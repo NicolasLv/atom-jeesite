@@ -6,11 +6,17 @@
 
 /.settings
 
-
-/target
 /logs
+/target
+
+
+/resources/main-resources
 
 /WebRoot/albums
 
+/dalgen-mysql/logs
+/dalgen-mysql/target
 
+/dalgen-sqlite/logs
+/dalgen-sqlite/target
 
