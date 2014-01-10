@@ -39,12 +39,12 @@ $(document).ready(function() {
 				<div class="alert alert-error">$errorMessage</div>
 				#end
 				<div class="control-group">
-					<label for="uname"><span class="icon-chevron-right"></span> 用户名：</label>
-					<input id="uname" name="uname" value="$!form.usrName" class="span4" type="text" required="required" />
+					<label for="usrName"><span class="icon-chevron-right"></span> 用户名：</label>
+					<input id="usrName" name="usrName" value="$!form.usrName" class="span4" type="text" required="required" />
 				</div>
 				<div class="control-group">
-					<label for="passwd"><span class="icon-chevron-right"></span> 登录密码：</label>
-					<input id="passwd" name="passwd" value="$!form.usrPasswd" class="span4" type="password" required="required" />
+					<label for="usrPasswd"><span class="icon-chevron-right"></span> 登录密码：</label>
+					<input id="usrPasswd" name="usrPasswd" value="$!form.usrPasswd" class="span4" type="password" required="required" />
 				</div>
 				<div>
 					<button type="submit" class="btn btn-primary">登录系统</button>

@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -36,7 +37,7 @@ public class InstallSetupController {
      * 安装
      */
     @RequestMapping(value = "/install.html", method = RequestMethod.GET)
-    public String install() {
+    public String install(ModelMap data) {
         return "install-start";
     }
 

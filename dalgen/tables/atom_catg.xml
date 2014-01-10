@@ -95,7 +95,7 @@
 		</sql>
 		<sqlmap>
 			UPDATE atom_catg SET
-			code=#{code}, top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify=NOW()
+			code=#{code}, top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify={{DB_NOW}}
 			WHERE
 			id=#{id}
 		</sqlmap>

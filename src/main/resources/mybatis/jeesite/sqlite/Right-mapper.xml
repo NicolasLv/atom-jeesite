@@ -32,7 +32,7 @@
         INSERT INTO atom_right(
 				id, code, name, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{code}, #{name}, NOW(), NOW()
+				#{id}, #{code}, #{name}, DATETIME('NOW', 'LOCALTIME'), DATETIME('NOW', 'LOCALTIME')
 			)
     </insert>
 
@@ -64,7 +64,7 @@
 
     <!-- mapped statement for MyBatisRightDAO.update -->
     <update id="update" >
-        UPDATE atom_right SET code=#{code}, name=#{name}, gmt_modify=NOW() WHERE code=#{code}
+        UPDATE atom_right SET code=#{code}, name=#{name}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE code=#{code}
     </update>
 
     <!-- mapped statement for MyBatisRightDAO.delete -->

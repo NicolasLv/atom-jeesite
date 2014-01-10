@@ -58,8 +58,14 @@
 		<servlet-class>com.github.obullxl.lang.web.servlet.DispatcherServletExt</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/install/spring-config.xml</param-value>
+			<param-value>/WEB-INF/config/spring-config.xml;classpath*:/META-INF/spring/jeesite-*.xml;classpath*:/spring/tick-timer-config.xml</param-value>
 		</init-param>
+		<!--
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>com.github.obullxl.lang.spring.web.XmlWebApplicationContextExt</param-value>
+		</init-param>
+		-->
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet-mapping>
@@ -72,7 +78,11 @@
 	<!-- ====================================== -->
 
 	<welcome-file-list>
-		<welcome-file>install.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
 </web-app>  

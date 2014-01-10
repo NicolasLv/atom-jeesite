@@ -5,16 +5,19 @@
 		<property name="dataSource" ref="jeesiteDataSource" />
 		<property name="configLocation" value="classpath:mybatis/mybatis-jeesite-sqlite-config.xml" />
 	</bean>
-	
+
 	<bean id="jeesiteDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName">
 			<value>org.sqlite.JDBC</value>
 		</property>
 		<property name="url">
-			<value>jdbc:sqlite:/WEB-INF/jeesite.db</value>
+			<value>jdbc:sqlite:{{CTX_ROOT_PATH}}/public/jeesite.db</value>
 		</property>
 		<property name="validationQuery">
 			<value>SELECT 1</value>
+		</property>
+		<property name="connectionProperties">
+			<value>date_string_format=yyyy-MM-dd HH:mm:ss;</value>
 		</property>
 	</bean>
 

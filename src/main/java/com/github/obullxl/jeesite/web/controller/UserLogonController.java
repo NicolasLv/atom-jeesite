@@ -53,24 +53,24 @@ public class UserLogonController extends AbstractController {
             form.validateEnumBase(errors);
 
             if (errors.hasErrors()) {
-                this.setWebData("errorMessage", "参数输入错误！");
+                this.setWebData(ERR_MSG_KEY, "参数输入错误！");
                 return this.toFrontView("/login");
             }
 
             // 获取用户
             UserDTO user = this.userDAO.findByName(form.getUsrName());
             if (user == null) {
-                this.setWebData("errorMessage", "用户不存在！");
+                this.setWebData(ERR_MSG_KEY, "用户不存在！");
                 return this.toFrontView("/login");
             }
 
             if (user.findValve().gotState() != ValveBoolEnum.TRUE) {
-                this.setWebData("errorMessage", "用户未激活，请联系管理员！");
+                this.setWebData(ERR_MSG_KEY, "用户未激活，请联系管理员！");
                 return this.toFrontView("/login");
             }
 
             if (!StringUtils.equals(user.getPasswd(), MD5Utils.digest(form.getUsrPasswd()))) {
-                this.setWebData("errorMessage", "密码输入错误！");
+                this.setWebData(ERR_MSG_KEY, "密码输入错误！");
                 return this.toFrontView("/login");
             }
 
@@ -107,7 +107,7 @@ public class UserLogonController extends AbstractController {
             return this.redirectTo(gotoUrl);
         } catch (Exception e) {
             logger.error("用户登录异常-{}", form, e);
-            this.setWebData("errorMessage", "系统异常，请联系管理员！");
+            this.setWebData(ERR_MSG_KEY, "系统异常，请联系管理员！");
             return this.toFrontView("/login");
         }
     }

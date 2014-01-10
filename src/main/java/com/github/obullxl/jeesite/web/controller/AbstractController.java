@@ -48,6 +48,9 @@ public abstract class AbstractController {
     /** Logger */
     protected static final Logger logger             = LogUtils.get();
 
+    /** 错误参数 */
+    public static final String    ERR_MSG_KEY        = "errorMessage";
+
     /** 后台主页 */
     public static final String    ADMIN_INDEX        = "/admin/index.html";
 

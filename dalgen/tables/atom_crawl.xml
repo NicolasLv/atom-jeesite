@@ -19,7 +19,7 @@
 			INSERT INTO atom_crawl(
 				id, name, content, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{name}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
+				#{id}, #{name}, #{content,jdbcType=VARCHAR}, {{DB_NOW}}, {{DB_NOW}}
 			)
 		</sqlmap>
 	</operation>
@@ -37,7 +37,7 @@
 		</sql>
 		<sqlmap>
 			UPDATE atom_crawl SET
-				name=#{name}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW()
+				name=#{name}, content=#{content,jdbcType=VARCHAR}, gmt_modify={{DB_NOW}}
 			WHERE
 				id=#{id}
 		</sqlmap>

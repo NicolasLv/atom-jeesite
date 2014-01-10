@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<table sqlname="atom_image" ticket="true" fmtNo="true" fmtNoName="com.github.obullxl.jeesite.dal.ticket.ImageTicketEncode" valve="true">
+<table sqlname="atom_reply" ticket="true">
 	<!-- 参考文档: http://mybatis.github.io/mybatis-3/sqlmap-xml.html -->
 	
 	<!-- ========================================== -->
@@ -19,47 +19,32 @@
 	</resultmap>
 	-->
 	
+	<sql id="abc">abc</sql>
+	
+	<sql id="topic-index-where" escape="true">
+	<![CDATA[
+		abcefg<efg & abcefg>abc
+	]]>
+	</sql>
+	
 	<!-- ========================================== -->
 	<!-- INSERT操作 -->
 	<!-- ========================================== -->
 	<operation name="insert">
 		<description>新增记录</description>
 		<sql>
-			INSERT INTO atom_image(
-				id, flag, topic, title, size, width, height, url, summary, gmt_create, gmt_modify
+			INSERT INTO atom_reply(
+				id, state, topic, title, uname, uemail, usite, content, gmt_create, gmt_modify
 			) VALUES(
-				?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+				?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 			)
 		</sql>
 		<sqlmap>
-			INSERT INTO atom_image(
-				id, flag, topic, title, size, width, height, url, summary, gmt_create, gmt_modify
+			INSERT INTO atom_reply(
+				id, state, topic, title, uname, uemail, usite, content, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{flag}, #{topic}, #{title}, #{size}, #{width}, #{height}, #{url}, #{summary}, NOW(), NOW()
+				#{id}, #{state}, #{topic}, #{title}, #{uname}, #{uemail}, #{usite}, #{content,jdbcType=VARCHAR}, {{DB_NOW}}, {{DB_NOW}}
 			)
-		</sqlmap>
-	</operation>
-	
-	<!-- ========================================== -->
-	<!-- UPDATE操作 -->
-	<!-- ========================================== -->
-	<operation name="update" paramtype="object">
-		<description>修改记录</description>
-		<sql>
-			UPDATE atom_image SET flag=?, topic=?, title=?, size=?, width=?, height=?, url=?, summary=? WHERE id=?
-		</sql>
-		<sqlmap>
-			UPDATE atom_image SET flag=#{flag}, topic=#{topic}, title=#{title}, size=#{size}, width=#{width}, height=#{height}, url=#{url}, summary=#{summary}, gmt_modify=NOW() WHERE id=#{id}
-		</sqlmap>
-	</operation>
-	
-	<operation name="updateUrl" paramtype="object">
-		<description>修改开关值</description>
-		<sql>
-			UPDATE atom_image SET flag='FLAG', url='URL' WHERE id='ID'
-		</sql>
-		<sqlmap>
-			UPDATE atom_image SET flag=#{flag}, url=#{url}, gmt_modify=NOW() WHERE id=#{id}
 		</sqlmap>
 	</operation>
     
@@ -69,21 +54,21 @@
 	<operation name="find" multiplicity="one">
 		<description>查询单条记录</description>
 		<sql>
-			SELECT * FROM atom_image WHERE id=?
+			SELECT * FROM atom_reply WHERE id=?
 		</sql>
 	</operation>
 	
 	<operation name="findAll" multiplicity="many">
 		<description>查询所有记录</description>
 		<sql>
-			SELECT * FROM atom_image
+			SELECT * FROM atom_reply
 		</sql>
 	</operation>
     
     <operation name="findTopic" multiplicity="many">
 		<description>查询主题的所有记录</description>
 		<sql>
-			SELECT * FROM atom_image WHERE topic=?
+			SELECT * FROM atom_reply WHERE topic=?
 		</sql>
 	</operation>
 	
@@ -93,14 +78,14 @@
     <operation name="delete">
 		<description>删除评论信息</description>
 		<sql>
-			DELETE FROM atom_image WHERE id=?
+			DELETE FROM atom_reply WHERE id=?
 		</sql>
 	</operation>
 	
 	<operation name="deleteTopic">
 		<description>根据主题删除评论信息</description>
 		<sql>
-			DELETE FROM atom_image WHERE topic=?
+			DELETE FROM atom_reply WHERE topic=?
 		</sql>
 	</operation>
 

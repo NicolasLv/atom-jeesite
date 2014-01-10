@@ -14,9 +14,9 @@
 
 /WebRoot/albums
 
-/dalgen-mysql/logs
-/dalgen-mysql/target
+/dalgen/dalgen-mysql/logs
+/dalgen/dalgen-mysql/target
 
-/dalgen-sqlite/logs
-/dalgen-sqlite/target
+/dalgen/dalgen-sqlite/logs
+/dalgen/dalgen-sqlite/target
 

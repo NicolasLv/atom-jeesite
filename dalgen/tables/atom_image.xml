@@ -35,7 +35,7 @@
 			INSERT INTO atom_image(
 				id, flag, topic, title, size, width, height, url, summary, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{flag}, #{topic}, #{title}, #{size}, #{width}, #{height}, #{url}, #{summary}, NOW(), NOW()
+				#{id}, #{flag}, #{topic}, #{title}, #{size}, #{width}, #{height}, #{url}, #{summary}, {{DB_NOW}}, {{DB_NOW}}
 			)
 		</sqlmap>
 	</operation>
@@ -49,7 +49,7 @@
 			UPDATE atom_image SET flag=?, topic=?, title=?, size=?, width=?, height=?, url=?, summary=? WHERE id=?
 		</sql>
 		<sqlmap>
-			UPDATE atom_image SET flag=#{flag}, topic=#{topic}, title=#{title}, size=#{size}, width=#{width}, height=#{height}, url=#{url}, summary=#{summary}, gmt_modify=NOW() WHERE id=#{id}
+			UPDATE atom_image SET flag=#{flag}, topic=#{topic}, title=#{title}, size=#{size}, width=#{width}, height=#{height}, url=#{url}, summary=#{summary}, gmt_modify={{DB_NOW}} WHERE id=#{id}
 		</sqlmap>
 	</operation>
 	
@@ -59,7 +59,7 @@
 			UPDATE atom_image SET flag='FLAG', url='URL' WHERE id='ID'
 		</sql>
 		<sqlmap>
-			UPDATE atom_image SET flag=#{flag}, url=#{url}, gmt_modify=NOW() WHERE id=#{id}
+			UPDATE atom_image SET flag=#{flag}, url=#{url}, gmt_modify={{DB_NOW}} WHERE id=#{id}
 		</sqlmap>
 	</operation>
     

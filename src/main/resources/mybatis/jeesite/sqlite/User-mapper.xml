@@ -49,7 +49,7 @@
         INSERT INTO atom_user(
 				id, uname, passwd, uemail, uflag, unick, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{uname}, #{passwd}, #{uemail}, #{uflag}, #{unick}, NOW(), NOW()
+				#{id}, #{uname}, #{passwd}, #{uemail}, #{uflag}, #{unick}, DATETIME('NOW', 'LOCALTIME'), DATETIME('NOW', 'LOCALTIME')
 			)
     </insert>
 
@@ -90,17 +90,17 @@
 
     <!-- mapped statement for MyBatisUserDAO.update -->
     <update id="update" >
-        UPDATE atom_user SET passwd=#{passwd}, uemail=#{uemail}, uflag=#{uflag}, unick=#{unick}, gmt_modify=NOW() WHERE uname=#{uname}
+        UPDATE atom_user SET passwd=#{passwd}, uemail=#{uemail}, uflag=#{uflag}, unick=#{unick}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE uname=#{uname}
     </update>
 
     <!-- mapped statement for MyBatisUserDAO.updatePasswd -->
     <update id="updatePasswd" >
-        UPDATE atom_user SET passwd=#{passwd}, gmt_modify=NOW() WHERE uname=#{uname}
+        UPDATE atom_user SET passwd=#{passwd}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE uname=#{uname}
     </update>
 
     <!-- mapped statement for MyBatisUserDAO.updateUEmail -->
     <update id="updateUEmail" >
-        UPDATE atom_user SET uemail=#{uemail}, gmt_modify=NOW() WHERE uname=#{uname}
+        UPDATE atom_user SET uemail=#{uemail}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE uname=#{uname}
     </update>
 
     <!-- mapped statement for MyBatisUserDAO.delete -->

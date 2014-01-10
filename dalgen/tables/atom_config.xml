@@ -88,7 +88,7 @@
 		</sql>
 		<sqlmap>
 			UPDATE atom_config SET
-				state=#{state}, value=#{value}, cvalue=#{cvalue}, gmt_modify=NOW()
+				state=#{state}, value=#{value}, cvalue=#{cvalue}, gmt_modify={{DB_NOW}}
 			WHERE
 				catg=#{catg} AND name=#{name}
 		</sqlmap>

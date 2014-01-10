@@ -42,7 +42,7 @@
 			INSERT INTO atom_user(
 				id, uname, passwd, uemail, uflag, unick, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{uname}, #{passwd}, #{uemail}, #{uflag}, #{unick}, NOW(), NOW()
+				#{id}, #{uname}, #{passwd}, #{uemail}, #{uflag}, #{unick}, {{DB_NOW}}, {{DB_NOW}}
 			)
 		</sqlmap>
 	</operation>
@@ -94,7 +94,7 @@
 			UPDATE atom_user SET passwd=?, uemail=?, uflag=?, unick=? WHERE uname=?
 		</sql>
 		<sqlmap>
-			UPDATE atom_user SET passwd=#{passwd}, uemail=#{uemail}, uflag=#{uflag}, unick=#{unick}, gmt_modify=NOW() WHERE uname=#{uname}
+			UPDATE atom_user SET passwd=#{passwd}, uemail=#{uemail}, uflag=#{uflag}, unick=#{unick}, gmt_modify={{DB_NOW}} WHERE uname=#{uname}
 		</sqlmap>
 	</operation>
 
@@ -104,7 +104,7 @@
 			UPDATE atom_user SET passwd=? WHERE uname=?
 		</sql>
 		<sqlmap>
-			UPDATE atom_user SET passwd=#{passwd}, gmt_modify=NOW() WHERE uname=#{uname}
+			UPDATE atom_user SET passwd=#{passwd}, gmt_modify={{DB_NOW}} WHERE uname=#{uname}
 		</sqlmap>
 	</operation>
 
@@ -114,7 +114,7 @@
 			UPDATE atom_user SET uemail=? WHERE uname=?
 		</sql>
 		<sqlmap>
-			UPDATE atom_user SET uemail=#{uemail}, gmt_modify=NOW() WHERE uname=#{uname}
+			UPDATE atom_user SET uemail=#{uemail}, gmt_modify={{DB_NOW}} WHERE uname=#{uname}
 		</sqlmap>
 	</operation>
 

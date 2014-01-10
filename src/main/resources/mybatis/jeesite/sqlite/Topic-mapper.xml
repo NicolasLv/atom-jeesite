@@ -39,19 +39,19 @@
 				AND id=#{id}
 			</if>
 			<if test="state != null">
-				AND SUBSTRING(flag, 1, 1)=#{state}
+				AND SUBSTR(flag, 1, 1)=#{state}
 			</if>
 			<if test="top != null">
-				AND SUBSTRING(flag, 2, 1)=#{top}
+				AND SUBSTR(flag, 2, 1)=#{top}
 			</if>
 			<if test="link != null">
-				AND SUBSTRING(flag, 3, 1)=#{link}
+				AND SUBSTR(flag, 3, 1)=#{link}
 			</if>
 			<if test="media != null">
-				AND SUBSTRING(flag, 4, 1)=#{media}
+				AND SUBSTR(flag, 4, 1)=#{media}
 			</if>
 			<if test="reply != null">
-				AND SUBSTRING(flag, 5, 1)=#{reply}
+				AND SUBSTR(flag, 5, 1)=#{reply}
 			</if>
 			<if test="catgs != null">
 				AND catg IN
@@ -88,7 +88,7 @@
         INSERT INTO atom_topic(
 				id, flag, catg, link_url, media_url, visit_cnt, reply_cnt, title, summary, content, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{flag}, #{catg}, #{linkUrl}, #{mediaUrl}, #{visitCnt}, #{replyCnt}, #{title}, #{summary}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
+				#{id}, #{flag}, #{catg}, #{linkUrl}, #{mediaUrl}, #{visitCnt}, #{replyCnt}, #{title}, #{summary}, #{content,jdbcType=VARCHAR}, DATETIME('NOW', 'LOCALTIME'), DATETIME('NOW', 'LOCALTIME')
 			)
     </insert>
 
@@ -144,17 +144,17 @@
 
     <!-- mapped statement for MyBatisTopicDAO.update -->
     <update id="update" >
-        UPDATE atom_topic SET flag=#{flag}, catg=#{catg}, link_url=#{linkUrl}, media_url=#{mediaUrl}, title=#{title}, summary=#{summary}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_topic SET flag=#{flag}, catg=#{catg}, link_url=#{linkUrl}, media_url=#{mediaUrl}, title=#{title}, summary=#{summary}, content=#{content,jdbcType=VARCHAR}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisTopicDAO.updateVisit -->
     <update id="updateVisit" >
-        UPDATE atom_topic SET visit_cnt=visit_cnt+#{count}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_topic SET visit_cnt=visit_cnt+#{count}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisTopicDAO.updateReply -->
     <update id="updateReply" >
-        UPDATE atom_topic SET reply_cnt=reply_cnt+#{count}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_topic SET reply_cnt=reply_cnt+#{count}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisTopicDAO.delete -->

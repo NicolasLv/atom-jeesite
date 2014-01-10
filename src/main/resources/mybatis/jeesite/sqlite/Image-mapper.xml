@@ -38,18 +38,18 @@
         INSERT INTO atom_image(
 				id, flag, topic, title, size, width, height, url, summary, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{flag}, #{topic}, #{title}, #{size}, #{width}, #{height}, #{url}, #{summary}, NOW(), NOW()
+				#{id}, #{flag}, #{topic}, #{title}, #{size}, #{width}, #{height}, #{url}, #{summary}, DATETIME('NOW', 'LOCALTIME'), DATETIME('NOW', 'LOCALTIME')
 			)
     </insert>
 
     <!-- mapped statement for MyBatisImageDAO.update -->
     <update id="update" >
-        UPDATE atom_image SET flag=#{flag}, topic=#{topic}, title=#{title}, size=#{size}, width=#{width}, height=#{height}, url=#{url}, summary=#{summary}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_image SET flag=#{flag}, topic=#{topic}, title=#{title}, size=#{size}, width=#{width}, height=#{height}, url=#{url}, summary=#{summary}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisImageDAO.updateUrl -->
     <update id="updateUrl" >
-        UPDATE atom_image SET flag=#{flag}, url=#{url}, gmt_modify=NOW() WHERE id=#{id}
+        UPDATE atom_image SET flag=#{flag}, url=#{url}, gmt_modify=DATETIME('NOW', 'LOCALTIME') WHERE id=#{id}
     </update>
 
     <!-- mapped statement for MyBatisImageDAO.find -->

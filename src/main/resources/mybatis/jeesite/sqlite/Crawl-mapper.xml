@@ -32,14 +32,14 @@
         INSERT INTO atom_crawl(
 				id, name, content, gmt_create, gmt_modify
 			) VALUES(
-				#{id}, #{name}, #{content,jdbcType=VARCHAR}, NOW(), NOW()
+				#{id}, #{name}, #{content,jdbcType=VARCHAR}, DATETIME('NOW', 'LOCALTIME'), DATETIME('NOW', 'LOCALTIME')
 			)
     </insert>
 
     <!-- mapped statement for MyBatisCrawlDAO.update -->
     <update id="update" >
         UPDATE atom_crawl SET
-				name=#{name}, content=#{content,jdbcType=VARCHAR}, gmt_modify=NOW()
+				name=#{name}, content=#{content,jdbcType=VARCHAR}, gmt_modify=DATETIME('NOW', 'LOCALTIME')
 			WHERE
 				id=#{id}
     </update>

@@ -44,7 +44,7 @@
     <!-- mapped statement for MyBatisCatgDAO.update -->
     <update id="update" >
         UPDATE atom_catg SET
-			code=#{code}, top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify=NOW()
+			code=#{code}, top=#{top}, catg=#{catg}, sort=#{sort}, name=#{name}, gmt_modify=DATETIME('NOW', 'LOCALTIME')
 			WHERE
 			id=#{id}
     </update>
