@@ -43,15 +43,11 @@
 			<groupId>com.github.obullxl</groupId>
 			<artifactId>atom-lang</artifactId>
 			<version>1.0.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/resources/lib/atom-lang-1.0.1.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.github.obullxl</groupId>
 			<artifactId>atom-ticket</artifactId>
 			<version>1.0.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/resources/lib/atom-ticket-1.0.1.jar</systemPath>
 		</dependency>
 
 		<dependency>
