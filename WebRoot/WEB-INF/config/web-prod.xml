@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="jeesite"
 	version="2.5">
 	<display-name>jeesite</display-name>
-	
+
 	<!-- ====================================== -->
 	<!-- 全局参数 -->
 	<!-- ====================================== -->
@@ -15,6 +15,9 @@
 	<!-- ====================================== -->
 	<!-- 容器监听器 -->
 	<!-- ====================================== -->
+	<listener>
+		<listener-class>com.github.obullxl.jeesite.web.servlet.ServletContextStartup</listener-class>
+	</listener>
 
 	<!-- ====================================== -->
 	<!-- 容器过滤器 -->
@@ -60,12 +63,7 @@
 			<param-name>contextConfigLocation</param-name>
 			<param-value>/WEB-INF/config/spring-config.xml;classpath*:/META-INF/spring/jeesite-*.xml;classpath*:/spring/tick-timer-config.xml</param-value>
 		</init-param>
-		<!--
-		<init-param>
-			<param-name>contextClass</param-name>
-			<param-value>com.github.obullxl.lang.spring.web.XmlWebApplicationContextExt</param-value>
-		</init-param>
-		-->
+		<!-- <init-param> <param-name>contextClass</param-name> <param-value>com.github.obullxl.lang.spring.web.XmlWebApplicationContextExt</param-value> </init-param> -->
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	<servlet-mapping>
