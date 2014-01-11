@@ -391,6 +391,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!--
 			<plugin>
 				<groupId>com.github.goldin</groupId>
 				<artifactId>copy-maven-plugin</artifactId>
@@ -416,6 +417,7 @@
 					</execution>
 				</executions>
 			</plugin>
+			-->
 			<!--
 			<plugin>
 				<groupId>org.cloudfoundry</groupId>
