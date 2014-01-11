@@ -11,6 +11,9 @@
 
 	<properties>
 		<webapps.path>D:/Tomcat7/webapps</webapps.path>
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<licenses>
@@ -40,11 +43,23 @@
 			<groupId>com.github.obullxl</groupId>
 			<artifactId>atom-lang</artifactId>
 			<version>1.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/lib/atom-lang-1.0.1.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.github.obullxl</groupId>
 			<artifactId>atom-ticket</artifactId>
 			<version>1.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/lib/atom-ticket-1.0.1.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.log4jdbc</groupId>
+			<artifactId>log4jdbc3</artifactId>
+			<version>1.2.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/resources/lib/log4jdbc3-1.2.1.jar</systemPath>
 		</dependency>
 
 		<!-- ======================================== -->
@@ -195,11 +210,6 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.0.13</version>
 		</dependency>
-		<dependency>
-			<groupId>net.sf.log4jdbc</groupId>
-			<artifactId>log4jdbc3</artifactId>
-			<version>1.2.1</version>
-		</dependency>
 
 		<!-- ======================================== -->
 		<!-- Apache Commons相关依赖 -->
@@ -339,7 +349,56 @@
 			<id>alibabatech.com</id>
 			<url>http://code.alibabatech.com/mvn/releases</url>
 		</repository>
+		<repository>
+			<id>eap</id>
+			<url>http://maven.repository.redhat.com/techpreview/all</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>eap</id>
+			<url>http://maven.repository.redhat.com/techpreview/all</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<profiles>
+		<profile>
+			<!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
+			<!-- Use this profile for any OpenShift specific customization your app will need. -->
+			<!-- By default that is to put the resulting archive into the 'webapps' folder. -->
+			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
+			<id>openshift</id>
+			<build>
+				<finalName>jeesite</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>2.2</version>
+						<configuration>
+							<warName>ROOT</warName>
+							<outputDirectory>webapps</outputDirectory>
+							<webXml>WebRoot/WEB-INF/web.xml</webXml>
+							<warSourceDirectory>WebRoot</warSourceDirectory>
+							<packagingExcludes>albums/*</packagingExcludes>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<build>
 		<finalName>jeesite</finalName>
@@ -349,8 +408,8 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<attachClasses>true</attachClasses>
-					<outputDirectory>dist</outputDirectory>
+					<warName>ROOT</warName>
+					<outputDirectory>webapps</outputDirectory>
 					<webXml>WebRoot/WEB-INF/web.xml</webXml>
 					<warSourceDirectory>WebRoot</warSourceDirectory>
 					<packagingExcludes>albums/*</packagingExcludes>
@@ -391,46 +450,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--
-			<plugin>
-				<groupId>com.github.goldin</groupId>
-				<artifactId>copy-maven-plugin</artifactId>
-				<version>0.2.5</version>
-				<executions>
-					<execution>
-						<id>copy-maven</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<resources>
-								<resource>
-									<directory>${project.basedir}/dist</directory>
-									<targetPath>${webapps.path}</targetPath>
-									<includes>
-										<include>${project.build.finalName}.war</include>
-									</includes>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			-->
-			<!--
-			<plugin>
-				<groupId>org.cloudfoundry</groupId>
-				<artifactId>cf-maven-plugin</artifactId>
-				<version>1.0.0</version>
-				<configuration>
-					<server>jeesite</server>
-					<target>http://api.run.pivotal.io</target>
-					<url>jeesite.cfapps.io</url>
-					<memory>1024</memory>
-				</configuration>
-			</plugin>
-			-->
 		</plugins>
 	</build>
 </project>
