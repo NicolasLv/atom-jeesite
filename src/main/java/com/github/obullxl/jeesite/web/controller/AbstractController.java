@@ -58,6 +58,9 @@ public abstract class AbstractController {
     public static final String    VOPT_ADMIN_HOME    = "admin-home";
 
     //~~~~~~~~~~~~~ 用户 ~~~~~~~~~~~~~//
+    public static final String    VIEW_USER_LOGIN    = "user-login";
+    public static final String    VIEW_USER_REGIST   = "user-regist";
+
     public static final String    VOPT_USER_CREATE   = "user-create";
     public static final String    VOPT_USER_MANAGE   = "user-manage";
 

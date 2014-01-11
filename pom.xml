@@ -8,7 +8,7 @@
 
 	<name>atom-jeesite</name>
 	<description>atom-jeesite</description>
-	
+
 	<properties>
 		<webapps.path>D:/Tomcat7/webapps</webapps.path>
 	</properties>
@@ -416,6 +416,19 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!--
+			<plugin>
+				<groupId>org.cloudfoundry</groupId>
+				<artifactId>cf-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<server>jeesite</server>
+					<target>http://api.run.pivotal.io</target>
+					<url>jeesite.cfapps.io</url>
+					<memory>1024</memory>
+				</configuration>
+			</plugin>
+			-->
 		</plugins>
 	</build>
 </project>

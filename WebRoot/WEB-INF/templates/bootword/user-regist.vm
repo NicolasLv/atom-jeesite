@@ -1,0 +1,67 @@
+#set($title="用户登录")
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#regist-form").submit(function(e) {
+    	e.preventDefault();
+		alert("对不起，本系统未开放用户注册，请联系系统管理员，谢谢！");
+	});
+});
+</script>
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<div class="radius-block">
+        		<div class="span6">
+        			<form id="login-form" name="login-form" method="post" action="$ctx/login.html" class="form-horizontal">
+        				<div class="page-header">
+                        	<h4>登录系统</h4>
+                        </div>
+        				#if($errorMessage)
+        				<div class="alert alert-error">$errorMessage</div>
+        				#end
+        				<div class="control-group">
+        					<label for="usrName"><span class="icon-chevron-right"></span> 用户名：</label>
+        					<input id="usrName" name="usrName" value="$!form.usrName" class="input-medium" type="text" required="required" />
+        				</div>
+        				<div class="control-group">
+        					<label for="usrPasswd"><span class="icon-chevron-right"></span> 登录密码：</label>
+        					<input id="usrPasswd" name="usrPasswd" value="$!form.usrPasswd" class="input-medium" type="password" required="required" />
+        				</div>
+        				<div>
+        					<button type="submit" class="btn btn-info">登录系统</button>
+        				</div>
+        				<div class="clearfix"></div>
+        			</form>
+        		</div>
+        		<div class="span5">
+        			<form id="regist-form" name="regist-form" class="form-horizontal">
+						<div class="page-header">
+                        	<h4>新用户注册</h4>
+                        </div>
+        				<div class="control-group">
+        					<label for="uname"><span class="icon-chevron-right"></span> 用户名：</label>
+        					<input id="uname" name="uname" class="input-medium" type="text" required="required" />
+        				</div>
+        				<div class="control-group">
+        					<label for="passwd"><span class="icon-chevron-right"></span> 登录密码：</label>
+        					<input id="passwd" name="passwd" class="input-medium" type="password" required="required" />
+        				</div>
+        				<div class="control-group">
+        					<label for="passwd2"><span class="icon-chevron-right"></span> 确认登录密码：</label>
+        					<input id="passwd2" name="passwd2" class="input-medium" type="password" required="required" />
+        				</div>
+        				<div class="control-group">
+        					<label for="uemail"><span class="icon-chevron-right"></span> 电子邮箱：</label>
+        					<input id="uemail" name="uemail" class="input-large" type="email" required="required" />
+        				</div>
+        				<div>
+        					<button type="submit" class="btn btn-success">新用户注册</button>
+        				</div>
+        				<div class="clearfix"></div>
+        			</form>
+        		</div>
+        		<div class="clearfix"></div>
+        	</div>
+		</div>
+	</div>
+</div>

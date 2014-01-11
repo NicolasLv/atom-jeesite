@@ -11,7 +11,7 @@
 			<value>org.sqlite.JDBC</value>
 		</property>
 		<property name="url">
-			<value>jdbc:sqlite:./WebRoot/public/jeesite.db</value>
+			<value>jdbc:sqlite:{{CTX_ROOT_PATH}}/public/jeesite.db</value>
 		</property>
 		<property name="validationQuery">
 			<value>SELECT 1</value>

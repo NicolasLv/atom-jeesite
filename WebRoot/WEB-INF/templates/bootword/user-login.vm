@@ -1,0 +1,40 @@
+#set($title="用户登录")
+<div class="container">
+	<div class="row">
+		<div class="span12">
+			<div class="radius-block">
+        		<div class="span6">
+        			<form id="login-form" name="login-form" method="post" action="$ctx/login.html" class="form-horizontal">
+        				<div class="page-header">
+                        	<h4>登录系统</h4>
+                        </div>
+        				#if($errorMessage)
+        				<div class="alert alert-error">$errorMessage</div>
+        				#end
+        				<div class="control-group">
+        					<label for="usrName"><span class="icon-chevron-right"></span> 用户名：</label>
+        					<input id="usrName" name="usrName" value="$!form.usrName" class="input-medium" type="text" required="required" />
+        				</div>
+        				<div class="control-group">
+        					<label for="usrPasswd"><span class="icon-chevron-right"></span> 登录密码：</label>
+        					<input id="usrPasswd" name="usrPasswd" value="$!form.usrPasswd" class="input-medium" type="password" required="required" />
+        				</div>
+        				<div>
+        					<button type="submit" class="btn btn-info">登录系统</button>
+        				</div>
+        				<div class="clearfix"></div>
+        			</form>
+        		</div>
+        		<div class="span5">
+        			<form id="regist-form" name="regist-form" class="form-horizontal">
+						<div class="page-header">
+                        	<h4>新用户注册</h4>
+                        </div>
+        				<div class="clearfix"></div>
+        			</form>
+        		</div>
+        		<div class="clearfix"></div>
+        	</div>
+		</div>
+	</div>
+</div>

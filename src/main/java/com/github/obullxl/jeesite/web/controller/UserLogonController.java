@@ -41,7 +41,7 @@ public class UserLogonController extends AbstractController {
     @RequestMapping(value = "/login.html", method = RequestMethod.GET)
     public String login() {
         this.setWebData("form", new UserLoginForm());
-        return this.toFrontView("/login");
+        return this.toFrontView(VIEW_USER_LOGIN);
     }
 
     @RequestMapping(value = "/login.html", method = RequestMethod.POST)
@@ -54,24 +54,24 @@ public class UserLogonController extends AbstractController {
 
             if (errors.hasErrors()) {
                 this.setWebData(ERR_MSG_KEY, "参数输入错误！");
-                return this.toFrontView("/login");
+                return this.toFrontView(VIEW_USER_LOGIN);
             }
 
             // 获取用户
             UserDTO user = this.userDAO.findByName(form.getUsrName());
             if (user == null) {
                 this.setWebData(ERR_MSG_KEY, "用户不存在！");
-                return this.toFrontView("/login");
+                return this.toFrontView(VIEW_USER_LOGIN);
             }
 
             if (user.findValve().gotState() != ValveBoolEnum.TRUE) {
                 this.setWebData(ERR_MSG_KEY, "用户未激活，请联系管理员！");
-                return this.toFrontView("/login");
+                return this.toFrontView(VIEW_USER_LOGIN);
             }
 
             if (!StringUtils.equals(user.getPasswd(), MD5Utils.digest(form.getUsrPasswd()))) {
                 this.setWebData(ERR_MSG_KEY, "密码输入错误！");
-                return this.toFrontView("/login");
+                return this.toFrontView(VIEW_USER_LOGIN);
             }
 
             // 设置上下文
@@ -108,7 +108,7 @@ public class UserLogonController extends AbstractController {
         } catch (Exception e) {
             logger.error("用户登录异常-{}", form, e);
             this.setWebData(ERR_MSG_KEY, "系统异常，请联系管理员！");
-            return this.toFrontView("/login");
+            return this.toFrontView(VIEW_USER_LOGIN);
         }
     }
 
