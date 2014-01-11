@@ -42,7 +42,7 @@ public class CatgDTO extends BaseDTO {
     }
     
     /**
-     * ÅÅÐò±È½ÏÆ÷
+     * COMPARATOR
      */
     public static final Comparator<CatgDTO> COMPARATOR = new Comparator<CatgDTO>() {
         public int compare(CatgDTO src, CatgDTO dst) {

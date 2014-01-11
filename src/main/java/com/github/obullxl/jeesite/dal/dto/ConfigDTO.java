@@ -16,7 +16,7 @@ public class ConfigDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
 
 	/**
-	 * 是否有效
+	 * Active
 	 */
 	public boolean isActive() {
         TrueFalseEnum enm = TrueFalseEnum.findByCode(this.state);
@@ -28,7 +28,7 @@ public class ConfigDTO extends BaseDTO {
     }
     
     /**
-     * 排序比较器
+     * COMPARATOR
      */
     public static final Comparator<ConfigDTO> COMPARATOR       = new Comparator<ConfigDTO>() {
         public int compare(ConfigDTO src, ConfigDTO dst) {

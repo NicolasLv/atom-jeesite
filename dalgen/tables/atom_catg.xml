@@ -44,7 +44,7 @@
     }
     
     /**
-     * 排序比较器
+     * COMPARATOR
      */
     public static final Comparator<CatgDTO> COMPARATOR = new Comparator<CatgDTO>() {
         public int compare(CatgDTO src, CatgDTO dst) {

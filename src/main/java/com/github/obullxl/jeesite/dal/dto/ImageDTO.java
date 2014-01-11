@@ -14,11 +14,12 @@ public class ImageDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
 
 
-	/** å¼?…³å€?*/
+	/** Valve */
 	private ImageValve valve;
 	
 	/**
-     * è·å–å¼?…³å€?     */
+     * FetchValve
+     */
     public ImageValve findValve() {
         if (this.valve == null) {
             this.valve = new ImageValve(this);
@@ -28,7 +29,8 @@ public class ImageDTO extends BaseDTO {
     }
     
     /**
-     * é‡ç½®å¼?…³å€?     */
+     * ResetValve
+     */
     public ImageDTO resetValve() {
         this.valve = null;
 		return this;

@@ -14,7 +14,7 @@
 	<copy type="dto-body">
 	<![CDATA[
 	/**
-	 * 是否有效
+	 * Active
 	 */
 	public boolean isActive() {
         TrueFalseEnum enm = TrueFalseEnum.findByCode(this.state);
@@ -26,7 +26,7 @@
     }
     
     /**
-     * 排序比较器
+     * COMPARATOR
      */
     public static final Comparator<ConfigDTO> COMPARATOR       = new Comparator<ConfigDTO>() {
         public int compare(ConfigDTO src, ConfigDTO dst) {

@@ -32,11 +32,12 @@ public class TopicDTO extends BaseDTO {
 		return replys;
 	}
 
-	/** Âº?Ö≥ÂÄ?*/
+	/** Valve */
 	private TopicValve valve;
 	
 	/**
-     * Ëé∑ÂèñÂº?Ö≥ÂÄ?     */
+     * FetchValve
+     */
     public TopicValve findValve() {
         if (this.valve == null) {
             this.valve = new TopicValve(this);
@@ -46,7 +47,8 @@ public class TopicDTO extends BaseDTO {
     }
     
     /**
-     * ÈáçÁΩÆÂº?Ö≥ÂÄ?     */
+     * ResetValve
+     */
     public TopicDTO resetValve() {
         this.valve = null;
 		return this;

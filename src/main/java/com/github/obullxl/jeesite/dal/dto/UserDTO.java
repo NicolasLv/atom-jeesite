@@ -14,11 +14,12 @@ public class UserDTO extends BaseDTO {
     private static final long serialVersionUID = 741231858441822688L;
 
 
-	/** å¼?…³å€?*/
+	/** Valve */
 	private UserValve valve;
 	
 	/**
-     * è·å–å¼?…³å€?     */
+     * FetchValve
+     */
     public UserValve findValve() {
         if (this.valve == null) {
             this.valve = new UserValve(this);
@@ -28,7 +29,8 @@ public class UserDTO extends BaseDTO {
     }
     
     /**
-     * é‡ç½®å¼?…³å€?     */
+     * ResetValve
+     */
     public UserDTO resetValve() {
         this.valve = null;
 		return this;
