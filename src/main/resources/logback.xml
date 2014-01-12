@@ -3,11 +3,11 @@
 <configuration debug="false" scan="false">
 	<property name="logPath" value="logs" />
 
-	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${logPath}/atom-mobile-server.log</file>
+	<appender name="JeeSite" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${logPath}/jeesite.log</file>
 		<append>true</append>
 		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>atom-mobile-server.log.%d{yyyyMMdd}</fileNamePattern>
+			<fileNamePattern>jeesite.log.%d{yyyyMMdd}</fileNamePattern>
 			<maxHistory>30</maxHistory>
 		</rollingPolicy>
 		<encoder>
@@ -16,10 +16,14 @@
 	</appender>
 
 	<logger name="LOGGER" level="INFO" additivity="false">
-		<appender-ref ref="FILE" />
+		<appender-ref ref="JeeSite" />
+	</logger>
+
+	<logger name="jdbc.sqltiming" level="INFO" additivity="false">
+		<appender-ref ref="JeeSite" />
 	</logger>
 
 	<root level="WARN">
-		<appender-ref ref="FILE" />
+		<appender-ref ref="JeeSite" />
 	</root>
 </configuration>
