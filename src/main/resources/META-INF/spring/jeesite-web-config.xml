@@ -42,7 +42,7 @@
 					</property>
 				</bean>
 				<bean class="com.github.obullxl.lang.spring.web.WebViewThemeInterceptor">
-					<property name="ignoreUriPrefixs">
+					<property name="uriPrefixs">
 						<set>
 							<value>/admin</value>
 						</set>
