@@ -1,7 +1,7 @@
 #if($StringUtils.isBlank($topic.mediaUrl))
 <div class="entry">
 	<h4>
-		[<span class="text-error">顶</span>][<a href="$ctx/index-${topic.catg}-1.html">$CatgXHelper.findName($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" rel="bookmark">$topic.title</a>
+		#if($top)[<span class="text-error">顶</span>]#end[<a href="$ctx/index-${topic.catg}-1.html">$CatgXHelper.findName($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" rel="bookmark">$topic.title</a>
 	</h4>
 	<p>$topic.summary [&hellip;]</p>
 	<div class="clearfix"></div>
