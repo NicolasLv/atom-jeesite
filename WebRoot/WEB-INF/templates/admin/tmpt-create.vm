@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<form id="tmpt-form" name="tmpt-form" class="form-horizontal" #StyleMB0()>
+<form id="tmpt-form" name="tmpt-form" class="form-horizontal" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>后台管理</li>

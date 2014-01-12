@@ -1,9 +1,9 @@
 ################################
-# 本文件参照spring.vm文件 #
+## 本文件参照spring.vm文件
 ################################
 
 #################
-# 广告展示 #
+## 广告展示
 #################
 #macro(showAds $adCatg)
 	#if($CfgXHelper.isShowAds())
@@ -27,7 +27,7 @@
 #end
 
 #################
-# SELECT #
+## SELECT
 #################
 #macro(formSelect $id $name $clazz $style $empty $emptyText $mapValues $selectValue)
 	<select id="$id" name="$name" class="$clazz" style="$style">
@@ -45,7 +45,7 @@
 #end
 
 #################
-# 分类导航 #
+## 分类导航
 #################
 #macro(showCatgNavigation $catg)
 	#if($catg.getChildren().isEmpty())
@@ -76,13 +76,19 @@
 #end
 
 #################
-# 样式 #
+## 样式
 #################
-#macro(StyleMB0)style="margin-bottom:0px"#end
-
+#macro(MarginTopYES)style="margin-top:5px"#end
+#macro(MarginBottomNO)style="margin-bottom:0px"#end
+#macro(MarginBottomYES)style="margin-bottom:5px"#end
 
 #################
-# 错误提示 #
+## 导航
+#################
+#macro(TargetURL)target="main"#end
+
+#################
+## 错误提示
 #################
 #macro(formErrors $separator $classOrStyle)
 	${separator}

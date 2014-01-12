@@ -66,7 +66,7 @@ $(document).ready(function(){
 //-->
 </script>
 <div class="well well-small">
-    <form id="catg-form" name="catg-form" class="form-inline" #StyleMB0()>
+    <form id="catg-form" name="catg-form" class="form-inline" #MarginBottomNO()>
 		<button id="btn-refresh" type="button" class="btn btn-info"><span class="icon-refresh"></span> 刷新</button>
 		
 		<div class="pull-right">
@@ -78,4 +78,4 @@ $(document).ready(function(){
     </form>
 </div>
 <div id="ztreeMngt" class="ztree radius-block" style="margin-top:0"></div>
-<div class="space-span"></div>
+<!--<div class="space-span"></div>-->

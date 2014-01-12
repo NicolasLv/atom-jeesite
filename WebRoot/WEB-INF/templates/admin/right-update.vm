@@ -14,7 +14,7 @@ $(document).ready(function() {
 });
 //-->
 </script>
-<form id="right-form" class="form-horizontal" name="right-form" method="post" #StyleMB0()>
+<form id="right-form" class="form-horizontal" name="right-form" method="post" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>后台管理</li>
@@ -31,7 +31,7 @@ $(document).ready(function() {
 		<label for="name"><span class="icon-chevron-right"></span><strong>权限描述</strong>-必输项！</label>
 		<input id="name" name="name" value="$rgt.name" class="span12" type="text" required="required" />
 	</div>
-	<div class="pull-right">
+	<div>
 		<button type="submit" class="btn btn-primary">提交保存</button>
 	</div>
 	<div class="clearfix"></div>

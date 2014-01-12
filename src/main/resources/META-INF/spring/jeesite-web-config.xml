@@ -32,17 +32,22 @@
 					<property name="uriPrefixs">
 						<set>
 							<value>/admin</value>
-							<value>/manage</value>
 						</set>
 					</property>
 					<property name="gotoUrl" value="/login.html" />
 					<property name="rightConfigs">
 						<list>
-							<value>/WEB-INF/jeesite-rights.acl</value>
+							<value>/WEB-INF/rights.acl</value>
 						</list>
 					</property>
 				</bean>
-				<bean class="com.github.obullxl.lang.spring.web.WebViewThemeInterceptor" />
+				<bean class="com.github.obullxl.lang.spring.web.WebViewThemeInterceptor">
+					<property name="ignoreUriPrefixs">
+						<set>
+							<value>/admin</value>
+						</set>
+					</property>
+				</bean>
 			</list>
 		</property>
 	</bean>

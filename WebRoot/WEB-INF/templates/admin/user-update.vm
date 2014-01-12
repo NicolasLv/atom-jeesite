@@ -28,7 +28,7 @@
 		});
 	});
 </script>
-<form id="user-form" name="user-form" class="form-horizontal" #StyleMB0()>
+<form id="user-form" name="user-form" class="form-horizontal" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>后台管理</li>
@@ -51,7 +51,7 @@
 		<label for="title"><span class="icon-chevron-right"></span><strong>电子邮箱</strong>-必输项！</label>
 		<input id="uemail" name="uemail" class="span12" type="email" value="$user.uemail" required="required" placeholder="obullxl@gmail.com" />
 	</div>
-	<div class="pull-right">
+	<div>
 		<button type="submit" class="btn btn-primary">提交保存</button>
 	</div>
 	<div class="clearfix"></div>

@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<form id="user-form" name="user-form" class="form-horizontal" #StyleMB0()>
+<form id="user-form" name="user-form" class="form-horizontal" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>登录用户</li>

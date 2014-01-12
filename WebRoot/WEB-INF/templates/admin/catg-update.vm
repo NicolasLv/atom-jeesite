@@ -17,7 +17,7 @@ $(document).ready(function() {
 });
 //-->
 </script>
-<form id="catg-form" name="catg-form" class="form-horizontal" #StyleMB0()>
+<form id="catg-form" name="catg-form" class="form-horizontal" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>后台管理</li>

@@ -128,7 +128,7 @@ $(document).ready(function() {
 });
 </script>
 <div class="well well-small">
-    <form id="topic-form" name="topic-form" class="form-inline" method="GET" #StyleMB0()>
+    <form id="topic-form" name="topic-form" class="form-inline" method="GET" #MarginBottomNO()>
 		<input type="hidden" id="formCatg" name="formCatg" value="$!form.formCatg" />
         <div class="btn-group">
             <button id="btn-fuzzy" class="btn btn-info">模糊</button>
@@ -201,4 +201,3 @@ $(document).ready(function() {
 	</tbody>
 </table>
 #parse("/admin/inc/inc-tpc-pagination.vm")
-<div class="space-span"></div>

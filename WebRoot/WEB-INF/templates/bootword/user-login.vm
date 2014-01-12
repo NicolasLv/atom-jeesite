@@ -1,4 +1,11 @@
 #set($title="用户登录")
+<script type="text/javascript">
+$(document).ready(function() {
+	if(window.location.href != top.location.href) {
+		top.location.href = window.location.href;
+	}
+});
+</script>
 <div class="container">
 	<div class="row">
 		<div class="span12">

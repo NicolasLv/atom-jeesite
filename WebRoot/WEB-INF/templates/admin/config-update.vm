@@ -12,7 +12,7 @@ $(document).ready(function() {
     });
 });
 </script>
-<form id="config-form" name="config-form" class="form-horizontal" #StyleMB0()>
+<form id="config-form" name="config-form" class="form-horizontal" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>后台管理</li>

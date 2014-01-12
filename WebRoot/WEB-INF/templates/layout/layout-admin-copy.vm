@@ -15,22 +15,22 @@
 <script type="text/javascript" src="$ctx/public/lhgdialog/lhgdialog.min.js"></script>
 <script type="text/javascript" src="$ctx/public/lhgdialog/lhgdialog-config.js"></script>
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/jeesite.js"></script>
-<link rel="shortcut icon" href="$ctx/public/favicon.png" />
-<link rel="apple-touch-icon-precomposed" href="$ctx/public/favicon.png" />
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="$ctx/public/favicon.png" />
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="$ctx/public/favicon.png" />
 <link rel="apple-touch-icon-precomposed" sizes="114x114" href="$ctx/public/favicon.png" />
-<style type="text/css">
-body {
-	font-family: '微软雅黑', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	line-height: 150%;
-	background: #FFFFFF url('$ctx/themes/bootword/img/grey.png') repeat;
-}
-</style>
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="$ctx/public/favicon.png" />
+<link rel="apple-touch-icon-precomposed" href="$ctx/public/favicon.png" />
+<link rel="shortcut icon" href="$ctx/public/favicon.png" />
 </head>
-<body>
+<body id="body">
+	#parse("/admin/inc/inc-navigation.vm")
 	<div class="container-fluid">
-		<div class="row-fluid" #MarginBottomYES()>
-			<div class="span12" #MarginTopYES()>
+		<div class="row-fluid">
+			#parse("/admin/inc/inc-nav-list.vm")
+			<!--/span-->
+			<div class="span10">
+                <div class="alert alert-info">
+    				<span class="icon-hand-right"></span> <strong>公告：</strong>本系统完全开放源代码，可以自由的用于个人或商业组织， 技术讨论等请移步QQ群:334182994，谢谢！
+                </div>
 				<div class="radius-block">
     				##parse("/admin/inc/inc-crumbs.vm")
     				$screen_placeholder
@@ -116,7 +116,8 @@ $(document).ready(function() {
 		</div>
 		<!--/row-->
 	</div>
-##parse("/admin/inc/inc-form-modal.vm")
+#parse("/admin/inc/inc-copyright.vm")
+#parse("/admin/inc/inc-form-modal.vm")
 #parse("/public/back-to-top.vm")
 </body>
 </html>

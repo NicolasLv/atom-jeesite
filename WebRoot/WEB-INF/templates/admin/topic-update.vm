@@ -44,7 +44,7 @@ $(document).ready(function() {
 	// $("#catgName").val("$!catg.name");
 });
 </script>
-<form id="topic-form" name="topic-form" class="form-horizontal" #StyleMB0()>
+<form id="topic-form" name="topic-form" class="form-horizontal" #MarginBottomNO()>
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>后台管理</li>
