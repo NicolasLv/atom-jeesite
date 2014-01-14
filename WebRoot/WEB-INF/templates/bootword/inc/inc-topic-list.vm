@@ -8,7 +8,9 @@
 	<p class="meta">
 		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
 		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.html#respond">${topic.replyCnt}</a>
+		#if($CfgXHelper.isShowTopicVisit())
 		- <i class="icon-film"></i>${topic.visitCnt}
+		#end
 		<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="pull-right readmore">阅读全文 &raquo;</a>
 	</p>
 	<div class="clearfix"></div>
@@ -33,7 +35,9 @@
 	<p class="meta">
 		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
 		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.html#respond">${topic.replyCnt}</a>
+		#if($CfgXHelper.isShowTopicVisit())
 		- <i class="icon-film"></i>${topic.visitCnt}
+		#end
 		<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="pull-right readmore">阅读全文 &raquo;</a>
 	</p>
 </div>

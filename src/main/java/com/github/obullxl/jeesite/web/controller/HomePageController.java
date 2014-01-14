@@ -74,16 +74,18 @@ public class HomePageController extends AbstractController {
         this.setWebData("catg", catg).setWebData("topicId", id);
 
         // 更新主题访问次数
-        this.topicDAO.updateVisit(id, 1);
+        if (CfgXHelper.isUpdateTopicVisit()) {
+            this.topicDAO.updateVisit(id, 1);
+        }
 
         if (CatgXHelper.isAlbumCatg(catg)) {
             this.setWebData("topicId", id).setWebData("imageIndex", "0");
-            
+
             String[] args = StringUtils.split(id, "-");
             if (args != null && args.length >= 2) {
                 this.setWebData("topicId", args[0]).setWebData("imageIndex", args[1]);
             }
-            
+
             return this.toFrontView("/detail-album");
         }
 

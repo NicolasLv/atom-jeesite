@@ -282,6 +282,22 @@ public class CfgXHelper extends AbstractTickTimer implements XHelper, Initializi
     }
 
     /**
+     * 业务功能-展示主题查看次数标志
+     */
+    public static final boolean isShowTopicVisit() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.TOPIC_SHOW_VISIT);
+        return BooleanUtils.toBoolean(value);
+    }
+
+    /**
+     * 业务功能-更新主题查看次数标志
+     */
+    public static final boolean isUpdateTopicVisit() {
+        String value = findCfgValue(CfgConst.SYSTEM.CATG, CfgConst.SYSTEM.TOPIC_UPDATE_VISIT);
+        return BooleanUtils.toBoolean(value);
+    }
+
+    /**
      * 根据ID获取参数
      */
     public static ConfigDTO findByID(long id) {

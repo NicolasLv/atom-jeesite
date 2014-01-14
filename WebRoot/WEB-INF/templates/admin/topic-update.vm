@@ -51,7 +51,7 @@ $(document).ready(function() {
 		<li><span class="divider">/</span></li>
 		<li>主题管理</li>
 		<li><span class="divider">/</span></li>
-    	<li class="active">修改主题</li>
+    	<li class="active">修改主题(${topic.id})</li>
     </ul>
 	<input type="hidden" id="tpcId" name="tpcId" value="${topic.id}" />
 	<input type="hidden" id="catgCode" name="tpcCatg" value="$!catg.code" />

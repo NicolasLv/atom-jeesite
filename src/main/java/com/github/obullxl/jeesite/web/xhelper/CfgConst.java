@@ -51,6 +51,12 @@ public interface CfgConst {
 
         // 相册图片主机
         public static final String ALBUM_IMAGE_HOST   = "album_image_host";
+
+        // 展示主题浏览次数
+        public static final String TOPIC_SHOW_VISIT   = "topic_show_visit";
+
+        // 更新主题浏览次数
+        public static final String TOPIC_UPDATE_VISIT = "topic_update_visit";
     }
 
 }

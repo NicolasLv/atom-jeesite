@@ -29,6 +29,7 @@
 			<div class="nav-collapse">
 				<ul class="nav">
 					<li id="vp-index"><a href="$ctx/index.html">首页</a></li>
+					<li id="vp-azdai"><a href="$ctx/index-azdai-1.html">安众贷</a></li>
 					<li id="vp-blog"><a href="$ctx/index-blog-1.html">博客</a></li>
 					<li id="vp-news"><a href="$ctx/index-news-1.html">资讯</a></li>
 					<li id="vp-album"><a href="$ctx/index-album-1.html">图片</a></li>

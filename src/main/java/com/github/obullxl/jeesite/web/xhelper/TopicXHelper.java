@@ -4,23 +4,15 @@
  */
 package com.github.obullxl.jeesite.web.xhelper;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.obullxl.jeesite.dal.dao.ImageDAO;
-import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
-import com.github.obullxl.jeesite.dal.dao.TopicDAO;
+import com.github.obullxl.jeesite.biz.mngt.TopicMngt;
 import com.github.obullxl.jeesite.dal.dto.ImageDTO;
-import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.dal.query.TopicQuery;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
-import com.github.obullxl.lang.Paginator;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.xhelper.AbstractXHelper;
 
 /**
@@ -32,141 +24,57 @@ import com.github.obullxl.lang.xhelper.AbstractXHelper;
 @Component("topicXHelper")
 public class TopicXHelper extends AbstractXHelper {
 
-    /** 主题DAO */
+    /** 主题业务管理 */
     @Autowired
-    private TopicDAO topicDAO;
-
-    /** 图片DAO */
-    @Autowired
-    private ImageDAO imageDAO;
-
-    /** 评论DAO */
-    @Autowired
-    private ReplyDAO replyDAO;
+    private TopicMngt topicMngt;
 
     /**
      * 查询所有置顶主题
      */
     public TopicPageList findTop(String catg) {
-        // 统计
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
-
-        TopicQuery args = new TopicQuery();
-        args.setTop(ValveBoolEnum.TRUE.code());
-
-        if (CollectionUtils.isNotEmpty(catgs)) {
-            args.setCatgs(catgs);
-        }
-
-        int count = (int) this.topicDAO.findFuzzyCount(args);
-
-        Paginator pager = new Paginator(Integer.MAX_VALUE, count);
-        pager.setPageNo(1);
-
-        // 明细
-        List<TopicDTO> topics = null;
-        if (count <= 0) {
-            topics = new ArrayList<TopicDTO>();
-        } else {
-            args.setOffset(pager.getOffset());
-            args.setPageSize(pager.getPageSize());
-
-            topics = this.topicDAO.findFuzzy(args);
-        }
-
-        // 分页结果
-        return new TopicPageList(pager, topics);
+        return this.topicMngt.findTop(catg);
     }
 
     /**
      * 分页查询
      */
     public TopicPageList findPage(String catg, int page) {
-        // 统计
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
-
-        TopicQuery args = new TopicQuery();
-        if (CollectionUtils.isNotEmpty(catgs)) {
-            args.setCatgs(catgs);
-        }
-
-        int count = (int) this.topicDAO.findFuzzyCount(args);
-        int pageSize = CfgXHelper.findFrontPageSize();
-
-        Paginator pager = new Paginator(pageSize, count);
-        pager.setPageNo(page);
-
-        // 明细
-        List<TopicDTO> topics = null;
-        if (count <= 0) {
-            topics = new ArrayList<TopicDTO>();
-        } else {
-            args.setOffset(pager.getOffset());
-            args.setPageSize(pager.getPageSize());
-
-            topics = this.topicDAO.findFuzzy(args);
-        }
-
-        // 分页结果
-        return new TopicPageList(pager, topics);
+        return this.topicMngt.findPage(catg, page);
     }
 
     /**
      * 查询主题详情
      */
     public TopicDTO findTopic(String id) {
-        return this.topicDAO.find(id);
+        return this.topicMngt.findTopic(id);
     }
 
     /**
      * 查询主题详情，包括评论列表
      */
     public TopicDTO findDetail(String id) {
-        TopicDTO topic = this.topicDAO.find(id);
-        if (topic != null) {
-            List<ReplyDTO> replys = this.replyDAO.findTopic(id);
-            if (replys != null) {
-                topic.setReplys(replys);
-            }
-        } else {
-            return new TopicDTO();
-        }
-
-        return topic;
+        return this.topicMngt.findDetail(id);
     }
 
     /**
      * 阅读排行榜
      */
     public List<TopicDTO> findTopVisit(String catg) {
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
-        int size = CfgXHelper.findFrontTopSize();
-
-        if (CollectionUtils.isEmpty(catgs)) {
-            return this.topicDAO.findTopVisit(null, size);
-        } else {
-            return this.topicDAO.findTopVisit(catgs, size);
-        }
+        return this.topicMngt.findTopVisit(catg);
     }
 
     /**
      * 阅读排行榜
      */
     public List<TopicDTO> findTopReply(String catg) {
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
-        int size = CfgXHelper.findFrontTopSize();
-
-        if (CollectionUtils.isEmpty(catgs)) {
-            return this.topicDAO.findTopReply(null, size);
-        } else {
-            return this.topicDAO.findTopReply(catgs, size);
-        }
+        return this.topicMngt.findTopReply(catg);
     }
 
     /**
      * 获取相册图片列表
      */
     public List<ImageDTO> findAlbumImages(String topicId) {
-        return this.imageDAO.findTopic(topicId);
+        return this.topicMngt.findAlbumImages(topicId);
     }
+
 }
