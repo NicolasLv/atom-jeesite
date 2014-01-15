@@ -68,6 +68,9 @@ public abstract class AbstractController {
     public static final String    VOPT_USER_CEMAIL   = "user-cemail";
     public static final String    VOPT_USER_CPASSWD  = "user-cpasswd";
 
+    //~~~~~~~~~~~~~ 文件 ~~~~~~~~~~~~~//
+    public static final String    VOPT_FILE_FETCH    = "file-fetch";
+
     //~~~~~~~~~~~~~ 权限 ~~~~~~~~~~~~~//
     public static final String    VOPT_RIGHT_CREATE  = "right-create";
     public static final String    VOPT_RIGHT_MANAGE  = "right-manage";

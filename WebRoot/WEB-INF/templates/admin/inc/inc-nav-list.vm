@@ -43,6 +43,9 @@
 			<li id="vp-crawl-manage"><a href="$ctx/admin/crawl/manage.html">爬虫管理</a></li>
 			<li id="vp-crawl-create"><a href="$ctx/admin/crawl/create.html">新增爬虫</a></li>
 			<li id="vp-crawl-input"><a href="$ctx/admin/crawl/input.html">数据抓取</a></li>
+			
+			<li class="nav-header"><span class="icon-th-list"></span> 文件管理</li>
+			<li id="vp-file-fetch"><a href="$ctx/admin/file/fetch.html">文件下载</a></li>
 		</ul>
 	</div>
 	<!--/.well -->
