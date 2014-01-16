@@ -1,4 +1,3 @@
-#set($layout="/layout/layout-menu.vm")
 <div class="container-fluid" #MarginBottomYES()>
 	<div class="row-fluid">
 		<div class="span2">

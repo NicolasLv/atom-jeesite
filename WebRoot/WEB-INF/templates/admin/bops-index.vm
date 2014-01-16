@@ -1,4 +1,3 @@
-#set($layout="/layout/layout-none.vm")
 #set($title="管理首页")
 <!DOCTYPE html>
 <html>

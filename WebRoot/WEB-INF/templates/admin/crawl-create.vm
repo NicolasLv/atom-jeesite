@@ -1,4 +1,3 @@
-#set($layout="/layout/layout-admin.vm")
 #set($title="新增爬虫 - 爬虫管理")
 <script type="text/javascript">
 	$(document).ready(function() {

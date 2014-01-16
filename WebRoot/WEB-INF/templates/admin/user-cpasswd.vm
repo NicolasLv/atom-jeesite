@@ -1,4 +1,3 @@
-#set($layout="/layout/layout-admin.vm")
 #set($title="登录密码 - 修改信息 - 登录用户")
 #set($user=$UserXHelper.findSessionUser())
 <script type="text/javascript">

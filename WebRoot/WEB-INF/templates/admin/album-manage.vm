@@ -1,4 +1,4 @@
-#set($layout="/layout/layout-admin.vm")
+
 #set($title="相册管理")
 #set($topic=$TopicXHelper.findTopic($topicId))
 <script type="text/javascript">

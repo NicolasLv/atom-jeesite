@@ -10,7 +10,6 @@
 	<description>atom-jeesite</description>
 
 	<properties>
-		<webapps.path>D:/Tomcat7/webapps</webapps.path>
 		<maven.compiler.source>1.6</maven.compiler.source>
 		<maven.compiler.target>1.6</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -42,7 +41,7 @@
 		<dependency>
 			<groupId>com.github.obullxl</groupId>
 			<artifactId>atom-lang</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.obullxl</groupId>
@@ -112,13 +111,6 @@
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>
 			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>99.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/resources/lib/jsp-api-99.0.jar</systemPath>
 		</dependency>
 
 		<!-- ======================================== -->
@@ -301,7 +293,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
-			<version>1.1.31</version>
+			<version>1.1.37</version>
 		</dependency>
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
@@ -340,39 +332,19 @@
 			<url>http://central.maven.org/maven2</url>
 		</repository>
 		<repository>
-			<id>alibabatech.com</id>
-			<url>http://code.alibabatech.com/mvn/releases</url>
-		</repository>
-		<repository>
 			<id>eap</id>
 			<url>http://maven.repository.redhat.com/techpreview/all</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
 		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>eap</id>
 			<url>http://maven.repository.redhat.com/techpreview/all</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
 
 	<profiles>
 		<profile>
-			<!-- When built in OpenShift the 'openshift' profile will be used when invoking mvn. -->
-			<!-- Use this profile for any OpenShift specific customization your app will need. -->
-			<!-- By default that is to put the resulting archive into the 'webapps' folder. -->
-			<!-- http://maven.apache.org/guides/mini/guide-building-for-different-environments.html -->
 			<id>openshift</id>
 			<build>
 				<finalName>jeesite</finalName>
@@ -393,7 +365,7 @@
 			</build>
 		</profile>
 	</profiles>
-
+	
 	<build>
 		<finalName>jeesite</finalName>
 		<plugins>
