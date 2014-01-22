@@ -34,7 +34,7 @@
 							<value>/admin</value>
 						</set>
 					</property>
-					<property name="gotoUrl" value="/login.html" />
+					<property name="gotoUrl" value="${adminLoginUrl}" />
 					<property name="rightConfigs">
 						<list>
 							<value>/WEB-INF/rights.acl</value>
@@ -64,9 +64,9 @@
 	<!-- 异常处理器 -->
 	<!-- ================================================= -->
 	<bean class="com.github.obullxl.lang.spring.web.ExceptionResolver">
-		<property name="rightUrl" value="/" />
-		<property name="bizOptUrl" value="/" />
-		<property name="unknowUrl" value="/" />
+		<property name="rightUrl" value="${exptRightUrl}" />
+		<property name="bizOptUrl" value="${exptBizOptUrl}" />
+		<property name="unknowUrl" value="${exptUnknowUrl}" />
 	</bean>
 
 	<!-- ================================================= -->

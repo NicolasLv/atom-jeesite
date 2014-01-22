@@ -7,14 +7,17 @@
 
 	<bean id="abstractTicket" abstract="true">
 		<property name="ticketDAO">
-			<bean class="com.github.obullxl.ticket.support.DefaultTicketDAO">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketDAO" init-method="init">
 				<property name="dataSource" ref="jeesiteDataSource" />
 				<property name="retryTimes" value="5" />
-				<property name="step" value="100" />
 				<property name="tableName" value="atom_ticket" />
 				<property name="nameColumnName" value="name" />
+				<property name="versionColumnName" value="version" />
+				<property name="stepColumnName" value="step" />
 				<property name="valueColumnName" value="ticket" />
-				<property name="stampColumnName" value="stamp" />
+				<property name="minvColumnName" value="minv" />
+				<property name="maxvColumnName" value="maxv" />
+				<property name="cycleColumnName" value="cycle" />
 			</bean>
 		</property>
 	</bean>
