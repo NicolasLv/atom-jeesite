@@ -1,1 +1,1 @@
-mvn package -Dmaven.test.skip=true
+mvn package -Dmaven.test.skip=true -gs %MVN_HOME%/conf/atom-cfg.xml
