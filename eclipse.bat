@@ -1,1 +1,1 @@
-mvn eclipse:clean eclipse:eclipse -gs %MVN_HOME%/conf/atom-cfg.xml
+mvn eclipse:clean eclipse:eclipse -gs ./mvn.xml
