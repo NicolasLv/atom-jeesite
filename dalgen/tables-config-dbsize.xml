@@ -9,6 +9,9 @@
     <tableprefix prefix="atom" />
     <tableprefix prefix="mplat" />
 
+    <include table="tables-dbsize/atom_catg.xml" />
+    <include table="tables-dbsize/atom_cfg.xml" />
+    
     <include table="tables/atom_crawl.xml" />
     <include table="tables/atom_image.xml" />
     <include table="tables/atom_reply.xml" />

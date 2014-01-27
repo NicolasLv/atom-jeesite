@@ -2,7 +2,7 @@
 
 <project name="atom-dalgen" default="release" basedir=".">
 	<!-- define properties -->
-	<property name="name" value="dalgen-sqlite" />
+	<property name="name" value="dalgen-dbsize" />
 
 	<property environment="env" />
 	<loadproperties srcFile="../dalgen.properties" />
@@ -17,12 +17,12 @@
 	<!-- properties for middlegen plugin -->
 	<property name="middlegen.templates" value="${middlegen.templates}" />
 	<property name="middlegen.destination" value="${dir.deploy}" />
-	<property name="middlegen.config.file" value="${basedir}/../tables-config.xml" />
+	<property name="middlegen.config.file" value="${basedir}/../tables-config-dbsize.xml" />
 	<property name="middlegen.package" value="${target.middlegen.package}" />
 	<property name="middlegen.package.dir" value="${target.middlegen.package.dir}" />
 
 	<!-- insert database configuration here -->
-	<property name="database.driver.file" value="${dir.lib}/sqlite-jdbc-3.7.15-M1.jar" />
+	<property name="database.driver.file" value="${dir.lib}/mysql-connector-java-5.1.16.jar" />
 	<property name="database.driver.classpath" value="${database.driver.file}" />
 	<property name="database.driver" value="${jdbc.driver}" />
 
@@ -48,24 +48,19 @@
 		<taskdef name="middlegen" classname="middlegen.MiddlegenTask" classpathref="classpath.main" />
 		<!--
 		<echo message="" />
-		<input message="请输入目标表名,多表以逗号分隔,全表生成请输入'*',只生成Sequence请输入'seq': " addproperty="tabs" />
+		<input message="请输入'*': " addproperty="tabs" />
 		-->
 		
-		<echo message="DAL配置文件：${middlegen.config.file}." />
-		<echo message="开始自动生成DAL..." />
+		<echo message="DBSize配置文件：${middlegen.config.file}." />
+		<echo message="开始自动生成DBSize..." />
 
 		<mkdir dir="${middlegen.destination}" />
-		<!--
-		<middlegen configfile="${middlegen.config.file}" tabs="${tabs}" prefsdir="${dir.target}">
-		-->
 		<middlegen configfile="${middlegen.config.file}" tabs="*" prefsdir="${dir.target}">
 			<iwallet destination="" mergedir="${middlegen.templates}/mergedir" package="${middlegen.package}">
-				<!-- 为每一张表生成一个sqlmapping文件 -->
-				<fileproducer destination="${middlegen.destination}/resources" template="${middlegen.templates}/table-mapper.vm" filename="mybatis/${app.name}/${app.dbtype}/{0}-mapper.xml" />
-				<fileproducer destination="${middlegen.destination}/resources" template="${middlegen.templates}/mybatis-config.vm" filename="mybatis/mybatis-${app.name}-${app.dbtype}-config.xml" />
+				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/db-size.vm" filename="dal/DBSize.java" />              
 			</iwallet>
 		</middlegen>
-		<echo message="DAL生成已成功!" />
+		<echo message="DBSize生成已成功!" />
 	</target>
 
 	<target name="clean-perf" depends="" description="">

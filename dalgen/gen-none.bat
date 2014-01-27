@@ -1,0 +1,2 @@
+rem pause
+exit

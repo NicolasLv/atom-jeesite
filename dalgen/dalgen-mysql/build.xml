@@ -46,14 +46,19 @@
 	<!-- =================================================================== -->
 	<target name="middlegen" depends="check-driver-present,panic-if-driver-not-present" description="">
 		<taskdef name="middlegen" classname="middlegen.MiddlegenTask" classpathref="classpath.main" />
+		<!--
 		<echo message="" />
 		<input message="请输入目标表名,多表以逗号分隔,全表生成请输入'*',只生成Sequence请输入'seq': " addproperty="tabs" />
-
+		-->
+		
 		<echo message="DAL配置文件：${middlegen.config.file}." />
 		<echo message="开始自动生成DAL..." />
 
 		<mkdir dir="${middlegen.destination}" />
+		<!--
 		<middlegen configfile="${middlegen.config.file}" tabs="${tabs}" prefsdir="${dir.target}">
+		-->
+		<middlegen configfile="${middlegen.config.file}" tabs="*" prefsdir="${dir.target}">
 			<iwallet destination="" mergedir="${middlegen.templates}/mergedir" package="${middlegen.package}">
 				<!-- 生成数据对象(DataObject)基类 -->
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/base-dto.vm" filename="dal/dto/BaseDTO.java" />
@@ -62,7 +67,9 @@
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/dto.vm" filename="dal/dto/{0}DTO.java" />
                 
 				<!-- 为每一张表生成一个数据表字段类 -->
+				<!--
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/db-size.vm" filename="dal/DBSize.java" />              
+				-->
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/dto-valve.vm" filename="dal/valve/{0}Valve.java" justNew="true" />
 				
 				<!-- 生成通用的DAO接口类 -->
