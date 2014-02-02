@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>com.github.obullxl</groupId>
 			<artifactId>atom-lang</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.obullxl</groupId>
@@ -302,6 +302,15 @@
 		</dependency>
 
 		<!-- ======================================== -->
+		<!-- Guava依赖 -->
+		<!-- ======================================== -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>15.0</version>
+		</dependency>
+
+		<!-- ======================================== -->
 		<!-- JUnit测试依赖 -->
 		<!-- ======================================== -->
 		<dependency>
@@ -365,7 +374,7 @@
 			</build>
 		</profile>
 	</profiles>
-	
+
 	<build>
 		<finalName>jeesite</finalName>
 		<plugins>

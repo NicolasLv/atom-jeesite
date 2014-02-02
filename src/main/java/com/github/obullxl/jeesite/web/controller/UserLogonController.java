@@ -15,14 +15,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.obullxl.jeesite.dal.dto.UserDTO;
-import com.github.obullxl.jeesite.dal.dto.UserRgtDTO;
 import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.jeesite.web.enums.UserRightEnum;
 import com.github.obullxl.jeesite.web.form.UserLoginForm;
+import com.github.obullxl.lang.enums.ActiveEnum;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.relate.UserRightDTO;
 import com.github.obullxl.lang.user.UserContext;
 import com.github.obullxl.lang.user.UserContextUtils;
+import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.utils.MD5Utils;
 import com.github.obullxl.lang.web.WebContext;
 
@@ -58,13 +59,13 @@ public class UserLogonController extends AbstractController {
             }
 
             // 获取用户
-            UserDTO user = this.userDAO.findByName(form.getUsrName());
+            UserDTO user = this.userService.findByNickName(form.getUsrName());
             if (user == null) {
                 this.setWebData(ERR_MSG_KEY, "用户不存在！");
                 return this.toFrontView(VIEW_USER_LOGIN);
             }
 
-            if (user.findValve().gotState() != ValveBoolEnum.TRUE) {
+            if (user.findValve().gotActiveState() != ActiveEnum.ACTIVE_NORMAL) {
                 this.setWebData(ERR_MSG_KEY, "用户未激活，请联系管理员！");
                 return this.toFrontView(VIEW_USER_LOGIN);
             }
@@ -91,8 +92,8 @@ public class UserLogonController extends AbstractController {
             boolean admin = (user.findValve().gotAdmin() == ValveBoolEnum.TRUE);
             UserContextUtils.setAdmin(uctx, admin);
             if (!admin) {
-                List<UserRgtDTO> rgts = this.userRgtDAO.findByUser(form.getUsrName());
-                for (UserRgtDTO rgt : rgts) {
+                List<UserRightDTO> rgts = this.userRightService.findByUserNo(user.getNo());
+                for (UserRightDTO rgt : rgts) {
                     uctx.getUserRights().add(rgt.getRgtCode());
                 }
             }

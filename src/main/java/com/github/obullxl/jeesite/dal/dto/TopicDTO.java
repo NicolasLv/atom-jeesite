@@ -4,8 +4,9 @@
 package com.github.obullxl.jeesite.dal.dto;
 
 
-	import java.util.List;
 	import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import com.github.obullxl.jeesite.dal.valve.TopicValve;
 
@@ -63,17 +64,47 @@ public class TopicDTO extends BaseDTO {
 	/** column:catg */
 	private String catg;
 
+	/** column:type */
+	private String type;
+
+	/** column:topic */
+	private String topic;
+
+	/** column:post_user_no */
+	private String postUserNo;
+
+	/** column:post_nick_name */
+	private String postNickName;
+
 	/** column:link_url */
 	private String linkUrl;
 
 	/** column:media_url */
 	private String mediaUrl;
 
-	/** column:visit_cnt */
-	private long visitCnt;
+	/** column:gmt_post */
+	private Date gmtPost;
 
-	/** column:reply_cnt */
-	private long replyCnt;
+	/** column:visit_count */
+	private int visitCount;
+
+	/** column:reply_count */
+	private int replyCount;
+
+	/** column:reply_user_no */
+	private String replyUserNo;
+
+	/** column:reply_nick_name */
+	private String replyNickName;
+
+	/** column:gmt_reply */
+	private Date gmtReply;
+
+	/** column:ext_map */
+	private String extMap;
+
+	/** column:title_style */
+	private String titleStyle;
 
 	/** column:title */
 	private String title;
@@ -109,6 +140,34 @@ public class TopicDTO extends BaseDTO {
 	public void setCatg(String catg) {
 		this.catg = catg;
 	}
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	public String getTopic() {
+		return topic;
+	}
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+	public String getPostUserNo() {
+		return postUserNo;
+	}
+
+	public void setPostUserNo(String postUserNo) {
+		this.postUserNo = postUserNo;
+	}
+	public String getPostNickName() {
+		return postNickName;
+	}
+
+	public void setPostNickName(String postNickName) {
+		this.postNickName = postNickName;
+	}
 	public String getLinkUrl() {
 		return linkUrl;
 	}
@@ -123,19 +182,61 @@ public class TopicDTO extends BaseDTO {
 	public void setMediaUrl(String mediaUrl) {
 		this.mediaUrl = mediaUrl;
 	}
-	public long getVisitCnt() {
-		return visitCnt;
+	public Date getGmtPost() {
+		return gmtPost;
 	}
 
-	public void setVisitCnt(long visitCnt) {
-		this.visitCnt = visitCnt;
+	public void setGmtPost(Date gmtPost) {
+		this.gmtPost = gmtPost;
 	}
-	public long getReplyCnt() {
-		return replyCnt;
+	public int getVisitCount() {
+		return visitCount;
 	}
 
-	public void setReplyCnt(long replyCnt) {
-		this.replyCnt = replyCnt;
+	public void setVisitCount(int visitCount) {
+		this.visitCount = visitCount;
+	}
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+	public String getReplyUserNo() {
+		return replyUserNo;
+	}
+
+	public void setReplyUserNo(String replyUserNo) {
+		this.replyUserNo = replyUserNo;
+	}
+	public String getReplyNickName() {
+		return replyNickName;
+	}
+
+	public void setReplyNickName(String replyNickName) {
+		this.replyNickName = replyNickName;
+	}
+	public Date getGmtReply() {
+		return gmtReply;
+	}
+
+	public void setGmtReply(Date gmtReply) {
+		this.gmtReply = gmtReply;
+	}
+	public String getExtMap() {
+		return extMap;
+	}
+
+	public void setExtMap(String extMap) {
+		this.extMap = extMap;
+	}
+	public String getTitleStyle() {
+		return titleStyle;
+	}
+
+	public void setTitleStyle(String titleStyle) {
+		this.titleStyle = titleStyle;
 	}
 	public String getTitle() {
 		return title;

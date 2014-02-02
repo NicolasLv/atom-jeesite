@@ -15,9 +15,9 @@ import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.query.TopicQuery;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
-import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
-import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.lang.Paginator;
+import com.github.obullxl.lang.catg.CatgUtils;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 
 /**
@@ -45,7 +45,7 @@ public class TopicMngt extends AbstractMngt {
         }
 
         // 统计
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
+        List<String> catgs = CatgUtils.findBranchCodes(catg);
 
         TopicQuery args = new TopicQuery();
         args.setTop(ValveBoolEnum.TRUE.code());
@@ -98,7 +98,7 @@ public class TopicMngt extends AbstractMngt {
         }
 
         // 统计
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
+        List<String> catgs = CatgUtils.findBranchCodes(catg);
 
         TopicQuery args = new TopicQuery();
         if (CollectionUtils.isNotEmpty(catgs)) {
@@ -106,7 +106,7 @@ public class TopicMngt extends AbstractMngt {
         }
 
         int count = (int) this.topicDAO.findFuzzyCount(args);
-        int pageSize = CfgXHelper.findFrontPageSize();
+        int pageSize = CfgWebX.findFrontPageSize();
 
         Paginator pager = new Paginator(pageSize, count);
         pager.setPageNo(page);
@@ -204,8 +204,8 @@ public class TopicMngt extends AbstractMngt {
             return topics;
         }
 
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
-        int size = CfgXHelper.findFrontTopSize();
+        List<String> catgs = CatgUtils.findBranchCodes(catg);
+        int size = CfgWebX.findFrontTopSize();
 
         if (CollectionUtils.isEmpty(catgs)) {
             topics = this.topicDAO.findTopVisit(null, size);
@@ -235,8 +235,8 @@ public class TopicMngt extends AbstractMngt {
             return topics;
         }
 
-        List<String> catgs = CatgXHelper.findAllCatgCode(catg);
-        int size = CfgXHelper.findFrontTopSize();
+        List<String> catgs = CatgUtils.findBranchCodes(catg);
+        int size = CfgWebX.findFrontTopSize();
 
         if (CollectionUtils.isEmpty(catgs)) {
             topics = this.topicDAO.findTopReply(null, size);

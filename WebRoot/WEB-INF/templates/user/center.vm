@@ -1,0 +1,33 @@
+#set($title="用户中心")
+#set($navbar="user")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        <div class="active content">
+            <div class="list-group">
+                <li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+				<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+				<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
+            </div>
+        </div>
+    </div>
+</div>

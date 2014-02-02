@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.DBSize;
-import com.github.obullxl.jeesite.dal.dto.UserDTO;
+import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.utils.MD5Utils;
 import com.github.obullxl.lang.utils.TextUtils;
 
@@ -63,7 +64,7 @@ public class UserMngtController extends AbstractController {
             }
 
             // 用户名检查
-            UserDTO user = this.userDAO.findByName(uname);
+            UserDTO user = this.userService.findByNickName(uname);
             if (user != null) {
                 this.buildResponse(response, BizResponseEnum.EXIST_UNAME);
                 return response;
@@ -74,13 +75,14 @@ public class UserMngtController extends AbstractController {
 
             // 新建
             user = this.newInitUser();
-            user.setUname(uname);
+            user.setNo(UserConverter.encode(this.userTicketService.nextValue()));
+            user.setNickName(uname);
             user.setPasswd(MD5Utils.digest(passwd));
-            user.setUemail(uemail);
+            user.setEmail(uemail);
 
             // 更新
-            long id = this.userDAO.insert(user);
-            response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(id));
+            this.userService.create(user);
+            response.getBizData().put(BizResponse.BIZ_ID_KEY, uname);
         } catch (Exception e) {
             logger.error("新增用户异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -108,12 +110,12 @@ public class UserMngtController extends AbstractController {
 
         try {
             // 查询
-            UserDTO user = this.userDAO.findByName(uname);
+            UserDTO user = this.userService.findByNickName(uname);
             user.setPasswd(MD5Utils.digest(passwd));
-            user.setUemail(uemail);
+            user.setEmail(uemail);
 
             // 更新
-            this.userDAO.update(user);
+            this.userService.update(user);
         } catch (Exception e) {
             logger.error("修改用户异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -134,16 +136,16 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/cinfo-{id}.html", method = RequestMethod.POST)
-    public BizResponse cinfo(@PathVariable long id, String unick) {
-        this.setWebData("userId", id);
+    @RequestMapping(value = "/user/cinfo.html", method = RequestMethod.POST)
+    public BizResponse cinfo(String no, String unick) {
+        this.setWebData("no", no);
 
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
             // 查找
-            UserDTO user = this.userDAO.find(id);
+            UserDTO user = this.userService.findByNo(no);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -151,10 +153,10 @@ public class UserMngtController extends AbstractController {
 
             // 长度
             unick = StringUtils.trimToEmpty(unick);
-            user.setUnick(TextUtils.truncate(unick, DBSize.User.UNICK_MAX));
+            user.setNickName(TextUtils.truncate(unick, DBSize.User.NICK_NAME_MAX));
 
             // 更新
-            this.userDAO.update(user);
+            this.userService.update(user);
         } catch (Exception e) {
             logger.error("修改登录用户基本信息异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -175,16 +177,16 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/cemail-{id}.html", method = RequestMethod.POST)
-    public BizResponse cemail(@PathVariable long id, String uemail) {
-        this.setWebData("userId", id);
+    @RequestMapping(value = "/user/cemail.html", method = RequestMethod.POST)
+    public BizResponse cemail(String no, String uemail) {
+        this.setWebData("no", no);
 
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
             // 查找
-            UserDTO user = this.userDAO.find(id);
+            UserDTO user = this.userService.findByNo(no);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -192,10 +194,10 @@ public class UserMngtController extends AbstractController {
 
             // 长度
             uemail = StringUtils.trimToEmpty(uemail);
-            user.setUemail(TextUtils.truncate(uemail, DBSize.User.UEMAIL_MAX));
+            user.setEmail(TextUtils.truncate(uemail, DBSize.User.EMAIL_MAX));
 
             // 更新
-            this.userDAO.update(user);
+            this.userService.update(user);
         } catch (Exception e) {
             logger.error("修改登录用户电子邮箱异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -216,16 +218,16 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/cpasswd-{id}.html", method = RequestMethod.POST)
-    public BizResponse cpasswd(@PathVariable long id, String opasswd, String passwd, String passwd2) {
-        this.setWebData("userId", id);
+    @RequestMapping(value = "/user/cpasswd.html", method = RequestMethod.POST)
+    public BizResponse cpasswd(String no, String opasswd, String passwd, String passwd2) {
+        this.setWebData("no", no);
 
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
             // 查找
-            UserDTO user = this.userDAO.find(id);
+            UserDTO user = this.userService.findByNo(no);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -247,7 +249,7 @@ public class UserMngtController extends AbstractController {
             user.setPasswd(MD5Utils.digest(passwd));
 
             // 更新
-            this.userDAO.update(user);
+            this.userService.update(user);
         } catch (Exception e) {
             logger.error("修改登录用户密码异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);

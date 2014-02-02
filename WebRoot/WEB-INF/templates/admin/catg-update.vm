@@ -30,7 +30,7 @@ $(document).ready(function() {
 	<div class="control-group">
 		<label for="catgName"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
 		<div class="input-append">
-			<input type="text" id="catgName" name="ctgText" value="$CatgXHelper.findName($catg.catg)" class="span12" readonly="readonly" placeholder="上级分类名称" />
+			<input type="text" id="catgName" name="ctgText" value="$CatgXHelper.findTitle($catg.catg)" class="span12" readonly="readonly" placeholder="上级分类名称" />
 			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
         </div>
 	</div>

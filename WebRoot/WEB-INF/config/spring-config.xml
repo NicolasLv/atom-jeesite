@@ -3,21 +3,21 @@
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="jeesiteDataSource" />
-		<property name="configLocation" value="classpath:mybatis/mybatis-jeesite-sqlite-config.xml" />
+		<property name="configLocation" value="classpath:mybatis/mybatis-jeesite-mysql-config.xml" />
 	</bean>
 
-	<bean id="jeesiteDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<bean id="jeesiteDataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName">
-			<value>org.sqlite.JDBC</value>
+			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:sqlite:/var/lib/openshift/52e225714382ec55c3000064/app-root/runtime/dependencies/jbossews/public/jeesite.db</value>
+			<value>jdbc:mysql://127.0.0.1:3306/osnode?useUnicode=true&amp;characterEncoding=UTF8&amp;autoReconnect=true</value>
 		</property>
-		<property name="validationQuery">
-			<value>SELECT 1</value>
+		<property name="username">
+			<value>osnode</value>
 		</property>
-		<property name="connectionProperties">
-			<value>date_string_format=yyyy-MM-dd HH:mm:ss;</value>
+		<property name="password">
+			<value>site</value>
 		</property>
 	</bean>
 

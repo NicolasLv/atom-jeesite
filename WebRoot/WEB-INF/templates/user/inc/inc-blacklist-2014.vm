@@ -1,0 +1,56 @@
+<table class="table table-hover" #MarginBottomNO()>
+	<thead>
+		<tr class="tit_nav">
+        	<th class="col-md-3 text-center">头像/用户名</th>
+        	<th class="col-md-3">公布用户联系方式</th>
+        	<th class="col-md-3">公布用户债务信息</th>
+        	<th class="col-md-3">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        	<td class="text-center">
+        		<img src="http://i2.ppdai.com/www.ppdai.com/2009/12/18/tee/99931e98-aaa3-4f9a-a38b-a0c3d7ea96d2_120.jpg" width="50" height="50"/>
+				<br/>
+        		<a href="/user/tee" target="_blank">tee</a>
+        	</td>
+        	<td>
+        		<p>真实姓名:<a href="/blacklistdetail/tee" target="_blank">陈浩特</a></p>
+        		<p>电子邮件:teechan@163.com</p>
+        		<p>手机号码:13801613332</p>
+        	</td>
+        	<td>
+        		<p>累计借入本金:&#165;14,500.00</p>
+        		<p>累计已还金额:&#165;7,976.16</p>
+        		<p>最大逾期天数:1188</p>
+        	</td>
+        	<td class="text-right">
+                <p>&nbsp;</p>
+				<p><a class="btn btn-primary" href="/blacklist/detail.htm?user=tee">查看详情</a></p>
+				<p>&nbsp;</p>
+        	</td>
+        </tr>
+		<tr>
+        	<td class="text-center">
+        		<img src="http://i2.ppdai.com/www.ppdai.com/2009/12/16/gusong/ed8b7697-2459-4396-865d-28f13805d94f_120.jpg" width="50" height="50"/>
+				<br/>
+        		<a href="/user/gusong" target="_blank">gusong</a>
+        	</td>
+        	<td>
+        		<p>真实姓名:<a href="/blacklistdetail/gusong" target="_blank">古松</a></p>
+        		<p>电子邮件:263742621@qq.com</p>
+        		<p>手机号码:15625305536</p>
+        	</td>
+        	<td>
+        		<p>累计借入本金:&#165;3,800.01</p>
+        		<p>累计已还金额:&#165;220.26</p>
+        		<p>最大逾期天数:1428</p>
+        	</td>
+        	<td class="text-right">
+                <p>&nbsp;</p>
+				<p><a class="btn btn-primary" href="/blacklist/detail.htm?user=gusong">查看详情</a></p>
+				<p>&nbsp;</p>
+        	</td>
+        </tr>
+    </tbody>
+</table>

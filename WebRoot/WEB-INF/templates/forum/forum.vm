@@ -1,0 +1,116 @@
+#set($code="test-forum-5")
+#set($forum=$ForumWebX.findForum($code))
+#set($title=$forum.title)
+<div class="container">
+	<div class="col-md-12">
+        <div class="panel panel-default">
+        	<div class="panel-body">
+                <ol class="breadcrumb" #MarginBottomNO()>
+                    <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+                    <li><a href="$ctx/forum/index.htm">论坛首页</a></li>
+                	<li>$!forum.title</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+	<div class="col-md-3">
+        <div class="panel panel-info">
+            <div class="panel-heading"><strong><i class="glyphicon glyphicon-minus-sign"></i> 安众贷论坛</strong></div>
+            <div class="list-group">
+				#set($forums=$ForumWebX.findForums())
+				#foreach($forum in $forums)
+				#if($StringUtils.equals($code, $forum.code)) #set($clz="list-group-item-info") #else #set($clz="") #end
+                <a href="$ctx/forum/forum.htm" class="list-group-item $!clz"><i class="glyphicon glyphicon-chevron-right"></i> $!forum.title</a>
+				#end
+            </div>
+        </div>
+    </div>
+	<div class="col-md-9">
+        <div class="panel panel-default" #MarginBottomNO()>
+            <div class="panel-body text-success bg-info"><kbd>$!forum.title</kbd>$!forum.summary</div>
+            <table class="table table-hover">
+                <tbody>
+        			<!-- 论坛公告 -->
+        			#set($TopGlobalTopics=$ForumWebX.findTopGlobalTopics())
+        			#if($!CollectionUtils.isNotEmpty($TopGlobalTopics))
+        			<tr class="success">
+                        <td colspan="3"><strong><i class="glyphicon glyphicon-volume-up"></i> 论坛公告</strong></td>
+                    </tr>
+                    #foreach($topic in $TopGlobalTopics)
+                    <tr>
+                        <td><div><a href="$ctx/forum/topic.htm"><img src="$ctx/public/img/ann_icon.gif" alt="论坛公告"/> $!topic.title</a> ($!topic.replyCount评/$!topic.visitCount阅)</div></td>
+                        <td><div class="pull-right topic-extra-info"><a href="$ctx/user/user.htm"><i class="glyphicon glyphicon-user"></i> $topic.postNickName</a> <br/> <span class="text-muted">$DateUtils.toStringDW($topic.gmtPost)</span></div></td>
+                        <td><div class="pull-right topic-extra-info"><a href="$ctx/user/user.htm"><i class="glyphicon glyphicon-user"></i> $topic.replyNickName</a> <br/> <span class="text-muted">$DateUtils.toStringDW($topic.gmtReply)</span></div></td>
+                    </tr>
+        			#end
+        			#end
+        			<!-- 置顶主题 -->
+        			#set($TopCategoryTopics=$ForumWebX.findTopCategoryTopics($code))
+        			#if($!CollectionUtils.isNotEmpty($TopCategoryTopics))
+        			<tr class="success">
+                        <td colspan="3"><strong><i class="glyphicon glyphicon-upload"></i> 置顶主题</strong></td>
+                    </tr>
+                    #foreach($topic in $TopCategoryTopics)
+                    <tr>
+                        <td><div><a href="$ctx/forum/topic.htm"><img src="$ctx/public/img/pin.gif" alt="置顶主题"/> $!topic.title</a> ($!topic.replyCount评/$!topic.visitCount阅)</div></td>
+                        <td><div class="pull-right topic-extra-info"><a href="$ctx/user/user.htm"><i class="glyphicon glyphicon-user"></i> $topic.postNickName</a> <br/> <span class="text-muted">$DateUtils.toStringDW($topic.gmtPost)</span></div></td>
+                        <td><div class="pull-right topic-extra-info"><a href="$ctx/user/user.htm"><i class="glyphicon glyphicon-user"></i> $topic.replyNickName</a> <br/> <span class="text-muted">$DateUtils.toStringDW($topic.gmtReply)</span></div></td>
+                    </tr>
+        			#end
+        			#end
+        			<!-- 论坛主题 -->
+        			#set($TopicPageList=$ForumWebX.findTopicPageList($code, 3))
+        			#if($!CollectionUtils.isNotEmpty($TopicPageList.items))
+        			<tr class="success">
+                        <td colspan="3"><strong><i class="glyphicon glyphicon-record"></i> 论坛主题</strong></td>
+                    </tr>
+                    #foreach($topic in $TopicPageList.items)
+                    <tr>#if($UtilWebX.isToday($topic.gmtPost)) #set($icon="tpc_new") #else #set($icon="tpc_normal") #end
+                        <td><div><a href="$ctx/forum/topic.htm"><img src="$ctx/public/img/${icon}.gif" alt="论坛主题"/> $!topic.title</a> ($!topic.replyCount评/$!topic.visitCount阅)</div></td>
+                        <td><div class="pull-right topic-extra-info"><a href="$ctx/user/user.htm"><i class="glyphicon glyphicon-user"></i> $topic.postNickName</a> <br/> <span class="text-muted">$DateUtils.toStringDW($topic.gmtPost)</span></div></td>
+                        <td><div class="pull-right topic-extra-info"><a href="$ctx/user/user.htm"><i class="glyphicon glyphicon-user"></i> $topic.replyNickName</a> <br/> <span class="text-muted">$DateUtils.toStringDW($topic.gmtReply)</span></div></td>
+                    </tr>
+        			#end
+        			#end
+                </tbody>
+            </table>
+        </div>
+		<div class="pull-right">
+    		#set($pager=$TopicPageList.pager)
+    		#set($pages=$pager.getSlider(11))
+    		<ul class="pagination">
+    		#foreach($idx in $pages)
+    		#if($pager.isDisabledPage($idx))
+    			<li class="active"><a href="#">1 <span class="sr-only">(current)</span></a></li>
+    		#else
+    			<li><a href="$ctx/forum/topic.htm">$idx</a></li>
+    		#end
+    		#end
+    		</ul>
+        </div>
+		<div class="clearfix"></div>
+		<div class="panel panel-info">
+            <div class="panel-heading"><strong><i class="glyphicon glyphicon-edit"></i> 快速发帖</strong></div>
+			<div class="panel-body">
+    			<form role="form" method="post">
+					<div class="form-group">
+						<input id="tpcTitle" name="tpcTitle" type="text" class="form-control" required="required" placeholder="贴子标题" />
+                    </div>
+					<div class="form-group">
+						<textarea id="tpcContent" name="tpcContent" required="required"></textarea>
+                    </div>
+					<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus-sign"></i> 提交贴子</button>
+                </form>
+			</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+#set($editor="ON")
+$(document).ready(function() {
+	UE.getEditor("tpcContent");
+});
+</script>

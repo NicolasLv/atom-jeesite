@@ -26,8 +26,8 @@ import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.valve.ImageValve;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.ImageStoreForm;
-import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
-import com.github.obullxl.jeesite.web.xhelper.StaticXHelper;
+import com.github.obullxl.jeesite.web.webx.CfgWebX;
+import com.github.obullxl.jeesite.web.webx.StaticWebX;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.biz.ImageMeta;
 import com.github.obullxl.lang.enums.ImageTypeEnum;
@@ -225,7 +225,7 @@ public class AlbumMngtController extends AbstractController {
             }
 
             // 源图片
-            if (StaticXHelper.isRelativeURL(image.getUrl())) {
+            if (StaticWebX.isRelativeURL(image.getUrl())) {
                 String srcPath = this.findImagePath(image.getUrl());
                 FileUtils.deleteQuietly(new File(srcPath));
             }
@@ -248,7 +248,7 @@ public class AlbumMngtController extends AbstractController {
             return;
         }
 
-        if (StaticXHelper.isNetworkURL(image.getUrl())) {
+        if (StaticWebX.isNetworkURL(image.getUrl())) {
             // 网络图片
             topic.setMediaUrl(image.getUrl());
             this.topicDAO.update(topic);
@@ -266,7 +266,7 @@ public class AlbumMngtController extends AbstractController {
         String name = topic.getId() + image.findValve().gotImgType().findImageExt();
         String dstPath = new File(srcFile.getParentFile(), name).getAbsolutePath();
 
-        ImageUtils.preview(srcPath, dstPath, CfgXHelper.findAlbumCoverWidth(), CfgXHelper.findAlbumCoverHeight());
+        ImageUtils.preview(srcPath, dstPath, CfgWebX.findAlbumCoverWidth(), CfgWebX.findAlbumCoverHeight());
 
         // 更新
         String rpath = StringUtils.substringBeforeLast(image.getUrl(), "/");

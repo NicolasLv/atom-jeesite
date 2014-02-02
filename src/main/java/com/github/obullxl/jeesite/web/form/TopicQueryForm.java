@@ -10,8 +10,8 @@ import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 
 import com.github.obullxl.jeesite.dal.query.TopicQuery;
-import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
 import com.github.obullxl.lang.ToString;
+import com.github.obullxl.lang.catg.CatgUtils;
 import com.github.obullxl.lang.utils.QueryLikeUtils;
 
 /**
@@ -37,7 +37,7 @@ public class TopicQueryForm extends ToString {
     private String             tpcLink;
     private String             tpcMedia;
     private String             tpcReply;
-    private long               tpcCatg;
+    private String               tpcCatg;
     private String             tpcCatgText;
     private String             tpcTitle;
 
@@ -53,8 +53,8 @@ public class TopicQueryForm extends ToString {
             dst.setMedia(StringUtils.trimToNull(this.tpcMedia));
             dst.setReply(StringUtils.trimToNull(this.tpcReply));
 
-            if (this.tpcCatg > 0L) {
-                List<String> codes = CatgXHelper.findAllCatgCode(this.tpcCatg);
+            if (StringUtils.isNotBlank(this.tpcCatg)) {
+                List<String> codes = CatgUtils.findBranchCodes(this.tpcCatg);
                 if (CollectionUtils.isNotEmpty(codes)) {
                     dst.setCatgs(codes);
                 }
@@ -131,11 +131,11 @@ public class TopicQueryForm extends ToString {
         this.tpcMedia = tpcMedia;
     }
 
-    public long getTpcCatg() {
+    public String getTpcCatg() {
         return tpcCatg;
     }
 
-    public void setTpcCatg(long tpcCatg) {
+    public void setTpcCatg(String tpcCatg) {
         this.tpcCatg = tpcCatg;
     }
 

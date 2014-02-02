@@ -1,0 +1,94 @@
+#set($code="test-forum-5")
+#set($id="1")
+#set($postUserNo="0001")
+#set($forum=$ForumWebX.findForum($code))
+#set($topic=$ForumWebX.findTopic($id))
+#set($postUser=$ForumWebX.findPostUser($postUserNo))
+#set($title=$topic.title)
+<div class="container">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+        	<div class="panel-body">
+                <ol class="breadcrumb" #MarginBottomNO()>
+                    <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+                    <li><a href="$ctx/forum/index.htm">论坛首页</a></li>
+                	<li><a href="$ctx/forum/forum.htm">$!forum.title</a></li>
+                	<li>$!topic.title</li>
+                </ol>
+            </div>
+        </div>
+        <div class="panel panel-default">
+        	<div class="panel-body text-success bg-info"><kbd>$!forum.title</kbd> $!forum.summary</div>
+        </div>
+        <div class="panel panel-default">
+            <table class="table table-bordered">
+                <tbody>
+                    <tr>
+                        <td class="col-md-3 info">
+							<div class="text-center">
+								<i class="glyphicon glyphicon-comment"></i> 回复：<span class="text-danger">$!topic.replyCount</span>
+                                | <i class="glyphicon glyphicon-eye-open"></i> 评论：<span class="text-danger">$!topic.visitCount</span>
+							</div>
+						</td>
+                        <td><strong>$!topic.title</strong></td>
+                    </tr>
+					<tr>
+                        <td class="info">
+                            <div class="text-center"><strong><i class="glyphicon glyphicon-user"></i> $!postUser.nickName</strong></div>
+							<p/>
+							<div class="text-center"><img src="$!postUser.avatarPath" width="120px" height="120px" /></div>
+							<p/>
+                            <div class="text-center"><i class="glyphicon glyphicon-heart"></i> 注册日期：<span class="text-success">$!postUser.registDate</span></div>
+						</td>
+                        <td>
+                            <div><i class="glyphicon glyphicon-calendar"></i> 发表于：$DateUtils.toStringDL($topic.gmtPost)</div>
+							<hr/>
+							<div>$!topic.content</div>
+						</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="panel panel-default">
+            <table class="table table-bordered">
+                <tbody>
+					<tr>
+                        <td class="col-md-3 active">
+                            <div class="text-center"><strong><i class="glyphicon glyphicon-user"></i> $!postUser.nickName</strong></div>
+							<p/>
+							<div class="text-center"><img src="$!postUser.avatarPath" width="120px" height="120px" /></div>
+							<p/>
+							<div class="text-center"><i class="glyphicon glyphicon-heart"></i> 注册日期：$!postUser.registDate</div>
+						</td>
+                        <td>
+							<div><i class="glyphicon glyphicon-calendar"></i> 发表于：$DateUtils.toStringDL($topic.gmtPost)</div>
+							<hr/>
+							<div>$!topic.content</div>
+						</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+		<div class="clearfix"></div>
+		<div class="panel panel-info">
+            <div class="panel-heading"><strong><i class="glyphicon glyphicon-edit"></i> 主题回复</strong></div>
+			<div class="panel-body">
+    			<form role="form" method="post">
+					<div class="form-group">
+                        <div class="form-control-static"><strong>标题：</strong><span class="text-success">$!topic.title</span></div>
+                    </div>
+					<div class="form-group">
+						<textarea id="tpcContent" name="tpcContent" required="required"></textarea>
+                    </div>
+					<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus-sign"></i> 提交回复</button>
+                </form>
+			</div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+#set($editor="ON")
+$(document).ready(function() {
+	UE.getEditor("tpcContent");
+});
+</script>

@@ -23,7 +23,7 @@ public class UserLoginForm extends AbstractForm {
     private static final long serialVersionUID = 4516505919139939596L;
 
     @NotNull
-    @Size(min = 1, max = DBSize.User.UNAME_MAX)
+    @Size(min = 1, max = DBSize.User.NICK_NAME_MAX)
     private String            usrName;
 
     @NotNull

@@ -28,7 +28,7 @@ import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.jeesite.web.form.TopicQueryForm;
 import com.github.obullxl.jeesite.web.form.TopicStoreForm;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
-import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.lang.Paginator;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
@@ -75,7 +75,7 @@ public class TopicMngtController extends AbstractController {
         }
 
         TopicQuery query = form.to();
-        query.setPageSize(CfgXHelper.findMngtPageSize());
+        query.setPageSize(CfgWebX.findMngtPageSize());
 
         // 统计
         int count = (int) this.topicDAO.findFuzzyCount(query);

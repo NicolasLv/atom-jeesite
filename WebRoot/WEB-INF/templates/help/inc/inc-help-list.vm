@@ -1,0 +1,11 @@
+<div class="list-group">
+    <li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 基础知识</strong></li>
+	<a href="$ctx/help/center.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 用户注册(1)</a>
+    <li class="list-group-item list-group-item-success"><i class="glyphicon glyphicon-chevron-right"></i> 常见问题(16)</li>
+	<a href="$ctx/help/center.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 优先计划(1)</a>
+	<a href="$ctx/help/center.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 本金保障(1)</a>
+	<a href="$ctx/help/center.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 如何充值(8)</a>
+	
+	<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 协议条款</strong></li>
+    <a href="$ctx/help/center.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 服务协议</a>
+</div>

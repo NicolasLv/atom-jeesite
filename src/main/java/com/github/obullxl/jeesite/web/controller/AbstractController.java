@@ -16,27 +16,28 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
-import com.github.obullxl.jeesite.dal.dao.CatgDAO;
-import com.github.obullxl.jeesite.dal.dao.ConfigDAO;
 import com.github.obullxl.jeesite.dal.dao.CrawlDAO;
 import com.github.obullxl.jeesite.dal.dao.ImageDAO;
 import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
-import com.github.obullxl.jeesite.dal.dao.RightDAO;
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
-import com.github.obullxl.jeesite.dal.dao.UserDAO;
-import com.github.obullxl.jeesite.dal.dao.UserRgtDAO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.dal.valve.TopicValve;
 import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
 import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.catg.CatgService;
+import com.github.obullxl.lang.cfg.CfgService;
+import com.github.obullxl.lang.cfg.RightService;
 import com.github.obullxl.lang.enums.EnumBase;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.relate.UserRightService;
 import com.github.obullxl.lang.spring.DatePropertyEditor;
+import com.github.obullxl.lang.user.UserDTO;
+import com.github.obullxl.lang.user.UserService;
 import com.github.obullxl.lang.utils.LogUtils;
 import com.github.obullxl.lang.web.WebContext;
+import com.github.obullxl.ticket.TicketService;
 
 /**
  * 控制器基类
@@ -96,21 +97,33 @@ public abstract class AbstractController {
     public static final String    VOPT_CRAWL_CREATE  = "crawl-create";
     public static final String    VOPT_CRAWL_MANAGE  = "crawl-manage";
 
-    /** 参数DAO */
+    /** 系统参数服务 */
     @Autowired
-    protected ConfigDAO           configDAO;
+    protected CfgService          cfgService;
+
+    /** 模块分类服务 */
+    @Autowired
+    protected CatgService         catgService;
+
+    /** 用户模型服务 */
+    @Autowired
+    protected UserService         userService;
+
+    /** 用户票据服务 */
+    @Autowired
+    protected TicketService       userTicketService;
+
+    /** 权限服务 */
+    @Autowired
+    protected RightService        rightService;
+
+    /** 用户权限服务 */
+    @Autowired
+    protected UserRightService    userRightService;
 
     /** 爬虫DAO */
     @Autowired
     protected CrawlDAO            crawlDAO;
-
-    /** 用户DAO */
-    @Autowired
-    protected UserDAO             userDAO;
-
-    /** 用户权限DAO */
-    @Autowired
-    protected UserRgtDAO          userRgtDAO;
 
     /** 主题DAO */
     @Autowired
@@ -123,14 +136,6 @@ public abstract class AbstractController {
     /** 评论DAO */
     @Autowired
     protected ReplyDAO            replyDAO;
-
-    /** 权限DAO */
-    @Autowired
-    protected RightDAO            rightDAO;
-
-    /** 分类DAO */
-    @Autowired
-    protected CatgDAO             catgDAO;
 
     /** 校验器 */
     @Autowired
@@ -205,6 +210,39 @@ public abstract class AbstractController {
         }
 
         return "/bootword" + name;
+    }
+
+    /**
+     * 获取论坛视图名
+     */
+    public String toForumView(String name) {
+        if (!StringUtils.startsWith(name, "/")) {
+            name = "/" + name;
+        }
+
+        return "/forum" + name;
+    }
+    
+    /**
+     * 获取帮助视图名
+     */
+    public String toHelpView(String name) {
+        if (!StringUtils.startsWith(name, "/")) {
+            name = "/" + name;
+        }
+
+        return "/help" + name;
+    }
+    
+    /**
+     * 获取用户中心视图名
+     */
+    public String toUserView(String name) {
+        if (!StringUtils.startsWith(name, "/")) {
+            name = "/" + name;
+        }
+
+        return "/user" + name;
     }
 
     /**

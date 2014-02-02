@@ -10,10 +10,20 @@
         <result property="id" column="id" javaType="java.lang.String" />
         <result property="flag" column="flag" javaType="java.lang.String" />
         <result property="catg" column="catg" javaType="java.lang.String" />
+        <result property="type" column="type" javaType="java.lang.String" />
+        <result property="topic" column="topic" javaType="java.lang.String" />
+        <result property="postUserNo" column="post_user_no" javaType="java.lang.String" />
+        <result property="postNickName" column="post_nick_name" javaType="java.lang.String" />
         <result property="linkUrl" column="link_url" javaType="java.lang.String" />
         <result property="mediaUrl" column="media_url" javaType="java.lang.String" />
-        <result property="visitCnt" column="visit_cnt" javaType="long" />
-        <result property="replyCnt" column="reply_cnt" javaType="long" />
+        <result property="gmtPost" column="gmt_post" javaType="java.util.Date" />
+        <result property="visitCount" column="visit_count" javaType="int" />
+        <result property="replyCount" column="reply_count" javaType="int" />
+        <result property="replyUserNo" column="reply_user_no" javaType="java.lang.String" />
+        <result property="replyNickName" column="reply_nick_name" javaType="java.lang.String" />
+        <result property="gmtReply" column="gmt_reply" javaType="java.util.Date" />
+        <result property="extMap" column="ext_map" javaType="java.lang.String" />
+        <result property="titleStyle" column="title_style" javaType="java.lang.String" />
         <result property="title" column="title" javaType="java.lang.String" />
         <result property="summary" column="summary" javaType="java.lang.String" />
         <result property="content" column="content" javaType="java.lang.String" />

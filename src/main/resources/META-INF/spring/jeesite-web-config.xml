@@ -16,7 +16,7 @@
 	<!-- 参数配置 -->
 	<!-- ================================================= -->
 	<context:property-placeholder file-encoding="UTF-8" location="/WEB-INF/config/config.xml" />
-	
+
 	<!-- ================================================= -->
 	<!-- 组件自动扫描 -->
 	<!-- ================================================= -->
@@ -83,6 +83,11 @@
 			</props>
 		</property>
 	</bean>
+
+	<bean id="velocityEngineFactory" class="com.github.obullxl.lang.spring.web.VelocityEngineFactory">
+		<property name="velocityConfigurer" ref="velocityConfigurer" />
+	</bean>
+
 	<bean id="viewResolver" class="com.github.obullxl.lang.spring.web.VelocityLayoutViewResolverExt">
 		<property name="suffix" value=".vm" />
 		<property name="contentType" value="text/html;charset=UTF-8" />
@@ -122,16 +127,8 @@
 	<!-- ================================================= -->
 	<!-- 缓存配置 -->
 	<!-- ================================================= -->
-	<!--
-	<bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-		<property name="shared" value="true" />
-		<property name="cacheManagerName" value="jeesite-ehcache" />
-		<property name="configLocation" value="classpath:/META-INF/ehcache.xml" />
-	</bean>
-	<bean id="springCacheManager" class="org.springframework.cache.ehcache.EhCacheCacheManager">
-		<property name="cacheManager" ref="cacheManager" />
-	</bean>
-	-->
+	<!-- <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"> <property name="shared" value="true" /> <property name="cacheManagerName" value="jeesite-ehcache" /> <property name="configLocation" value="classpath:/META-INF/ehcache.xml" /> </bean> <bean id="springCacheManager" 
+		class="org.springframework.cache.ehcache.EhCacheCacheManager"> <property name="cacheManager" ref="cacheManager" /> </bean> -->
 
 	<!-- ================================================= -->
 	<!-- 属性编辑器配置 -->

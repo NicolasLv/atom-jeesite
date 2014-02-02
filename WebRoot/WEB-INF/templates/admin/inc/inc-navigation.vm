@@ -5,13 +5,8 @@
 			<div class="nav-collapse collapse">
 				<ul class="nav" role="navigation">
 					<li class="divider-vertical"></li>
-					<li><a href="$ctx/admin/topic/manage.html"><span class="icon-home"></span>后台首页</a></li>
+					<li><a href="$ctx/admin/index.html"><span class="icon-home"></span>后台首页</a></li>
 					<li class="divider-vertical"></li>
-                #set($navCatgs=$CatgXHelper.findTopCatgs())
-                #foreach($navCatg in $navCatgs)
-                	#showCatgNavigation($navCatg)
-					<li class="divider-vertical"></li>
-                #end
 				</ul>
 				<ul class="nav pull-right">
 					<li class="divider-vertical"></li>

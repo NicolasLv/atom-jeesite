@@ -23,7 +23,7 @@ import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.enums.TmptCatgEnum;
 import com.github.obullxl.jeesite.web.form.TmptCreateForm;
 import com.github.obullxl.jeesite.web.form.TmptStoreForm;
-import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.lang.Consts;
 import com.github.obullxl.lang.biz.BizResponse;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
@@ -46,7 +46,7 @@ public class TmptMngtController extends AbstractController {
      */
     @RequestMapping("/tmpt/manage.html")
     public String manage() {
-        String ctxPath = CfgXHelper.findTmptContextPath();
+        String ctxPath = CfgWebX.findTmptContextPath();
         String realPath = WebContext.getServletContext().getRealPath(ctxPath);
 
         this.setWebData("ctxPath", ctxPath).setWebData("realPath", realPath);
@@ -222,7 +222,7 @@ public class TmptMngtController extends AbstractController {
      * 获取模板实际路径
      */
     private String findRealPath(String tmptName) {
-        String root = WebContext.getServletContext().getRealPath(CfgXHelper.findTmptContextPath());
+        String root = WebContext.getServletContext().getRealPath(CfgWebX.findTmptContextPath());
         if (!StringUtils.startsWith(tmptName, "/")) {
             tmptName = "/" + tmptName;
         }

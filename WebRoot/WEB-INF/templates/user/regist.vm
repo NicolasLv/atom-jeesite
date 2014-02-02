@@ -1,0 +1,100 @@
+#set($title="新用户免费注册")
+#set($navbar="regist")
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+			<li>新用户免费注册</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+	<div class="col-md-6">
+		<div class="panel panel-info">
+            <div class="panel-heading"><strong><i class="glyphicon glyphicon-plus-sign"></i> 新用户注册</strong></div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="regNickName" class="col-md-3 control-label">用户名：</label>
+                        <div class="col-md-8">
+    						<input id="regNickName" name="regNickName" type="text" min="3" maxlength="16" class="form-control" required="required" placeholder="用户名（1个汉字占2位字符）" />
+							<span class="help-block">请输入3-16位字符，注册后不可更改！</span>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="regEmail" class="col-md-3 control-label">电子邮箱：</label>
+                        <div class="col-md-8">
+    						<input id="regEmail" name="regEmail" type="email" min="6" maxlength="64" class="form-control" required="required" placeholder="test@anzhongdai.com" />
+							<span class="help-block">请输入有效邮箱，以便密码找回！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPasswd" class="col-md-3 control-label">登录密码：</label>
+                        <div class="col-md-8">
+    						<input id="regPasswd" name="regPasswd" type="password" min="8" maxlength="32" class="form-control" required="required" placeholder="登录密码" />
+                            <span class="help-block">请输入8-32位字符组成的密码！</span>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="regPasswdRepeat" class="col-md-3 control-label">确认登录密码：</label>
+                        <div class="col-md-8">
+    						<input id="regPasswdRepeat" name="regPasswdRepeat" type="password" min="8" maxlength="32" class="form-control" required="required" placeholder="重复登录密码" />
+                            <span class="help-block">请再次输入8-32位登录密码！</span>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-md-offset-3 col-md-8">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" /> 我已阅读并完全同意《<a href="#" target="_blank"><strong>服务条款</strong></a>》！
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" #MarginBottomNO()>
+                        <div class="col-md-offset-3 col-md-8">
+							<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-plus-sign"></i> 提交注册信息</button>
+                        </div>
+                    </div>
+				</form>
+			</div>
+        </div>
+    </div>
+	<div class="col-md-6">
+		<div class="panel panel-success">
+            <div class="panel-heading"><strong><i class="glyphicon glyphicon-upload"></i> 已有账号登陆</strong></div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="regNickName" class="col-md-3 control-label">用户名：</label>
+                        <div class="col-md-8">
+    						<input id="regNickName" name="regNickName" type="text" min="3" maxlength="16" class="form-control" required="required" placeholder="用户名" />
+							<span class="help-block">可以为注册用户名、手机号、电子邮箱！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="regPasswd" class="col-md-3 control-label">登录密码：</label>
+                        <div class="col-md-8">
+    						<input id="regPasswd" name="regPasswd" type="password" min="8" maxlength="32" class="form-control" required="required" placeholder="登录密码" />
+                            <span class="help-block">请输入8-32位登录密码！</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-offset-3 col-md-8">
+                            <div class="checkbox">
+                                <label>
+            						<input type="checkbox" /> 记住登录用户名
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" #MarginBottomNO()>
+                        <div class="col-md-offset-3 col-md-8">
+							<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-upload"></i> 登录系统</button>
+                        </div>
+                    </div>
+				</form>
+			</div>
+        </div>
+    </div>
+</div>

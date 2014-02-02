@@ -14,8 +14,8 @@ import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
 import com.github.obullxl.jeesite.dal.dao.TopicDAO;
 import com.github.obullxl.jeesite.dal.dto.ImageDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.dal.dto.UserDTO;
 import com.github.obullxl.jeesite.web.result.TopicPageList;
+import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.utils.CacheUtils;
 import com.github.obullxl.lang.utils.LogUtils;
 

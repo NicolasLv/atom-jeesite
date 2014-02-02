@@ -68,14 +68,21 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DispatcherServletExt</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+	<!--
+	<servlet-mapping>
+		<servlet-name>DispatcherServletExt</servlet-name>
 		<url-pattern>*.html</url-pattern>
 	</servlet-mapping>
+	-->
 
 	<!-- ====================================== -->
 	<!-- 应用入口 -->
 	<!-- ====================================== -->
 
 	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>default.htm</welcome-file>

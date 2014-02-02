@@ -6,12 +6,10 @@ package com.github.obullxl.jeesite.web.form;
 
 import java.util.List;
 
-import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.github.obullxl.jeesite.dal.DBSize;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.web.form.AbstractForm;
 import com.github.obullxl.lang.web.form.EnumBaseValidate;
 
@@ -24,42 +22,41 @@ import com.github.obullxl.lang.web.form.EnumBaseValidate;
 public class CatgStoreForm extends AbstractForm {
     private static final long serialVersionUID = -273118024735820451L;
 
-    @DecimalMin("0")
-    private long              ctgId            = 0L;
+    @Size(max = DBSize.Catg.CATG_MAX)
+    private String            ctgCatg;
 
     @NotNull
     @Size(min = 1, max = DBSize.Catg.CODE_MAX)
     private String            ctgCode;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Catg.TOP_MAX)
-    private String            ctgTop;
-
-    @DecimalMin("0")
-    private long              ctgCatg          = 0L;
-
-    @DecimalMin("0")
-    private long              ctgSort          = 0L;
+    @Size(min = 1, max = DBSize.Catg.SORT_MAX)
+    private String            ctgSort;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Catg.NAME_MAX)
-    private String            ctgName;
+    @Size(min = 1, max = DBSize.Catg.TITLE_MAX)
+    private String            ctgTitle;
+
+    @Size(max = DBSize.Catg.EXT_MAP_MAX)
+    private String            ctgExtMap;
+
+    @Size(max = DBSize.Catg.SUMMARY_MAX)
+    private String            ctgSummary;
 
     /** 
      * @see com.github.obullxl.jeesite.web.form.AbstractForm#enumBases(java.util.List)
      */
     public void enumBases(List<EnumBaseValidate> validates) {
-        validates.add(new EnumBaseValidate("ctgTop", this.ctgTop, ValveBoolEnum.values()));
     }
 
     // ~~~~~~~~~~~ getters and setters ~~~~~~~~~~~ //
 
-    public long getCtgId() {
-        return ctgId;
+    public String getCtgCatg() {
+        return ctgCatg;
     }
 
-    public void setCtgId(long ctgId) {
-        this.ctgId = ctgId;
+    public void setCtgCatg(String ctgCatg) {
+        this.ctgCatg = ctgCatg;
     }
 
     public String getCtgCode() {
@@ -70,36 +67,36 @@ public class CatgStoreForm extends AbstractForm {
         this.ctgCode = ctgCode;
     }
 
-    public String getCtgTop() {
-        return ctgTop;
-    }
-
-    public void setCtgTop(String ctgTop) {
-        this.ctgTop = ctgTop;
-    }
-
-    public long getCtgCatg() {
-        return ctgCatg;
-    }
-
-    public void setCtgCatg(long ctgCatg) {
-        this.ctgCatg = ctgCatg;
-    }
-
-    public long getCtgSort() {
+    public String getCtgSort() {
         return ctgSort;
     }
 
-    public void setCtgSort(long ctgSort) {
+    public void setCtgSort(String ctgSort) {
         this.ctgSort = ctgSort;
     }
 
-    public String getCtgName() {
-        return ctgName;
+    public String getCtgTitle() {
+        return ctgTitle;
     }
 
-    public void setCtgName(String ctgName) {
-        this.ctgName = ctgName;
+    public void setCtgTitle(String ctgTitle) {
+        this.ctgTitle = ctgTitle;
+    }
+
+    public String getCtgExtMap() {
+        return ctgExtMap;
+    }
+
+    public void setCtgExtMap(String ctgExtMap) {
+        this.ctgExtMap = ctgExtMap;
+    }
+
+    public String getCtgSummary() {
+        return ctgSummary;
+    }
+
+    public void setCtgSummary(String ctgSummary) {
+        this.ctgSummary = ctgSummary;
     }
 
 }

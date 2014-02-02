@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.obullxl.jeesite.dal.dto.RightDTO;
-import com.github.obullxl.jeesite.dal.dto.UserDTO;
-import com.github.obullxl.jeesite.dal.dto.UserRgtDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.cfg.RightDTO;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.relate.UserRightDTO;
+import com.github.obullxl.lang.user.UserDTO;
 
 /**
  * 权限管理控制器
@@ -58,7 +58,7 @@ public class RightMngtController extends AbstractController {
             }
 
             // 存在性
-            RightDTO rgt = this.rightDAO.findCode(code);
+            RightDTO rgt = this.rightService.find(code);
             if (rgt != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
@@ -69,8 +69,8 @@ public class RightMngtController extends AbstractController {
             rgt.setCode(code);
             rgt.setName(name);
 
-            long id = this.rightDAO.insert(rgt);
-            response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(id));
+            this.rightService.create(rgt);
+            response.getBizData().put(BizResponse.BIZ_ID_KEY, code);
         } catch (Exception e) {
             logger.error("权限新增异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -90,8 +90,8 @@ public class RightMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/right/update-{id}.html", method = RequestMethod.POST)
-    public BizResponse update(@PathVariable long id, String code, String name) {
+    @RequestMapping(value = "/right/update.html", method = RequestMethod.POST)
+    public BizResponse update(String code, String name) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
@@ -103,7 +103,7 @@ public class RightMngtController extends AbstractController {
             }
 
             // 存在性
-            RightDTO rgt = this.rightDAO.find(id);
+            RightDTO rgt = this.rightService.find(code);
             if (rgt == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -113,7 +113,7 @@ public class RightMngtController extends AbstractController {
             rgt.setCode(code);
             rgt.setName(name);
 
-            this.rightDAO.update(rgt);
+            this.rightService.update(rgt);
         } catch (Exception e) {
             logger.error("权限更新异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -137,24 +137,28 @@ public class RightMngtController extends AbstractController {
      * 授权
      */
     @ResponseBody
-    @RequestMapping(value = "/right/grant-{id}.html", method = RequestMethod.POST)
-    public BizResponse grant(@PathVariable long id, String rgtCode) {
-        this.setWebData("userId", id).setWebData("rgtCode", rgtCode);
+    @RequestMapping(value = "/right/grant.html", method = RequestMethod.POST)
+    public BizResponse grant(String userNo, String rgtCode) {
+        this.setWebData("userNo", userNo).setWebData("rgtCode", rgtCode);
 
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
-            UserDTO user = this.userDAO.find(id);
+            UserDTO user = this.userService.findByNo(userNo);
             if (user != null && (user.findValve().gotAdmin() != ValveBoolEnum.TRUE)) {
-                UserRgtDTO userRgt = this.userRgtDAO.find(user.getUname(), rgtCode);
+                UserRightDTO userRgt = this.userRightService.findByUnique(userNo, rgtCode);
                 if (userRgt == null) {
-                    userRgt = new UserRgtDTO();
-                    userRgt.setName(user.getUname());
-                    userRgt.setRgtCode(rgtCode);
+                    RightDTO right = this.rightService.find(rgtCode);
 
-                    long urid = this.userRgtDAO.insert(userRgt);
-                    response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(urid));
+                    userRgt = new UserRightDTO();
+                    userRgt.setUserNo(userNo);
+                    userRgt.setNickName(user.getNickName());
+                    userRgt.setRgtCode(rgtCode);
+                    userRgt.setRgtName(right.getName());
+
+                    this.userRightService.create(userRgt);
+                    response.getBizData().put(BizResponse.BIZ_ID_KEY, userNo + "-" + rgtCode);
                 }
             }
         } catch (Exception e) {
@@ -170,17 +174,17 @@ public class RightMngtController extends AbstractController {
      * 取消权限
      */
     @ResponseBody
-    @RequestMapping(value = "/right/revoke-{id}.html", method = RequestMethod.POST)
-    public BizResponse revoke(@PathVariable long id, String rgtCode) {
-        this.setWebData("userId", id).setWebData("rgtCode", rgtCode);
+    @RequestMapping(value = "/right/revoke.html", method = RequestMethod.POST)
+    public BizResponse revoke(String userNo, String rgtCode) {
+        this.setWebData("userId", userNo).setWebData("rgtCode", rgtCode);
 
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
-            UserDTO user = this.userDAO.find(id);
+            UserDTO user = this.userService.findByNo(userNo);
             if (user != null) {
-                this.userRgtDAO.delete(user.getUname(), rgtCode);
+                this.userRightService.removeByUnique(userNo, rgtCode);
             }
         } catch (Exception e) {
             logger.error("用户取消权限异常!", e);

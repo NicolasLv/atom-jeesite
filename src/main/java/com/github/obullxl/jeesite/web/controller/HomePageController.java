@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
 import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
-import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
-import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.jeesite.web.webx.CatgWebX;
+import com.github.obullxl.jeesite.web.webx.CfgWebX;
 
 /**
  * 主页控制器
@@ -59,7 +59,7 @@ public class HomePageController extends AbstractController {
     public String indexCatgPage(@PathVariable String catg, @PathVariable int page) {
         this.setWebData("catg", catg).setWebData("page", page);
 
-        if (CatgXHelper.isAlbumCatg(catg)) {
+        if (CatgWebX.isAlbumCatg(catg)) {
             return this.toFrontView("/index-album");
         }
 
@@ -74,11 +74,11 @@ public class HomePageController extends AbstractController {
         this.setWebData("catg", catg).setWebData("topicId", id);
 
         // 更新主题访问次数
-        if (CfgXHelper.isUpdateTopicVisit()) {
+        if (CfgWebX.isUpdateTopicVisit()) {
             this.topicDAO.updateVisit(id, 1);
         }
 
-        if (CatgXHelper.isAlbumCatg(catg)) {
+        if (CatgWebX.isAlbumCatg(catg)) {
             this.setWebData("topicId", id).setWebData("imageIndex", "0");
 
             String[] args = StringUtils.split(id, "-");
@@ -121,7 +121,7 @@ public class HomePageController extends AbstractController {
      */
     @RequestMapping("/about.html")
     public String about() {
-        this.setWebData("catg", CfgXHelper.findCatgAboutCode());
+        this.setWebData("catg", CfgWebX.findCatgAboutCode());
         return this.toFrontView("/detail-about");
     }
 

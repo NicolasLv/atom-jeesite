@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.alibaba.fastjson.JSON;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
-import com.github.obullxl.jeesite.web.xhelper.CfgXHelper;
+import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.lang.ToString;
 import com.github.obullxl.lang.biz.BizResponse;
 
@@ -51,7 +51,7 @@ public class DataSyncController extends AbstractController {
             // 同步
             String json = JSON.toJSONString(topic);
 
-            List<String> hosts = CfgXHelper.findDataSyncHosts();
+            List<String> hosts = CfgWebX.findDataSyncHosts();
             for (String host : hosts) {
                 String url = "http://" + host + "/data/sync/topic-execute.html";
                 Response rtn = Jsoup.connect(url).ignoreContentType(true).data("data", json).method(Method.POST).execute();

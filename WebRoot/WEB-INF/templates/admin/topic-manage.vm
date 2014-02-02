@@ -194,7 +194,7 @@ $(document).ready(function() {
             <td><div class="text-center"><input type="radio" name="formTopicID" value="$topic.id" /></div></td>
 			<td><div class="text-center">$topic.id</div></td>
             <td><div class="text-center #if($topic.state=='T') color-green #elseif($topic.state=='F') color-red #end">$topic.findValve().gotState().desp()</div></td>
-			<td>[$DateUtils.toStringDL($topic.gmtModify)]-[$CatgXHelper.findName($topic.catg)] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" target="_blank">${topic.title}</a></td>
+			<td>[$DateUtils.toStringDL($topic.gmtModify)]-[$CatgXHelper.findTitle($topic.catg)] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" target="_blank">${topic.title}</a></td>
 		</tr>
 #end
 	</tbody>

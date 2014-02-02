@@ -1,1 +1,12 @@
-/*可以在这里添加你自己的css*/
+/* 可以在这里添加你自己的CSS */
+.edui-default .edui-editor-iframeholder {
+	height: 100px;
+	line-height: 150%;
+	/*background-color: #000066;*/
+	font-size: 14px;
+	font-family: "Microsoft YaHei", '微软雅黑', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.edui-default .edui-toolbar .edui-for-fullscreen {
+	float: left;
+}

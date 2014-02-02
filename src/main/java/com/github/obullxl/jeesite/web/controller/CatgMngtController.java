@@ -8,7 +8,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,13 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.obullxl.jeesite.dal.dto.CatgDTO;
 import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.CatgStoreForm;
-import com.github.obullxl.jeesite.web.xhelper.CatgXHelper;
 import com.github.obullxl.lang.biz.BizResponse;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.catg.CatgDTO;
+import com.github.obullxl.lang.catg.CatgUtils;
 
 /**
  * 主题分类控制器
@@ -33,10 +31,6 @@ import com.github.obullxl.lang.enums.ValveBoolEnum;
 @Controller
 @RequestMapping("/admin")
 public class CatgMngtController extends AbstractController {
-
-    /** 分类X工具 */
-    @Autowired
-    private CatgXHelper catgXHelper;
 
     /**
      * 分类管理
@@ -69,13 +63,7 @@ public class CatgMngtController extends AbstractController {
                 return response;
             }
 
-            CatgDTO catg = this.catgDAO.findCode(form.getCtgCode());
-            if (catg != null) {
-                this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
-                return response;
-            }
-
-            catg = this.catgDAO.findName(form.getCtgName());
+            CatgDTO catg = CatgUtils.find(form.getCtgCode());
             if (catg != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
@@ -83,17 +71,15 @@ public class CatgMngtController extends AbstractController {
 
             // 新增
             catg = new CatgDTO();
-            catg.setCode(form.getCtgCode());
-            catg.setTop(ValveBoolEnum.findDefault(form.getCtgTop()).code());
             catg.setCatg(form.getCtgCatg());
-            catg.setSort(Math.abs(form.getCtgSort()));
-            catg.setName(form.getCtgName());
+            catg.setCode(form.getCtgCode());
+            catg.setSort(form.getCtgSort());
+            catg.setTitle(form.getCtgTitle());
+            catg.setExtMap(form.getCtgExtMap());
+            catg.setSummary(form.getCtgSummary());
 
-            long id = this.catgDAO.insert(catg);
-            response.getBizData().put(BizResponse.BIZ_ID_KEY, Long.toString(id));
-
-            // 刷新缓存
-            this.catgXHelper.refresh();
+            this.catgService.create(catg);
+            response.getBizData().put(BizResponse.BIZ_ID_KEY, catg.getCode());
         } catch (Exception e) {
             logger.error("分类新增异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -121,34 +107,28 @@ public class CatgMngtController extends AbstractController {
         try {
             // 校验
             form.validateEnumBase(errors);
-            
+
             if (errors.hasErrors()) {
                 this.buildResponse(response, BizResponseEnum.INVALID_PARAM);
                 return response;
             }
 
             // 查询
-            CatgDTO catg = this.catgDAO.find(form.getCtgId());
+            CatgDTO catg = CatgUtils.find(form.getCtgCode());
             if (catg == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
             }
 
             // 更新
+            catg.setCatg(form.getCtgCatg());
             catg.setCode(form.getCtgCode());
-            catg.setTop(ValveBoolEnum.findDefault(form.getCtgTop()).code());
-
-            if (form.getCtgCatg() != catg.getId()) {
-                catg.setCatg(form.getCtgCatg());
-            }
-
             catg.setSort(form.getCtgSort());
-            catg.setName(form.getCtgName());
+            catg.setTitle(form.getCtgTitle());
+            catg.setExtMap(form.getCtgExtMap());
+            catg.setSummary(form.getCtgSummary());
 
-            this.catgDAO.update(catg);
-
-            // 刷新缓存
-            this.catgXHelper.refresh();
+            this.catgService.update(catg);
         } catch (Exception e) {
             logger.error("分类更新异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -163,38 +143,36 @@ public class CatgMngtController extends AbstractController {
      */
     @ResponseBody
     @RequestMapping(value = "/catg/delete.html", method = RequestMethod.POST)
-    public BizResponse delete(long id) {
+    public BizResponse delete(String code) {
         // 操作结果
         BizResponse response = this.newBizResponse();
 
         try {
             // 查询
-            CatgDTO catg = this.catgDAO.find(id);
+            CatgDTO catg = CatgUtils.find(code);
             if (catg == null) {
                 this.buildResponse(response, BizResponseEnum.CATG_NOT_EXIST);
                 return response;
             }
 
             // 校验: 没有子分类
-            catg = this.catgDAO.findCatg(id);
-            if (catg != null) {
+            if (CatgUtils.hasBranch(code)) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
 
             // 校验: 没有主题信息
-            List<String> codes = CatgXHelper.findAllCatgCode(id);
-            TopicDTO topic = this.topicDAO.findCatgOne(codes);
-            if (topic != null) {
-                this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
-                return response;
+            List<String> codes = CatgUtils.findBranchCodes(code);
+            if (!codes.isEmpty()) {
+                TopicDTO topic = this.topicDAO.findCatgOne(codes);
+                if (topic != null) {
+                    this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
+                    return response;
+                }
             }
 
             // 执行删除操作
-            this.catgDAO.delete(id);
-
-            // 刷新缓存
-            this.catgXHelper.refresh();
+            this.catgService.remove(code);
         } catch (Exception e) {
             logger.error("删除分类异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);

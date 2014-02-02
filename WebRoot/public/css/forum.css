@@ -1,0 +1,130 @@
+html,body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	line-height: 150%;
+	padding-top: 70px;
+	background: #FFF url('../img/grey.png') repeat;
+	font-size: 14px;
+	font-family: "Microsoft YaHei", '微软雅黑', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #0036a9;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #FF0000;
+	text-decoration: none;
+}
+
+/* Tootip占位CSS */
+.otip,.ktip {
+	
+}
+
+.topic-extra-info {
+	font-size: 10px;
+}
+
+#wrap {
+	min-height: 100%;
+	height: auto;
+	margin: 0 auto -110px;
+	padding: 0 0 110px;
+}
+
+#footer {
+	height: 110px;
+	min-width: 600px;
+	/*border-top: 5px solid #e24e35;*/
+	/*padding: 15px 0;*/
+	font-size: 14px;
+	color: #999;
+	/*background: #151515 url('../img/dark-bg.png') repeat;*/
+	background: #194c73;
+	-webkit-box-shadow: inset 0 1px 0 #292929;
+	-moz-box-shadow: inset 0 1px 0 #292929;
+	box-shadow: inset 0 1px 0 #292929;
+}
+
+#footer a {
+	color: #FFFFFF;
+}
+
+#footer a:hover {
+	color: #FF0000;
+}
+
+#footer .container,#footer .container-fluid {
+	text-align: center;
+	background: #194c73;
+	padding-top: 10px;
+	padding-bottom: 6px;
+}
+
+.bottom_nav {
+	margin: 0 auto;
+	width: 600px;
+	min-width: 600px;
+	text-align: center;
+	background: #194c73;
+}
+
+.bottom_nav ul {
+	height: 36px;
+	list-style: none;
+}
+
+.bottom_nav li {
+	float: left;
+	color: #FFF;
+	height: 34px;
+	line-height: 34px;
+	margin: 0 10px 0 5px;
+}
+
+.bottom_nav .split {
+	color: #000;
+}
+
+.bottom_nav .web_index,.bottom_nav .web_aboutus,.bottom_nav .web_map,.bottom_nav .web_service {
+	background: url('../img/bottom_tit.png');
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+
+.bottom_nav .web_index {
+	background-position: 0 0;
+	width: 35px;
+	height: 31px;
+}
+
+.bottom_nav .web_aboutus {
+	background-position: -36px 0;
+	width: 35px;
+	height: 31px;
+}
+
+.bottom_nav .web_map {
+	background-position: -74px 0;
+	width: 35px;
+	height: 31px;
+}
+
+.bottom_nav .web_service {
+	background-position: -112px 0;
+	width: 35px;
+	height: 34px;
+}
+
+.bottom_nav p {
+	clear: both;
+	color: #66aae9;
+	text-align: center;
+	font-size: 13px;
+}

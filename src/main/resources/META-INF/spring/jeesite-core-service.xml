@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
+
+	<!-- ===================================== -->
+	<!-- 区域代码服务配置 -->
+	<!-- ===================================== -->
+	<bean class="com.github.obullxl.lang.area.DefaultAreaService" init-method="init">
+		<property name="config">
+			<value>classpath:/area-codes.txt</value>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 模块分类服务配置 -->
+	<!-- ===================================== -->
+	<bean id="catgService" class="com.github.obullxl.lang.catg.DefaultCatgService" init-method="init">
+		<property name="catgDAO">
+			<bean class="com.github.obullxl.lang.catg.CatgDAO" init-method="init">
+				<property name="dataSource" ref="jeesiteDataSource" />
+				<property name="tableName" value="atom_catg" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 论坛模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="forumService" class="com.github.obullxl.lang.catg.DefaultForumService" init-method="init">
+		<property name="catgService" ref="catgService" />
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 系统参数服务配置 -->
+	<!-- ===================================== -->
+	<bean id="cfgService" class="com.github.obullxl.lang.cfg.DefaultCfgService" init-method="init">
+		<property name="cfgDAO">
+			<bean class="com.github.obullxl.lang.cfg.CfgDAO" init-method="init">
+				<property name="dataSource" ref="jeesiteDataSource" />
+				<property name="tableName" value="atom_cfg" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 权限模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="rightService" class="com.github.obullxl.lang.cfg.DefaultRightService" init-method="init">
+		<property name="cfgService" ref="cfgService" />
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 关系模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="relateService" class="com.github.obullxl.lang.relate.DefaultRelateService" init-method="init">
+		<property name="relateDAO">
+			<bean class="com.github.obullxl.lang.relate.RelateDAO" init-method="init">
+				<property name="dataSource" ref="jeesiteDataSource" />
+				<property name="tableName" value="atom_relate" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 论坛管理员模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="forumUserService" class="com.github.obullxl.lang.relate.DefaultForumUserService" init-method="init">
+		<property name="relateService" ref="relateService" />
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 用户权限模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="userRightService" class="com.github.obullxl.lang.relate.DefaultUserRightService" init-method="init">
+		<property name="relateService" ref="relateService" />
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 主题模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="topicService" class="com.github.obullxl.lang.topic.DefaultTopicService" init-method="init">
+		<property name="topicDAO">
+			<bean class="com.github.obullxl.lang.topic.TopicDAO" init-method="init">
+				<property name="dataSource" ref="jeesiteDataSource" />
+				<property name="tableName" value="atom_topic" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
+	<!-- 用户模型服务配置 -->
+	<!-- ===================================== -->
+	<bean id="userService" class="com.github.obullxl.lang.user.DefaultUserService" init-method="init">
+		<property name="userDAO">
+			<bean class="com.github.obullxl.lang.user.UserDAO" init-method="init">
+				<property name="dataSource" ref="jeesiteDataSource" />
+				<property name="tableName" value="atom_user" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="userTicketService" class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+		<property name="name" value="TB-User-ID" />
+	</bean>
+
+</beans>

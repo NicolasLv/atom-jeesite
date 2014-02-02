@@ -1,0 +1,76 @@
+<div class="clearfix"></div>
+<div id="footer">
+	<div class="container-fluid">
+		<div class="col-md-12">
+    		<div class="bottom_nav">
+        		<ul>
+        			<li><a href="#"><span class="web_index"></span>网站首页</a></li>
+        			<li class="split">|</li>
+        			<li><a href="#"><span class="web_aboutus"></span>关于我们</a></li>
+                    <li class="split">|</li>
+        			<li><a href="#"><span class="web_map"></span>网站地图</a></li>
+        			<li class="split">|</li>
+        			<li><a href="#"><span class="web_service"></span>客服中心</a></li>
+        		</ul>
+        		<p>上海安众贷金融信息服务有限公司 版权所有 2007-2014</p>
+        		<p>Copyright Reserved 2007-2014©安众贷（www.azdai.com） <span class="split">|</span> 沪ICP备05063398号</p>
+    		</div>
+        </div>
+    </div>
+</div>
+<link rel="stylesheet" type="text/css" href="$ctx/public/smtui/css/semantic.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/twbs3/css/bootstrap.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/twbs3/css/bootstrap-theme.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/css/forum.css" />
+<script type="text/javascript" charset="utf-8" src="$ctx/public/smtui/js/semantic.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="$ctx/public/twbs3/js/bootstrap.min.js"></script>
+<!--[if lt IE 9]>
+	<script type="text/javascript" charset="utf-8" src="$ctx/public/js/html5shiv.js"></script>
+<![endif]-->
+#if($!StringUtils.equals($editor, "ON"))
+<link rel="stylesheet" type="text/css" href="$ctx/public/ueditor/themes/iframe.css" />
+<script type="text/javascript" charset="utf-8" src="$ctx/public/ueditor/ueditor.forum.js"></script>
+<script type="text/javascript" charset="utf-8" src="$ctx/public/ueditor/ueditor.all.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="$ctx/public/ueditor/lang/zh-cn/zh-cn.js"></script>
+#end
+<link rel="stylesheet" type="text/css" href="$ctx/public/css/back-to-top.css"/>
+<p id="back-to-top"><a href="#body"><span></span></a></p>
+<script type="text/javascript">
+$(document).ready(function(){
+	// 首先将#back-to-top隐藏
+	$("#back-to-top").hide();
+
+	//当滚动条的位置处于距顶部100像素以下时，跳转链接出现，否则消失
+	$(window).scroll(function(){
+		if ($(window).scrollTop() > 100){
+			$("#back-to-top").fadeIn(300);
+		} else {
+			$("#back-to-top").fadeOut(300);
+		}
+	});
+	
+	// 当点击跳转链接后，回到页面顶部位置
+	$("#back-to-top").click(function(){
+		$("body,html").animate({scrollTop:0}, 300);
+		return false;
+	});
+	
+	// Tooltip插件
+	$(".otip").tooltip({animation:false, trigger:"hover", placement:"bottom"});
+	$(".ktip").tooltip({animation:false, trigger:"click", placement:"bottom"});
+	
+#if($!StringUtils.equals($accordion, "ON"))
+	$(".ui.accordion").accordion({
+		exclusive: false
+	});
+#end
+
+	if($("#navbar-id-$!navbar").length > 0) {
+		$("#navbar-id-$!navbar").addClass("active");
+	}
+	
+	if($("#blacklist-id-$!year").length > 0) {
+		$("#blacklist-id-$!year").addClass("active");
+	}
+});
+</script>

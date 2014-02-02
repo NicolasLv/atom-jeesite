@@ -1,0 +1,38 @@
+#set($title="黑名单 - 逾期用户网络曝光")
+#set($navbar="blacklist")
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+			<li>黑名单 - 逾期用户网络曝光</li>
+        </ol>
+    </div>
+</div>
+<div class="container">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-body bg-warning">
+                <p><strong>无诚信借入者网络曝光</strong></p>
+				<p>1、本页面为无诚信借入会员曝光黑名单；</p>
+                <p>2、借款无理由长期逾期会员，由系统自动编入本页面曝光黑名单列表，公布的内容包括但不限于<kbd>用户名</kbd>、<kbd>真实姓名</kbd>、<kbd>相片</kbd>等相关所有联系方式资料；</p>
+                <p>3、一旦会员还款，将从此曝光黑名单中移除；</p>
+                <p>4、未经授权，本页面内容不得私自转载，<kbd>安众贷</kbd>对非法转载本页面内容到其他任何网站不负任何法律责任。</p>
+            </div>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="col-md-12">
+		<div class="panel panel-default">
+			<div class="panel-body">
+                <ul class="nav nav-pills">
+					#foreach($itm in $years)
+					<li id="blacklist-id-${itm}"><a href="/user/blacklist-${itm}.htm">${itm}</a></li>
+					#end
+                </ul>
+				<br/>
+				#parse("/user/inc/inc-blacklist-${year}.vm")
+            </div>
+		</div>
+	</div>
+</div>
