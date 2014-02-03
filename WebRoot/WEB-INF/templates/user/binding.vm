@@ -1,0 +1,137 @@
+#set($title="账户关联 - 用户中心")
+#set($navbar="user")
+#set($userOperation="binding")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>账户关联</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+        <div class="alert alert-info"><strong><i class="glyphicon glyphicon-globe"></i> 账户关联：</strong>关联您在其他网站上的账号，可以快速登入<kbd>安众贷</kbd>，并且可以增加信誉和额度！</div>
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong><i class="glyphicon glyphicon-globe"></i> 账户关联</strong></div>
+            <table class="table account_bind_nav" #MarginBottomNO()>
+                <tbody>
+                    <tr>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img alipay"></div>
+							</div>
+                    	</td>
+                    	<td>
+                    		<div><strong>支付宝</strong></div>
+                            <div class="wangzhi">http://www.alipay.com</div>
+                            <div>
+                                <button class="btn btn-default" type="button" disabled="disabled" onclick="btnClick('btnAlipay')"><i class="glyphicon glyphicon-ok"></i> 已经绑定</button>
+								<a class="btn btn-info" href="http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=0&ReturnUrlKey=ShowAccountBind" target="_blank"><i class="glyphicon glyphicon-plus"></i> 继续关联</a>
+                            </div>
+                    	</td>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img tencent"></div>
+							</div>
+                    	</td>
+                    	<td>
+                            <div><strong>QQ关联</strong></div>
+                            <div class="wangzhi">http://www.qq.com</div>
+                            <div>
+                                <button class="btn btn-info" type="button"><i class="glyphicon glyphicon-plus-sign"></i> 马上绑定</button>
+                            </div>
+                    	</td>
+                    </tr>
+					<tr>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img weibo"></div>
+							</div>
+                    	</td>
+                    	<td>
+                    		<div><strong>新浪微博</strong></div>
+                            <div class="wangzhi">http://www.weibo.com</div>
+                            <div>
+                                <button class="btn btn-default" type="button" disabled="disabled" onclick="btnClick('btnAlipay')"><i class="glyphicon glyphicon-ok"></i> 已经绑定</button>
+								<a class="btn btn-info" href="http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=0&ReturnUrlKey=ShowAccountBind" target="_blank"><i class="glyphicon glyphicon-plus"></i> 继续关联</a>
+                            </div>
+                    	</td>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img renren"></div>
+							</div>
+                    	</td>
+                    	<td>
+                            <div><strong>人人网</strong></div>
+                            <div class="wangzhi">http://www.renren.com</div>
+                            <div>
+                                <button class="btn btn-info" type="button"><i class="glyphicon glyphicon-plus-sign"></i> 马上绑定</button>
+                            </div>
+                    	</td>
+                    </tr>
+					<tr>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img google"></div>
+							</div>
+                    	</td>
+                    	<td>
+                    		<div><strong>GOOGLE</strong></div>
+                            <div class="wangzhi">http://www.google.com</div>
+                            <div>
+                                <button class="btn btn-info" type="button"><i class="glyphicon glyphicon-plus-sign"></i> 马上绑定</button>
+                            </div>
+                    	</td>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img tenpay"></div>
+							</div>
+                    	</td>
+                    	<td>
+                            <div><strong>财付通</strong></div>
+                            <div class="wangzhi">http://www.tenpay.com</div>
+                            <div>
+                                <button class="btn btn-info" type="button"><i class="glyphicon glyphicon-plus-sign"></i> 马上绑定</button>
+                            </div>
+                    	</td>
+                    </tr>
+					<tr>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img douban"></div>
+							</div>
+                    	</td>
+                    	<td>
+                    		<div><strong>豆瓣</strong></div>
+                            <div class="wangzhi">http://www.douban.com</div>
+                            <div>
+                                <button class="btn btn-info" type="button"><i class="glyphicon glyphicon-plus-sign"></i> 马上绑定</button>
+                            </div>
+                    	</td>
+                    	<td class="text-right">
+                    		<div class="bind_nav">
+								<div class="bind_img kaixin001"></div>
+							</div>
+                    	</td>
+                    	<td>
+                            <div><strong>开心网</strong></div>
+                            <div class="wangzhi">http://www.kaixin001.com</div>
+                            <div>
+                                <button class="btn btn-info" type="button"><i class="glyphicon glyphicon-plus-sign"></i> 马上绑定</button>
+                            </div>
+                    	</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+#parse("/user/snip/binding.vm")

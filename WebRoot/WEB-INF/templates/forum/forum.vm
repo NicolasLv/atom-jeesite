@@ -33,8 +33,9 @@
             <div class="panel-body text-success bg-info"><kbd>$!forum.title</kbd>$!forum.summary</div>
             <table class="table table-hover">
                 <tbody>
+					#set($ObjectMap=$ForumWebX.findForumTopics($code, 3))
         			<!-- 论坛公告 -->
-        			#set($TopGlobalTopics=$ForumWebX.findTopGlobalTopics())
+        			#set($TopGlobalTopics=$ObjectMap.findList("TopGlobal"))
         			#if($!CollectionUtils.isNotEmpty($TopGlobalTopics))
         			<tr class="success">
                         <td colspan="3"><strong><i class="glyphicon glyphicon-volume-up"></i> 论坛公告</strong></td>
@@ -48,7 +49,7 @@
         			#end
         			#end
         			<!-- 置顶主题 -->
-        			#set($TopCategoryTopics=$ForumWebX.findTopCategoryTopics($code))
+        			#set($TopCategoryTopics=$ObjectMap.findList("TopCategory"))
         			#if($!CollectionUtils.isNotEmpty($TopCategoryTopics))
         			<tr class="success">
                         <td colspan="3"><strong><i class="glyphicon glyphicon-upload"></i> 置顶主题</strong></td>
@@ -62,7 +63,7 @@
         			#end
         			#end
         			<!-- 论坛主题 -->
-        			#set($TopicPageList=$ForumWebX.findTopicPageList($code, 3))
+        			#set($TopicPageList=$ObjectMap.findObject("PageList"))
         			#if($!CollectionUtils.isNotEmpty($TopicPageList.items))
         			<tr class="success">
                         <td colspan="3"><strong><i class="glyphicon glyphicon-record"></i> 论坛主题</strong></td>

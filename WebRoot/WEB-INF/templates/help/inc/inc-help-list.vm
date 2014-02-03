@@ -9,3 +9,7 @@
 	<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 协议条款</strong></li>
     <a href="$ctx/help/center.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 服务协议</a>
 </div>
+
+<div class="list-group">
+	<a href="$ctx/help/consult.htm" class="list-group-item list-group-item-warning"><i class="glyphicon glyphicon-edit"></i> 客服中心</a>
+</div>

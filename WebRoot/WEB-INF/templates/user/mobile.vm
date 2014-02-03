@@ -1,0 +1,66 @@
+#set($title="绑定或修改手机号 - 用户中心")
+#set($navbar="user")
+#set($userOperation="mobile")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>绑定或修改手机号</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong><i class="glyphicon glyphicon-phone"></i> 绑定或修改手机号</strong></div>
+			<div class="panel-body">
+				<div class="alert alert-info">
+                    <p><strong><i class="glyphicon glyphicon-headphones"></i> 温馨提示：</strong></p>
+    				<p>1、请认真填写您的手机号，并点击“发送验证码”按钮，系统会自动发送一条包含验证码的短信到该手机；</p>
+                    <p>2、请保证手机在身边，手机收到短信后，请填写手机短信中的验证码，然后点击“绑定或修改手机号”按钮，完成手机绑定；</p>
+                    <p>3、验证码可能会有延迟，请耐心等待；若长时间未收到，请到<a href="$ctx/help/center.htm" target="_blank">帮助中心</a>反馈，我们会尽快解决；</p>
+                    <p>4、此服务的短信费用由<kbd>安众贷</kbd>承担，不收取您的任何费用。</p>
+                </div>
+				<form class="form-horizontal" role="form">
+					<div class="form-group">
+                        <label class="col-sm-3 control-label">原手机号：</label>
+                        <div class="col-sm-8">
+							<p class="form-control-static">15601656663</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobileNo" class="col-md-3 control-label">手机号：</label>
+                        <div class="col-md-4">
+    						<input id="mobileNo" name="mobileNo" type="mobileNo" min="11" maxlength="15" class="form-control" required="required" placeholder="手机号码" />
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <div class="col-md-offset-3 col-md-8">
+							<button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-upload"></i> 发送验证码</button>
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+					<div class="form-group">
+                        <label for="verifyCode" class="col-md-3 control-label">收到的验证码：</label>
+                        <div class="col-md-4">
+    						<input id="verifyCode" name="verifyCode" type="text" min="4" maxlength="10" class="form-control" required="required" placeholder="手机收到的验证码" />
+                            <span class="help-block">请输入短信中的验证码！</span>
+                        </div>
+                    </div>
+                    <div class="form-group" #MarginBottomNO()>
+                        <div class="col-md-offset-3 col-md-8">
+							<button type="submit" class="btn btn-info"><i class="glyphicon glyphicon-phone"></i> 绑定或修改手机号</button>
+                        </div>
+                    </div>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>

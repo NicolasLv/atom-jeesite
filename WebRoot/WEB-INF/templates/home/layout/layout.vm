@@ -13,15 +13,5 @@
 $screen_placeholder
 </div>
 #parse("/public/uniform-footer.vm")
-<script type="text/javascript">
-$(document).ready(function() {
-#if($StringUtils.isNotBlank($userOperation))
-	if($("#user-$!userOperation").length > 0) {
-		$("#user-$!userOperation").addClass("list-group-item-success");
-		$("#user-$!userOperation i").attr("class", "glyphicon glyphicon-chevron-right");
-	}
-#end
-});
-</script>
 </body>
 </html>

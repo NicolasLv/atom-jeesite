@@ -1,6 +1,6 @@
 <table class="table table-hover" #MarginBottomNO()>
 	<thead>
-		<tr class="tit_nav">
+		<tr>
         	<th class="col-md-3 text-center">头像/用户名</th>
         	<th class="col-md-3">公布用户联系方式</th>
         	<th class="col-md-3">公布用户债务信息</th>

@@ -13,21 +13,6 @@
 
 <div class="container">
     <div class="col-md-3">
-        <div class="active content">
-            <div class="list-group">
-                <li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-				<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-				<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-                <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="glyphicon glyphicon-chevron-right"></i> 我的帖子</a>
-            </div>
-        </div>
+        #parse("/user/inc/inc-function-list.vm")
     </div>
 </div>

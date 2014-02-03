@@ -1,0 +1,101 @@
+#set($title="家庭情况 - 个人资料 - 用户中心")
+#set($navbar="user")
+#set($userOperation="detail")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>编辑资料 - 家庭情况</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="alert alert-warning"><strong><i class="glyphicon glyphicon-headphones"></i> 温馨提示：</strong>亲爱的用户，为节约您的宝贵时间，请认真准确填以下信息，否则评估会不准确，对您借款会有影响！</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				#set($detailCatg="home")
+				#parse("/user/inc/inc-user-detail-navs.vm")
+				<p><hr/></p>
+                <form class="form-horizontal" role="form">
+					<div class="form-group">
+                        <label for="marriage" class="col-md-3 control-label">婚姻状况：</label>
+                        <div class="col-md-6">
+    						<select id="marriage" name="marriage" class="form-control">
+                                <option value="">--请选择--</option>
+                                    <option value="1">未婚</option>
+                                    <option value="2">已婚</option>
+                                    <option value="4">离婚</option>
+                                    <option value="5">丧偶</option>
+                                    <option value="3">其他</option>
+                            </select>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="residence" class="col-md-3 control-label">住宅状况：</label>
+                        <div class="col-md-6">
+    						<select id="residence" name="residence" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="1">自置无按揭</option>
+                                <option value="2">自置有按揭</option>
+                                <option value="3">商住两用</option>
+                                <option value="4">租用</option>
+                                <option value="5">与父母共住</option>
+                                <option value="6">集体宿舍</option>
+                                <option value="7">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="address" class="col-md-3 control-label">住宅地址：</label>
+                        <div class="col-md-8">
+    						<input id="address" name="address" type="text" min="1" maxlength="120" class="form-control" required="required" placeholder="XX省XX市XX县XX镇XX村X号" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-md-3 control-label">住宅电话：</label>
+                        <div class="col-md-4">
+    						<input id="mobile" name="mobile" type="text" min="11" maxlength="15" class="form-control" required="required" placeholder="021-61686888" />
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="residenceYear" class="col-md-3 control-label">入住年数：</label>
+                        <div class="col-md-6">
+    						<select id="residenceYear" name="residenceYear" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="1">半年以内</option>
+                                <option value="2">1年以内</option>
+                                <option value="3">2年以内</option>
+                                <option value="4">3年以内</option>
+                                <option value="5">3年以上</option>
+                            </select>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="carFlag" class="col-md-3 control-label">是否购车：</label>
+                        <div class="col-md-6">
+    						<select id="carFlag" name="carFlag" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="1">已经购车</option>
+                                <option value="2">没有购车</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" #MarginBottomNO()>
+                        <div class="col-md-offset-3 col-md-6">
+							<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-upload"></i> 提交保存资料</button>
+                        </div>
+                    </div>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/user/snip/detail-navs.vm")

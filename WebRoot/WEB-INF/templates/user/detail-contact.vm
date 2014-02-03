@@ -1,0 +1,37 @@
+#set($title="编辑个人资料 - 用户中心")
+#set($navbar="user")
+#set($userOperation="detail")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>编辑个人资料</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				#set($detailCatg="contact")
+				#parse("/user/inc/inc-user-detail-navs.vm")
+				<p>&nbsp;</p>
+                <table class="table table-default" #MarginBottomNO()>
+                    <tbody>
+                        <tr>
+                            <td>没有预期用户！</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/user/snip/detail-navs.vm")

@@ -1,0 +1,84 @@
+#set($title="设置安全问题 - 用户中心")
+#set($navbar="user")
+#set($userOperation="question")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>设置安全问题</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong><i class="glyphicon glyphicon-exclamation-sign"></i> 设置安全问题</strong></div>
+			<div class="panel-body">
+				<div class="alert alert-info">
+                    <p><strong><i class="glyphicon glyphicon-headphones"></i> 温馨提示：</strong></p>
+    				<p>1、请设置容易记忆的安全问题，并定期重新设置，避免遗忘；</p>
+    				<p>2、3个安全问题和答案请不要设置为为相同；</p>
+    				<p>3、请不要向外人透露您的安全问题和完全问题答案。</p>
+                </div>
+				<form role="form">
+					#set($questions=$UserWebX.findPwdQuestions())
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="question1">问题一：</label>
+							<select id="question1" name="question1" class="form-control" required="required">
+                                #parse("/user/inc/inc-pwd-question.vm")
+                            </select>
+                        </div>
+                    </div>
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="answer1">问题一答案：</label>
+    						<input id="answer1" name="answer1" class="form-control" type="text" min="3" maxlength="16" required="required" placeholder="问题一答案" />
+                        </div>
+                    </div>
+                    <p>&nbsp;</p>
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="question2">问题二：</label>
+    						<select id="question1" name="question1" class="form-control" required="required">
+                                #parse("/user/inc/inc-pwd-question.vm")
+                            </select>
+                        </div>
+                    </div>
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="answer2">问题二答案：</label>
+    						<input id="answer2" name="answer2" class="form-control" type="text" min="3" maxlength="16" required="required" placeholder="问题二答案" />
+                        </div>
+                    </div>
+					<p>&nbsp;</p>
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="question3">问题三：</label>
+    						<select id="question1" name="question1" class="form-control" required="required">
+                                #parse("/user/inc/inc-pwd-question.vm")
+                            </select>
+                        </div>
+                    </div>
+					<div class="col-md-6">
+                        <div class="form-group">
+                            <label for="answer3">问题三答案：</label>
+    						<input id="answer3" name="answer3" class="form-control" type="text" min="3" maxlength="16" required="required" placeholder="问题三答案" />
+                        </div>
+                    </div>
+					<div class="col-md-12">
+						<button id="btn-set-question" type="submit" class="btn btn-info"><i class="glyphicon glyphicon-exclamation-sign"></i> 保存密保问题</button>
+                    </div>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/user/snip/question.vm")

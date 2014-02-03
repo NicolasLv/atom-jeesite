@@ -63,7 +63,7 @@ a:hover {
 	text-align: center;
 	background: #194c73;
 	padding-top: 10px;
-	padding-bottom: 6px;
+	/*padding-bottom: 6px;*/
 }
 
 .bottom_nav {
@@ -127,4 +127,120 @@ a:hover {
 	color: #66aae9;
 	text-align: center;
 	font-size: 13px;
+}
+
+/**
+ * 账户绑定
+ */
+.account_bind_nav .bind_nav .bind_img {
+	background: url('../img/account-bind.png') 0 0 #ebf4f6 no-repeat;
+	height: 82px;
+	width: 82px;
+	-moz-border-radius: 13px;
+	border-radius: 13px;
+}
+
+.account_bind_nav .bind_nav .alipay {
+	background-position: 13px 8px;
+}
+
+.account_bind_nav .bind_nav .tencent {
+	background-position: -85px 8px;
+}
+
+.account_bind_nav .bind_nav .weibo {
+	background-position: 13px -92px;
+}
+
+.account_bind_nav .bind_nav .renren {
+	background-position: -86px -94px;
+}
+
+.account_bind_nav .bind_nav .google {
+	background-position: 15px -192px;
+}
+
+.account_bind_nav .bind_nav .tenpay {
+	background-position: -86px -194px;
+}
+
+.account_bind_nav .bind_nav .douban {
+	background-position: 14px -294px;
+}
+
+.account_bind_nav .bind_nav .kaixin001 {
+	background-position: -85px -292px;
+}
+
+/**
+ * 安全中心
+ */
+.safety_setting .tips {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.safety_setting .contents {
+	color: #666;
+}
+
+.safety_setting .pass {
+	color: #0e5a9a;
+}
+
+.safety_setting td {
+	height: 60px;
+	vertical-align: middle;
+}
+
+.safety_setting span {
+	width: 50px;
+	height: 37px;
+	display: block;
+	background: url('../img/safety.png') no-repeat;
+}
+
+.safety_setting .safety_pass_icon1 {
+	background-position: -54px 4px;
+}
+
+.safety_setting .safety_pass_icon2 {
+	background-position: -54px -29px;
+}
+
+.safety_setting .safety_icon3 {
+	background-position: 22px -64px;
+}
+
+.safety_setting .safety_pass_icon5 {
+	background-position: -54px -136px;
+}
+
+.safety_setting .safety_icon4 {
+	background-position: 22px -101px;
+}
+
+/**
+ * 用户资料
+ */
+.essential_information .left_nav {
+	width: 200px;
+	padding-top: 55px;
+}
+
+.essential_information .left_nav label {
+	width: 200px;
+	text-align: center;
+}
+
+.essential_information .imgicon_nav {
+	background: url('../img/user-detail.png') 0 -244px no-repeat;
+	width: 84px;
+	height: 84px;
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+
+.float_l {
+	float: left;
 }

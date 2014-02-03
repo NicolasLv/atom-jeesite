@@ -1,0 +1,64 @@
+#set($title="身份认证 - 用户中心")
+#set($navbar="user")
+#set($userOperation="safety")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>身份认证</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="alert alert-warning">
+            <span class="pull-left">安全等级：<strong class="text-danger lead">中</strong></span>
+            <span class="pull-right">建议您启动全部安全设置，以保障账户和资金安全！</span>
+            <div class="clearfix"></div>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong><i class="glyphicon glyphicon-globe"></i> 安全中心</strong></div>
+			<table class="table table-hover safety_setting" #MarginBottomNO()>
+                <tbody>
+                    <tr>
+                    	<td><span class="icon safety_pass_icon1"></span></td>
+                    	<td class="tips">登录密码</td>
+                    	<td class="contents">定期更换密码让您的账户更安全。</td>
+                        <td valign="middle"><div><a href="$ctx/user/password.htm"><strong><i class="glyphicon glyphicon-edit"></i> 修改</strong></a></div></td>
+                    </tr>
+					<tr>
+                        <td><span class="safety_pass_icon2"></span></td>
+                        <td class="tips">身份认证</td>
+                        <td class="contents">用于提升安全性和信用分，认证后不能修改。</td>
+                        <td class="contents text-success"><div><strong><i class="glyphicon glyphicon-ok"></i> 通过认证</strong></div></td>
+                    </tr>
+                    <tr>
+                        <td><span class="safety_icon3"></span></td>
+                        <td class="tips">手机绑定</td>
+                        <td class="contents">用于实时了解账户变动，享受<kbd>安众贷</kbd>手机服务。</td>
+                        <td><a href="$ctx/user/mobile.htm"><strong><i class="glyphicon glyphicon-lock"></i> 立即绑定</strong></a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="safety_pass_icon5"></span></td>
+                        <td class="tips">邮箱绑定</td>
+                        <td class="contents">享受<kbd>安众贷</kbd>邮箱服务，接收账单信息，保障账号安全。</td>
+                        <td><a href="$ctx/user/email.htm"><strong><i class="glyphicon glyphicon-edit"></i> 修改</strong></a></td>
+                    </tr>
+                    <tr>
+                        <td><span class="safety_icon4"></span></td>
+                        <td class="tips">安全问题</td>
+                        <td class="contents">作为基础安全工具，验证账户信息，保障账户安全。</td>
+                        <td><a href="$ctx/user/question.htm"><strong><i class="glyphicon glyphicon-cog"></i> 立即设置</strong></a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

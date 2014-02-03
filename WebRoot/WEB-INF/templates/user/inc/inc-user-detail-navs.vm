@@ -1,0 +1,6 @@
+<ul class="nav nav-pills">
+    <li id="user-detail-basic"><a href="$ctx/user/detail-basic.htm"><i class="glyphicon glyphicon-list-alt"></i> 基本资料</a></li>
+    <li id="user-detail-home"><a href="$ctx/user/detail-home.htm"><i class="glyphicon glyphicon-home"></i> 我的家庭</a></li>
+    <li id="user-detail-company"><a href="$ctx/user/detail-company.htm"><i class="glyphicon glyphicon-briefcase"></i> 工作单位</a></li>
+    <li id="user-detail-contact"><a href="$ctx/user/detail-contact.htm"><i class="glyphicon glyphicon-phone-alt"></i> 联系方式</a></li>
+</ul>

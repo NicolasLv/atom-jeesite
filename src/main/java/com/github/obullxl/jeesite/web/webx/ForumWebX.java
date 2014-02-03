@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.github.obullxl.lang.ObjectMap;
 import com.github.obullxl.lang.Paginator;
 import com.github.obullxl.lang.catg.ForumDTO;
 import com.github.obullxl.lang.catg.ForumUtils;
@@ -44,31 +45,20 @@ public class ForumWebX implements WebX {
     public ForumDTO findForum(String code) {
         return ForumUtils.find(code);
     }
-
-    /**
-     * 获取全局置顶主题
-     */
-    public List<TopicDTO> findTopGlobalTopics() {
-        List<TopicDTO> topics = Lists.newArrayList();
-        topics.addAll(this.newTopics(3));
-        
-        return topics;
-    }
-
-    /**
-     * 获取分类置顶主题
-     */
-    public List<TopicDTO> findTopCategoryTopics(String code) {
-        List<TopicDTO> topics = Lists.newArrayList();
-        topics.addAll(this.newTopics(5));
-        
-        return topics;
-    }
     
     /**
-     * 获取论坛主题分页列表
+     * 根据论坛获取主题信息
      */
-    public TopicPageList findTopicPageList(String code, int pageNo) {
+    public ObjectMap findForumTopics(String code, int page) {
+        ObjectMap om = ObjectMap.newObjectMap();
+        
+        // 全局置顶主题
+        om.put("TopGlobal", this.newTopics(3));
+        
+        // 分类置顶主题
+        om.put("TopCategory", this.newTopics(5));
+        
+        // 论坛主题分页列表
         int count = 1000;
         int pageSize = CfgWebX.findFrontPageSize();
         Paginator pager = new Paginator(pageSize, count);
@@ -76,9 +66,9 @@ public class ForumWebX implements WebX {
         
         List<TopicDTO> topics = this.newTopics(pageSize);
         
-        TopicPageList tpl = new TopicPageList(pager, topics);
+        om.put("PageList", new TopicPageList(pager, topics));
         
-        return tpl;
+        return om;
     }
     
     /**

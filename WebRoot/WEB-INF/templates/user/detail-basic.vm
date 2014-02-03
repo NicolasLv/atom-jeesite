@@ -1,0 +1,76 @@
+#set($title="编辑基本资料 - 个人资料 - 用户中心")
+#set($navbar="user")
+#set($userOperation="detail")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>编辑资料 - 基本资料</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="alert alert-warning"><strong><i class="glyphicon glyphicon-headphones"></i> 温馨提示：</strong>亲爱的用户，为节约您的宝贵时间，请认真准确填以下信息，否则评估会不准确，对您借款会有影响！</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				#set($detailCatg="basic")
+				#parse("/user/inc/inc-user-detail-navs.vm")
+				<p><hr/></p>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="realName" class="col-md-3 control-label">真实姓名：</label>
+                        <div class="col-md-4">
+    						<input id="realName" name="realName" type="text" min="1" maxlength="16" class="form-control" required="required" placeholder="徐林" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="mobile" class="col-md-3 control-label">手机号码：</label>
+                        <div class="col-md-4">
+    						<input id="mobile" name="mobile" type="text" min="11" maxlength="15" class="form-control" required="required" placeholder="15601656663" />
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="qqNo" class="col-md-3 control-label">QQ号码：</label>
+                        <div class="col-md-4">
+    						<input id="qqNo" name="qqNo" type="text" min="3" maxlength="15" class="form-control" required="required" placeholder="303630027" />
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="education" class="col-md-3 control-label">教育程度：</label>
+                        <div class="col-md-6">
+    						<select id="education" name="education" class="form-control">
+                                <option value="">--请选择--</option>
+                                <option value="1">研究生及以上</option>
+                                <option value="2">本科</option>
+                                <option value="3">大专</option>
+                                <option value="4">高中</option>
+                                <option value="5">中专</option>
+                                <option value="6">初中及以下</option>
+                            </select>
+                        </div>
+                    </div>
+					<div class="form-group">
+                        <label for="idNo" class="col-md-3 control-label">身份证号码：</label>
+                        <div class="col-md-6">
+    						<input id="idNo" name="idNo" type="text" min="16" maxlength="18" class="form-control" required="required" placeholder="42232519840820****" />
+                        </div>
+                    </div>
+                    <div class="form-group" #MarginBottomNO()>
+                        <div class="col-md-offset-3 col-md-6">
+							<button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-upload"></i> 提交保存资料</button>
+                        </div>
+                    </div>
+				</form>
+            </div>
+        </div>
+    </div>
+</div>
+#parse("/user/snip/detail-navs.vm")

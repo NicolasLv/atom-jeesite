@@ -1,0 +1,21 @@
+<div class="list-group">
+    <li class="list-group-item list-group-item-info"><strong><i class="user basic icon"></i> 基本设置</strong></li>
+    <a id="user-detail" href="$ctx/user/detail-basic.htm" class="list-group-item"><i class="triangle right icon"></i> 编辑资料</a>
+    <a id="user-safety" href="$ctx/user/safety.htm" class="list-group-item"><i class="triangle right icon"></i> 安全中心</a>
+	<a id="user-identify" href="$ctx/user/identify.htm" class="list-group-item"><i class="triangle right icon"></i> 身份认证</a>
+    <a id="user-binding" href="$ctx/user/binding.htm" class="list-group-item"><i class="triangle right icon"></i> 关联账户</a>
+	<a id="user-mobile" href="$ctx/user/mobile.htm" class="list-group-item"><i class="triangle right icon"></i> 手机绑定</a>
+	<a id="user-email" href="$ctx/user/email.htm" class="list-group-item"><i class="triangle right icon"></i> 邮箱绑定</a>
+    <a id="user-userface" href="$ctx/user/userface.htm" class="list-group-item"><i class="triangle right icon"></i> 更新头像</a>
+	<a id="user-question" href="$ctx/user/question.htm" class="list-group-item"><i class="triangle right icon"></i> 密保问题</a>
+    <a id="user-password" href="$ctx/user/password.htm" class="list-group-item"><i class="triangle right icon"></i> 修改密码</a>
+	
+	<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
+    <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="triangle right icon"></i> 我的帖子</a>
+    <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="triangle right icon"></i> 我的帖子</a>
+    <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="triangle right icon"></i> 我的帖子</a>
+	<li class="list-group-item list-group-item-info"><strong><i class="glyphicon glyphicon-minus-sign"></i> 我的帖子</strong></li>
+    <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="triangle right icon"></i> 我的帖子</a>
+    <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="triangle right icon"></i> 我的帖子</a>
+    <a href="$ctx/forum/forum.htm" class="list-group-item"><i class="triangle right icon"></i> 我的帖子</a>
+</div>

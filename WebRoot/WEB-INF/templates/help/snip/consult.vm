@@ -1,0 +1,26 @@
+<script type="text/javascript">
+$(document).ready(function() {
+    $("#btn-create-consult").click(function() {
+        var consultCatg = Number($("#consultCatg  option:selected").val());
+        var consultContent = $.trim($("#consultContent").val().toString());
+		$("#btn-create-consult").attr("disabled", true);
+        
+        if (consultCatg == "") {
+			toastr.error("请选择问题的分类！");
+            $("#btn-create-consult").attr("disabled", false);
+            return false;
+        }
+        if (consultContent == "") {
+            toastr.error("请填写您的问题！");
+            $("#btn-create-consult").attr("disabled", false);
+            return false;
+        }
+
+        if (consultContent.length > 3600) {
+            toastr.error("您的问题太长了，请适当减少描述！");
+            $("#btn-create-consult").attr("disabled", false);
+            return false;
+        }
+    });
+});
+</script>

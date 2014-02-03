@@ -1,0 +1,31 @@
+#set($title="身份认证 - 用户中心")
+#set($navbar="user")
+#set($userOperation="identify")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>身份认证</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="alert alert-info">安众贷携手“全国公民身份证号码查询服务中心（NCIIC）”推出权威认证方式！</div>
+		<div class="panel panel-default">
+			<div class="panel-heading"><strong><i class="glyphicon glyphicon-globe"></i> 身份认证</strong></div>
+			<div class="panel-body">
+				<div class="text-success">
+					<h2><i class="glyphicon glyphicon-ok"></i> 徐林 您好，恭喜您已成功通过身份认证！</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

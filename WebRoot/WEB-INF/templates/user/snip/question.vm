@@ -1,0 +1,36 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#btn-set-question").click(function () {
+		var answer1 = $("#answer1").val();
+		var answer2 = $("#answer2").val();
+		var answer3 = $("#answer3").val();
+		var question1 = $("#question1 option:selected").attr("title");
+		var question2 = $("#question2 option:selected").attr("title");
+		var question3 = $("#question3 option:selected").attr("title");
+		
+		if (answer1.length == 0 || answer2.length == 0 || answer3.length == 0) {
+			toastr.error("请输入答案！");
+			return;
+		}
+		
+		if (answer1 == answer2 || answer1 == answer3 || answer2 == answer3) {
+			toastr.error("答案不能相同！");
+			return;
+		}
+		
+		if (question1==0 || question2==0 || question3==0) {
+			toastr.error("请选择问题类型！");
+			return;
+		}   
+
+		var data = {
+			QuestionId1: question1,
+			Answer1: answer1,
+			QuestionId2: question2,
+			Answer2: answer2,
+			QuestionId3: question3,
+			Answer3: answer3
+		};
+	});
+});
+</script>

@@ -1,0 +1,31 @@
+<script type="text/javascript">
+function btnClick(btnName) {
+    switch (btnName) {
+    case "btnAlipay":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=0&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnRenRen":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=4&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnQQ":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=7&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnSina":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=3&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnGoogle":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=1&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnTenpay":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=2&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnDouban":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=8&ReturnUrlKey=ShowAccountBind';
+        break;
+    case "btnKaixin":
+        window.location.href = 'http://b.ppdai.com/thirdpartylogin/thirdpartylogin.aspx?RelatedType=5&ReturnUrlKey=ShowAccountBind';
+        break;
+    default:
+    }
+};
+</script>

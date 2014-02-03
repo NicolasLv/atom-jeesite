@@ -1,0 +1,7 @@
+<script type="text/javascript">
+$(document).ready(function() {
+	if($("#blacklist-$!year").length > 0) {
+		$("#blacklist-$!year").addClass("active");
+	}
+});
+</script>

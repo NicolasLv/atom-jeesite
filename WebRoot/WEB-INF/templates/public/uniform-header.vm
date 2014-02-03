@@ -21,7 +21,7 @@
                     <li id="navbar-id-user" class="dropdown">
 						<a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 老牛啊 <b class="caret"></b></a>
 						<ul class="dropdown-menu">
-                            <li><a href="$ctx/user/center.htm"><i class="glyphicon glyphicon-user"></i> 用户中心</a></li>
+                            <li><a href="$ctx/user/center.htm"><i class="glyphicon glyphicon-cog"></i> 用户中心</a></li>
                             <li class="divider"></li>
                             <li><a href="$ctx/user/center.htm"><i class="glyphicon glyphicon-log-out"></i> 退出登录</a></li>
                         </ul>

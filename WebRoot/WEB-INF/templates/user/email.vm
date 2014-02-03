@@ -1,0 +1,38 @@
+#set($title="邮箱绑定 - 用户中心")
+#set($navbar="user")
+#set($userOperation="email")
+#set($user=$UserWebX.findSessionUser())
+<div class="container">
+	<div class="col-md-12">
+        <ol class="breadcrumb">
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+        	<li><a href="$ctx/user/center.htm">用户中心</a></li>
+			<li>$!user.nickName</li>
+			<li>邮箱绑定</li>
+        </ol>
+    </div>
+</div>
+
+<div class="container">
+    <div class="col-md-3">
+        #parse("/user/inc/inc-function-list.vm")
+    </div>
+	<div class="col-md-9">
+		<div class="alert alert-warning"><strong><i class="glyphicon glyphicon-envelope"></i> 邮箱绑定：</strong>您已绑定邮箱：o********@163.com</div>
+		<div class="panel panel-default">
+			<div class="list-group">
+                <li class="list-group-item">
+                    <span class="pull-left"><i class="glyphicon glyphicon-play-circle"></i> 通过【绑定手机】 + 【短信验证码】修改邮箱</span>
+                    <span class="pull-right"><a href="#"><strong><i class="glyphicon glyphicon-edit"></i> 修改</strong></a></span>
+                    <div class="clearfix"></div>
+				</li>
+                <li class="list-group-item">
+					<span class="pull-left"><i class="glyphicon glyphicon-play-circle"></i> 通过【身份认证】 +【原邮箱】修改邮箱</span>
+                    <span class="pull-right"><a href="#"><strong><i class="glyphicon glyphicon-edit"></i> 修改</strong></a></span>
+                    <div class="clearfix"></div>
+				</li>
+            </div>
+        </div>
+		<div class="alert alert-info"><strong><i class="glyphicon glyphicon-headphones"></i> 温馨提示：</strong>若无法通过以上方式进行修改，请到 <a href="$ctx/help/consult.htm"><strong><i class="glyphicon glyphicon-info-sign"></i>客服中心</strong></a> 进行反馈，我们会尽快解决！</div>
+    </div>
+</div>
