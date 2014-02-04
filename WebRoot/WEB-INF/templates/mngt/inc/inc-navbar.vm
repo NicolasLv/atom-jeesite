@@ -1,0 +1,37 @@
+<nav class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#"><i class="glyphicon glyphicon-home"></i> 安众贷</a>
+            </div>
+			
+            <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a class="otip" href="#" title="我要理财"><i class="glyphicon glyphicon-share"></i> 我要借出</a></li>
+                    <li><a class="otip" href="#" title="我要资金周转"><i class="glyphicon glyphicon-check"></i> 我要借入</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li id="navbar-id-blacklist"><a class="otip" href="$ctx/user/blacklist.htm" title="黑名单"><i class="glyphicon glyphicon-exclamation-sign"></i> 黑名单</a></li>
+                    <li id="navbar-id-user" class="dropdown">
+						<a class="dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> 老牛啊 <b class="caret"></b></a>
+						<ul class="dropdown-menu">
+                            <li><a href="$ctx/user/center.htm"><i class="glyphicon glyphicon-cog"></i> 用户中心</a></li>
+                            <li class="divider"></li>
+                            <li><a href="$ctx/user/center.htm"><i class="glyphicon glyphicon-log-out"></i> 退出登录</a></li>
+                        </ul>
+                    </li>
+					<li id="navbar-id-regist"><a class="otip" href="$ctx/user/regist.htm" title="免费注册"><i class="glyphicon glyphicon-heart"></i> 注册</a></li>
+					<li id="navbar-id-forum"><a class="otip" href="$ctx/forum/index.htm" title="会员论坛"><i class="glyphicon glyphicon-fire"></i> 论坛</a></li>
+					<li id="navbar-id-help"><a class="otip" href="$ctx/help/center.htm" title="帮助中心"><i class="glyphicon glyphicon-question-sign"></i> 帮助中心</a></li>
+                    <li id="btn-hide-menu" class="active"><a class="otip" href="javascript:void(0)" title="显示或隐藏左边操作菜单"><strong><i class="glyphicon glyphicon-th-list"></i> <span>隐藏</span>菜单</strong></a></li>
+				</ul>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>#if($title)$title -#end 管理后台</title>
+#parse("/mngt/inc/inc-header.vm")
+</head>
+<body>
+$screen_placeholder
+#parse("/mngt/inc/inc-resource.vm")
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+
+body {
+	background:#000000;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+    timerTick();
+    var interval;
+	
+    function timerTick() {
+		// 1分钟一次
+    	interval = setInterval(onTimerTick, "60000");
+    }
+	
+    function onTimerTick() {
+    	jQuery.post("$ctx/admin/tick.html", {stamp: new Date().getTime()}, function(rtn) {
+			if(rtn && rtn.bizData && rtn.bizData.stamp) {
+				$("#tickTime").text("(" + rtn.bizData.stamp + ")");
+				if($("#tickTime").hasClass("hide")) {
+					$("#tickTime").removeClass("hide")
+				}
+			}
+			
+			if(rtn && rtn.success) {
+				$("#tickMsg").text("正常");
+				$("#tickMsg").attr("class", "text-success");
+			} else {
+				$("#tickMsg").text("异常");
+				$("#tickMsg").attr("class", "text-error");
+			}
+		});
+    }
+
+	/*
+    $("#closeChat").click(function() {
+    	clearTimeout(interval);
+    });
+	*/
+});
+</script>
+</body>
+</html>

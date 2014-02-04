@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>#if($title)$title -#end 后台管理</title>
+#parse("/mngt/inc/inc-header.vm")
+</head>
+<body style="width:100%;height:100%;overflow:hidden">
+$screen_placeholder
+#parse("/mngt/inc/inc-resource.vm")
+<style type="text/css">
+* {
+	margin:0;
+	padding:0;
+}
+
+body, html {
+	height:100%;
+	width:100%;
+	overflow:hidden;
+}
+
+table, tbody, th, tr, td, div, iframe {
+	margin:0;
+	padding:0;
+}
+
+#SetBox {
+	margin:0;
+	padding:0;
+	height:100%;
+	width:100%;
+}
+
+#SetBox .HeadBox {
+	width:100%;
+	height:55px;
+}
+
+#SetBox .MenuBox {
+	width:170px;
+	height:100%;
+}
+
+#SetBox .FootBox {
+	width:100%;
+	height:25px;
+	background:#000;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	$(".nav li").click(function(e) {
+		$(".nav li").removeClass("active");
+		$(this).addClass("active");
+	});
+	
+	var speed = 100;
+	var headBoxHeight = 55;
+	var footBoxHeight = 25;
+	var menuBoxWidth = 170;
+	
+	// 菜单布局
+	var onMenuLayout = function(show) {
+		var width = $(document.body).width();
+		if(!show) {
+			$("#own-main-box, #MainBox").width(width);
+		} else {
+			$("#own-menu-box, #MenuBox").width(menuBoxWidth);
+    		$("#own-main-box, #MainBox").width(width - menuBoxWidth);
+		}
+	};
+	
+	// 布局设置
+	var onWindowLayout = function() {
+		var deta = 10;
+    	var width = $(document.body).width();
+    	var height = $(document.body).height() - deta;
+    	console.log("W:" + width + ", H:" + height);
+    	
+		var width2 = $("#SetBox").width();
+    	var height2 = $("#SetBox").height();
+		console.log("W2:" + width2 + ", H2:" + height2);
+		
+    	$("#own-head-box, #HeadBox").width(width);
+    	$("#own-head-box, #HeadBox").height(headBoxHeight);
+    	
+    	$("#own-head-box, #HeadBox").width(width);
+    	$("#own-foot-box, #FootBox").height(footBoxHeight);
+    	
+    	var menuBoxHeight = (height - headBoxHeight - footBoxHeight);
+    	$("#own-menu-box, #MenuBox").width(menuBoxWidth);
+    	$("#own-menu-box, #MenuBox, #MainBox").height(menuBoxHeight);
+    	$("#own-main-box, #MainBox").width(width - menuBoxWidth);
+	};
+	
+	$("#btn-hide-menu").click(function() {
+		var object = $("#own-menu-box");
+		if(object.is(":hidden")) {
+			object.show(speed);
+			$(this).find("span").text("隐藏");
+			onMenuLayout(true);
+		} else {
+			object.hide(speed);
+			$(this).find("span").text("显示");
+			onMenuLayout(false);
+		}
+	});
+	
+	onWindowLayout();
+	$(window).resize(onWindowLayout);
+});
+</script>
+</body>
+</html>

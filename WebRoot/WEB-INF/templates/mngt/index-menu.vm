@@ -1,0 +1,90 @@
+#set($layout="/mngt/layout/index-menu.vm")
+<div id="wrap">
+    <div class="panel panel-primary" #MarginBottom(3)>
+    	<div class="panel-heading"><strong><i class="glyphicon glyphicon-minus-sign"></i> 系统管理</strong></div>
+        <div class="list-group">
+            <a class="list-group-item" href="$ctx/mngt/index.htm" target="top"><i class="triangle right icon"></i> 管理后台</a>
+            <a class="list-group-item" href="$ctx/index.htm" target="_blank"><i class="triangle right icon"></i> 系统首页</a>
+			<a class="list-group-item" href="$ctx/mngt/catg-forum.htm" #TargetURL()><i class="triangle right icon"></i> 论坛管理</a>
+            <a class="list-group-item" href="$ctx/mngt/config/manage.htm" #TargetURL()><i class="triangle right icon"></i> 参数管理</a>
+            <a class="list-group-item" href="$ctx/mngt/config/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增参数</a>
+            <a class="list-group-item" href="$ctx/mngt/tmpt/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增模板</a>
+            <a class="list-group-item" href="$ctx/mngt/tmpt/manage.htm" #TargetURL()><i class="triangle right icon"></i> 模板管理</a>
+            <a class="list-group-item" href="$ctx/mngt/user/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增用户</a>
+            <a class="list-group-item" href="$ctx/mngt/user/manage.htm" #TargetURL()><i class="triangle right icon"></i> 用户管理</a>
+            <a class="list-group-item" href="$ctx/mngt/right/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增权限</a>
+            <a class="list-group-item" href="$ctx/mngt/right/manage.htm" #TargetURL()><i class="triangle right icon"></i> 权限管理</a>
+            <a class="list-group-item" href="$ctx/mngt/catg/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增分类</a>
+            <a class="list-group-item" href="$ctx/mngt/catg/manage.htm" #TargetURL()><i class="triangle right icon"></i> 分类管理</a>
+            <a class="list-group-item" href="$ctx/mngt/topic/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增主题</a>
+            <a class="list-group-item" href="$ctx/mngt/topic/manage.htm" #TargetURL()><i class="triangle right icon"></i> 主题管理</a>
+            <a class="list-group-item" href="$ctx/mngt/crawl/manage.htm" #TargetURL()><i class="triangle right icon"></i> 爬虫管理</a>
+            <a class="list-group-item" href="$ctx/mngt/crawl/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增爬虫</a>
+            <a class="list-group-item" href="$ctx/mngt/crawl/input.htm" #TargetURL()><i class="triangle right icon"></i> 数据抓取</a>
+            <a class="list-group-item" href="$ctx/mngt/file/fetch.htm" #TargetURL()><i class="triangle right icon"></i> 文件下载</a>
+        </div>
+    </div>
+	
+	<div class="panel panel-primary" #MarginBottom(3)>
+    	<div class="panel-heading"><strong><i class="glyphicon glyphicon-plus-sign"></i> 用户中心</strong></div>
+        <div class="list-group hide">
+            <a class="list-group-item" href="$ctx/user/detail-basic.htm" #TargetURL()><i class="triangle right icon"></i> 基本设置</a>
+            <a class="list-group-item" href="$ctx/user/detail-basic.htm" #TargetURL()><i class="triangle right icon"></i> 编辑资料</a>
+            <a class="list-group-item" href="$ctx/user/safety.htm" #TargetURL()><i class="triangle right icon"></i> 安全中心</a>
+        	<a class="list-group-item" href="$ctx/user/identify.htm" #TargetURL()><i class="triangle right icon"></i> 身份认证</a>
+            <a class="list-group-item" href="$ctx/user/binding.htm" #TargetURL()><i class="triangle right icon"></i> 关联账户</a>
+        	<a class="list-group-item" href="$ctx/user/mobile.htm" #TargetURL()><i class="triangle right icon"></i> 手机绑定</a>
+        	<a class="list-group-item" href="$ctx/user/email.htm" #TargetURL()><i class="triangle right icon"></i> 邮箱绑定</a>
+            <a class="list-group-item" href="$ctx/user/userface.htm" #TargetURL()><i class="triangle right icon"></i> 更新头像</a>
+        	<a class="list-group-item" href="$ctx/user/question.htm" #TargetURL()><i class="triangle right icon"></i> 密保问题</a>
+            <a class="list-group-item" href="$ctx/user/password.htm" #TargetURL()><i class="triangle right icon"></i> 修改密码</a>
+        </div>
+    </div>
+</div>
+<style type="text/css">
+#wrap {
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100%;
+}
+
+#wrap .panel-heading {
+	cursor:pointer;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function() {
+	var speed = 300;
+	
+	var init = function() {
+		$(".list-group").hide(speed);
+		AZD.setClass($(".panel-heading i"), "glyphicon glyphicon-plus-sign");
+	};
+	
+	// init();
+	
+	$(".panel-heading").click(function() {
+		var listGrp = $(this).next();
+		var hidden = listGrp.is(":hidden");
+		
+		init();
+		
+		if(hidden) {
+			listGrp.removeClass("hide");
+			listGrp.show(speed);
+			AZD.toggleClass($(this).find("i"), "glyphicon-plus-sign", "glyphicon-minus-sign");
+		} else {
+			listGrp.hide(speed);
+		}
+	});
+	
+	$(".list-group a").click(function() {
+		$(".list-group i").attr("class", "triangle right icon");
+		$(".list-group a").removeClass("list-group-item-success");
+		
+		$(this).addClass("list-group-item-success");
+		$(this).find("i").attr("class", "glyphicon glyphicon-chevron-right");
+	});
+});
+</script>

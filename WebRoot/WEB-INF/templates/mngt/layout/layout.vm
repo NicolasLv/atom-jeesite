@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>#if($title)$title -#end 后台管理</title>
+#parse("/mngt/inc/inc-header.vm")
+</head>
+<body>
+$screen_placeholder
+#parse("/mngt/inc/inc-resource.vm")
+</body>
+</html>

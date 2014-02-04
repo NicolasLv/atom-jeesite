@@ -78,6 +78,8 @@
 #################
 ## 样式
 #################
+#macro(MarginBottom $mgb)style="margin-bottom:${mgb}px"#end
+
 #macro(MarginTopYES)style="margin-top:5px"#end
 #macro(MarginBottomNO)style="margin-bottom:0px"#end
 #macro(MarginBottomYES)style="margin-bottom:5px"#end

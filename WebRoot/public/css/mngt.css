@@ -1,0 +1,28 @@
+html,body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	font-size: 14px;
+	line-height: 150%;
+	background: #FFF url('../img/grey.png') repeat;
+	font-family: "Microsoft YaHei", '微软雅黑', Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+a {
+	color: #0036a9;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #FF0000;
+	text-decoration: none;
+}
+
+/**
+ * Tootip占位CSS
+ */
+.otip,.ktip {
+	
+}

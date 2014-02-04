@@ -1,0 +1,28 @@
+#set($layout="/mngt/layout/index.vm")
+#set($title="管理首页")
+<table id="SetBox" cellpadding="0" cellspacing="0" width="100%" height="100%" style="width:100%;height:100%">
+    <tr>
+        <td id="own-head-box" colspan="2" height="55" style="width:100%;height:55px;">
+            <div id="HeadBox" class="navbar HeadBox" #MarginBottomNO()>
+            	#parse("/mngt/inc/inc-navbar.vm")
+            </div>
+        </td>
+    </tr>
+    <tr>
+        <td id="own-menu-box" valign="top" width="170" height="100%" style="width:170;height:100%;">
+			<div class="MenuBox">
+				<iframe id="menu" name="menu" src="$ctx/mngt/index-menu.htm" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="width:100%;height:100%;"></iframe>
+            </div>
+        </td>
+		<td id="own-main-box" valign="top" width="100%" height="100%" style="width:100%;height:100%">
+            <iframe id="MainBox" name="main" src="$ctx/mngt/main.htm" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" style="width:100%;height:100%;"></iframe>
+        </td>
+    </tr>
+	<tr>
+		<td id="own-foot-box" colspan="2" valign="top" width="100%" height="25" style="width:100%;height:25px;background:#000;border-top:3px solid #090">
+            <div id="FootBox" class="FootBox">
+				<iframe id="foot" name="foot" src="$ctx/mngt/index-foot.htm" width="100%" height="100%" frameborder="0" marginwidth="0" marginheight="0" allowtransparency="true" scrolling="no" style="width:100%;height:100%;"></iframe>
+			</div>
+		</td>
+	</tr>
+</table>
