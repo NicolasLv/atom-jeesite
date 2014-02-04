@@ -1,7 +1,7 @@
 #set($title="新增爬虫 - 爬虫管理")
 <script type="text/javascript">
 	$(document).ready(function() {
-		var _url = "$ctx/admin/crawl/create.html";
+		var _url = "$ctx/admin/crawl/create.htm";
 		$("#crawl-form").submit(function(e) {
 			e.preventDefault();
 			jQuery.ajax({
@@ -17,7 +17,7 @@
 
 					if(result.success) {
 						fadeSuccessModal(result);
-						_url = "$ctx/admin/crawl/update-"+(result.bizData.biz_id)+".html";
+						_url = "$ctx/admin/crawl/update-"+(result.bizData.biz_id)+".htm";
 						$("#form-opt-name").text("更新爬虫");
 					} else {
 						fadeFailureModal(result);
@@ -96,7 +96,7 @@ public String parseContent(Document document) {
             return StringUtils.EMPTY;
         }
 
-        return StringUtils.trim(blog.html());
+        return StringUtils.trim(blog.htm());
     }
 
 }

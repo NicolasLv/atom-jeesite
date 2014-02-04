@@ -1,6 +1,6 @@
 #set($valve=$topic.findValve())
 #if($StringUtils.equals($valve.gotReply().code(), "T"))
-<form id="reply-form" name="reply-form" class="radius-block" method="post" action="$ctx/topic/post-reply.html" #MarginBottomNO()>
+<form id="reply-form" name="reply-form" class="radius-block" method="post" action="$ctx/topic/post-reply.htm" #MarginBottomNO()>
 	<div class="controls controls-row">
     	<input id="uname" name="uname" type="text" class="span2" required="required" placeholder="*您的称呼:老牛啊" />
     	<input id="uemail" name="uemail" type="email" class="span2" placeholder="您的邮箱:obullxl@gmail.com" />

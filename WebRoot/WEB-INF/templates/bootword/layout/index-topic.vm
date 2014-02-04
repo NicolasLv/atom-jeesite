@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arizonia" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" href="$ctx/themes/$ThemeXHelper.findTheme()/css/front.css" />
+<link rel="stylesheet" type="text/css" href="$ctx/themes/$ThemeWebX.findTheme()/css/front.css" />
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/jquery-2.0.3.js"></script>
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/bootstrap.js"></script>
 <!--[if lt IE 9]>
@@ -28,15 +28,15 @@
 			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">导航菜单</a>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li id="vp-index"><a href="$ctx/index.html">首页</a></li>
-					<li id="vp-azdai"><a href="$ctx/index-azdai-1.html">安众贷</a></li>
-					<li id="vp-blog"><a href="$ctx/index-blog-1.html">博客</a></li>
-					<li id="vp-news"><a href="$ctx/index-news-1.html">资讯</a></li>
-					<li id="vp-album"><a href="$ctx/index-album-1.html">图片</a></li>
-					<li id="vp-misc"><a href="$ctx/index-misc-1.html">杂谈</a></li>
+					<li id="vp-index"><a href="$ctx/index.htm">首页</a></li>
+					<li id="vp-azdai"><a href="$ctx/index-azdai-1.htm">安众贷</a></li>
+					<li id="vp-blog"><a href="$ctx/index-blog-1.htm">博客</a></li>
+					<li id="vp-news"><a href="$ctx/index-news-1.htm">资讯</a></li>
+					<li id="vp-album"><a href="$ctx/index-album-1.htm">图片</a></li>
+					<li id="vp-misc"><a href="$ctx/index-misc-1.htm">杂谈</a></li>
 				</ul>
 				<ul class="nav pull-right">
-					<li id="vp-about"><a href="$ctx/about.html">关于</a></li>
+					<li id="vp-about"><a href="$ctx/about.htm">关于</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -76,7 +76,7 @@ $screen_placeholder
 #parse("/public/back-to-top.vm")
 <script type="text/javascript">
 $(document).ready(function() {
-	#set($topCode=$CatgXHelper.findTopCode($!{catg}))
+	#set($topCode=$CatgWebX.findTopCode($!{catg}))
 	if($("#vp-$!{topCode}").length>0) {
 		$("#vp-$!{topCode}").attr("class", "active");
 	} else {

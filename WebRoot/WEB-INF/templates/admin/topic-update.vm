@@ -1,8 +1,8 @@
 #set($title="修改主题 - 主题管理")
 #set($catgMenuBody=true)
-#set($topic=$TopicXHelper.findTopic($topicId))
+#set($topic=$TopicWebX.findTopic($topicId))
 #set($valve=$topic.findValve())
-#set($catg=$CatgXHelper.findByCode($topic.catg))
+#set($catg=$CatgWebX.findByCode($topic.catg))
 <script type="text/javascript">
 $(document).ready(function() {
 	UE.getEditor("tpcContent");
@@ -28,14 +28,14 @@ $(document).ready(function() {
 		e.preventDefault();
 		ajaxRquest({
     		form: "topic-form",
-    		url: "$ctx/admin/topic/update.html"
+    		url: "$ctx/admin/topic/update.htm"
     	});
 	});
 	
 	$("#btn-album-manage").click(function(e) {
 		e.preventDefault();
 		var tpcId = $(this).data("tpcid");
-		location.href = "$ctx/admin/album/manage-" + tpcId + ".html";
+		location.href = "$ctx/admin/album/manage-" + tpcId + ".htm";
 	});
 	
 	/* 初始化 */
@@ -71,15 +71,15 @@ $(document).ready(function() {
         <div id="meta" name="meta" class="hide form-inline">
             <label for="tpcStateFlag">状态</label>
             <select id="tpcStateFlag" name="tpcStateFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toTopicStateMap(), $!valve.gotState().code())
+    			#formSelectOptions($EnumWebX.toTopicStateMap(), $!valve.gotState().code())
     		</select>
 			<label for="tpcTopFlag">置顶</label>
             <select id="tpcTopFlag" name="tpcTopFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!valve.gotTop().code())
+    			#formSelectOptions($EnumWebX.toValveBoolMap(), $!valve.gotTop().code())
     		</select>
 			<label for="tpcReplyFlag">评论</label>
 			<select id="tpcReplyFlag" name="tpcReplyFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toTopicReplyMap(), $!valve.gotReply().code())
+    			#formSelectOptions($EnumWebX.toTopicReplyMap(), $!valve.gotReply().code())
     		</select>
 		</div>
 	</div>
@@ -88,7 +88,7 @@ $(document).ready(function() {
         <div id="link" name="link" class="hide form-inline">
 			<label for="tpcLinkFlag">原创</label>
 			<select id="tpcLinkFlag" name="tpcLinkFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!valve.gotLink().code())
+    			#formSelectOptions($EnumWebX.toValveBoolMap(), $!valve.gotLink().code())
     		</select>
 			<input id="tpcLinkUrl" name="tpcLinkUrl" value="$topic.linkUrl" type="url" class="span10" placeholder="原创或引用地址" />
 		</div>
@@ -98,7 +98,7 @@ $(document).ready(function() {
         <div id="media" name="media" class="hide form-inline">
 			<label for="tpcMediaFlag">多媒体</label>
 			<select id="tpcMediaFlag" name="tpcMediaFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toTopicMediaMap(), $!valve.gotMedia().code())
+    			#formSelectOptions($EnumWebX.toTopicMediaMap(), $!valve.gotMedia().code())
     		</select>
 			<input id="tpcMediaUrl" name="tpcMediaUrl" value="$topic.mediaUrl" type="text" class="span10" placeholder="多媒体地址" />
 		</div>
@@ -115,7 +115,7 @@ $(document).ready(function() {
 	</div>
 	<div>
 		<button type="submit" class="btn btn-primary">提交保存</button>
-		#if($CatgXHelper.isAlbumCatg($topic.catg))
+		#if($CatgWebX.isAlbumCatg($topic.catg))
 			<button type="button" id="btn-album-manage" data-tpcid="$topic.id" class="btn btn-info">管理相册</button>
 		#end
 	</div>

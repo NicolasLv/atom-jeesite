@@ -31,7 +31,7 @@ public class RightMngtController extends AbstractController {
     /**
      * 权限管理
      */
-    @RequestMapping("/right/manage.html")
+    @RequestMapping("/right/manage.htm")
     public String manage() {
         return this.toAdminView(VOPT_RIGHT_MANAGE, "right-manage");
     }
@@ -39,13 +39,13 @@ public class RightMngtController extends AbstractController {
     /**
      * 新增权限
      */
-    @RequestMapping(value = "/right/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/right/create.htm", method = RequestMethod.GET)
     public String create() {
         return this.toAdminView(VOPT_RIGHT_CREATE, "right-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/right/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/right/create.htm", method = RequestMethod.POST)
     public BizResponse create(String code, String name) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -83,14 +83,14 @@ public class RightMngtController extends AbstractController {
     /**
      * 修改权限
      */
-    @RequestMapping(value = "/right/update-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/right/update-{id}.htm", method = RequestMethod.GET)
     public String update(@PathVariable long id) {
         this.setWebData("rightId", id);
         return this.toAdminView(VOPT_RIGHT_MANAGE, "right-update");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/right/update.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/right/update.htm", method = RequestMethod.POST)
     public BizResponse update(String code, String name) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -126,7 +126,7 @@ public class RightMngtController extends AbstractController {
     /**
      * 用户授权
      */
-    @RequestMapping(value = "/right/assign-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/right/assign-{id}.htm", method = RequestMethod.GET)
     public String assign(@PathVariable long id) {
         this.setWebData("userId", id);
 
@@ -137,7 +137,7 @@ public class RightMngtController extends AbstractController {
      * 授权
      */
     @ResponseBody
-    @RequestMapping(value = "/right/grant.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/right/grant.htm", method = RequestMethod.POST)
     public BizResponse grant(String userNo, String rgtCode) {
         this.setWebData("userNo", userNo).setWebData("rgtCode", rgtCode);
 
@@ -174,7 +174,7 @@ public class RightMngtController extends AbstractController {
      * 取消权限
      */
     @ResponseBody
-    @RequestMapping(value = "/right/revoke.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/right/revoke.htm", method = RequestMethod.POST)
     public BizResponse revoke(String userNo, String rgtCode) {
         this.setWebData("userId", userNo).setWebData("rgtCode", rgtCode);
 

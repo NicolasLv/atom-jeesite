@@ -44,7 +44,7 @@ public class TmptMngtController extends AbstractController {
     /**
      * 模板管理
      */
-    @RequestMapping("/tmpt/manage.html")
+    @RequestMapping("/tmpt/manage.htm")
     public String manage() {
         String ctxPath = CfgWebX.findTmptContextPath();
         String realPath = WebContext.getServletContext().getRealPath(ctxPath);
@@ -58,13 +58,13 @@ public class TmptMngtController extends AbstractController {
     /**
      * 创建模板文件/目录
      */
-    @RequestMapping(value = "/tmpt/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/tmpt/create.htm", method = RequestMethod.GET)
     public String create() {
         return this.toAdminView(VOPT_TMPT_CREATE, "tmpt-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/tmpt/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/tmpt/create.htm", method = RequestMethod.POST)
     public BizResponse create(@Valid TmptCreateForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -109,7 +109,7 @@ public class TmptMngtController extends AbstractController {
     /**
      * 修改模板
      */
-    @RequestMapping(value = "/tmpt/update.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/tmpt/update.htm", method = RequestMethod.GET)
     public String update(String tmptName) {
         this.setWebData("tmptName", tmptName);
 
@@ -131,7 +131,7 @@ public class TmptMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/tmpt/update.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/tmpt/update.htm", method = RequestMethod.POST)
     public BizResponse update(@Valid TmptStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -178,7 +178,7 @@ public class TmptMngtController extends AbstractController {
      * 删除模板
      */
     @ResponseBody
-    @RequestMapping(value = "/tmpt/delete.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/tmpt/delete.htm", method = RequestMethod.POST)
     public BizResponse delete(String tmptName) {
         // 操作结果
         BizResponse response = this.newBizResponse();

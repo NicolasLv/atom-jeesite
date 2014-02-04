@@ -6,7 +6,7 @@
 ## 广告展示
 #################
 #macro(showAds $adCatg)
-	#if($CfgXHelper.isShowAds())
+	#if($CfgWebX.isShowAds())
 <div class="entry-ads">
 	<script type="text/javascript">
 		google_ad_client = "ca-pub-2548953017344039";
@@ -34,7 +34,7 @@
 		#if($empty)
 		<option value="">$emptyText</option>
 		#end
-		#formSelectOptions($EnumXHelper.toTopicMediaMap(), $!form.tpcMedia)
+		#formSelectOptions($EnumWebX.toTopicMediaMap(), $!form.tpcMedia)
 	</select>
 #end
 

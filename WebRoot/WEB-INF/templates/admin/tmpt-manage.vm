@@ -53,7 +53,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		var tmptName = $("#tmptName").val();
 		if(window.confirm("确定删除模板[" + tmptName + "]吗，删除操作不可撤销？")) {
-			jQuery.post("$ctx/admin/tmpt/delete.html", {tmptName: tmptName}, function(rtn) {
+			jQuery.post("$ctx/admin/tmpt/delete.htm", {tmptName: tmptName}, function(rtn) {
 				if(rtn.success) {
 					location.href = location.href;
 				} else {
@@ -66,7 +66,7 @@ $(document).ready(function(){
 //-->
 </script>
 <div class="well well-small">
-    <form id="tmpt-form" name="tmpt-form" method="get" action="$ctx/admin/tmpt/update.html" class="form-inline" #MarginBottomNO()>
+    <form id="tmpt-form" name="tmpt-form" method="get" action="$ctx/admin/tmpt/update.htm" class="form-inline" #MarginBottomNO()>
 		<button id="btn-refresh" type="button" class="btn btn-info"><span class="icon-refresh"></span> 刷新</button>
 		
 		<div class="pull-right">

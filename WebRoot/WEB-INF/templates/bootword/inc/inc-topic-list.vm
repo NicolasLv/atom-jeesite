@@ -1,17 +1,17 @@
 #if($StringUtils.isBlank($topic.mediaUrl))
 <div class="entry">
 	<h4>
-		#if($top)[<span class="text-error">顶</span>]#end[<a href="$ctx/index-${topic.catg}-1.html">$CatgXHelper.findTitle($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" rel="bookmark">$topic.title</a>
+		#if($top)[<span class="text-error">顶</span>]#end[<a href="$ctx/index-${topic.catg}-1.htm">$CatgWebX.findTitle($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.htm" rel="bookmark">$topic.title</a>
 	</h4>
 	<p>$topic.summary [&hellip;]</p>
 	<div class="clearfix"></div>
 	<p class="meta">
 		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
-		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.html#respond">${topic.replyCnt}</a>
-		#if($CfgXHelper.isShowTopicVisit())
+		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.htm#respond">${topic.replyCnt}</a>
+		#if($CfgWebX.isShowTopicVisit())
 		- <i class="icon-film"></i>${topic.visitCnt}
 		#end
-		<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="pull-right readmore">阅读全文 &raquo;</a>
+		<a href="$ctx/topic/${topic.catg}-${topic.id}.htm" class="pull-right readmore">阅读全文 &raquo;</a>
 	</p>
 	<div class="clearfix"></div>
 </div>
@@ -19,14 +19,14 @@
 <div class="entry">
 	<div class="pull-right">
     	<div class="thumb">
-    		<a href="$ctx/topic/${topic.catg}-${topic.id}.html">
-    			<img id="topic-image-${topic.id}" height="50" src="$StaticXHelper.findImageURL(${topic.mediaUrl})" alt="$topic.title" title="$topic.title" />
+    		<a href="$ctx/topic/${topic.catg}-${topic.id}.htm">
+    			<img id="topic-image-${topic.id}" height="50" src="$StaticWebX.findImageURL(${topic.mediaUrl})" alt="$topic.title" title="$topic.title" />
             </a>
     	</div>
 	</div>
 	<div class="pull-left">
     	<h4>
-    		[<a href="$ctx/index-${topic.catg}-1.html">$CatgXHelper.findTitle($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" rel="bookmark">$topic.title</a>
+    		[<a href="$ctx/index-${topic.catg}-1.htm">$CatgWebX.findTitle($topic.catg)</a>] <a href="$ctx/topic/${topic.catg}-${topic.id}.htm" rel="bookmark">$topic.title</a>
     	</h4>
     	<p>$topic.summary [&hellip;]</p>
     	<div class="clearfix"></div>
@@ -34,11 +34,11 @@
 	<div class="clearfix"></div>
 	<p class="meta">
 		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
-		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.html#respond">${topic.replyCnt}</a>
-		#if($CfgXHelper.isShowTopicVisit())
+		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.htm#respond">${topic.replyCnt}</a>
+		#if($CfgWebX.isShowTopicVisit())
 		- <i class="icon-film"></i>${topic.visitCnt}
 		#end
-		<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="pull-right readmore">阅读全文 &raquo;</a>
+		<a href="$ctx/topic/${topic.catg}-${topic.id}.htm" class="pull-right readmore">阅读全文 &raquo;</a>
 	</p>
 </div>
 #end

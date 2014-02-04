@@ -12,9 +12,9 @@ $(document).ready(function(){
 		console.log("BtnID:" + btnId + ", ID:" + id);
 		
 		if(btnId.indexOf("btn-update") == 0) {
-			location.href = "$ctx/admin/config/update-" + id + ".html";
+			location.href = "$ctx/admin/config/update-" + id + ".htm";
 		} else if(btnId.indexOf("btn-delete") == 0) {
-			jQuery.post("$ctx/admin/config/delete-" + id + ".html", function(data) {
+			jQuery.post("$ctx/admin/config/delete-" + id + ".htm", function(data) {
             	location.href = location.href;
             });
 		}
@@ -39,7 +39,7 @@ $(document).ready(function(){
 		</tr>
 	</thead>
 	<tbody>
-		#set($cfgs=$CfgXHelper.findAll())
+		#set($cfgs=$CfgWebX.findAll())
 		#foreach($cfg in $cfgs)
 		<tr>
 			<td><div class="text-center">$cfg.id</div></td>

@@ -1,6 +1,6 @@
 <li class="span4 #if($velocityCount%2==0)pull-right #else pull-left #end">
-	<a href="$ctx/topic/${topic.catg}-${topic.id}.html" class="thumbnail">
-		<img src="$StaticXHelper.findImageURL(${topic.mediaUrl})" alt="${topic.title}" class="span4" />
+	<a href="$ctx/topic/${topic.catg}-${topic.id}.htm" class="thumbnail">
+		<img src="$StaticWebX.findImageURL(${topic.mediaUrl})" alt="${topic.title}" class="span4" />
         <h3>${topic.title}</h3>
         <p>${topic.summary}</p>
     </a>

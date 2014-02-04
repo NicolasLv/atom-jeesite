@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Arizonia" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" href="$ctx/themes/$ThemeXHelper.findTheme()/css/front.css" />
+<link rel="stylesheet" type="text/css" href="$ctx/themes/$ThemeWebX.findTheme()/css/front.css" />
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/jquery-2.0.3.js"></script>
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/bootstrap.js"></script>
 <!--[if lt IE 9]>

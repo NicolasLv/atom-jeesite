@@ -3,7 +3,7 @@
 <script type="text/javascript" src="$ctx/public/js/jquery.ztree.all-3.5.js"></script>
 <script type="text/javascript">
 <!--
-#set($catgs = $CatgXHelper.findAll())
+#set($catgs = $CatgWebX.findAll())
 #set($count = $catgs.size())
 var ztreeNodes = [
 #foreach($catg in $catgs)
@@ -44,7 +44,7 @@ $(document).ready(function(){
 	
 	$("#btn-update").click(function(e) {
 		e.preventDefault();
-		location.href = "$ctx/admin/catg/update-" + $("#catgId").val() + ".html";
+		location.href = "$ctx/admin/catg/update-" + $("#catgId").val() + ".htm";
 	});
 	
 	$("#btn-delete").click(function(e) {
@@ -52,7 +52,7 @@ $(document).ready(function(){
 		
 		var catgId = $("#catgId").val();
 		if(window.confirm("确定删除分类[" + $("#catgName").val() + "]吗，删除操作不可撤销？")) {
-			jQuery.post("$ctx/admin/catg/delete.html", {id: catgId}, function(rtn) {
+			jQuery.post("$ctx/admin/catg/delete.htm", {id: catgId}, function(rtn) {
 				if(rtn.success) {
 					location.href = location.href;
 				} else {

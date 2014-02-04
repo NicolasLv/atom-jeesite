@@ -1,6 +1,6 @@
 #set($title="分配权限 - 权限管理 - 后台管理")
-#set($user=$UserXHelper.findByUID($userId))
-#if($UserXHelper.isAdmin($user))
+#set($user=$UserWebX.findByUID($userId))
+#if($UserWebX.isAdmin($user))
     <div class="well well-small" #MarginBottomNO()><h3>用户[<strong class="color-red">$user.uname</strong>]为管理员，拥有所有的管理权限，无需额外分配任何权限！</h3></div>
 #else
     <script type="text/javascript">
@@ -14,10 +14,10 @@
 			
 			$("#rgtCode").val(rgtCode);
 			if(btnId.indexOf("btn-grant") == 0) {
-				_url = "$ctx/admin/right/grant-${user.id}.html";
+				_url = "$ctx/admin/right/grant-${user.id}.htm";
 				$("#right-assign-form").submit();
 			} else if(btnId.indexOf("btn-revoke") == 0) {
-				_url = "$ctx/admin/right/revoke-${user.id}.html";
+				_url = "$ctx/admin/right/revoke-${user.id}.htm";
 				$("#right-assign-form").submit();
 			}
     	});
@@ -50,14 +50,14 @@
     		</tr>
     	</thead>
     	<tbody>
-			#set($urgts=$RgtXHelper.findUserRgts($user.uname))
+			#set($urgts=$RgtWebX.findUserRgts($user.uname))
 			#foreach($urgt in $urgts)
     		<tr>
     			<td><div class="text-center">$urgt.id</div></td>
     			<td>$urgt.code</td>
     			<td>$urgt.name</td>
     			<td><div class="text-center">
-    			#if($RgtXHelper.isRgtEnum($urgt.code))
+    			#if($RgtWebX.isRgtEnum($urgt.code))
     				<div class="color-green">已经配置</div>
     			#else
     				<div class="color-red">没有配置</div>
@@ -81,15 +81,15 @@
     		</tr>
     	</thead>
     	<tbody>
-			#set($rgts=$RgtXHelper.findAll())
+			#set($rgts=$RgtWebX.findAll())
 			#foreach($rgt in $rgts)
-			#if(!$RgtXHelper.isRgtSet($rgt.code, $urgts))
+			#if(!$RgtWebX.isRgtSet($rgt.code, $urgts))
     		<tr>
     			<td><div class="text-center">$rgt.id</div></td>
     			<td>$rgt.code</td>
     			<td>$rgt.name</td>
     			<td><div class="text-center">
-    			#if($RgtXHelper.isRgtEnum($rgt.code))
+    			#if($RgtWebX.isRgtEnum($rgt.code))
     				<div class="color-green">已经配置</div>
     			#else
     				<div class="color-red">没有配置</div>

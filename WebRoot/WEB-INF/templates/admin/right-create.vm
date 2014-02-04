@@ -1,7 +1,7 @@
 #set($title="新增权限 - 权限管理")
 <script type="text/javascript">
 $(document).ready(function() {
-    var _url = "$ctx/admin/right/create.html";
+    var _url = "$ctx/admin/right/create.htm";
     $("#right-form").submit(function(e) {
     	e.preventDefault();
     	ajaxRquest({

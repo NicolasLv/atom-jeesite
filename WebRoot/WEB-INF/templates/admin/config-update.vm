@@ -1,12 +1,12 @@
 #set($title="修改参数 - 系统维护 - 后台管理")
-#set($cfg=$CfgXHelper.findByID($cfgId))
+#set($cfg=$CfgWebX.findByID($cfgId))
 <script type="text/javascript">
 $(document).ready(function() {
     $("#config-form").submit(function(e) {
     	e.preventDefault();
     	ajaxRquest({
     		form: "config-form",
-    		url: "$ctx/admin/config/update-${cfg.id}.html"
+    		url: "$ctx/admin/config/update-${cfg.id}.htm"
     	});
     });
 });

@@ -5,7 +5,7 @@ $(document).ready(function() {
     	e.preventDefault();
     	ajaxRquest({
     		form: "config-form",
-    		url: "$ctx/admin/config/create.html"
+    		url: "$ctx/admin/config/create.htm"
     	});
     });
 });

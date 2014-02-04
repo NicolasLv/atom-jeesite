@@ -1,5 +1,5 @@
 #set($title="修改权限 - 权限管理")
-#set($rgt=$RgtXHelper.find($rightId))
+#set($rgt=$RgtWebX.find($rightId))
 <script type="text/javascript">
 <!--
 $(document).ready(function() {
@@ -7,7 +7,7 @@ $(document).ready(function() {
     	e.preventDefault();
     	ajaxRquest({
     		form: "right-form",
-    		url: "$ctx/admin/right/update-${rgt.id}.html"
+    		url: "$ctx/admin/right/update-${rgt.id}.htm"
     	});
     });
 });

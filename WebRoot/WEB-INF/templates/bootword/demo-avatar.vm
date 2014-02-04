@@ -35,7 +35,7 @@ WIDTH="650" HEIGHT="450" id="myMovieName">
 <PARAM NAME=movie VALUE="$ctx/public/avatar/avatar.swf">
 <PARAM NAME=quality VALUE=high>
 <PARAM NAME=bgcolor VALUE=#FFFFFF>
-<param name="flashvars" value="imgUrl=$ctx/public/avatar/default.jpg&uploadUrl=$ctx/demo/avatar.html&uploadSrc=false" />
+<param name="flashvars" value="imgUrl=$ctx/public/avatar/default.jpg&uploadUrl=$ctx/demo/avatar.htm&uploadSrc=false" />
 <EMBED src="$ctx/public/avatar/avatar.swf" quality=high bgcolor=#FFFFFF WIDTH="650" HEIGHT="450" wmode="transparent" flashVars="imgUrl=./default.jpg&uploadUrl=./upfile.jsp&uploadSrc=false"
 NAME="myMovieName" ALIGN="" TYPE="application/x-shockwave-flash" allowScriptAccess="always"
 PLUGINSPAGE="http://www.macromedia.com/go/getflashplayer">

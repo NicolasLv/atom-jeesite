@@ -31,13 +31,13 @@ public class DemoMngtController extends AbstractController {
     /**
      * 头像上传
      */
-    @RequestMapping("/avatar.html")
+    @RequestMapping("/avatar.htm")
     public String avatar() {
         return this.toFrontView("demo-avatar");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/avatar.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/avatar.htm", method = RequestMethod.POST)
     public void avatar(HttpServletResponse response, @RequestParam MultipartFile pic, @RequestParam MultipartFile pic1, @RequestParam MultipartFile pic2, @RequestParam MultipartFile pic3)
                                                                                                                                                                                            throws Exception {
         PrintWriter out = response.getWriter();
@@ -47,13 +47,13 @@ public class DemoMngtController extends AbstractController {
     /**
      * 头像上传2
      */
-    @RequestMapping("/avatar2.html")
+    @RequestMapping("/avatar2.htm")
     public String avatar2() {
         return this.toFrontView("demo-avatar2");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/avatar2.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/avatar2.htm", method = RequestMethod.POST)
     public void avatar2(HttpServletResponse response, MultipartRequest request) throws Exception {
         Map<String, MultipartFile> files = request.getFileMap();
         for (String name : files.keySet()) {

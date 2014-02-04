@@ -25,7 +25,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		ajaxRquest({
     		form: "topic-form",
-    		url: "$ctx/admin/topic/create.html"
+    		url: "$ctx/admin/topic/create.htm"
     	});
 	});
 });
@@ -57,15 +57,15 @@ $(document).ready(function() {
         <div id="meta" name="meta" class="hide form-inline">
             <label for="tpcStateFlag">状态</label>
             <select id="tpcStateFlag" name="tpcStateFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toTopicStateMap(), "")
+    			#formSelectOptions($EnumWebX.toTopicStateMap(), "")
     		</select>
 			<label for="tpcTopFlag">置顶</label>
             <select id="tpcTopFlag" name="tpcTopFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+    			#formSelectOptions($EnumWebX.toValveBoolMap(), "")
     		</select>
 			<label for="tpcReplyFlag">评论</label>
 			<select id="tpcReplyFlag" name="tpcReplyFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toTopicReplyMap(), "")
+    			#formSelectOptions($EnumWebX.toTopicReplyMap(), "")
     		</select>
 		</div>
 	</div>
@@ -74,7 +74,7 @@ $(document).ready(function() {
         <div id="link" name="link" class="hide form-inline">
 			<label for="tpcLinkFlag">原创</label>
 			<select id="tpcLinkFlag" name="tpcLinkFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+    			#formSelectOptions($EnumWebX.toValveBoolMap(), "")
     		</select>
 			<input id="tpcLinkUrl" name="tpcLinkUrl" type="url" class="span10" placeholder="原创或引用地址" />
 		</div>
@@ -84,7 +84,7 @@ $(document).ready(function() {
         <div id="media" name="media" class="hide form-inline">
 			<label for="tpcMediaFlag">多媒体</label>
 			<select id="tpcMediaFlag" name="tpcMediaFlag" class="input-small">
-    			#formSelectOptions($EnumXHelper.toTopicMediaMap(), "")
+    			#formSelectOptions($EnumWebX.toTopicMediaMap(), "")
     		</select>
 			<input id="tpcMediaUrl" name="tpcMediaUrl" type="text" class="span10" placeholder="多媒体地址" />
 		</div>

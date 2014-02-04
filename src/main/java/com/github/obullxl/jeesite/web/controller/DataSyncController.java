@@ -35,7 +35,7 @@ public class DataSyncController extends AbstractController {
      * 数据同步
      */
     @ResponseBody
-    @RequestMapping(value = "/sync/topic-apply.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/sync/topic-apply.htm", method = RequestMethod.POST)
     public BizResponse topicApply(String id) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -53,7 +53,7 @@ public class DataSyncController extends AbstractController {
 
             List<String> hosts = CfgWebX.findDataSyncHosts();
             for (String host : hosts) {
-                String url = "http://" + host + "/data/sync/topic-execute.html";
+                String url = "http://" + host + "/data/sync/topic-execute.htm";
                 Response rtn = Jsoup.connect(url).ignoreContentType(true).data("data", json).method(Method.POST).execute();
                 
                 if (logger.isInfoEnabled()) {
@@ -72,7 +72,7 @@ public class DataSyncController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/sync/topic-execute.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/sync/topic-execute.htm", method = RequestMethod.POST)
     public BizResponse topicExecute(String data) {
         // 操作结果
         BizResponse response = this.newBizResponse();

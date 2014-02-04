@@ -1,5 +1,5 @@
 #set($title="系统参数设置")
-<form action="${ctx}/install/install.html" method="post">
+<form action="${ctx}/install/install.htm" method="post">
 	<ul class="breadcrumb">
     	<li><span class="divider">/</span></li>
     	<li>系统安装</li>

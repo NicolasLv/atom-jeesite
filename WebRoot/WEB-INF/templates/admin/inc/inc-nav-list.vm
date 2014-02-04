@@ -1,51 +1,51 @@
 <div class="span2">
 	<div class="well side-nav-fixed user-info-block">
         <ul class="nav nav-list">
-			#set($sessionUser=$UserXHelper.findSessionUser())
+			#set($sessionUser=$UserWebX.findSessionUser())
 			<li class="nav-header"><span class="icon-user"></span>$sessionUser.unick</li>
-			<li id="vp-user-cinfo"><a href="$ctx/admin/user/cinfo-${sessionUser.id}.html"><span class="icon-chevron-right"></span>修改信息</a></li>
-			<li id="vp-user-cemail"><a href="$ctx/admin/user/cemail-${sessionUser.id}.html"><span class="icon-chevron-right"></span>修改邮箱</a></li>
-			<li id="vp-user-cpasswd"><a href="$ctx/admin/user/cpasswd-${sessionUser.id}.html"><span class="icon-chevron-right"></span>修改密码</a></li>
+			<li id="vp-user-cinfo"><a href="$ctx/admin/user/cinfo-${sessionUser.id}.htm"><span class="icon-chevron-right"></span>修改信息</a></li>
+			<li id="vp-user-cemail"><a href="$ctx/admin/user/cemail-${sessionUser.id}.htm"><span class="icon-chevron-right"></span>修改邮箱</a></li>
+			<li id="vp-user-cpasswd"><a href="$ctx/admin/user/cpasswd-${sessionUser.id}.htm"><span class="icon-chevron-right"></span>修改密码</a></li>
         </ul>
     </div>
 	<div class="well side-nav-fixed uniform-background">
 		<ul class="nav nav-list">
 			<li class="nav-header"><span class="icon-home"></span> 系统管理</li>
-			<li id="vp-admin-home"><a href="$ctx/admin/index.html">管理后台</a></li>
+			<li id="vp-admin-home"><a href="$ctx/admin/index.htm">管理后台</a></li>
 			<li><a href="javascript:location.href=location.href">刷新页面</a></li>
-			<li><a href="$ctx/index.html" target="_blank">系统首页</a></li>
+			<li><a href="$ctx/index.htm" target="_blank">系统首页</a></li>
 			
 			<li class="nav-header"><span class="icon-home"></span> 系统</li>
-			<li id="vp-config-manage"><a href="$ctx/admin/config/manage.html">参数管理</a></li>
-			<li id="vp-config-create"><a href="$ctx/admin/config/create.html">新增参数</a></li>
+			<li id="vp-config-manage"><a href="$ctx/admin/config/manage.htm">参数管理</a></li>
+			<li id="vp-config-create"><a href="$ctx/admin/config/create.htm">新增参数</a></li>
 			
 			<li class="nav-header"><span class="icon-home"></span> 模板</li>
-			<li id="vp-tmpt-create"><a href="$ctx/admin/tmpt/create.html">新增模板</a></li>
-			<li id="vp-tmpt-manage"><a href="$ctx/admin/tmpt/manage.html">模板管理</a></li>
+			<li id="vp-tmpt-create"><a href="$ctx/admin/tmpt/create.htm">新增模板</a></li>
+			<li id="vp-tmpt-manage"><a href="$ctx/admin/tmpt/manage.htm">模板管理</a></li>
 			
 			<li class="nav-header"><span class="icon-user"></span> 用户</li>
-			<li id="vp-user-create"><a href="$ctx/admin/user/create.html">新增用户</a></li>
-			<li id="vp-user-manage"><a href="$ctx/admin/user/manage.html">用户管理</a></li>
+			<li id="vp-user-create"><a href="$ctx/admin/user/create.htm">新增用户</a></li>
+			<li id="vp-user-manage"><a href="$ctx/admin/user/manage.htm">用户管理</a></li>
 			
 			<li class="nav-header"><span class="icon-user"></span> 权限管理</li>
-			<li id="vp-right-create"><a href="$ctx/admin/right/create.html">新增权限</a></li>
-			<li id="vp-right-manage"><a href="$ctx/admin/right/manage.html">权限管理</a></li>
+			<li id="vp-right-create"><a href="$ctx/admin/right/create.htm">新增权限</a></li>
+			<li id="vp-right-manage"><a href="$ctx/admin/right/manage.htm">权限管理</a></li>
 			
 			<li class="nav-header"><span class="icon-th-list"></span> 分类管理</li>
-			<li id="vp-catg-create"><a href="$ctx/admin/catg/create.html">新增分类</a></li>
-			<li id="vp-catg-manage"><a href="$ctx/admin/catg/manage.html">分类管理</a></li>
+			<li id="vp-catg-create"><a href="$ctx/admin/catg/create.htm">新增分类</a></li>
+			<li id="vp-catg-manage"><a href="$ctx/admin/catg/manage.htm">分类管理</a></li>
 			
 			<li class="nav-header"><span class="icon-th-list"></span> 主题管理</li>
-			<li id="vp-topic-create"><a href="$ctx/admin/topic/create.html">新增主题</a></li>
-			<li id="vp-topic-manage"><a href="$ctx/admin/topic/manage.html">主题管理</a></li>
+			<li id="vp-topic-create"><a href="$ctx/admin/topic/create.htm">新增主题</a></li>
+			<li id="vp-topic-manage"><a href="$ctx/admin/topic/manage.htm">主题管理</a></li>
 			
 			<li class="nav-header"><span class="icon-download-alt"></span> 爬虫管理</li>
-			<li id="vp-crawl-manage"><a href="$ctx/admin/crawl/manage.html">爬虫管理</a></li>
-			<li id="vp-crawl-create"><a href="$ctx/admin/crawl/create.html">新增爬虫</a></li>
-			<li id="vp-crawl-input"><a href="$ctx/admin/crawl/input.html">数据抓取</a></li>
+			<li id="vp-crawl-manage"><a href="$ctx/admin/crawl/manage.htm">爬虫管理</a></li>
+			<li id="vp-crawl-create"><a href="$ctx/admin/crawl/create.htm">新增爬虫</a></li>
+			<li id="vp-crawl-input"><a href="$ctx/admin/crawl/input.htm">数据抓取</a></li>
 			
 			<li class="nav-header"><span class="icon-th-list"></span> 文件管理</li>
-			<li id="vp-file-fetch"><a href="$ctx/admin/file/fetch.html">文件下载</a></li>
+			<li id="vp-file-fetch"><a href="$ctx/admin/file/fetch.htm">文件下载</a></li>
 		</ul>
 	</div>
 	<!--/.well -->

@@ -1,12 +1,12 @@
 #set($title="基本信息 - 修改信息 - 登录用户")
-#set($user=$UserXHelper.findSessionUser())
+#set($user=$UserWebX.findSessionUser())
 <script type="text/javascript">
 $(document).ready(function() {
     $("#user-form").submit(function(e) {
     	e.preventDefault();
     	ajaxRquest({
     		form: "user-form",
-    		url: "$ctx/admin/user/cinfo-${user.id}.html",
+    		url: "$ctx/admin/user/cinfo-${user.id}.htm",
     		sclose: function() {
     			location.href = location.href;
     		}

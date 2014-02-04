@@ -11,7 +11,7 @@
     swfobject.addDomLoadEvent(function () {
         var swf = new fullAvatarEditor("swfContainer", {
 			    id: 'swf',
-				upload_url: '$ctx/demo/avatar2.html',
+				upload_url: '$ctx/demo/avatar2.htm',
 				src_upload:2
 			}, function (msg) {
 				switch(msg.code)

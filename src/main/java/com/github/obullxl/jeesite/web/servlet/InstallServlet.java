@@ -42,7 +42,7 @@ public class InstallServlet extends HttpServlet {
         FileUtils.copyFile(new File(webXmlFromPath), new File(webXmlToPath));
 
         // 安装完成
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/install_setup.html");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/install_setup.htm");
         dispatcher.forward(request, response);
     }
 

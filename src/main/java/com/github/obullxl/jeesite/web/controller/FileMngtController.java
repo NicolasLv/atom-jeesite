@@ -36,12 +36,12 @@ public class FileMngtController extends AbstractController {
     /**
      * 文件提取
      */
-    @RequestMapping(value = "/file/fetch.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/file/fetch.htm", method = RequestMethod.GET)
     public String download() {
         return this.toAdminView(VOPT_FILE_FETCH, "file-fetch");
     }
 
-    @RequestMapping(value = "/file/fetch.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/file/fetch.htm", method = RequestMethod.POST)
     public void download(HttpServletResponse response, String file) throws Exception {
         File diskFile = new File(FilenameUtils.normalize(StringUtils.trimToEmpty(file)));
         if (diskFile == null || !diskFile.exists()) {

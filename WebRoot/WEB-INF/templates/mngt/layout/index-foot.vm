@@ -29,7 +29,7 @@ $(document).ready(function() {
     }
 	
     function onTimerTick() {
-    	jQuery.post("$ctx/admin/tick.html", {stamp: new Date().getTime()}, function(rtn) {
+    	jQuery.post("$ctx/admin/tick.htm", {stamp: new Date().getTime()}, function(rtn) {
 			if(rtn && rtn.bizData && rtn.bizData.stamp) {
 				$("#tickTime").text("(" + rtn.bizData.stamp + ")");
 				if($("#tickTime").hasClass("hide")) {

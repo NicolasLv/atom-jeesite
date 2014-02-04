@@ -3,41 +3,41 @@
 		<div class="span2">
     		<ul class="nav nav-list">
     			<li class="nav-header"><span class="icon-home"></span> 系统管理</li>
-    			<li id="vp-admin-home" class="active"><a href="$ctx/admin/index.html" target="top">管理后台</a></li>
+    			<li id="vp-admin-home" class="active"><a href="$ctx/admin/index.htm" target="top">管理后台</a></li>
     			<!--<li><a href="javascript:location.href=location.href" target="top">刷新页面</a></li>-->
-    			<li><a href="$ctx/index.html" target="_blank">系统首页</a></li>
+    			<li><a href="$ctx/index.htm" target="_blank">系统首页</a></li>
     			
     			<li class="nav-header"><span class="icon-home"></span> 系统</li>
-    			<li id="vp-config-manage"><a href="$ctx/admin/config/manage.html" #TargetURL()>参数管理</a></li>
-    			<li id="vp-config-create"><a href="$ctx/admin/config/create.html" #TargetURL()>新增参数</a></li>
+    			<li id="vp-config-manage"><a href="$ctx/admin/config/manage.htm" #TargetURL()>参数管理</a></li>
+    			<li id="vp-config-create"><a href="$ctx/admin/config/create.htm" #TargetURL()>新增参数</a></li>
     			
     			<li class="nav-header"><span class="icon-home"></span> 模板</li>
-    			<li id="vp-tmpt-create"><a href="$ctx/admin/tmpt/create.html" #TargetURL()>新增模板</a></li>
-    			<li id="vp-tmpt-manage"><a href="$ctx/admin/tmpt/manage.html" #TargetURL()>模板管理</a></li>
+    			<li id="vp-tmpt-create"><a href="$ctx/admin/tmpt/create.htm" #TargetURL()>新增模板</a></li>
+    			<li id="vp-tmpt-manage"><a href="$ctx/admin/tmpt/manage.htm" #TargetURL()>模板管理</a></li>
     			
     			<li class="nav-header"><span class="icon-user"></span> 用户</li>
-    			<li id="vp-user-create"><a href="$ctx/admin/user/create.html" #TargetURL()>新增用户</a></li>
-    			<li id="vp-user-manage"><a href="$ctx/admin/user/manage.html" #TargetURL()>用户管理</a></li>
+    			<li id="vp-user-create"><a href="$ctx/admin/user/create.htm" #TargetURL()>新增用户</a></li>
+    			<li id="vp-user-manage"><a href="$ctx/admin/user/manage.htm" #TargetURL()>用户管理</a></li>
     			
     			<li class="nav-header"><span class="icon-user"></span> 权限管理</li>
-    			<li id="vp-right-create"><a href="$ctx/admin/right/create.html" #TargetURL()>新增权限</a></li>
-    			<li id="vp-right-manage"><a href="$ctx/admin/right/manage.html" #TargetURL()>权限管理</a></li>
+    			<li id="vp-right-create"><a href="$ctx/admin/right/create.htm" #TargetURL()>新增权限</a></li>
+    			<li id="vp-right-manage"><a href="$ctx/admin/right/manage.htm" #TargetURL()>权限管理</a></li>
     			
     			<li class="nav-header"><span class="icon-th-list"></span> 分类管理</li>
-    			<li id="vp-catg-create"><a href="$ctx/admin/catg/create.html" #TargetURL()>新增分类</a></li>
-    			<li id="vp-catg-manage"><a href="$ctx/admin/catg/manage.html" #TargetURL()>分类管理</a></li>
+    			<li id="vp-catg-create"><a href="$ctx/admin/catg/create.htm" #TargetURL()>新增分类</a></li>
+    			<li id="vp-catg-manage"><a href="$ctx/admin/catg/manage.htm" #TargetURL()>分类管理</a></li>
     			
     			<li class="nav-header"><span class="icon-th-list"></span> 主题管理</li>
-    			<li id="vp-topic-create"><a href="$ctx/admin/topic/create.html" #TargetURL()>新增主题</a></li>
-    			<li id="vp-topic-manage"><a href="$ctx/admin/topic/manage.html" #TargetURL()>主题管理</a></li>
+    			<li id="vp-topic-create"><a href="$ctx/admin/topic/create.htm" #TargetURL()>新增主题</a></li>
+    			<li id="vp-topic-manage"><a href="$ctx/admin/topic/manage.htm" #TargetURL()>主题管理</a></li>
     			
     			<li class="nav-header"><span class="icon-download-alt"></span> 爬虫管理</li>
-    			<li id="vp-crawl-manage"><a href="$ctx/admin/crawl/manage.html" #TargetURL()>爬虫管理</a></li>
-    			<li id="vp-crawl-create"><a href="$ctx/admin/crawl/create.html" #TargetURL()>新增爬虫</a></li>
-    			<li id="vp-crawl-input"><a href="$ctx/admin/crawl/input.html" #TargetURL()>数据抓取</a></li>
+    			<li id="vp-crawl-manage"><a href="$ctx/admin/crawl/manage.htm" #TargetURL()>爬虫管理</a></li>
+    			<li id="vp-crawl-create"><a href="$ctx/admin/crawl/create.htm" #TargetURL()>新增爬虫</a></li>
+    			<li id="vp-crawl-input"><a href="$ctx/admin/crawl/input.htm" #TargetURL()>数据抓取</a></li>
 				
 				<li class="nav-header"><span class="icon-th-list"></span> 文件管理</li>
-				<li id="vp-file-fetch"><a href="$ctx/admin/file/fetch.html" #TargetURL()>文件下载</a></li>
+				<li id="vp-file-fetch"><a href="$ctx/admin/file/fetch.htm" #TargetURL()>文件下载</a></li>
     		</ul>
         </div>
 	</div>

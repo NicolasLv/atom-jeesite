@@ -1,12 +1,12 @@
 #set($title="修改爬虫 - 爬虫管理")
-#set($crawl=$CrawlXHelper.findDetail($crawlId))
+#set($crawl=$CrawlWebX.findDetail($crawlId))
 <script type="text/javascript">
 $(document).ready(function() {
     $("#tmpt-form").submit(function(e) {
         e.preventDefault();
         ajaxRquest({
         	form: "tmpt-form",
-        	url: "$ctx/admin/tmpt/update.html"
+        	url: "$ctx/admin/tmpt/update.htm"
         });
     });
 });
@@ -23,7 +23,7 @@ $(document).ready(function() {
 	<div class="control-group">
 		<label for="backFlag"><span class="icon-chevron-right"></span><strong>备份</strong>-是否备份原内容！</label>
 		<select id="backFlag" name="backFlag" class="input-small">
-			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+			#formSelectOptions($EnumWebX.toValveBoolMap(), "")
 		</select>
 	</div>
 	<div class="control-group">

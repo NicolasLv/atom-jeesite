@@ -23,21 +23,21 @@ $(document).ready(function(){
 		</tr>
 	</thead>
 	<tbody>
-#set($rgts=$RgtXHelper.findAll())
+#set($rgts=$RgtWebX.findAll())
 #foreach($rgt in $rgts)
 		<tr>
 			<td><div class="text-center">$rgt.id</div></td>
 			<td><div class="text-center">$rgt.code</div></td>
 			<td><div class="text-center">$rgt.name</div></td>
 			<td><div class="text-center">
-			#if($RgtXHelper.isRgtEnum($rgt.code))
+			#if($RgtWebX.isRgtEnum($rgt.code))
 				<div class="color-green">已经配置</div>
 			#else
 				<div class="color-red">没有配置</div>
 			#end
             </div></td>
 			<td><div class="text-center">$DateUtils.toStringDL($rgt.gmtModify)</div></td>
-			<td><div class="pull-right"><a href="$ctx/admin/right/update-${rgt.id}.html">修改</a></div></td>
+			<td><div class="pull-right"><a href="$ctx/admin/right/update-${rgt.id}.htm">修改</a></div></td>
 		</tr>
 #end
 	</tbody>

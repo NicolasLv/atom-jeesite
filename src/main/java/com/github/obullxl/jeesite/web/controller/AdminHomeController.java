@@ -27,7 +27,7 @@ public class AdminHomeController extends AbstractController {
     /**
      * 后台管理首页
      */
-    @RequestMapping("/admin/index.html")
+    @RequestMapping("/admin/index.htm")
     public String bopsIndex() {
         return this.toAdminView(VOPT_ADMIN_HOME, "bops-index");
     }
@@ -35,7 +35,7 @@ public class AdminHomeController extends AbstractController {
     /**
      * 后台管理菜单
      */
-    @RequestMapping("/admin/menu.html")
+    @RequestMapping("/admin/menu.htm")
     public String bopsMenu() {
         return this.toAdminView(VOPT_ADMIN_HOME, "bops-menu");
     }
@@ -43,7 +43,7 @@ public class AdminHomeController extends AbstractController {
     /**
      * 后台管理底页
      */
-    @RequestMapping("/admin/foot.html")
+    @RequestMapping("/admin/foot.htm")
     public String bopsFoot() {
         return this.toAdminView(VOPT_ADMIN_HOME, "bops-foot");
     }
@@ -52,7 +52,7 @@ public class AdminHomeController extends AbstractController {
      * 后台用户同步
      */
     @ResponseBody
-    @RequestMapping(value = "/admin/tick.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/tick.htm", method = RequestMethod.POST)
     public BizResponse bopsTick() {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -72,7 +72,7 @@ public class AdminHomeController extends AbstractController {
     /**
      * 后台管理主页
      */
-    @RequestMapping("/admin/main.html")
+    @RequestMapping("/admin/main.htm")
     public String adminIndex() {
         return this.toAdminView(VOPT_ADMIN_HOME, "admin-index");
     }

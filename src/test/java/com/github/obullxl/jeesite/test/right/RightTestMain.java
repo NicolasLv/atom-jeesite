@@ -24,9 +24,9 @@ public class RightTestMain {
     public void test() {
         PathMatcher matcher = new AntPathMatcher();
         
-        Assert.assertTrue(matcher.match("/admin/topic/create*.html", "/admin/topic/create.html"));
+        Assert.assertTrue(matcher.match("/admin/topic/create*.htm", "/admin/topic/create.htm"));
         
-        Assert.assertTrue(matcher.matchStart("/admin/topic/update*", "/admin/topic/update-102.html"));
+        Assert.assertTrue(matcher.matchStart("/admin/topic/update*", "/admin/topic/update-102.htm"));
     }
 
 }

@@ -22,14 +22,14 @@ $(document).ready(function(){
 		</tr>
 	</thead>
 	<tbody>
-#set($users=$UserXHelper.findAll())
+#set($users=$UserWebX.findAll())
 #foreach($user in $users)
 		<tr>
 			<td><div class="text-center">$user.id</div></td>
 			<td><div class="text-center">$user.uname</div></td>
 			<td><div class="text-center">$user.uemail</div></td>
 			<td><div class="text-center">$DateUtils.toStringDL($user.gmtModify)</div></td>
-			<td><div class="pull-right"><a href="$ctx/admin/right/assign-${user.id}.html">授权</a> | <a href="$ctx/admin/user/update-${user.id}.html">修改</a></div></td>
+			<td><div class="pull-right"><a href="$ctx/admin/right/assign-${user.id}.htm">授权</a> | <a href="$ctx/admin/user/update-${user.id}.htm">修改</a></div></td>
 		</tr>
 #end
 	</tbody>

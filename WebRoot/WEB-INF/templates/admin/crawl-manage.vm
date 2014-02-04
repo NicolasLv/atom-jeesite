@@ -21,13 +21,13 @@ $(document).ready(function(){
 		</tr>
 	</thead>
 	<tbody>
-#set($crawls=$CrawlXHelper.findAll())
+#set($crawls=$CrawlWebX.findAll())
 #foreach($crawl in $crawls)
 		<tr>
 			<td><div class="text-center">$crawl.id</div></td>
-            <td><a href="$ctx/admin/crawl/update-${crawl.id}.html">$crawl.name</a></td>
+            <td><a href="$ctx/admin/crawl/update-${crawl.id}.htm">$crawl.name</a></td>
 			<td><div class="text-center">$DateUtils.toStringDL($crawl.gmtModify)</div></td>
-			<td><div class="pull-right"><a href="$ctx/admin/crawl/update-${crawl.id}.html">修改</a></div></td>
+			<td><div class="pull-right"><a href="$ctx/admin/crawl/update-${crawl.id}.htm">修改</a></div></td>
 		</tr>
 #end
 	</tbody>

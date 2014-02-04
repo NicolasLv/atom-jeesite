@@ -1,7 +1,7 @@
 #set($title="新增用户 - 用户管理")
 <script type="text/javascript">
 	$(document).ready(function() {
-		var _url = "$ctx/admin/user/create.html";
+		var _url = "$ctx/admin/user/create.htm";
 		
 		$("#user-form").submit(function(e) {
 			e.preventDefault();
@@ -18,7 +18,7 @@
 
 					if(result.success) {
 						fadeSuccessModal(result);
-						_url = "$ctx/admin/user/update-"+(result.bizData.biz_id)+".html";
+						_url = "$ctx/admin/user/update-"+(result.bizData.biz_id)+".htm";
 						$("#form-opt-name").text("更新用户");
 					} else {
 						fadeFailureModal(result);

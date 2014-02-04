@@ -1,16 +1,16 @@
 #set($title="更新分类 - 分类管理")
 #set($catgMenuBody=true)
-#set($catg=$CatgXHelper.find($catgId))
+#set($catg=$CatgWebX.find($catgId))
 <script type="text/javascript">
 <!--
 $(document).ready(function() {
-	$("#catgTop").attr("checked", ("$EnumXHelper.toTrueFalseEnum($catg.top).code()" === "T"));
+	$("#catgTop").attr("checked", ("$EnumWebX.toTrueFalseEnum($catg.top).code()" === "T"));
 	
 	$("#catg-form").submit(function(e) {
 		e.preventDefault();
 		ajaxRquest({
     		form: "catg-form",
-    		url: "$ctx/admin/catg/update.html"
+    		url: "$ctx/admin/catg/update.htm"
     	});
 	});
 });
@@ -30,7 +30,7 @@ $(document).ready(function() {
 	<div class="control-group">
 		<label for="catgName"><span class="icon-chevron-right"></span><strong>上级分类</strong>-必输项！</label>
 		<div class="input-append">
-			<input type="text" id="catgName" name="ctgText" value="$CatgXHelper.findTitle($catg.catg)" class="span12" readonly="readonly" placeholder="上级分类名称" />
+			<input type="text" id="catgName" name="ctgText" value="$CatgWebX.findTitle($catg.catg)" class="span12" readonly="readonly" placeholder="上级分类名称" />
 			<button id="btnSelectCatg" class="btn btn-info" type="button">选择</button>
         </div>
 	</div>
@@ -49,7 +49,7 @@ $(document).ready(function() {
 	<div class="control-group">
 		<label for="ctgTop"><span class="icon-chevron-right"></span><strong>首页导航</strong>-是否首页分类导航！</label>
 		<select id="ctgTop" name="ctgTop" class="span3">
-			#formSelectOptions($EnumXHelper.toValveBoolMap(), $catg.top)
+			#formSelectOptions($EnumWebX.toValveBoolMap(), $catg.top)
 		</select>
     </div>
 	<div>

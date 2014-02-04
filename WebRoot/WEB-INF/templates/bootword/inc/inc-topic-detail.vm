@@ -3,7 +3,7 @@
 	<p class="meta">
 		<i class="icon-calendar"></i> $DateUtils.toStringDW($topic.gmtModify)
 		- <i class="icon-user"></i>老牛啊
-		#if($CfgXHelper.isShowTopicVisit())
+		#if($CfgWebX.isShowTopicVisit())
 		- <i class="icon-film"></i>${topic.visitCnt}
 		#end
 		- <i class="icon-comment"></i><a href="#respond">${topic.replyCnt}</a>

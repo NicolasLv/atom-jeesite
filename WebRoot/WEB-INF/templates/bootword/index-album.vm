@@ -4,9 +4,9 @@
 			#showAds("itop")
 			<div class="radius-block">
     			<ul class="thumbnails">
-                #set($PageList=$TopicXHelper.findPage($catg, $page))
+                #set($PageList=$TopicWebX.findPage($catg, $page))
                 #foreach($topic in $PageList.items)
-                	#parse("/$ThemeXHelper.findTheme()/inc/inc-album-list.vm")
+                	#parse("/$ThemeWebX.findTheme()/inc/inc-album-list.vm")
     			#end
                 </ul>
 			</div>
@@ -20,14 +20,14 @@
 		#if($pager.isDisabledPage($idx))
 				<span class="page-numbers current">$idx</span>
 		#else
-				<a class="page-numbers" href="$ctx/index-${catg}-${idx}.html">$idx</a>
+				<a class="page-numbers" href="$ctx/index-${catg}-${idx}.htm">$idx</a>
 		#end
 	#end
 			</div>
 #end
 			</div>
 		<div class="span4">
-			#parse("/$ThemeXHelper.findTheme()/inc/inc-catg-slide.vm")
+			#parse("/$ThemeWebX.findTheme()/inc/inc-catg-slide.vm")
 		</div>
 	</div>
 </div>

@@ -7,7 +7,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		ajaxRquest({
     		form: "catg-form",
-    		url: "$ctx/admin/catg/create.html",
+    		url: "$ctx/admin/catg/create.htm",
     		sclose: function() {
 				$("#tip-success").show(100, function(e) {
 					$("tip-success").hide(3000);
@@ -53,7 +53,7 @@ $(document).ready(function() {
 	<div class="control-group">
 		<label for="ctgTop"><span class="icon-chevron-right"></span><strong>首页导航</strong>-是否首页分类导航！</label>
 		<select id="ctgTop" name="ctgTop" class="span3">
-			#formSelectOptions($EnumXHelper.toValveBoolMap(), "")
+			#formSelectOptions($EnumWebX.toValveBoolMap(), "")
 		</select>
     </div>
 	<div>

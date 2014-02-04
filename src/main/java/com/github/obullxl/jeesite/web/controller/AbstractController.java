@@ -53,7 +53,7 @@ public abstract class AbstractController {
     public static final String    ERR_MSG_KEY        = "errorMessage";
 
     /** 后台主页 */
-    public static final String    ADMIN_INDEX        = "/admin/index.html";
+    public static final String    ADMIN_INDEX        = "/admin/index.htm";
 
     //~~~~~~~~~~~~~ 后台 ~~~~~~~~~~~~~//
     public static final String    VOPT_ADMIN_HOME    = "admin-home";

@@ -1,8 +1,8 @@
 #set($title="修改用户 - 用户管理")
-#set($user=$UserXHelper.findByUID($userId))
+#set($user=$UserWebX.findByUID($userId))
 <script type="text/javascript">
 	$(document).ready(function() {
-		var _url = "$ctx/admin/user/update-${user.id}.html";
+		var _url = "$ctx/admin/user/update-${user.id}.htm";
 		
 		$("#user-form").submit(function(e) {
 			e.preventDefault();

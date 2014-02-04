@@ -32,7 +32,7 @@ public class CfgMngtController extends AbstractController {
     /**
      * 权限管理
      */
-    @RequestMapping("/config/manage.html")
+    @RequestMapping("/config/manage.htm")
     public String manage() {
         return this.toAdminView(VOPT_CONFIG_MANAGE, "config-manage");
     }
@@ -40,13 +40,13 @@ public class CfgMngtController extends AbstractController {
     /**
      * 新增参数
      */
-    @RequestMapping(value = "/config/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/config/create.htm", method = RequestMethod.GET)
     public String create() {
         return this.toAdminView(VOPT_CONFIG_CREATE, "config-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/config/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/config/create.htm", method = RequestMethod.POST)
     public BizResponse create(@Valid CfgStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -86,14 +86,14 @@ public class CfgMngtController extends AbstractController {
     /**
      * 更新参数
      */
-    @RequestMapping(value = "/config/update-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/config/update-{id}.htm", method = RequestMethod.GET)
     public String update(@PathVariable long id) {
         this.setWebData("cfgId", id);
         return this.toAdminView(VOPT_CONFIG_MANAGE, "config-update");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/config/update-{id}.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/config/update-{id}.htm", method = RequestMethod.POST)
     public BizResponse update(@Valid CfgStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -132,7 +132,7 @@ public class CfgMngtController extends AbstractController {
      * 删除参数
      */
     @ResponseBody
-    @RequestMapping(value = "/config/delete.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/config/delete.htm", method = RequestMethod.POST)
     public BizResponse delete(String catg, String name) {
         this.setWebData("catg", catg).setWebData("name", name);
         

@@ -1,18 +1,18 @@
-#set($topic=$TopicXHelper.findDetail($topicId))
-#set($images=$TopicXHelper.findAlbumImages($topicId))
+#set($topic=$TopicWebX.findDetail($topicId))
+#set($images=$TopicWebX.findAlbumImages($topicId))
 <div class="blog">
 	<div class="container">
 		<div class="row">
 			<div class="span8">
 				#showAds("itop")
-				#parse("/$ThemeXHelper.findTheme()/inc/inc-album-detail.vm")
+				#parse("/$ThemeWebX.findTheme()/inc/inc-album-detail.vm")
 				#showAds("ibottom")
-				#parse("/$ThemeXHelper.findTheme()/inc/inc-reply-form.vm")
+				#parse("/$ThemeWebX.findTheme()/inc/inc-reply-form.vm")
 				<a name="respond"></a>
-				#parse("/$ThemeXHelper.findTheme()/inc/inc-reply-list.vm")
+				#parse("/$ThemeWebX.findTheme()/inc/inc-reply-list.vm")
 			</div>
 			<div class="span4">
-				#parse("/$ThemeXHelper.findTheme()/inc/inc-catg-slide.vm")
+				#parse("/$ThemeWebX.findTheme()/inc/inc-catg-slide.vm")
 			</div>
 		</div>
 	</div>

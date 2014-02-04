@@ -43,7 +43,7 @@ body {
 <script type="text/javascript" src="$ctx/public/js/jquery.ztree.all-3.5.js"></script>
 <script type="text/javascript">
 <!--
-#set($catgs = $CatgXHelper.findAll())
+#set($catgs = $CatgWebX.findAll())
 #set($count = $catgs.size())
 var ztreeNodes = [
 #foreach($catg in $catgs)
@@ -96,7 +96,7 @@ function onCatgBodyDown(e) {
 }
 
 $(document).ready(function() {
-	$("#catgTop").attr("checked", ("$EnumXHelper.toTrueFalseEnum($catg.top).code()" === "T"));
+	$("#catgTop").attr("checked", ("$EnumWebX.toTrueFalseEnum($catg.top).code()" === "T"));
 	
 	$.fn.zTree.init($("#ztreeCatgs"), ztreeSetting, ztreeNodes);
 	

@@ -35,7 +35,7 @@ public class CatgMngtController extends AbstractController {
     /**
      * 分类管理
      */
-    @RequestMapping(value = "/catg/manage.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/catg/manage.htm", method = RequestMethod.GET)
     public String manage() {
         return this.toAdminView(VOPT_CATG_MANAGE, "catg-manage");
     }
@@ -43,13 +43,13 @@ public class CatgMngtController extends AbstractController {
     /**
      * 新增分类
      */
-    @RequestMapping(value = "/catg/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/catg/create.htm", method = RequestMethod.GET)
     public String create() {
         return this.toAdminView(VOPT_CATG_CREATE, "catg-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/catg/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/catg/create.htm", method = RequestMethod.POST)
     public BizResponse create(@Valid CatgStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -92,14 +92,14 @@ public class CatgMngtController extends AbstractController {
     /**
      * 更新分类
      */
-    @RequestMapping(value = "/catg/update-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/catg/update-{id}.htm", method = RequestMethod.GET)
     public String update(@PathVariable long id) {
         this.setWebData("catgId", id);
         return this.toAdminView(VOPT_CATG_MANAGE, "catg-update");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/catg/update.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/catg/update.htm", method = RequestMethod.POST)
     public BizResponse update(@Valid CatgStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -142,7 +142,7 @@ public class CatgMngtController extends AbstractController {
      * 删除分类
      */
     @ResponseBody
-    @RequestMapping(value = "/catg/delete.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/catg/delete.htm", method = RequestMethod.POST)
     public BizResponse delete(String code) {
         // 操作结果
         BizResponse response = this.newBizResponse();

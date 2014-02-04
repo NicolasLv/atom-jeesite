@@ -37,17 +37,12 @@ public class HomePageController extends AbstractController {
         return this.indexCatgPage("index", 1);
     }
 
-    @RequestMapping("/index.html")
-    public String indexHtml() {
-        return this.indexCatgPage("index", 1);
-    }
-
     @RequestMapping("/default.htm")
     public String defaultHtm() {
         return this.indexCatgPage("index", 1);
     }
 
-    @RequestMapping("/default.html")
+    @RequestMapping("/default.htm")
     public String defaultHtml() {
         return this.indexCatgPage("index", 1);
     }
@@ -55,7 +50,7 @@ public class HomePageController extends AbstractController {
     /**
      * 分类分页主页
      */
-    @RequestMapping("/index-{catg}-{page}.html")
+    @RequestMapping("/index-{catg}-{page}.htm")
     public String indexCatgPage(@PathVariable String catg, @PathVariable int page) {
         this.setWebData("catg", catg).setWebData("page", page);
 
@@ -69,7 +64,7 @@ public class HomePageController extends AbstractController {
     /**
      * 主题详情页面
      */
-    @RequestMapping("/topic/{catg}-{id}.html")
+    @RequestMapping("/topic/{catg}-{id}.htm")
     public String topicDetail(@PathVariable String catg, @PathVariable String id) {
         this.setWebData("catg", catg).setWebData("topicId", id);
 
@@ -95,7 +90,7 @@ public class HomePageController extends AbstractController {
     /**
      * 发表评论
      */
-    @RequestMapping("/topic/post-reply.html")
+    @RequestMapping("/topic/post-reply.htm")
     public String postReply(String uname, String uemail, String usite, String content, String ufrom, String topic, String title) {
         // 存储评论
         ReplyDTO reply = new ReplyDTO();
@@ -119,7 +114,7 @@ public class HomePageController extends AbstractController {
     /**
      * 关于
      */
-    @RequestMapping("/about.html")
+    @RequestMapping("/about.htm")
     public String about() {
         this.setWebData("catg", CfgWebX.findCatgAboutCode());
         return this.toFrontView("/detail-about");

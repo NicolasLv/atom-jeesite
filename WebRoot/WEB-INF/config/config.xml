@@ -3,10 +3,10 @@
 <properties>
 	<comment>SpirngXML参数配置</comment>
 
-	<entry key="adminLoginUrl">/login.html</entry>
+	<entry key="adminLoginUrl">/login.htm</entry>
 
-	<entry key="exptRightUrl">/error/right.html</entry>
-	<entry key="exptBizOptUrl">/error/operation.html</entry>
-	<entry key="exptUnknowUrl">/error/system.html</entry>
+	<entry key="exptRightUrl">/error/right.htm</entry>
+	<entry key="exptBizOptUrl">/error/operation.htm</entry>
+	<entry key="exptUnknowUrl">/error/system.htm</entry>
 
 </properties>

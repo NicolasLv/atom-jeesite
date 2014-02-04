@@ -12,7 +12,7 @@ $(document).ready(function() {
 		<div class="span12">
 			<div class="radius-block">
         		<div class="span6">
-        			<form id="login-form" name="login-form" method="post" action="$ctx/login.html" class="form-horizontal">
+        			<form id="login-form" name="login-form" method="post" action="$ctx/login.htm" class="form-horizontal">
         				<div class="page-header">
                         	<h4>登录系统</h4>
                         </div>

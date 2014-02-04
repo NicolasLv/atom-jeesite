@@ -79,7 +79,7 @@ $(document).ready(function() {
 			return;
 		}
 		
-		// location.href = "$ctx/admin/topic/update-" + topicId + ".html";
+		// location.href = "$ctx/admin/topic/update-" + topicId + ".htm";
 	});
 	
 	/** 编辑 */
@@ -90,7 +90,7 @@ $(document).ready(function() {
 			return;
 		}
 		
-		location.href = "$ctx/admin/topic/update-" + topicId + ".html";
+		location.href = "$ctx/admin/topic/update-" + topicId + ".htm";
 	});
 	
 	/** 同步 */
@@ -101,7 +101,7 @@ $(document).ready(function() {
 			return;
 		}
 			
-    	jQuery.post("$ctx/data/sync/topic-apply.html", {id: topicId}, function(rtn) {
+    	jQuery.post("$ctx/data/sync/topic-apply.htm", {id: topicId}, function(rtn) {
 			if(rtn.success) {
 				window.alert("同步成功！");
 			} else {
@@ -119,7 +119,7 @@ $(document).ready(function() {
 		}
 		
         if (window.confirm("主题[" + topicId + "]删除操作不可撤销，确定执行吗？")){
-        	jQuery.post("$ctx/admin/topic/delete.html", {id: topicId}, function(e) {
+        	jQuery.post("$ctx/admin/topic/delete.htm", {id: topicId}, function(e) {
 				$("#topic-form").submit();
 			});
         }
@@ -141,7 +141,7 @@ $(document).ready(function() {
 			<div id="form-fuzzy">
 				<select id="tpcState" name="tpcState" class="input-small">
 					<option value="">[状态]</option>
-        			#formSelectOptions($EnumXHelper.toTopicStateMap(), $!form.tpcState)
+        			#formSelectOptions($EnumWebX.toTopicStateMap(), $!form.tpcState)
         		</select>
 				<div class="input-append">
         			<input type="text" id="catgName" name="tpcCatgText" value="$!form.tpcCatgText" class="input-small" readonly="readonly" placeholder="分类名称" />
@@ -149,19 +149,19 @@ $(document).ready(function() {
                 </div>
 				<select id="tpcTop" name="tpcTop" class="input-small">
 					<option value="">[置顶]</option>
-        			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!form.tpcTop)
+        			#formSelectOptions($EnumWebX.toValveBoolMap(), $!form.tpcTop)
         		</select>
 				<select id="tpcLink" name="tpcLink" class="input-small">
 					<option value="">[原创]</option>
-        			#formSelectOptions($EnumXHelper.toValveBoolMap(), $!form.tpcLink)
+        			#formSelectOptions($EnumWebX.toValveBoolMap(), $!form.tpcLink)
         		</select>
 				<select id="tpcMedia" name="tpcMedia" class="input-small">
 					<option value="">[媒体]</option>
-        			#formSelectOptions($EnumXHelper.toTopicMediaMap(), $!form.tpcMedia)
+        			#formSelectOptions($EnumWebX.toTopicMediaMap(), $!form.tpcMedia)
         		</select>
 				<select id="tpcReply" name="tpcReply" class="input-small">
 					<option value="">[评论]</option>
-        			#formSelectOptions($EnumXHelper.toTopicReplyMap(), $!form.tpcReply)
+        			#formSelectOptions($EnumWebX.toTopicReplyMap(), $!form.tpcReply)
         		</select>
 				<input type="hidden" id="page" name="page" value="$!form.page" />
 				<input type="hidden" id="catgId" name="tpcCatg" value="$!form.tpcCatg" />
@@ -194,7 +194,7 @@ $(document).ready(function() {
             <td><div class="text-center"><input type="radio" name="formTopicID" value="$topic.id" /></div></td>
 			<td><div class="text-center">$topic.id</div></td>
             <td><div class="text-center #if($topic.state=='T') color-green #elseif($topic.state=='F') color-red #end">$topic.findValve().gotState().desp()</div></td>
-			<td>[$DateUtils.toStringDL($topic.gmtModify)]-[$CatgXHelper.findTitle($topic.catg)] <a href="$ctx/topic/${topic.catg}-${topic.id}.html" target="_blank">${topic.title}</a></td>
+			<td>[$DateUtils.toStringDL($topic.gmtModify)]-[$CatgWebX.findTitle($topic.catg)] <a href="$ctx/topic/${topic.catg}-${topic.id}.htm" target="_blank">${topic.title}</a></td>
 		</tr>
 #end
 	</tbody>

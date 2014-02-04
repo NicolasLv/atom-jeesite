@@ -52,7 +52,7 @@ public class TopicMngtController extends AbstractController {
         return this.manage(new TopicQueryForm());
     }
 
-    @RequestMapping("/topic/index.html")
+    @RequestMapping("/topic/index.htm")
     public String indexHtml() {
         return this.manage(new TopicQueryForm());
     }
@@ -60,7 +60,7 @@ public class TopicMngtController extends AbstractController {
     /**
      * 主题管理
      */
-    @RequestMapping("/topic/manage.html")
+    @RequestMapping("/topic/manage.htm")
     public String manage(@Valid TopicQueryForm form) {
         if (StringUtils.isBlank(form.getFormCatg()) || StringUtils.isBlank(form.getTpcId())) {
             form.setFormCatg(TopicQueryForm.FUZZY);
@@ -104,13 +104,13 @@ public class TopicMngtController extends AbstractController {
     /**
      * 新增主题
      */
-    @RequestMapping(value = "/topic/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/topic/create.htm", method = RequestMethod.GET)
     public String create() {
         return this.toAdminView(VOPT_TOPIC_CREATE, "topic-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/topic/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/topic/create.htm", method = RequestMethod.POST)
     public BizResponse create(@Valid TopicStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -145,7 +145,7 @@ public class TopicMngtController extends AbstractController {
     /**
      * 更新主题
      */
-    @RequestMapping(value = "/topic/update-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/topic/update-{id}.htm", method = RequestMethod.GET)
     public String update(@PathVariable String id) {
         this.setWebData("topicId", id);
 
@@ -153,7 +153,7 @@ public class TopicMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/topic/update.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/topic/update.htm", method = RequestMethod.POST)
     public BizResponse update(@Valid TopicStoreForm form, BindingResult errors) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -188,7 +188,7 @@ public class TopicMngtController extends AbstractController {
      * 删除主题
      */
     @ResponseBody
-    @RequestMapping(value = "/topic/delete.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/topic/delete.htm", method = RequestMethod.POST)
     public BizResponse delete(String id) {
         BizResponse response = this.newBizResponse();
 

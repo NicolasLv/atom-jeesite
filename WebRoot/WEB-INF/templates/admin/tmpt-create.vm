@@ -5,7 +5,7 @@ $(document).ready(function() {
     	e.preventDefault();
     	ajaxRquest({
     		form: "tmpt-form",
-    		url: "$ctx/admin/tmpt/create.html"
+    		url: "$ctx/admin/tmpt/create.htm"
     	});
     });
 });
@@ -22,7 +22,7 @@ $(document).ready(function() {
 	<div class="control-group">
 		<label for="catgFlag"><span class="icon-chevron-right"></span><strong>类型</strong>-必输项！</label>
 		<select id="catgFlag" name="catgFlag" class="input-small">
-			#formSelectOptions($EnumXHelper.toTmptCatgMap(), "")
+			#formSelectOptions($EnumWebX.toTmptCatgMap(), "")
 		</select>
 	</div>
 	<div class="control-group">

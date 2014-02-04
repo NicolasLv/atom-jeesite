@@ -36,12 +36,12 @@ public class InstallSetupController {
     /**
      * 安装
      */
-    @RequestMapping(value = "/install.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/install.htm", method = RequestMethod.GET)
     public String install(ModelMap data) {
         return "install-start";
     }
 
-    @RequestMapping(value = "/install.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/install.htm", method = RequestMethod.POST)
     public String install(HttpServletRequest request, String args) throws Exception {
         logger.warn("[系统安装]-参数-{}", args);
 

@@ -39,13 +39,13 @@ public class UserLogonController extends AbstractController {
     /**
      * 用户登录
      */
-    @RequestMapping(value = "/login.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/login.htm", method = RequestMethod.GET)
     public String login() {
         this.setWebData("form", new UserLoginForm());
         return this.toFrontView(VIEW_USER_LOGIN);
     }
 
-    @RequestMapping(value = "/login.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/login.htm", method = RequestMethod.POST)
     public String login(@Valid UserLoginForm form, BindingResult errors) {
         this.setWebData("form", form);
 
@@ -116,7 +116,7 @@ public class UserLogonController extends AbstractController {
     /**
      * 用户登出
      */
-    @RequestMapping("/logout.html")
+    @RequestMapping("/logout.htm")
     public String logout() {
         HttpSession session = WebContext.get().getSession();
         UserContextUtils.setSessionContext(session, UserContext.newMockContext());

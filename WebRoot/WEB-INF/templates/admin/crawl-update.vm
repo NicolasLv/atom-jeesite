@@ -1,8 +1,8 @@
 #set($title="修改爬虫 - 爬虫管理")
-#set($crawl=$CrawlXHelper.findDetail($crawlId))
+#set($crawl=$CrawlWebX.findDetail($crawlId))
 <script type="text/javascript">
 	$(document).ready(function() {
-		var _url = "$ctx/admin/crawl/update-${crawl.id}.html";
+		var _url = "$ctx/admin/crawl/update-${crawl.id}.htm";
 		$("#crawl-form").submit(function(e) {
 			e.preventDefault();
 			jQuery.ajax({

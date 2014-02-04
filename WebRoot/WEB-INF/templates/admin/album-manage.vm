@@ -1,6 +1,6 @@
 
 #set($title="相册管理")
-#set($topic=$TopicXHelper.findTopic($topicId))
+#set($topic=$TopicWebX.findTopic($topicId))
 <script type="text/javascript">
 $(document).ready(function() {
 	/* 图片上传方式 */
@@ -33,7 +33,7 @@ $(document).ready(function() {
 		e.preventDefault();
 		ajaxRquest({
     		form: "image-form",
-    		url: "$ctx/admin/album/create.html"
+    		url: "$ctx/admin/album/create.htm"
     	});
 	});
 	*/
@@ -51,7 +51,7 @@ $(document).ready(function() {
 				url: $(this).data("url")
 			});
 		} else if(btnId === "btn-img-cover") {
-			jQuery.post("$ctx/admin/album/cover.html", {id: imgId}, function(rtn) {
+			jQuery.post("$ctx/admin/album/cover.htm", {id: imgId}, function(rtn) {
     			if(rtn.success) {
     				window.alert("设置成功！");
 					location.href = location.href;
@@ -61,7 +61,7 @@ $(document).ready(function() {
     		});
 		} else if(btnId === "btn-img-delete") {
 			if (window.confirm("相册图片[" + imgId + "]删除操作不可撤销，确定执行吗？")){
-    			jQuery.post("$ctx/admin/album/delete.html", {id: imgId}, function(rtn) {
+    			jQuery.post("$ctx/admin/album/delete.htm", {id: imgId}, function(rtn) {
         			if(rtn.success) {
         				window.alert("删除成功！");
 						location.href = location.href;
@@ -78,7 +78,7 @@ $(document).ready(function() {
 	<li><span class="divider">/</span></li>
 	<li>后台管理</li>
 	<li><span class="divider">/</span></li>
-	<li><a href="$ctx/admin/topic/manage.html">主题管理</a></li>
+	<li><a href="$ctx/admin/topic/manage.htm">主题管理</a></li>
 	<li><span class="divider">/</span></li>
 	<li class="active">相册管理</li>
 </ul>
@@ -90,15 +90,15 @@ $(document).ready(function() {
 		<span class="icon-chevron-right"></span><strong>标题：</strong>$topic.title
 	</div>
 	<div class="control-group">
-		<span class="icon-chevron-right"></span><strong>封面：</strong> <a href="javascript:void(0)">$StaticXHelper.findImageURL($topic.mediaUrl)</a>
-		<button type="button" id="btn-cover-view" data-url="$StaticXHelper.findImageURL($topic.mediaUrl)" class="btn btn-info pull-right">查看相册封面</button>
+		<span class="icon-chevron-right"></span><strong>封面：</strong> <a href="javascript:void(0)">$StaticWebX.findImageURL($topic.mediaUrl)</a>
+		<button type="button" id="btn-cover-view" data-url="$StaticWebX.findImageURL($topic.mediaUrl)" class="btn btn-info pull-right">查看相册封面</button>
 	</div>
 	<div class="control-group">
 		<label for="summary"><span class="icon-chevron-right"></span><strong>相册描述</strong></label>
 		<textarea rows="2" id="summary" name="summary" class="span12" readonly="readonly">$topic.summary</textarea>
 	</div>
 	<div>
-		<a class="btn btn-info" href="$ctx/admin/topic/update-${topic.id}.html">修改相册基本信息</a>
+		<a class="btn btn-info" href="$ctx/admin/topic/update-${topic.id}.htm">修改相册基本信息</a>
 	</div>
 	<div class="clearfix"></div>
 </div>
@@ -108,7 +108,7 @@ $(document).ready(function() {
     	<li><span class="icon-hand-right"></span> 增加相册图片</li>
     </ul>
 	#if($errorMessage)<div class="alert alert-error">$errorMessage</div>#end
-	<form id="image-form" name="image-form" class="form-inline" method="post" action="$ctx/admin/album/create.html" enctype="multipart/form-data" #MarginBottomNO()>
+	<form id="image-form" name="image-form" class="form-inline" method="post" action="$ctx/admin/album/create.htm" enctype="multipart/form-data" #MarginBottomNO()>
 		<div class="btn-group">
             <button type="button" id="btn-local" class="btn btn-info">本地</button>
             <button type="button" id="btn-network" class="btn btn-info">网络</button>
@@ -146,14 +146,14 @@ $(document).ready(function() {
     		</tr>
     	</thead>
     	<tbody>
-			#foreach($image in $TopicXHelper.findAlbumImages($topicId))
+			#foreach($image in $TopicWebX.findAlbumImages($topicId))
     		<tr>
                 <td><div class="text-center">$image.id</div></td>
-    			<td><a href="$StaticXHelper.findImageURL($image.url)" target="_blank">$image.url</a></td>
+    			<td><a href="$StaticWebX.findImageURL($image.url)" target="_blank">$image.url</a></td>
 				<td>$FileUtils.byteCountToDisplaySize($!image.size)</td>
 				<td>$!{image.width}×$!{image.height}</td>
     			<td><div class="pull-right">
-					<button type="button" id="btn-img-view" data-url="$StaticXHelper.findImageURL($image.url)" class="btn btn-info">查看</button>
+					<button type="button" id="btn-img-view" data-url="$StaticWebX.findImageURL($image.url)" class="btn btn-info">查看</button>
 					<button type="button" id="btn-img-cover" data-id="$image.id" class="btn btn-success">设为封面</button>
 					<button type="button" id="btn-img-delete" data-id="$image.id" class="btn btn-danger">删除</button>
                 </div></td>

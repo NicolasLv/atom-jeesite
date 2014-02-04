@@ -51,13 +51,13 @@ public class CrawlMngtController extends AbstractController {
     /**
      * 新增爬虫
      */
-    @RequestMapping(value = "/crawl/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/crawl/create.htm", method = RequestMethod.GET)
     public String crawlCreate() {
         return this.toAdminView(VOPT_CRAWL_CREATE, "crawl-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/crawl/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/crawl/create.htm", method = RequestMethod.POST)
     public BizResponse crawlCreate(String name, String content) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -92,14 +92,14 @@ public class CrawlMngtController extends AbstractController {
     /**
      * 修改爬虫
      */
-    @RequestMapping(value = "/crawl/update-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/crawl/update-{id}.htm", method = RequestMethod.GET)
     public String crawlUpdate(@PathVariable long id) {
         this.setWebData("crawlId", id);
         return this.toAdminView(VOPT_CRAWL_MANAGE, "crawl-update");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/crawl/update-{id}.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/crawl/update-{id}.htm", method = RequestMethod.POST)
     public BizResponse crawlUpdate(@PathVariable long id, String name, String content) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -133,7 +133,7 @@ public class CrawlMngtController extends AbstractController {
     /**
      * 数据抓取
      */
-    @RequestMapping(value = "/crawl/input.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/crawl/input.htm", method = RequestMethod.GET)
     public String crawlInput() {
         // 爬虫信息
         Map<Long, String> crawls = new LinkedHashMap<Long, String>();
@@ -147,7 +147,7 @@ public class CrawlMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/crawl/input.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/crawl/input.htm", method = RequestMethod.POST)
     public BizResponse crawlInput(long crawlId, String links, String text) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -216,7 +216,7 @@ public class CrawlMngtController extends AbstractController {
     /**
      * 爬虫管理
      */
-    @RequestMapping(value = "/crawl/manage.html")
+    @RequestMapping(value = "/crawl/manage.htm")
     public String crawlManage() {
         return this.toAdminView(VOPT_CRAWL_MANAGE, "crawl-manage");
     }

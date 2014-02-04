@@ -48,7 +48,7 @@ public class AlbumMngtController extends AbstractController {
     /**
      * 相册主题管理
      */
-    @RequestMapping("/album/manage-{id}.html")
+    @RequestMapping("/album/manage-{id}.htm")
     public String manage(@PathVariable String id) {
         this.setWebData("topicId", id);
         return this.toAdminView(VOPT_TOPIC_MANAGE, "album-manage");
@@ -57,7 +57,7 @@ public class AlbumMngtController extends AbstractController {
     /**
      * 新增相册图片
      */
-    @RequestMapping(value = "/album/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/album/create.htm", method = RequestMethod.POST)
     public String create(@Valid ImageStoreForm form, BindingResult errors, @RequestParam MultipartFile imgFile) {
         this.setWebData("topicId", form.getImgTopic());
         try {
@@ -143,7 +143,7 @@ public class AlbumMngtController extends AbstractController {
         }
 
         // 成功返回
-        return this.redirectTo("/admin/album/manage-" + form.getImgTopic() + ".html");
+        return this.redirectTo("/admin/album/manage-" + form.getImgTopic() + ".htm");
     }
 
     /**
@@ -176,7 +176,7 @@ public class AlbumMngtController extends AbstractController {
      * 设置相册封面
      */
     @ResponseBody
-    @RequestMapping(value = "/album/cover.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/album/cover.htm", method = RequestMethod.POST)
     public BizResponse cover(String id) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -211,7 +211,7 @@ public class AlbumMngtController extends AbstractController {
      * 删除相册图片
      */
     @ResponseBody
-    @RequestMapping(value = "/album/delete.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/album/delete.htm", method = RequestMethod.POST)
     public BizResponse delete(String id) {
         // 操作结果
         BizResponse response = this.newBizResponse();

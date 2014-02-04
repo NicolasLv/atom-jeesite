@@ -32,7 +32,7 @@ public class UserMngtController extends AbstractController {
     /**
      * 用户管理
      */
-    @RequestMapping("/user/manage.html")
+    @RequestMapping("/user/manage.htm")
     public String manage() {
         return this.toAdminView(VOPT_USER_MANAGE, "user-manage");
     }
@@ -40,13 +40,13 @@ public class UserMngtController extends AbstractController {
     /**
      * 新增用户
      */
-    @RequestMapping(value = "/user/create.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/create.htm", method = RequestMethod.GET)
     public String create() {
         return this.toAdminView(VOPT_USER_CREATE, "user-create");
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/create.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/create.htm", method = RequestMethod.POST)
     public BizResponse create(String uname, String passwd, String passwd2, String uemail) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -95,7 +95,7 @@ public class UserMngtController extends AbstractController {
     /**
      * 更新用户
      */
-    @RequestMapping(value = "/user/update-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/update-{id}.htm", method = RequestMethod.GET)
     public String update(@PathVariable long id) {
         this.setWebData("userId", id);
 
@@ -103,7 +103,7 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/update-{id}.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/update-{id}.htm", method = RequestMethod.POST)
     public BizResponse update(@PathVariable long id, String uname, String passwd, String passwd2, String uemail) {
         // 操作结果
         BizResponse response = this.newBizResponse();
@@ -128,7 +128,7 @@ public class UserMngtController extends AbstractController {
     /**
      * 修改用户信息
      */
-    @RequestMapping(value = "/user/cinfo-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/cinfo-{id}.htm", method = RequestMethod.GET)
     public String cinfo(@PathVariable long id) {
         this.setWebData("userId", id);
 
@@ -136,7 +136,7 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/cinfo.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/cinfo.htm", method = RequestMethod.POST)
     public BizResponse cinfo(String no, String unick) {
         this.setWebData("no", no);
 
@@ -169,7 +169,7 @@ public class UserMngtController extends AbstractController {
     /**
      * 修改用户邮箱
      */
-    @RequestMapping(value = "/user/cemail-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/cemail-{id}.htm", method = RequestMethod.GET)
     public String cemail(@PathVariable long id) {
         this.setWebData("userId", id);
 
@@ -177,7 +177,7 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/cemail.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/cemail.htm", method = RequestMethod.POST)
     public BizResponse cemail(String no, String uemail) {
         this.setWebData("no", no);
 
@@ -210,7 +210,7 @@ public class UserMngtController extends AbstractController {
     /**
      * 修改用户密码
      */
-    @RequestMapping(value = "/user/cpasswd-{id}.html", method = RequestMethod.GET)
+    @RequestMapping(value = "/user/cpasswd-{id}.htm", method = RequestMethod.GET)
     public String cpasswd(@PathVariable long id) {
         this.setWebData("userId", id);
 
@@ -218,7 +218,7 @@ public class UserMngtController extends AbstractController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/user/cpasswd.html", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/cpasswd.htm", method = RequestMethod.POST)
     public BizResponse cpasswd(String no, String opasswd, String passwd, String passwd2) {
         this.setWebData("no", no);
 
