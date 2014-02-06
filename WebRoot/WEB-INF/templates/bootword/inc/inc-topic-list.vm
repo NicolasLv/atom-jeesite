@@ -7,9 +7,9 @@
 	<div class="clearfix"></div>
 	<p class="meta">
 		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
-		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.htm#respond">${topic.replyCnt}</a>
+		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.htm#respond">${topic.replyCount}</a>
 		#if($CfgWebX.isShowTopicVisit())
-		- <i class="icon-film"></i>${topic.visitCnt}
+		- <i class="icon-film"></i>${topic.visitCount}
 		#end
 		<a href="$ctx/topic/${topic.catg}-${topic.id}.htm" class="pull-right readmore">阅读全文 &raquo;</a>
 	</p>
@@ -34,9 +34,9 @@
 	<div class="clearfix"></div>
 	<p class="meta">
 		<i class="icon-calendar"></i>$DateUtils.toStringDL($topic.gmtModify)
-		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.htm#respond">${topic.replyCnt}</a>
+		- <i class="icon-comment"></i><a href="$ctx/topic/${topic.catg}-${topic.id}.htm#respond">${topic.replyCount}</a>
 		#if($CfgWebX.isShowTopicVisit())
-		- <i class="icon-film"></i>${topic.visitCnt}
+		- <i class="icon-film"></i>${topic.visitCount}
 		#end
 		<a href="$ctx/topic/${topic.catg}-${topic.id}.htm" class="pull-right readmore">阅读全文 &raquo;</a>
 	</p>

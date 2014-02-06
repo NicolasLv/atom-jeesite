@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.biz.BizResponse;
-import com.github.obullxl.lang.user.UserDTO;
+import com.github.obullxl.lang.das.DAS;
 import com.github.obullxl.lang.utils.MD5Utils;
 import com.github.obullxl.lang.utils.TextUtils;
+import com.github.obullxl.model.user.UserModel;
 
 /**
  * 用户后台管理控制器
@@ -64,7 +64,7 @@ public class UserMngtController extends AbstractController {
             }
 
             // 用户名检查
-            UserDTO user = this.userService.findByNickName(uname);
+            UserModel user = this.userService.findByNickName(uname);
             if (user != null) {
                 this.buildResponse(response, BizResponseEnum.EXIST_UNAME);
                 return response;
@@ -110,7 +110,7 @@ public class UserMngtController extends AbstractController {
 
         try {
             // 查询
-            UserDTO user = this.userService.findByNickName(uname);
+            UserModel user = this.userService.findByNickName(uname);
             user.setPasswd(MD5Utils.digest(passwd));
             user.setEmail(uemail);
 
@@ -145,7 +145,7 @@ public class UserMngtController extends AbstractController {
 
         try {
             // 查找
-            UserDTO user = this.userService.findByNo(no);
+            UserModel user = this.userService.findByNo(no);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -153,7 +153,7 @@ public class UserMngtController extends AbstractController {
 
             // 长度
             unick = StringUtils.trimToEmpty(unick);
-            user.setNickName(TextUtils.truncate(unick, DBSize.User.NICK_NAME_MAX));
+            user.setNickName(TextUtils.truncate(unick, DAS.USER.NICK_NAME_MAX));
 
             // 更新
             this.userService.update(user);
@@ -186,7 +186,7 @@ public class UserMngtController extends AbstractController {
 
         try {
             // 查找
-            UserDTO user = this.userService.findByNo(no);
+            UserModel user = this.userService.findByNo(no);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -194,7 +194,7 @@ public class UserMngtController extends AbstractController {
 
             // 长度
             uemail = StringUtils.trimToEmpty(uemail);
-            user.setEmail(TextUtils.truncate(uemail, DBSize.User.EMAIL_MAX));
+            user.setEmail(TextUtils.truncate(uemail, DAS.USER.EMAIL_MAX));
 
             // 更新
             this.userService.update(user);
@@ -227,7 +227,7 @@ public class UserMngtController extends AbstractController {
 
         try {
             // 查找
-            UserDTO user = this.userService.findByNo(no);
+            UserModel user = this.userService.findByNo(no);
             if (user == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;

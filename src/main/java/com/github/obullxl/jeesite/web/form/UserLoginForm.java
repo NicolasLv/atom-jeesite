@@ -9,7 +9,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.github.obullxl.jeesite.dal.DBSize;
+import com.github.obullxl.lang.das.DAS;
 import com.github.obullxl.lang.web.form.AbstractForm;
 import com.github.obullxl.lang.web.form.EnumBaseValidate;
 
@@ -23,11 +23,11 @@ public class UserLoginForm extends AbstractForm {
     private static final long serialVersionUID = 4516505919139939596L;
 
     @NotNull
-    @Size(min = 1, max = DBSize.User.NICK_NAME_MAX)
+    @Size(min = 1, max = DAS.USER.NICK_NAME_MAX)
     private String            usrName;
 
     @NotNull
-    @Size(min = 1, max = DBSize.User.PASSWD_MAX)
+    @Size(min = 1, max = DAS.USER.PASSWD_MAX)
     private String            usrPasswd;
 
     /**

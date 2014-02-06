@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.CfgStoreForm;
 import com.github.obullxl.lang.biz.BizResponse;
-import com.github.obullxl.lang.cfg.CfgDTO;
-import com.github.obullxl.lang.cfg.CfgUtils;
+import com.github.obullxl.model.cfg.CfgModel;
+import com.github.obullxl.model.cfg.CfgUtils;
 
 /**
  * 系统参数控制器
@@ -58,14 +58,14 @@ public class CfgMngtController extends AbstractController {
                 return response;
             }
 
-            CfgDTO cfg = CfgUtils.find(form.getCfgCatg(), form.getCfgName());
+            CfgModel cfg = CfgUtils.find(form.getCfgCatg(), form.getCfgName());
             if (cfg != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
 
             // 新增
-            cfg = new CfgDTO();
+            cfg = new CfgModel();
             cfg.setCatg(form.getCfgCatg());
             cfg.setName(form.getCfgName());
             cfg.setTitle(form.getCfgTitle());
@@ -105,7 +105,7 @@ public class CfgMngtController extends AbstractController {
                 return response;
             }
 
-            CfgDTO cfg = CfgUtils.find(form.getCfgCatg(), form.getCfgName());
+            CfgModel cfg = CfgUtils.find(form.getCfgCatg(), form.getCfgName());
             if (cfg == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -140,7 +140,7 @@ public class CfgMngtController extends AbstractController {
         BizResponse response = this.newBizResponse();
 
         try {
-            CfgDTO cfg = CfgUtils.find(catg, name);
+            CfgModel cfg = CfgUtils.find(catg, name);
             if (cfg == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;

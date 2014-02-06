@@ -2,26 +2,12 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="CatgDTO" type="com.github.obullxl.jeesite.dal.dto.CatgDTO"/>
-		<typeAlias alias="ConfigDTO" type="com.github.obullxl.jeesite.dal.dto.ConfigDTO"/>
 		<typeAlias alias="CrawlDTO" type="com.github.obullxl.jeesite.dal.dto.CrawlDTO"/>
 		<typeAlias alias="ImageDTO" type="com.github.obullxl.jeesite.dal.dto.ImageDTO"/>
-		<typeAlias alias="ReplyDTO" type="com.github.obullxl.jeesite.dal.dto.ReplyDTO"/>
-		<typeAlias alias="RightDTO" type="com.github.obullxl.jeesite.dal.dto.RightDTO"/>
-		<typeAlias alias="TopicDTO" type="com.github.obullxl.jeesite.dal.dto.TopicDTO"/>
-		<typeAlias alias="UserDTO" type="com.github.obullxl.jeesite.dal.dto.UserDTO"/>
-		<typeAlias alias="UserRgtDTO" type="com.github.obullxl.jeesite.dal.dto.UserRgtDTO"/>
 	</typeAliases>
 
 	<mappers>
-		<mapper resource="mybatis/jeesite/sqlite/Catg-mapper.xml" />
-		<mapper resource="mybatis/jeesite/sqlite/Config-mapper.xml" />
 		<mapper resource="mybatis/jeesite/sqlite/Crawl-mapper.xml" />
 		<mapper resource="mybatis/jeesite/sqlite/Image-mapper.xml" />
-		<mapper resource="mybatis/jeesite/sqlite/Reply-mapper.xml" />
-		<mapper resource="mybatis/jeesite/sqlite/Right-mapper.xml" />
-		<mapper resource="mybatis/jeesite/sqlite/Topic-mapper.xml" />
-		<mapper resource="mybatis/jeesite/sqlite/User-mapper.xml" />
-		<mapper resource="mybatis/jeesite/sqlite/UserRgt-mapper.xml" />
 	</mappers>
 </configuration>

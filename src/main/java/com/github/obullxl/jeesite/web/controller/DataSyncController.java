@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.lang.ToString;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.model.topic.TopicModel;
 
 /**
  * 数据同步控制器
@@ -42,7 +42,7 @@ public class DataSyncController extends AbstractController {
 
         try {
             // 校验
-            TopicDTO topic = this.topicDAO.find(id);
+            TopicModel topic = this.topicService.findByID(id);
             if (topic == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -79,19 +79,19 @@ public class DataSyncController extends AbstractController {
 
         try {
             // 校验
-            TopicDTO topic = JSON.parseObject(data, TopicDTO.class);
+            TopicModel topic = JSON.parseObject(data, TopicModel.class);
             if (topic == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
             }
 
-            TopicDTO exist = this.topicDAO.find(topic.getId());
+            TopicModel exist = this.topicService.findByID(topic.getId());
             if (exist != null) {
                 // 更新
-                this.topicDAO.update(topic);
+                this.topicService.update(topic);
             } else {
                 // 插入
-                this.topicDAO.insert(topic);
+                this.topicService.create(topic);
             }
 
             // 同步

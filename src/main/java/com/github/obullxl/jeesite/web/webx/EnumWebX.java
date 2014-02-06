@@ -9,13 +9,12 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.web.enums.TmptCatgEnum;
-import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
-import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
-import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.jeesite.web.enums.TrueFalseEnum;
 import com.github.obullxl.lang.enums.EnumBaseUtils;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.topic.enums.TopicMediaEnum;
+import com.github.obullxl.model.topic.enums.TopicStateEnum;
 
 /**
  * 枚举X工具
@@ -66,13 +65,6 @@ public class EnumWebX implements WebX {
      */
     public static final Map<String, String> toTopicMediaMap() {
         return EnumBaseUtils.toMap(TopicMediaEnum.values());
-    }
-
-    /**
-     * 获取主题评论枚举映射
-     */
-    public static final Map<String, String> toTopicReplyMap() {
-        return EnumBaseUtils.toMap(TopicReplyEnum.values());
     }
 
     /**

@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.CatgStoreForm;
 import com.github.obullxl.lang.biz.BizResponse;
-import com.github.obullxl.lang.catg.CatgDTO;
-import com.github.obullxl.lang.catg.CatgUtils;
+import com.github.obullxl.model.catg.CatgModel;
+import com.github.obullxl.model.catg.CatgUtils;
+import com.github.obullxl.model.topic.TopicModelEnum;
+import com.github.obullxl.model.topic.query.TopicPageList;
+import com.github.obullxl.model.topic.query.TopicQueryForm;
 
 /**
  * 主题分类控制器
@@ -63,14 +65,14 @@ public class CatgMngtController extends AbstractController {
                 return response;
             }
 
-            CatgDTO catg = CatgUtils.find(form.getCtgCode());
+            CatgModel catg = CatgUtils.find(form.getCtgCode());
             if (catg != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
 
             // 新增
-            catg = new CatgDTO();
+            catg = new CatgModel();
             catg.setCatg(form.getCtgCatg());
             catg.setCode(form.getCtgCode());
             catg.setSort(form.getCtgSort());
@@ -114,7 +116,7 @@ public class CatgMngtController extends AbstractController {
             }
 
             // 查询
-            CatgDTO catg = CatgUtils.find(form.getCtgCode());
+            CatgModel catg = CatgUtils.find(form.getCtgCode());
             if (catg == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -149,7 +151,7 @@ public class CatgMngtController extends AbstractController {
 
         try {
             // 查询
-            CatgDTO catg = CatgUtils.find(code);
+            CatgModel catg = CatgUtils.find(code);
             if (catg == null) {
                 this.buildResponse(response, BizResponseEnum.CATG_NOT_EXIST);
                 return response;
@@ -164,8 +166,14 @@ public class CatgMngtController extends AbstractController {
             // 校验: 没有主题信息
             List<String> codes = CatgUtils.findBranchCodes(code);
             if (!codes.isEmpty()) {
-                TopicDTO topic = this.topicDAO.findCatgOne(codes);
-                if (topic != null) {
+                TopicQueryForm form = new TopicQueryForm();
+                form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
+                form.setPage(1);
+                form.setPageSize(1);
+                form.setCatgs(codes);
+
+                TopicPageList topics = this.topicService.findPageList(form);
+                if (topics != null && !topics.getItems().isEmpty()) {
                     this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                     return response;
                 }

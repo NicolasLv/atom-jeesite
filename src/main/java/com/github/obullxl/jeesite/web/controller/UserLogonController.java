@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.github.obullxl.jeesite.utils.UserConverter;
 import com.github.obullxl.jeesite.web.enums.UserRightEnum;
 import com.github.obullxl.jeesite.web.form.UserLoginForm;
-import com.github.obullxl.lang.enums.ActiveEnum;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
-import com.github.obullxl.lang.relate.UserRightDTO;
 import com.github.obullxl.lang.user.UserContext;
 import com.github.obullxl.lang.user.UserContextUtils;
-import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.utils.MD5Utils;
 import com.github.obullxl.lang.web.WebContext;
+import com.github.obullxl.model.relate.userright.UserRightModel;
+import com.github.obullxl.model.relate.userright.UserRightUtils;
+import com.github.obullxl.model.user.UserModel;
+import com.github.obullxl.model.user.enums.ActiveStateEnum;
 
 /**
  * 用户登录控制器
@@ -59,13 +59,13 @@ public class UserLogonController extends AbstractController {
             }
 
             // 获取用户
-            UserDTO user = this.userService.findByNickName(form.getUsrName());
+            UserModel user = this.userService.findByNickName(form.getUsrName());
             if (user == null) {
                 this.setWebData(ERR_MSG_KEY, "用户不存在！");
                 return this.toFrontView(VIEW_USER_LOGIN);
             }
 
-            if (user.findValve().gotActiveState() != ActiveEnum.ACTIVE_NORMAL) {
+            if (user.getStateEnum() != ActiveStateEnum.ACTIVE_NORMAL) {
                 this.setWebData(ERR_MSG_KEY, "用户未激活，请联系管理员！");
                 return this.toFrontView(VIEW_USER_LOGIN);
             }
@@ -89,11 +89,11 @@ public class UserLogonController extends AbstractController {
             UserContextUtils.setLogin(uctx, true);
             uctx.getUserRights().add(UserRightEnum.RGT_LOGIN_NORMAL.code());
 
-            boolean admin = (user.findValve().gotAdmin() == ValveBoolEnum.TRUE);
+            boolean admin = user.getMngtEnum().is();
             UserContextUtils.setAdmin(uctx, admin);
             if (!admin) {
-                List<UserRightDTO> rgts = this.userRightService.findByUserNo(user.getNo());
-                for (UserRightDTO rgt : rgts) {
+                List<UserRightModel> rgts = UserRightUtils.findByUserNo(user.getNo());
+                for (UserRightModel rgt : rgts) {
                     uctx.getUserRights().add(rgt.getRgtCode());
                 }
             }

@@ -4,9 +4,6 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.apache.commons.lang.StringUtils;
@@ -17,22 +14,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.obullxl.jeesite.dal.DBSize;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.dal.query.TopicQuery;
-import com.github.obullxl.jeesite.dal.valve.TopicValve;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
-import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
-import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
-import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
-import com.github.obullxl.jeesite.web.form.TopicQueryForm;
+import com.github.obullxl.jeesite.web.form.TopicSelectForm;
 import com.github.obullxl.jeesite.web.form.TopicStoreForm;
-import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.jeesite.web.webx.CfgWebX;
-import com.github.obullxl.lang.Paginator;
 import com.github.obullxl.lang.biz.BizResponse;
+import com.github.obullxl.lang.das.DAS;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.utils.TextUtils;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.enums.TopicMediaEnum;
+import com.github.obullxl.model.topic.enums.TopicStateEnum;
+import com.github.obullxl.model.topic.enums.TopicTopEnum;
+import com.github.obullxl.model.topic.query.TopicPageList;
+import com.github.obullxl.model.topic.query.TopicQueryForm;
 
 /**
  * 主题后台管理控制器
@@ -49,21 +44,21 @@ public class TopicMngtController extends AbstractController {
      */
     @RequestMapping("/topic/index.htm")
     public String indexHtm() {
-        return this.manage(new TopicQueryForm());
+        return this.manage(new TopicSelectForm());
     }
 
     @RequestMapping("/topic/index.htm")
     public String indexHtml() {
-        return this.manage(new TopicQueryForm());
+        return this.manage(new TopicSelectForm());
     }
 
     /**
      * 主题管理
      */
     @RequestMapping("/topic/manage.htm")
-    public String manage(@Valid TopicQueryForm form) {
+    public String manage(@Valid TopicSelectForm form) {
         if (StringUtils.isBlank(form.getFormCatg()) || StringUtils.isBlank(form.getTpcId())) {
-            form.setFormCatg(TopicQueryForm.FUZZY);
+            form.setFormCatg(TopicSelectForm.FUZZY);
         }
 
         if (form.getPage() < 1) {
@@ -74,30 +69,14 @@ public class TopicMngtController extends AbstractController {
             logger.info("[主题管理]-Web查询条件-{}.", form);
         }
 
-        TopicQuery query = form.to();
+        TopicQueryForm query = form.to();
+        query.setPage(form.getPage());
         query.setPageSize(CfgWebX.findMngtPageSize());
 
-        // 统计
-        int count = (int) this.topicDAO.findFuzzyCount(query);
-        Paginator pager = new Paginator(query.getPageSize(), count);
-        pager.setPageNo(form.getPage());
-
-        query.setOffset(pager.getOffset());
-
-        if (logger.isInfoEnabled()) {
-            logger.info("[主题管理]-DB查询条件-{}.", query);
-        }
-
-        // 明细
-        List<TopicDTO> topics = null;
-        if (count <= 0) {
-            topics = new ArrayList<TopicDTO>();
-        } else {
-            topics = this.topicDAO.findFuzzy(query);
-        }
+        TopicPageList tpl = this.topicService.findPageList(query);
 
         // 返回
-        this.setWebData("form", form).setWebData("topicPageList", new TopicPageList(pager, topics));
+        this.setWebData("form", form).setWebData("topicPageList", tpl);
         return this.toAdminView(VOPT_TOPIC_MANAGE, "topic-manage");
     }
 
@@ -125,14 +104,14 @@ public class TopicMngtController extends AbstractController {
             }
 
             // 新建
-            TopicDTO topic = this.newInitTopic();
+            TopicModel topic = this.newInitTopic();
 
             // 填充
             this.fillTopic(form, topic);
 
             // 新增
-            String id = this.topicDAO.insert(topic);
-            response.getBizData().put(BizResponse.BIZ_ID_KEY, id);
+            this.topicService.create(topic);
+            response.getBizData().put(BizResponse.BIZ_ID_KEY, topic.getId());
         } catch (Exception e) {
             logger.error("新增主题异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -168,13 +147,13 @@ public class TopicMngtController extends AbstractController {
             }
 
             // 查询
-            TopicDTO topic = this.topicDAO.find(form.getTpcId());
+            TopicModel topic = this.topicService.findByID(form.getTpcId());
 
             // 填充
             this.fillTopic(form, topic);
 
             // 更新
-            this.topicDAO.update(topic);
+            this.topicService.update(topic);
         } catch (Exception e) {
             logger.error("修改主题异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -193,8 +172,8 @@ public class TopicMngtController extends AbstractController {
         BizResponse response = this.newBizResponse();
 
         try {
-            this.replyDAO.deleteTopic(id);
-            this.topicDAO.delete(id);
+            this.topicService.removeByTopicID(id);
+            this.topicService.removeByID(id);
         } catch (Exception e) {
             logger.error("删除主题异常!", e);
             this.buildResponse(response, BizResponseEnum.SYSTEM_ERROR);
@@ -206,23 +185,21 @@ public class TopicMngtController extends AbstractController {
     /**
      * 填充主题信息
      */
-    private void fillTopic(TopicStoreForm form, TopicDTO topic) {
-        TopicValve valve = topic.findValve();
-        valve.sotState(TopicStateEnum.findDefault(form.getTpcStateFlag()));
-        valve.sotTop(ValveBoolEnum.findDefault(form.getTpcTopFlag()));
-        valve.sotLink(ValveBoolEnum.findDefault(form.getTpcLinkFlag()));
-        valve.sotMedia(TopicMediaEnum.findDefault(form.getTpcMediaFlag()));
-        valve.sotReply(TopicReplyEnum.findDefault(form.getTpcReplyFlag()));
-
-        topic.setFlag(valve.getValve());
+    private void fillTopic(TopicStoreForm form, TopicModel topic) {
+        topic.setStateEnum(TopicStateEnum.findDefault(form.getTpcStateFlag()));
+        topic.setTopEnum(TopicTopEnum.findDefault(form.getTpcTopFlag()));
+        topic.setOriginalEnum(ValveBoolEnum.findDefault(form.getTpcLinkFlag()));
+        topic.setMediaEnum(TopicMediaEnum.findDefault(form.getTpcMediaFlag()));
+        topic.setReplyEnum(ValveBoolEnum.findDefault(form.getTpcReplyFlag()));
         topic.setCatg(form.getTpcCatg());
         topic.setLinkUrl(StringUtils.trimToEmpty(form.getTpcLinkUrl()));
         topic.setMediaUrl(StringUtils.trimToEmpty(form.getTpcMediaUrl()));
         topic.setTitle(form.getTpcTitle());
 
         if (StringUtils.isBlank(form.getTpcSummary())) {
-            form.setTpcSummary(TextUtils.truncate(form.getTpcContent(), DBSize.Topic.SUMMARY_MAX));
+            form.setTpcSummary(TextUtils.truncate(form.getTpcContent(), DAS.TOPIC.SUMMARY_MAX));
         }
+
         topic.setSummary(form.getTpcSummary());
         topic.setContent(form.getTpcContent());
     }

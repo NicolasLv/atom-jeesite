@@ -4,15 +4,20 @@
  */
 package com.github.obullxl.jeesite.web.controller;
 
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
-import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.alibaba.fastjson.JSON;
 import com.github.obullxl.jeesite.web.webx.CatgWebX;
 import com.github.obullxl.jeesite.web.webx.CfgWebX;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.TopicModelEnum;
+import com.github.obullxl.model.topic.enums.TopicStateEnum;
+import com.google.common.collect.Maps;
 
 /**
  * 主页控制器
@@ -70,7 +75,7 @@ public class HomePageController extends AbstractController {
 
         // 更新主题访问次数
         if (CfgWebX.isUpdateTopicVisit()) {
-            this.topicDAO.updateVisit(id, 1);
+            this.topicService.deltaVisitCount(id, 1);
         }
 
         if (CatgWebX.isAlbumCatg(catg)) {
@@ -93,19 +98,23 @@ public class HomePageController extends AbstractController {
     @RequestMapping("/topic/post-reply.htm")
     public String postReply(String uname, String uemail, String usite, String content, String ufrom, String topic, String title) {
         // 存储评论
-        ReplyDTO reply = new ReplyDTO();
-        reply.setState(TopicStateEnum.findDefault().code());
+        TopicModel reply = new TopicModel();
+        reply.setModelEnum(TopicModelEnum.BLOG_REPLY);
+        reply.setStateEnum(TopicStateEnum.findDefault());
         reply.setTopic(topic);
         reply.setTitle(title);
-        reply.setUname(uname);
-        reply.setUemail(uemail);
-        reply.setUsite(usite);
+        reply.setPostNickName(uname);
         reply.setContent(content);
+        
+        Map<String, String> extMap = Maps.newConcurrentMap();
+        extMap.put("post_user_email", uemail);
+        extMap.put("post_user_site", usite);
+        reply.setExtMap(JSON.toJSONString(extMap));
 
-        this.replyDAO.insert(reply);
+        this.topicService.create(reply);
 
         // 更新主题评论次数
-        this.topicDAO.updateReply(topic, 1);
+        this.topicService.deltaReplyCount(topic, 1);
 
         // 页面跳转
         return this.redirectTo(ufrom);

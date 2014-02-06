@@ -4,21 +4,22 @@
  */
 package com.github.obullxl.jeesite.biz.mngt;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import com.github.obullxl.jeesite.dal.dto.ImageDTO;
-import com.github.obullxl.jeesite.dal.dto.ReplyDTO;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.dal.query.TopicQuery;
-import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.lang.Paginator;
-import com.github.obullxl.lang.catg.CatgUtils;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
+import com.github.obullxl.lang.das.DAS;
+import com.github.obullxl.lang.enums.OrderbyEnum;
+import com.github.obullxl.model.catg.CatgUtils;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.TopicModelEnum;
+import com.github.obullxl.model.topic.enums.TopicTopEnum;
+import com.github.obullxl.model.topic.query.TopicPageList;
+import com.github.obullxl.model.topic.query.TopicQueryForm;
 
 /**
  * 主题业务
@@ -47,28 +48,21 @@ public class TopicMngt extends AbstractMngt {
         // 统计
         List<String> catgs = CatgUtils.findBranchCodes(catg);
 
-        TopicQuery args = new TopicQuery();
-        args.setTop(ValveBoolEnum.TRUE.code());
+        TopicQueryForm form = new TopicQueryForm();
+        form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
+        form.setPage(1);
+        form.setPageSize(Integer.MAX_VALUE);
+        form.setTopEnum(TopicTopEnum.CATEGORY);
 
         if (CollectionUtils.isNotEmpty(catgs)) {
-            args.setCatgs(catgs);
+            form.setCatgs(catgs);
         }
 
-        int count = (int) this.topicDAO.findFuzzyCount(args);
+        // 查询
+        List<TopicModel> topics = this.topicService.findPage(form);
 
-        Paginator pager = new Paginator(Integer.MAX_VALUE, count);
+        Paginator pager = new Paginator(Integer.MAX_VALUE, topics.size());
         pager.setPageNo(1);
-
-        // 明细
-        List<TopicDTO> topics = null;
-        if (count <= 0) {
-            topics = new ArrayList<TopicDTO>();
-        } else {
-            args.setOffset(pager.getOffset());
-            args.setPageSize(pager.getPageSize());
-
-            topics = this.topicDAO.findFuzzy(args);
-        }
 
         // 分页结果
         tpl = new TopicPageList(pager, topics);
@@ -97,33 +91,20 @@ public class TopicMngt extends AbstractMngt {
             return tpl;
         }
 
-        // 统计
+        // 分页查询
+        TopicQueryForm form = new TopicQueryForm();
+        form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
+        form.setCount(true);
+        form.setPage(page);
+        form.setPageSize(CfgWebX.findFrontPageSize());
+
         List<String> catgs = CatgUtils.findBranchCodes(catg);
-
-        TopicQuery args = new TopicQuery();
         if (CollectionUtils.isNotEmpty(catgs)) {
-            args.setCatgs(catgs);
-        }
-
-        int count = (int) this.topicDAO.findFuzzyCount(args);
-        int pageSize = CfgWebX.findFrontPageSize();
-
-        Paginator pager = new Paginator(pageSize, count);
-        pager.setPageNo(page);
-
-        // 明细
-        List<TopicDTO> topics = null;
-        if (count <= 0) {
-            topics = new ArrayList<TopicDTO>();
-        } else {
-            args.setOffset(pager.getOffset());
-            args.setPageSize(pager.getPageSize());
-
-            topics = this.topicDAO.findFuzzy(args);
+            form.setCatgs(catgs);
         }
 
         // 分页结果
-        tpl = new TopicPageList(pager, topics);
+        tpl = this.topicService.findPageList(form);
         super.putTopicPage(ckey, tpl);
 
         if (logger.isInfoEnabled()) {
@@ -137,9 +118,9 @@ public class TopicMngt extends AbstractMngt {
     /**
      * 查询主题详情
      */
-    public TopicDTO findTopic(String id) {
+    public TopicModel findTopic(String id) {
         String ckey = "topic-info-" + id;
-        TopicDTO topic = super.getTopic(ckey);
+        TopicModel topic = super.getTopic(ckey);
         if (topic != null) {
             if (logger.isInfoEnabled()) {
                 logger.info("TopicMngt.findTopic({})-缓存命中!", id);
@@ -148,7 +129,7 @@ public class TopicMngt extends AbstractMngt {
             return topic;
         }
 
-        topic = this.topicDAO.find(id);
+        topic = this.topicService.findByID(id);
 
         if (logger.isInfoEnabled()) {
             logger.info("TopicMngt.findTopic({})-更新缓存!", id);
@@ -161,9 +142,9 @@ public class TopicMngt extends AbstractMngt {
     /**
      * 查询主题详情，包括评论列表
      */
-    public TopicDTO findDetail(String id) {
+    public TopicModel findDetail(String id) {
         String ckey = "topic-detail-" + id;
-        TopicDTO topic = super.getTopic(ckey);
+        TopicModel topic = super.getTopic(ckey);
         if (topic != null) {
             if (logger.isInfoEnabled()) {
                 logger.info("TopicMngt.findDetail({})-缓存命中!", id);
@@ -172,14 +153,18 @@ public class TopicMngt extends AbstractMngt {
             return topic;
         }
 
-        topic = this.topicDAO.find(id);
+        topic = this.topicService.findByID(id);
         if (topic != null) {
-            List<ReplyDTO> replys = this.replyDAO.findTopic(id);
-            if (replys != null) {
-                topic.setReplys(replys);
+            TopicQueryForm form = new TopicQueryForm();
+            form.setModelEnum(TopicModelEnum.BLOG_REPLY);
+            form.setTopicId(id);
+
+            List<TopicModel> replys = this.topicService.findPage(form);
+            if (replys != null && !replys.isEmpty()) {
+                topic.getExtData().put("replys", replys);
             }
         } else {
-            topic = new TopicDTO();
+            topic = new TopicModel();
         }
 
         if (logger.isInfoEnabled()) {
@@ -193,9 +178,9 @@ public class TopicMngt extends AbstractMngt {
     /**
      * 阅读排行榜
      */
-    public List<TopicDTO> findTopVisit(String catg) {
+    public List<TopicModel> findTopVisit(String catg) {
         String ckey = "topic-top-visit-" + catg;
-        List<TopicDTO> topics = super.getTopics(ckey);
+        List<TopicModel> topics = super.getTopics(ckey);
         if (topics != null) {
             if (logger.isInfoEnabled()) {
                 logger.info("TopicMngt.findTopVisit({})-缓存命中!", catg);
@@ -203,15 +188,21 @@ public class TopicMngt extends AbstractMngt {
 
             return topics;
         }
+        
+        TopicQueryForm form = new TopicQueryForm();
+        form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
+        form.setPage(1);
+        form.setPageSize(CfgWebX.findFrontTopSize());
+        
+        form.setOrderbyEnum(OrderbyEnum.DESC);
+        form.setOrderbyField(DAS.TOPIC.VISIT_COUNT);
 
         List<String> catgs = CatgUtils.findBranchCodes(catg);
-        int size = CfgWebX.findFrontTopSize();
-
-        if (CollectionUtils.isEmpty(catgs)) {
-            topics = this.topicDAO.findTopVisit(null, size);
-        } else {
-            topics = this.topicDAO.findTopVisit(catgs, size);
+        if (CollectionUtils.isNotEmpty(catgs)) {
+            form.setCatgs(catgs);
         }
+        
+        topics = this.topicService.findPage(form);
 
         if (logger.isInfoEnabled()) {
             logger.info("TopicMngt.findTopVisit({})-更新缓存!", catg);
@@ -224,9 +215,9 @@ public class TopicMngt extends AbstractMngt {
     /**
      * 阅读排行榜
      */
-    public List<TopicDTO> findTopReply(String catg) {
+    public List<TopicModel> findTopReply(String catg) {
         String ckey = "topic-top-reply-" + catg;
-        List<TopicDTO> topics = super.getTopics(ckey);
+        List<TopicModel> topics = super.getTopics(ckey);
         if (topics != null) {
             if (logger.isInfoEnabled()) {
                 logger.info("TopicMngt.findTopReply({})-缓存命中!", catg);
@@ -235,14 +226,20 @@ public class TopicMngt extends AbstractMngt {
             return topics;
         }
 
-        List<String> catgs = CatgUtils.findBranchCodes(catg);
-        int size = CfgWebX.findFrontTopSize();
+        TopicQueryForm form = new TopicQueryForm();
+        form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
+        form.setPage(1);
+        form.setPageSize(CfgWebX.findFrontTopSize());
+        
+        form.setOrderbyEnum(OrderbyEnum.DESC);
+        form.setOrderbyField(DAS.TOPIC.REPLY_COUNT);
 
-        if (CollectionUtils.isEmpty(catgs)) {
-            topics = this.topicDAO.findTopReply(null, size);
-        } else {
-            topics = this.topicDAO.findTopReply(catgs, size);
+        List<String> catgs = CatgUtils.findBranchCodes(catg);
+        if (CollectionUtils.isNotEmpty(catgs)) {
+            form.setCatgs(catgs);
         }
+        
+        topics = this.topicService.findPage(form);
 
         if (logger.isInfoEnabled()) {
             logger.info("TopicMngt.findTopReply({})-更新缓存!", catg);

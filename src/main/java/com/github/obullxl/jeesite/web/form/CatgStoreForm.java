@@ -9,7 +9,7 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.github.obullxl.jeesite.dal.DBSize;
+import com.github.obullxl.lang.das.DAS;
 import com.github.obullxl.lang.web.form.AbstractForm;
 import com.github.obullxl.lang.web.form.EnumBaseValidate;
 
@@ -22,25 +22,25 @@ import com.github.obullxl.lang.web.form.EnumBaseValidate;
 public class CatgStoreForm extends AbstractForm {
     private static final long serialVersionUID = -273118024735820451L;
 
-    @Size(max = DBSize.Catg.CATG_MAX)
+    @Size(max = DAS.CATG.CATG_MAX)
     private String            ctgCatg;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Catg.CODE_MAX)
+    @Size(min = 1, max = DAS.CATG.CODE_MAX)
     private String            ctgCode;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Catg.SORT_MAX)
+    @Size(min = 1, max = DAS.CATG.SORT_MAX)
     private String            ctgSort;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Catg.TITLE_MAX)
+    @Size(min = 1, max = DAS.CATG.TITLE_MAX)
     private String            ctgTitle;
 
-    @Size(max = DBSize.Catg.EXT_MAP_MAX)
+    @Size(max = DAS.CATG.EXT_MAP_MAX)
     private String            ctgExtMap;
 
-    @Size(max = DBSize.Catg.SUMMARY_MAX)
+    @Size(max = DAS.CATG.SUMMARY_MAX)
     private String            ctgSummary;
 
     /** 

@@ -61,15 +61,15 @@
 		<middlegen configfile="${middlegen.config.file}" tabs="*" prefsdir="${dir.target}">
 			<iwallet destination="" mergedir="${middlegen.templates}/mergedir" package="${middlegen.package}">
 				<!-- 生成数据对象(DataObject)基类 -->
+				<!--
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/base-dto.vm" filename="dal/dto/BaseDTO.java" />
-
+				-->
+				
 				<!-- 为每一张表生成一个数据对象类 -->
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/dto.vm" filename="dal/dto/{0}DTO.java" />
                 
 				<!-- 为每一张表生成一个数据表字段类 -->
-				<!--
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/db-size.vm" filename="dal/DBSize.java" />              
-				-->
 				<fileproducer destination="${middlegen.destination}/java/${middlegen.package.dir}" template="${middlegen.templates}/dto-valve.vm" filename="dal/valve/{0}Valve.java" justNew="true" />
 				
 				<!-- 生成通用的DAO接口类 -->

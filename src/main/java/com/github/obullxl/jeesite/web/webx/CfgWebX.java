@@ -14,11 +14,11 @@ import org.apache.commons.lang.math.NumberUtils;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
-import com.github.obullxl.lang.cfg.CfgDTO;
-import com.github.obullxl.lang.cfg.CfgUtils;
 import com.github.obullxl.lang.spring.ServletReadyEvent;
 import com.github.obullxl.lang.web.WebContext;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.cfg.CfgModel;
+import com.github.obullxl.model.cfg.CfgUtils;
 
 /**
  * 参数配置X工具
@@ -51,7 +51,7 @@ public class CfgWebX implements WebX, ApplicationListener<ServletReadyEvent> {
     /**
      * 获取系统参数
      */
-    public static CfgDTO findConfig(String catg, String name) {
+    public static CfgModel findConfig(String catg, String name) {
         return CfgUtils.find(catg, name);
     }
 
@@ -59,7 +59,7 @@ public class CfgWebX implements WebX, ApplicationListener<ServletReadyEvent> {
      * 获取配置值
      */
     public static String findCfgValue(String catg, String name) {
-        CfgDTO cfg = findConfig(catg, name);
+        CfgModel cfg = findConfig(catg, name);
         if (cfg != null) {
             return cfg.getValue();
         }
@@ -70,9 +70,9 @@ public class CfgWebX implements WebX, ApplicationListener<ServletReadyEvent> {
     /**
      * 根据分类获取系统参数
      */
-    public static List<CfgDTO> findByCatg(String catg) {
-        List<CfgDTO> cfgs = CfgUtils.find(catg);
-        return new ArrayList<CfgDTO>(cfgs);
+    public static List<CfgModel> findByCatg(String catg) {
+        List<CfgModel> cfgs = CfgUtils.find(catg);
+        return new ArrayList<CfgModel>(cfgs);
     }
 
     /**
@@ -198,8 +198,8 @@ public class CfgWebX implements WebX, ApplicationListener<ServletReadyEvent> {
     /**
      * 获取缓存中所有系统参数
      */
-    public static List<CfgDTO> findAll() {
-        return new ArrayList<CfgDTO>(CfgUtils.find());
+    public static List<CfgModel> findAll() {
+        return new ArrayList<CfgModel>(CfgUtils.find());
     }
 
 }

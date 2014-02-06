@@ -4,14 +4,10 @@
 	<typeAliases>
 		<typeAlias alias="CrawlDTO" type="com.github.obullxl.jeesite.dal.dto.CrawlDTO"/>
 		<typeAlias alias="ImageDTO" type="com.github.obullxl.jeesite.dal.dto.ImageDTO"/>
-		<typeAlias alias="ReplyDTO" type="com.github.obullxl.jeesite.dal.dto.ReplyDTO"/>
-		<typeAlias alias="TopicDTO" type="com.github.obullxl.jeesite.dal.dto.TopicDTO"/>
 	</typeAliases>
 
 	<mappers>
 		<mapper resource="mybatis/jeesite/mysql/Crawl-mapper.xml" />
 		<mapper resource="mybatis/jeesite/mysql/Image-mapper.xml" />
-		<mapper resource="mybatis/jeesite/mysql/Reply-mapper.xml" />
-		<mapper resource="mybatis/jeesite/mysql/Topic-mapper.xml" />
 	</mappers>
 </configuration>

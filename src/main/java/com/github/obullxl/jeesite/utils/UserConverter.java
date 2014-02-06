@@ -9,8 +9,8 @@ import java.util.Date;
 import org.apache.commons.lang.StringUtils;
 
 import com.github.obullxl.lang.user.UserContext;
-import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.utils.DateUtils;
+import com.github.obullxl.model.user.UserModel;
 
 /**
  * 用户转换器
@@ -26,9 +26,9 @@ public class UserConverter {
     }
     
     /**
-     * 转换-UserDTO转换到UserContext对象
+     * 转换-UserModel转换到UserContext对象
      */
-    public static final void convert(UserContext uctx, UserDTO user) {
+    public static final void convert(UserContext uctx, UserModel user) {
         uctx.setUserNo(user.getNo());
         uctx.setUserName(user.getRealName());
         uctx.setUserEmail(user.getEmail());
@@ -36,9 +36,9 @@ public class UserConverter {
     }
 
     /**
-     * 转换-UserContext转换到UserDTO对象
+     * 转换-UserContext转换到UserModel对象
      */
-    public static final void convert(UserDTO user, UserContext uctx) {
+    public static final void convert(UserModel user, UserContext uctx) {
         user.setNo(uctx.getUserNo());
         user.setRealName(uctx.getUserName());
         user.setEmail(uctx.getUserEmail());

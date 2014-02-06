@@ -9,21 +9,24 @@
                 </ol>
             </div>
         </div>
-        <div class="panel panel-default">
-            <div class="panel-body text-success bg-info"><strong>安众贷论坛</strong>用先进的理念和创新的技术建立了一个安全、高效、诚信、透明的互联网金融平台，规范了个人借贷行为，让借入者改善生产生活，让借出者增加投资渠道。<kbd>安众贷</kbd>相信，随着互联网的发展和中国个人信用体系的健全，先进的理念和创新的技术将给民间借贷带来历史性的变革，<kbd>安众贷</kbd>将是这场变革的领导者。</div>
-            <table class="table table-hover">
-                <tbody>
-    				#set($forums=$ForumWebX.findForums())
-                    #foreach($forum in $forums)
-                    <tr>
-                        <td>
-        					<a href="$ctx/forum/forum.htm"><strong><i class="glyphicon glyphicon-chevron-right"></i> $!forum.title</strong></a>
-        					<div>$!forum.summary</div>
-        				</td>
-                    </tr>
-        			#end
-                </tbody>
-            </table>
+		
+		<div class="well well-sm"><strong><i class="glyphicon glyphicon-fire"></i>安众贷论坛</strong> 用先进的理念和创新的技术建立了一个安全、高效、诚信、透明的互联网金融平台，规范了个人借贷行为，让借入者改善生产生活，让借出者增加投资渠道。<kbd>安众贷</kbd>相信，随着互联网的发展和中国个人信用体系的健全，先进的理念和创新的技术将给民间借贷带来历史性的变革，<kbd>安众贷</kbd>将是这场变革的领导者。</div>
+		
+		<div class="row forum_list">
+			#set($forums=$ForumWebX.findForums())
+            #foreach($forum in $forums)
+    		<div class="col-md-4">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+        				<h3 class="text-success"><img src="$ctx/public/img/forum_new.gif" /> $!forum.title</h3>
+        				<p><strong>说明：</strong>$!forum.summary</p>
+                        <p><strong>版主：</strong>张三、李四</p>
+                        <p><a href="$ctx/forum/forum.htm" class="btn btn-primary" role="button"><i class="glyphicon glyphicon-fire"></i> 进入论坛 <i class="glyphicon glyphicon-forward"></i></a></p>
+                    </div>
+                </div>
+            </div>
+			#end
         </div>
     </div>
 </div>
+#parse("/forum/snip/index.vm")

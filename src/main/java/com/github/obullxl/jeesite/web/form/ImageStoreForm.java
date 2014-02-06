@@ -23,18 +23,18 @@ public class ImageStoreForm extends AbstractForm {
     private static final long serialVersionUID = 674487632807486228L;
 
     @NotNull
-    @Size(max = DBSize.Image.TOPIC_MAX)
+    @Size(max = DBSize.IMAGE.TOPIC_MAX)
     private String            imgTopic;
 
     @NotNull
-    @Size(max = DBSize.Image.TITLE_MAX)
+    @Size(max = DBSize.IMAGE.TITLE_MAX)
     private String            imgTitle;
 
-    @Size(max = DBSize.Image.URL_MAX)
+    @Size(max = DBSize.IMAGE.URL_MAX)
     private String            imgNetUrl;
 
     @NotNull
-    @Size(max = DBSize.Image.SUMMARY_MAX)
+    @Size(max = DBSize.IMAGE.SUMMARY_MAX)
     private String            imgSummary;
 
     /** 

@@ -7,8 +7,8 @@ package com.github.obullxl.jeesite.web.form;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.github.obullxl.jeesite.dal.DBSize;
 import com.github.obullxl.lang.ToString;
+import com.github.obullxl.lang.das.DAS;
 
 /**
  * 系统参数存储表单
@@ -20,21 +20,21 @@ public class CfgStoreForm extends ToString {
     private static final long serialVersionUID = -6853737465217652787L;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Cfg.CATG_MAX)
+    @Size(min = 1, max = DAS.CFG.CATG_MAX)
     private String            cfgCatg;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Cfg.NAME_MAX)
+    @Size(min = 1, max = DAS.CFG.NAME_MAX)
     private String            cfgName;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Cfg.TITLE_MAX)
+    @Size(min = 1, max = DAS.CFG.TITLE_MAX)
     private String            cfgTitle;
 
-    @Size(max = DBSize.Cfg.VALUE_MAX)
+    @Size(max = DAS.CFG.VALUE_MAX)
     private String            cfgValue;
 
-    @Size(max = DBSize.Cfg.VALUE_EXT_MAX)
+    @Size(max = DAS.CFG.VALUE_EXT_MAX)
     private String            cfgValueExt;
 
     // ~~~~~~~~~~~~ getters and setters ~~~~~~~~~~~~~~ //

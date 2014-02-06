@@ -11,12 +11,12 @@ import org.springframework.stereotype.Component;
 
 import com.github.obullxl.lang.ObjectMap;
 import com.github.obullxl.lang.Paginator;
-import com.github.obullxl.lang.catg.ForumDTO;
-import com.github.obullxl.lang.catg.ForumUtils;
-import com.github.obullxl.lang.topic.TopicDTO;
-import com.github.obullxl.lang.topic.TopicPageList;
-import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.catg.forum.ForumModel;
+import com.github.obullxl.model.catg.forum.ForumUtils;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.query.TopicPageList;
+import com.github.obullxl.model.user.UserModel;
 import com.google.common.collect.Lists;
 
 /**
@@ -35,14 +35,14 @@ public class ForumWebX implements WebX {
     /**
      * 获取所有论坛
      */
-    public List<ForumDTO> findForums() {
+    public List<ForumModel> findForums() {
         return ForumUtils.find();
     }
 
     /**
      * 根据论坛代码获取论坛
      */
-    public ForumDTO findForum(String code) {
+    public ForumModel findForum(String code) {
         return ForumUtils.find(code);
     }
     
@@ -64,7 +64,7 @@ public class ForumWebX implements WebX {
         Paginator pager = new Paginator(pageSize, count);
         pager.setPageNo(1);
         
-        List<TopicDTO> topics = this.newTopics(pageSize);
+        List<TopicModel> topics = this.newTopics(pageSize);
         
         om.put("PageList", new TopicPageList(pager, topics));
         
@@ -74,15 +74,15 @@ public class ForumWebX implements WebX {
     /**
      * 根据ID获取论坛主题
      */
-    public TopicDTO findTopic(String id) {
+    public TopicModel findTopic(String id) {
         return this.newTopics(1).get(0);
     }
     
     /**
      * 获取论坛主题发表者信息
      */
-    public UserDTO findPostUser(String userNo) {
-        UserDTO user = new UserDTO();
+    public UserModel findPostUser(String userNo) {
+        UserModel user = new UserModel();
         
         user.setNo(userNo);
         user.setNickName("老牛啊");
@@ -92,11 +92,11 @@ public class ForumWebX implements WebX {
         return user;
     }
 
-    private List<TopicDTO> newTopics(int n) {
-        List<TopicDTO> topics = Lists.newArrayList();
+    private List<TopicModel> newTopics(int n) {
+        List<TopicModel> topics = Lists.newArrayList();
 
         for (int i = 1; i <= n; i++) {
-            TopicDTO topic = new TopicDTO();
+            TopicModel topic = new TopicModel();
             topics.add(topic);
 
             topic.setId("" + i);

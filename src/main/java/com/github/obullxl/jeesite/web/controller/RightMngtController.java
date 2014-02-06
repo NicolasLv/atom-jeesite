@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.biz.BizResponse;
-import com.github.obullxl.lang.cfg.RightDTO;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
-import com.github.obullxl.lang.relate.UserRightDTO;
-import com.github.obullxl.lang.user.UserDTO;
+import com.github.obullxl.model.cfg.right.RightModel;
+import com.github.obullxl.model.cfg.right.RightUtils;
+import com.github.obullxl.model.relate.userright.UserRightModel;
+import com.github.obullxl.model.relate.userright.UserRightUtils;
+import com.github.obullxl.model.user.UserModel;
 
 /**
  * 权限管理控制器
@@ -58,14 +59,14 @@ public class RightMngtController extends AbstractController {
             }
 
             // 存在性
-            RightDTO rgt = this.rightService.find(code);
+            RightModel rgt = RightUtils.find(code);
             if (rgt != null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_HAS_EXIST);
                 return response;
             }
 
             // 新增
-            rgt = new RightDTO();
+            rgt = new RightModel();
             rgt.setCode(code);
             rgt.setName(name);
 
@@ -103,7 +104,7 @@ public class RightMngtController extends AbstractController {
             }
 
             // 存在性
-            RightDTO rgt = this.rightService.find(code);
+            RightModel rgt = RightUtils.find(code);
             if (rgt == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -145,13 +146,13 @@ public class RightMngtController extends AbstractController {
         BizResponse response = this.newBizResponse();
 
         try {
-            UserDTO user = this.userService.findByNo(userNo);
-            if (user != null && (user.findValve().gotAdmin() != ValveBoolEnum.TRUE)) {
-                UserRightDTO userRgt = this.userRightService.findByUnique(userNo, rgtCode);
-                if (userRgt == null) {
-                    RightDTO right = this.rightService.find(rgtCode);
+            UserModel user = this.userService.findByNo(userNo);
+            if (user != null && (!user.getMngtEnum().is())) {
+                boolean exist = UserRightUtils.existUserRight(userNo, rgtCode);
+                if (!exist) {
+                    RightModel right = RightUtils.find(rgtCode);
 
-                    userRgt = new UserRightDTO();
+                    UserRightModel userRgt = new UserRightModel();
                     userRgt.setUserNo(userNo);
                     userRgt.setNickName(user.getNickName());
                     userRgt.setRgtCode(rgtCode);
@@ -182,7 +183,7 @@ public class RightMngtController extends AbstractController {
         BizResponse response = this.newBizResponse();
 
         try {
-            UserDTO user = this.userService.findByNo(userNo);
+            UserModel user = this.userService.findByNo(userNo);
             if (user != null) {
                 this.userRightService.removeByUnique(userNo, rgtCode);
             }

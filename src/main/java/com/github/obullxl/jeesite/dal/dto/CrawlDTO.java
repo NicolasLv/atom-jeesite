@@ -6,6 +6,8 @@ package com.github.obullxl.jeesite.dal.dto;
 
 
 
+import com.github.obullxl.lang.biz.BaseDTO;
+
 /**
  * A data object class directly models database table <tt>atom_crawl</tt>.
  */

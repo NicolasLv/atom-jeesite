@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.biz.mngt.TopicMngt;
 import com.github.obullxl.jeesite.dal.dto.ImageDTO;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.web.result.TopicPageList;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.query.TopicPageList;
 
 /**
  * 主题X工具
@@ -45,28 +45,28 @@ public class TopicWebX implements WebX {
     /**
      * 查询主题详情
      */
-    public TopicDTO findTopic(String id) {
+    public TopicModel findTopic(String id) {
         return this.topicMngt.findTopic(id);
     }
 
     /**
      * 查询主题详情，包括评论列表
      */
-    public TopicDTO findDetail(String id) {
+    public TopicModel findDetail(String id) {
         return this.topicMngt.findDetail(id);
     }
 
     /**
      * 阅读排行榜
      */
-    public List<TopicDTO> findTopVisit(String catg) {
+    public List<TopicModel> findTopVisit(String catg) {
         return this.topicMngt.findTopVisit(catg);
     }
 
     /**
      * 阅读排行榜
      */
-    public List<TopicDTO> findTopReply(String catg) {
+    public List<TopicModel> findTopReply(String catg) {
         return this.topicMngt.findTopReply(catg);
     }
 

@@ -13,11 +13,14 @@
 	<!-- ===================================== -->
 	<!-- 模块分类服务配置 -->
 	<!-- ===================================== -->
-	<bean id="catgService" class="com.github.obullxl.lang.catg.DefaultCatgService" init-method="init">
+	<bean id="catgService" class="com.github.obullxl.model.catg.service.impl.CatgServiceImpl" init-method="init">
 		<property name="catgDAO">
-			<bean class="com.github.obullxl.lang.catg.CatgDAO" init-method="init">
+			<bean class="com.github.obullxl.model.catg.dao.impl.DefaultCatgDAO" init-method="init">
 				<property name="dataSource" ref="jeesiteDataSource" />
 				<property name="tableName" value="atom_catg" />
+				<property name="createTableSQL">
+					<value>classpath:/model-sql/catg-MySQL.sql</value>
+				</property>
 			</bean>
 		</property>
 	</bean>
@@ -25,18 +28,21 @@
 	<!-- ===================================== -->
 	<!-- 论坛模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="forumService" class="com.github.obullxl.lang.catg.DefaultForumService" init-method="init">
+	<bean id="forumService" class="com.github.obullxl.model.catg.service.impl.ForumServiceImpl" init-method="init">
 		<property name="catgService" ref="catgService" />
 	</bean>
 
 	<!-- ===================================== -->
 	<!-- 系统参数服务配置 -->
 	<!-- ===================================== -->
-	<bean id="cfgService" class="com.github.obullxl.lang.cfg.DefaultCfgService" init-method="init">
+	<bean id="cfgService" class="com.github.obullxl.model.cfg.service.impl.CfgServiceImpl" init-method="init">
 		<property name="cfgDAO">
-			<bean class="com.github.obullxl.lang.cfg.CfgDAO" init-method="init">
+			<bean class="com.github.obullxl.model.cfg.dao.impl.DefaultCfgDAO" init-method="init">
 				<property name="dataSource" ref="jeesiteDataSource" />
 				<property name="tableName" value="atom_cfg" />
+				<property name="createTableSQL">
+					<value>classpath:/model-sql/cfg-MySQL.sql</value>
+				</property>
 			</bean>
 		</property>
 	</bean>
@@ -44,18 +50,21 @@
 	<!-- ===================================== -->
 	<!-- 权限模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="rightService" class="com.github.obullxl.lang.cfg.DefaultRightService" init-method="init">
+	<bean id="rightService" class="com.github.obullxl.model.cfg.service.impl.RightServiceImpl" init-method="init">
 		<property name="cfgService" ref="cfgService" />
 	</bean>
 
 	<!-- ===================================== -->
 	<!-- 关系模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="relateService" class="com.github.obullxl.lang.relate.DefaultRelateService" init-method="init">
+	<bean id="relateService" class="com.github.obullxl.model.relate.service.impl.RelateServiceImpl" init-method="init">
 		<property name="relateDAO">
-			<bean class="com.github.obullxl.lang.relate.RelateDAO" init-method="init">
+			<bean class="com.github.obullxl.model.relate.dao.impl.DefaultRelateDAO" init-method="init">
 				<property name="dataSource" ref="jeesiteDataSource" />
 				<property name="tableName" value="atom_relate" />
+				<property name="createTableSQL">
+					<value>classpath:/model-sql/relate-MySQL.sql</value>
+				</property>
 			</bean>
 		</property>
 	</bean>
@@ -63,25 +72,28 @@
 	<!-- ===================================== -->
 	<!-- 论坛管理员模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="forumUserService" class="com.github.obullxl.lang.relate.DefaultForumUserService" init-method="init">
+	<bean id="forumUserService" class="com.github.obullxl.model.relate.service.impl.ForumUserServiceImpl" init-method="init">
 		<property name="relateService" ref="relateService" />
 	</bean>
 
 	<!-- ===================================== -->
 	<!-- 用户权限模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="userRightService" class="com.github.obullxl.lang.relate.DefaultUserRightService" init-method="init">
+	<bean id="userRightService" class="com.github.obullxl.model.relate.service.impl.UserRightServiceImpl" init-method="init">
 		<property name="relateService" ref="relateService" />
 	</bean>
 
 	<!-- ===================================== -->
 	<!-- 主题模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="topicService" class="com.github.obullxl.lang.topic.DefaultTopicService" init-method="init">
+	<bean id="topicService" class="com.github.obullxl.model.topic.service.impl.TopicServiceImpl" init-method="init">
 		<property name="topicDAO">
-			<bean class="com.github.obullxl.lang.topic.TopicDAO" init-method="init">
+			<bean class="com.github.obullxl.model.topic.dao.impl.DefaultTopicDAO" init-method="init">
 				<property name="dataSource" ref="jeesiteDataSource" />
 				<property name="tableName" value="atom_topic" />
+				<property name="createTableSQL">
+					<value>classpath:/model-sql/topic-MySQL.sql</value>
+				</property>
 			</bean>
 		</property>
 	</bean>
@@ -89,11 +101,14 @@
 	<!-- ===================================== -->
 	<!-- 用户模型服务配置 -->
 	<!-- ===================================== -->
-	<bean id="userService" class="com.github.obullxl.lang.user.DefaultUserService" init-method="init">
+	<bean id="userService" class="com.github.obullxl.model.user.service.impl.UserServiceImpl" init-method="init">
 		<property name="userDAO">
-			<bean class="com.github.obullxl.lang.user.UserDAO" init-method="init">
+			<bean class="com.github.obullxl.model.user.dao.impl.DefaultUserDAO" init-method="init">
 				<property name="dataSource" ref="jeesiteDataSource" />
 				<property name="tableName" value="atom_user" />
+				<property name="createTableSQL">
+					<value>classpath:/model-sql/user-MySQL.sql</value>
+				</property>
 			</bean>
 		</property>
 	</bean>

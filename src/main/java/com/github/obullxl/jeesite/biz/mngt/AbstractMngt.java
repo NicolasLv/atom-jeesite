@@ -10,14 +10,13 @@ import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.github.obullxl.jeesite.dal.dao.ImageDAO;
-import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
-import com.github.obullxl.jeesite.dal.dao.TopicDAO;
 import com.github.obullxl.jeesite.dal.dto.ImageDTO;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.web.result.TopicPageList;
-import com.github.obullxl.lang.user.UserDTO;
 import com.github.obullxl.lang.utils.CacheUtils;
 import com.github.obullxl.lang.utils.LogUtils;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.query.TopicPageList;
+import com.github.obullxl.model.topic.service.TopicService;
+import com.github.obullxl.model.user.UserModel;
 
 /**
  * 通用业务
@@ -40,15 +39,11 @@ public class AbstractMngt {
 
     /** 主题DAO */
     @Autowired
-    protected TopicDAO            topicDAO;
+    protected TopicService        topicService;
 
     /** 图片DAO */
     @Autowired
     protected ImageDAO            imageDAO;
-
-    /** 评论DAO */
-    @Autowired
-    protected ReplyDAO            replyDAO;
 
     // ~~~~~~~~~~~~~~~~~~~ 用户区域 ~~~~~~~~~~~~~~~~~~~ //
 
@@ -71,7 +66,7 @@ public class AbstractMngt {
     /**
      * 缓存单个用户
      */
-    public final AbstractMngt putUser(String key, UserDTO value) {
+    public final AbstractMngt putUser(String key, UserModel value) {
         CacheUtils.put(USER_CACHE_KEY, key, value);
         return this;
     }
@@ -79,7 +74,7 @@ public class AbstractMngt {
     /**
      * 获取缓存用户
      */
-    public final UserDTO getUser(String key) {
+    public final UserModel getUser(String key) {
         return CacheUtils.get(USER_CACHE_KEY, key);
     }
 
@@ -104,7 +99,7 @@ public class AbstractMngt {
     /**
      * 缓存单个主题
      */
-    public final AbstractMngt putTopic(String key, TopicDTO value) {
+    public final AbstractMngt putTopic(String key, TopicModel value) {
         CacheUtils.put(TOPIC_CACHE_KEY, key, value);
         return this;
     }
@@ -112,7 +107,7 @@ public class AbstractMngt {
     /**
      * 缓存主题列表
      */
-    public final AbstractMngt putTopics(String key, List<TopicDTO> value) {
+    public final AbstractMngt putTopics(String key, List<TopicModel> value) {
         CacheUtils.put(TOPIC_CACHE_KEY, key, value);
         return this;
     }
@@ -128,14 +123,14 @@ public class AbstractMngt {
     /**
      * 获取缓存主题
      */
-    public final TopicDTO getTopic(String key) {
+    public final TopicModel getTopic(String key) {
         return CacheUtils.get(TOPIC_CACHE_KEY, key);
     }
 
     /**
      * 获取缓存主题列表
      */
-    public final List<TopicDTO> getTopics(String key) {
+    public final List<TopicModel> getTopics(String key) {
         return CacheUtils.get(TOPIC_CACHE_KEY, key);
     }
 

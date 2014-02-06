@@ -14,12 +14,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.web.enums.UserRightEnum;
-import com.github.obullxl.lang.cfg.RightDTO;
-import com.github.obullxl.lang.cfg.RightUtils;
-import com.github.obullxl.lang.relate.UserRightDTO;
-import com.github.obullxl.lang.relate.UserRightService;
 import com.github.obullxl.lang.user.UserContextUtils;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.cfg.right.RightModel;
+import com.github.obullxl.model.cfg.right.RightUtils;
+import com.github.obullxl.model.relate.service.UserRightService;
+import com.github.obullxl.model.relate.userright.UserRightModel;
+import com.github.obullxl.model.relate.userright.UserRightUtils;
 
 /**
  * 权限X工具
@@ -37,14 +38,14 @@ public class RgtWebX implements WebX {
     /**
      * 查询权限
      */
-    public RightDTO find(String code) {
+    public RightModel find(String code) {
         return RightUtils.find(code);
     }
 
     /**
      * 获取所有权限
      */
-    public List<RightDTO> findAll() {
+    public List<RightModel> findAll() {
         return RightUtils.find();
     }
 
@@ -90,15 +91,15 @@ public class RgtWebX implements WebX {
     /**
      * 获取用户所有权限
      */
-    public List<UserRightDTO> findUserRgts(String userNo) {
-        return this.userRightService.findByUserNo(userNo);
+    public List<UserRightModel> findUserRgts(String userNo) {
+        return UserRightUtils.findByUserNo(userNo);
     }
 
     /**
      * 判断是否为集合中权限
      */
-    public boolean isRgtSet(String rgtCode, List<RightDTO> rights) {
-        for (RightDTO right : rights) {
+    public boolean isRgtSet(String rgtCode, List<RightModel> rights) {
+        for (RightModel right : rights) {
             if (StringUtils.equals(rgtCode, right.getCode())) {
                 return true;
             }

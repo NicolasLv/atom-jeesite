@@ -18,25 +18,24 @@ import org.springframework.web.bind.annotation.InitBinder;
 
 import com.github.obullxl.jeesite.dal.dao.CrawlDAO;
 import com.github.obullxl.jeesite.dal.dao.ImageDAO;
-import com.github.obullxl.jeesite.dal.dao.ReplyDAO;
-import com.github.obullxl.jeesite.dal.dao.TopicDAO;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
-import com.github.obullxl.jeesite.dal.valve.TopicValve;
-import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
-import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
-import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
 import com.github.obullxl.lang.biz.BizResponse;
-import com.github.obullxl.lang.catg.CatgService;
-import com.github.obullxl.lang.cfg.CfgService;
-import com.github.obullxl.lang.cfg.RightService;
 import com.github.obullxl.lang.enums.EnumBase;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
-import com.github.obullxl.lang.relate.UserRightService;
 import com.github.obullxl.lang.spring.DatePropertyEditor;
-import com.github.obullxl.lang.user.UserDTO;
-import com.github.obullxl.lang.user.UserService;
 import com.github.obullxl.lang.utils.LogUtils;
 import com.github.obullxl.lang.web.WebContext;
+import com.github.obullxl.model.catg.service.CatgService;
+import com.github.obullxl.model.cfg.service.CfgService;
+import com.github.obullxl.model.cfg.service.RightService;
+import com.github.obullxl.model.relate.service.UserRightService;
+import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.TopicModelEnum;
+import com.github.obullxl.model.topic.enums.TopicMediaEnum;
+import com.github.obullxl.model.topic.enums.TopicStateEnum;
+import com.github.obullxl.model.topic.enums.TopicTopEnum;
+import com.github.obullxl.model.topic.service.TopicService;
+import com.github.obullxl.model.user.UserModel;
+import com.github.obullxl.model.user.service.UserService;
 import com.github.obullxl.ticket.TicketService;
 
 /**
@@ -121,21 +120,17 @@ public abstract class AbstractController {
     @Autowired
     protected UserRightService    userRightService;
 
+    /** 主题模型服务 */
+    @Autowired
+    protected TopicService        topicService;
+
     /** 爬虫DAO */
     @Autowired
     protected CrawlDAO            crawlDAO;
 
-    /** 主题DAO */
-    @Autowired
-    protected TopicDAO            topicDAO;
-
     /** 图片DAO */
     @Autowired
     protected ImageDAO            imageDAO;
-
-    /** 评论DAO */
-    @Autowired
-    protected ReplyDAO            replyDAO;
 
     /** 校验器 */
     @Autowired
@@ -222,7 +217,7 @@ public abstract class AbstractController {
 
         return "/forum" + name;
     }
-    
+
     /**
      * 获取帮助视图名
      */
@@ -233,7 +228,7 @@ public abstract class AbstractController {
 
         return "/help" + name;
     }
-    
+
     /**
      * 获取用户中心视图名
      */
@@ -297,8 +292,8 @@ public abstract class AbstractController {
     /**
      * 新增初始化用户
      */
-    public UserDTO newInitUser() {
-        UserDTO user = new UserDTO();
+    public UserModel newInitUser() {
+        UserModel user = new UserModel();
 
         return user;
     }
@@ -306,16 +301,16 @@ public abstract class AbstractController {
     /**
      * 新增初始化主题
      */
-    public TopicDTO newInitTopic() {
-        TopicDTO topic = new TopicDTO();
+    public TopicModel newInitTopic() {
+        TopicModel topic = new TopicModel();
+        topic.setModelEnum(TopicModelEnum.BLOG_TOPIC);
 
-        TopicValve valve = topic.findValve();
-        valve.sotState(TopicStateEnum.findDefault());
-        valve.sotTop(ValveBoolEnum.findDefault());
-        valve.sotLink(ValveBoolEnum.findDefault());
-        valve.sotMedia(TopicMediaEnum.findDefault());
-        valve.sotReply(TopicReplyEnum.findDefault());
-        topic.setFlag(valve.getValve());
+        topic.setStateEnum(TopicStateEnum.findDefault());
+        topic.setTopEnum(TopicTopEnum.findDefault());
+        topic.setEliteEnum(ValveBoolEnum.findDefault());
+        topic.setOriginalEnum(ValveBoolEnum.findDefault());
+        topic.setMediaEnum(TopicMediaEnum.findDefault());
+        topic.setReplyEnum(ValveBoolEnum.findDefault());
 
         // topic.setCatg(TopicCatgEnum.findInit().code());
         topic.setLinkUrl(StringUtils.EMPTY);

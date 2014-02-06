@@ -4,15 +4,8 @@
  */
 package com.github.obullxl.jeesite.web.form;
 
-import java.util.List;
-
-import org.apache.commons.collections.CollectionUtils;
-import org.apache.commons.lang.StringUtils;
-
-import com.github.obullxl.jeesite.dal.query.TopicQuery;
 import com.github.obullxl.lang.ToString;
-import com.github.obullxl.lang.catg.CatgUtils;
-import com.github.obullxl.lang.utils.QueryLikeUtils;
+import com.github.obullxl.model.topic.query.TopicQueryForm;
 
 /**
  * 主题查询表单
@@ -20,7 +13,7 @@ import com.github.obullxl.lang.utils.QueryLikeUtils;
  * @author obullxl@gmail.com
  * @version $Id: TopicQueryForm.java, V1.0.1 2013年12月28日 下午12:47:49 $
  */
-public class TopicQueryForm extends ToString {
+public class TopicSelectForm extends ToString {
     private static final long  serialVersionUID = 3566482674275741781L;
 
     public static final String FUZZY            = "fuzzy";
@@ -37,32 +30,16 @@ public class TopicQueryForm extends ToString {
     private String             tpcLink;
     private String             tpcMedia;
     private String             tpcReply;
-    private String               tpcCatg;
+    private String             tpcCatg;
     private String             tpcCatgText;
     private String             tpcTitle;
-
-    public TopicQuery to() {
-        TopicQuery dst = new TopicQuery();
-
-        if (StringUtils.equalsIgnoreCase(this.formCatg, SINGLE)) {
-            dst.setId(StringUtils.trimToNull(this.tpcId));
-        } else {
-            dst.setState(StringUtils.trimToNull(this.tpcState));
-            dst.setTop(StringUtils.trimToNull(this.tpcTop));
-            dst.setLink(StringUtils.trimToNull(this.tpcLink));
-            dst.setMedia(StringUtils.trimToNull(this.tpcMedia));
-            dst.setReply(StringUtils.trimToNull(this.tpcReply));
-
-            if (StringUtils.isNotBlank(this.tpcCatg)) {
-                List<String> codes = CatgUtils.findBranchCodes(this.tpcCatg);
-                if (CollectionUtils.isNotEmpty(codes)) {
-                    dst.setCatgs(codes);
-                }
-            }
-
-            dst.setTitle(QueryLikeUtils.format(this.tpcTitle));
-        }
-
+    
+    public TopicQueryForm to() {
+        TopicQueryForm dst = new TopicQueryForm();
+        
+        // TODO:
+        
+        
         return dst;
     }
 
@@ -113,7 +90,6 @@ public class TopicQueryForm extends ToString {
     public void setTpcReply(String tpcReply) {
         this.tpcReply = tpcReply;
     }
-
 
     public String getTpcLink() {
         return tpcLink;

@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.github.obullxl.jeesite.dal.dto.ImageDTO;
-import com.github.obullxl.jeesite.dal.dto.TopicDTO;
 import com.github.obullxl.jeesite.dal.valve.ImageValve;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.ImageStoreForm;
@@ -34,6 +33,7 @@ import com.github.obullxl.lang.enums.ImageTypeEnum;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.utils.DateUtils;
 import com.github.obullxl.lang.utils.ImageUtils;
+import com.github.obullxl.model.topic.TopicModel;
 
 /**
  * 相册主题管理控制器
@@ -75,7 +75,7 @@ public class AlbumMngtController extends AbstractController {
             }
 
             // 查询
-            TopicDTO topic = this.topicDAO.find(form.getImgTopic());
+            TopicModel topic = this.topicService.findByID(form.getImgTopic());
             if (topic == null) {
                 this.setWebData("errorMessage", "原有主题不存在！");
                 return this.toAdminView(VOPT_TOPIC_MANAGE, "album-manage");
@@ -149,7 +149,7 @@ public class AlbumMngtController extends AbstractController {
     /**
      * 创建网络图片
      */
-    private void createNetwork(TopicDTO topic, ImageStoreForm form) throws Exception {
+    private void createNetwork(TopicModel topic, ImageStoreForm form) throws Exception {
         // 存储对象
         ImageDTO image = new ImageDTO();
 
@@ -189,7 +189,7 @@ public class AlbumMngtController extends AbstractController {
                 return response;
             }
 
-            TopicDTO topic = this.topicDAO.find(image.getTopic());
+            TopicModel topic = this.topicService.findByID(image.getTopic());
             if (topic == null) {
                 this.buildResponse(response, BizResponseEnum.OBJECT_NOT_EXIST);
                 return response;
@@ -243,7 +243,7 @@ public class AlbumMngtController extends AbstractController {
     /**
      * 设置相册主题封面
      */
-    private void setAlbumCover(TopicDTO topic, ImageDTO image) throws Exception {
+    private void setAlbumCover(TopicModel topic, ImageDTO image) throws Exception {
         if (StringUtils.isNotBlank(topic.getMediaUrl())) {
             return;
         }
@@ -251,7 +251,7 @@ public class AlbumMngtController extends AbstractController {
         if (StaticWebX.isNetworkURL(image.getUrl())) {
             // 网络图片
             topic.setMediaUrl(image.getUrl());
-            this.topicDAO.update(topic);
+            this.topicService.update(topic);
             return;
         }
 
@@ -271,7 +271,7 @@ public class AlbumMngtController extends AbstractController {
         // 更新
         String rpath = StringUtils.substringBeforeLast(image.getUrl(), "/");
         topic.setMediaUrl(rpath + "/" + name);
-        this.topicDAO.update(topic);
+        this.topicService.update(topic);
     }
 
     /**

@@ -10,9 +10,9 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Component;
 
-import com.github.obullxl.lang.catg.CatgDTO;
-import com.github.obullxl.lang.catg.CatgUtils;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.catg.CatgModel;
+import com.github.obullxl.model.catg.CatgUtils;
 
 /**
  * 主题分类X工具
@@ -26,7 +26,7 @@ public class CatgWebX implements WebX {
     /**
      * 获取分类
      */
-    public static CatgDTO find(String code) {
+    public static CatgModel find(String code) {
         return CatgUtils.find(code);
     }
 
@@ -34,7 +34,7 @@ public class CatgWebX implements WebX {
      * 获取分类名称
      */
     public static String findTitle(String code) {
-        CatgDTO catg = find(code);
+        CatgModel catg = find(code);
         if (catg != null) {
             return catg.getTitle();
         }
@@ -52,12 +52,12 @@ public class CatgWebX implements WebX {
     /**
      * 获取Top分类代码
      */
-    public static String findTopCode(CatgDTO catg) {
+    public static String findTopCode(CatgModel catg) {
         if (catg == null) {
             return StringUtils.EMPTY;
         }
 
-        CatgDTO parent = catg.getParent();
+        CatgModel parent = catg.getParent();
         if (parent == null) {
             return catg.getCode();
         }
@@ -75,9 +75,9 @@ public class CatgWebX implements WebX {
     /**
      * 获取缓存中所有分类信息
      */
-    public static List<CatgDTO> findAll() {
-        List<CatgDTO> catgs = CatgUtils.find();
-        return new ArrayList<CatgDTO>(catgs);
+    public static List<CatgModel> findAll() {
+        List<CatgModel> catgs = CatgUtils.find();
+        return new ArrayList<CatgModel>(catgs);
     }
 
 }

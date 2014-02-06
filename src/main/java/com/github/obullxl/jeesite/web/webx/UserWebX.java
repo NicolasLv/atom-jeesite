@@ -4,7 +4,6 @@
  */
 package com.github.obullxl.jeesite.web.webx;
 
-import java.util.List;
 import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
@@ -12,14 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.github.obullxl.jeesite.utils.UserConverter;
-import com.github.obullxl.lang.cfg.CfgCatgEnum;
-import com.github.obullxl.lang.cfg.CfgDTO;
-import com.github.obullxl.lang.cfg.CfgUtils;
-import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.user.UserContextHolder;
-import com.github.obullxl.lang.user.UserDTO;
-import com.github.obullxl.lang.user.UserService;
 import com.github.obullxl.lang.webx.WebX;
+import com.github.obullxl.model.cfg.CfgModel;
+import com.github.obullxl.model.cfg.CfgModelEnum;
+import com.github.obullxl.model.cfg.CfgUtils;
+import com.github.obullxl.model.user.UserModel;
+import com.github.obullxl.model.user.service.UserService;
 import com.google.common.collect.Sets;
 
 /**
@@ -36,16 +34,9 @@ public class UserWebX implements WebX {
     private UserService userService;
 
     /**
-     * 获取所有用户列表
-     */
-    public List<UserDTO> findAll() {
-        return this.userService.find();
-    }
-
-    /**
      * 根据编号获取用户信息
      */
-    public UserDTO findByNo(String no) {
+    public UserModel findByNo(String no) {
         return this.userService.findByNo(no);
     }
 
@@ -59,56 +50,52 @@ public class UserWebX implements WebX {
     /**
      * 判断用户是否为管理员
      */
-    public static boolean isAdmin(UserDTO user) {
-        if (user != null) {
-            return (user.findValve().gotAdmin() == ValveBoolEnum.TRUE);
-        }
-
-        return false;
+    public static boolean isAdmin(UserModel user) {
+        return user.getMngtEnum().is();
     }
 
     /**
      * 获取登录用户
      */
-    public UserDTO findSessionUser() {
-        UserDTO user = new UserDTO();
+    public UserModel findSessionUser() {
+        UserModel user = new UserModel();
         UserConverter.convert(user, UserContextHolder.get());
 
         return user;
     }
-    
+
     /**
      * 获取密保问题列表
      */
     public Set<String> findPwdQuestions() {
         // 系统参数
-        CfgDTO cfg = CfgUtils.find(CfgCatgEnum.PARAMS.code(), "passwd_question_params");
-        if(cfg == null || StringUtils.isBlank(cfg.getValue())) {
+        CfgModel cfg = CfgUtils.find(CfgModelEnum.PARAM.code(), "passwd_question_params");
+        if (cfg == null || StringUtils.isBlank(cfg.getValue())) {
             return this.findPwdDefaultQuestions();
         }
-        
+
         // 问题参数
         Set<String> questions = Sets.newConcurrentHashSet();
         String value = StringUtils.trim(cfg.getValue());
-        for(String param : StringUtils.split(value, ",")) {
-            CfgDTO tmp = CfgUtils.find(CfgCatgEnum.PARAMS.code(), param);
-            if(tmp != null && StringUtils.isNotBlank(tmp.getValue())) {
+        for (String param : StringUtils.split(value, ",")) {
+            CfgModel tmp = CfgUtils.find(CfgModelEnum.PARAM.code(), param);
+            if (tmp != null && StringUtils.isNotBlank(tmp.getValue())) {
                 String[] names = StringUtils.split(tmp.getValue(), ",");
-                for(String name : names) {
+                for (String name : names) {
                     questions.add(name);
                 }
             }
         }
-        
+
         return questions;
     }
-    
+
     /**
      * 获取默认密保问题列表
      */
     private Set<String> findPwdDefaultQuestions() {
         Set<String> set = Sets.newConcurrentHashSet();
-        
+
         set.add("您父亲的出生地是哪里？");
         set.add("您出生的医院是哪间？");
         set.add("您成长的街道叫什么路？");
@@ -122,7 +109,7 @@ public class UserWebX implements WebX {
         set.add("您的母亲的姓名是？");
         set.add("您的配偶的姓名是？");
         set.add("您最后就读的学校名是？");
-        
+
         return set;
     }
 

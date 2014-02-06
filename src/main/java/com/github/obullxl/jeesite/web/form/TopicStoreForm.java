@@ -10,13 +10,12 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import com.github.obullxl.jeesite.dal.DBSize;
-import com.github.obullxl.jeesite.web.enums.TopicMediaEnum;
-import com.github.obullxl.jeesite.web.enums.TopicReplyEnum;
-import com.github.obullxl.jeesite.web.enums.TopicStateEnum;
+import com.github.obullxl.lang.das.DAS;
 import com.github.obullxl.lang.enums.ValveBoolEnum;
 import com.github.obullxl.lang.web.form.AbstractForm;
 import com.github.obullxl.lang.web.form.EnumBaseValidate;
+import com.github.obullxl.model.topic.enums.TopicMediaEnum;
+import com.github.obullxl.model.topic.enums.TopicStateEnum;
 
 /**
  * 更新/创建主题存储表单
@@ -27,7 +26,7 @@ import com.github.obullxl.lang.web.form.EnumBaseValidate;
 public class TopicStoreForm extends AbstractForm {
     private static final long serialVersionUID = 4246838516504646955L;
 
-    @Size(max = DBSize.Topic.ID_MAX)
+    @Size(max = DAS.TOPIC.ID_MAX)
     private String            tpcId;
 
     @NotNull
@@ -35,7 +34,7 @@ public class TopicStoreForm extends AbstractForm {
     private String            tpcStateFlag;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Topic.CATG_MAX)
+    @Size(min = 1, max = DAS.TOPIC.CATG_MAX)
     private String            tpcCatg;
     private String            tpcCatgName;
 
@@ -47,14 +46,14 @@ public class TopicStoreForm extends AbstractForm {
     @Size(min = 1, max = 1)
     private String            tpcLinkFlag;
 
-    @Size(max = DBSize.Topic.LINK_URL_MAX)
+    @Size(max = DAS.TOPIC.LINK_URL_MAX)
     private String            tpcLinkUrl;
 
     @NotNull
     @Size(min = 1, max = 1)
     private String            tpcMediaFlag;
 
-    @Size(max = DBSize.Topic.MEDIA_URL_MAX)
+    @Size(max = DAS.TOPIC.MEDIA_URL_MAX)
     private String            tpcMediaUrl;
 
     @NotNull
@@ -68,14 +67,14 @@ public class TopicStoreForm extends AbstractForm {
     private long              tpcReplyCnt      = 0L;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Topic.TITLE_MAX)
+    @Size(min = 1, max = DAS.TOPIC.TITLE_MAX)
     private String            tpcTitle;
 
-    @Size(max = DBSize.Topic.SUMMARY_MAX)
+    @Size(max = DAS.TOPIC.SUMMARY_MAX)
     private String            tpcSummary;
 
     @NotNull
-    @Size(min = 1, max = DBSize.Topic.CONTENT_MAX)
+    @Size(min = 1, max = DAS.TOPIC.CONTENT_MAX)
     private String            tpcContent;
 
     /** 
@@ -86,7 +85,7 @@ public class TopicStoreForm extends AbstractForm {
         validates.add(new EnumBaseValidate("tpcTopFlag", this.tpcTopFlag, ValveBoolEnum.values()));
         validates.add(new EnumBaseValidate("tpcLinkFlag", this.tpcLinkFlag, ValveBoolEnum.values()));
         validates.add(new EnumBaseValidate("tpcMediaFlag", this.tpcMediaFlag, TopicMediaEnum.values()));
-        validates.add(new EnumBaseValidate("tpcReplyFlag", this.tpcReplyFlag, TopicReplyEnum.values()));
+        validates.add(new EnumBaseValidate("tpcReplyFlag", this.tpcReplyFlag, ValveBoolEnum.values()));
     }
 
     public String getTpcId() {
