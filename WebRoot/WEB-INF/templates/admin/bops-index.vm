@@ -100,10 +100,10 @@ $(document).ready(function() {
                 		<div class="span12">
                             <ul class="nav nav-list">
                     			#set($sessionUser=$UserWebX.findSessionUser())
-                    			<li class="nav-header"><span class="icon-user"></span>$sessionUser.unick</li>
-                    			<li id="vp-user-cinfo"><a href="$ctx/admin/user/cinfo-${sessionUser.id}.htm" #TargetURL()><span class="icon-chevron-right"></span>修改信息</a></li>
-                    			<li id="vp-user-cemail"><a href="$ctx/admin/user/cemail-${sessionUser.id}.htm" #TargetURL()><span class="icon-chevron-right"></span>修改邮箱</a></li>
-                    			<li id="vp-user-cpasswd"><a href="$ctx/admin/user/cpasswd-${sessionUser.id}.htm" #TargetURL()><span class="icon-chevron-right"></span>修改密码</a></li>
+                    			<li class="nav-header"><span class="icon-user"></span>$sessionUser.nickName</li>
+                    			<li id="vp-user-cinfo"><a href="$ctx/admin/user/cinfo-${sessionUser.no}.htm" #TargetURL()><span class="icon-chevron-right"></span>修改信息</a></li>
+                    			<li id="vp-user-cemail"><a href="$ctx/admin/user/cemail-${sessionUser.no}.htm" #TargetURL()><span class="icon-chevron-right"></span>修改邮箱</a></li>
+                    			<li id="vp-user-cpasswd"><a href="$ctx/admin/user/cpasswd-${sessionUser.no}.htm" #TargetURL()><span class="icon-chevron-right"></span>修改密码</a></li>
                             </ul>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
 	<!-- ===================================== -->
 	<!-- 通用票据服务配置 -->
 	<!-- ===================================== -->
-	<bean class="com.github.obullxl.jeesite.utils.TicketUtils" init-method="init">
+	<bean class="com.github.obullxl.jeesite.utils.DBTicketUtils" init-method="init">
 		<property name="topicTicketService">
 			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
 				<property name="name" value="TB-Topic-ID" />

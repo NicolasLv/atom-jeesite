@@ -6,7 +6,7 @@ $(document).ready(function() {
     	e.preventDefault();
     	ajaxRquest({
     		form: "user-form",
-    		url: "$ctx/admin/user/cpasswd-${user.id}.htm",
+    		url: "$ctx/admin/user/cpasswd-${user.no}.htm",
     		sclose: function() {
     			location.href = location.href;
     		}
@@ -25,7 +25,7 @@ $(document).ready(function() {
     </ul>
 	<div class="control-group">
 		<label for="title"><span class="icon-chevron-right"></span>用户名:</label>
-		<input id="uname" name="uname" class="span4" type="text" value="$user.uname" readonly="readonly" />
+		<input id="uname" name="uname" class="span4" type="text" value="$user.nickName" readonly="readonly" />
 	</div>
 	<div class="control-group">
 		<label for="title"><span class="icon-chevron-right"></span><strong>原密码</strong>-必输项！</label>
