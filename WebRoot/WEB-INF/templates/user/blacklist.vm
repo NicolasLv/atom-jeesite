@@ -12,7 +12,7 @@
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-body bg-warning">
-                <p><strong>无诚信借入者网络曝光</strong></p>
+                <p><strong><i class="glyphicon glyphicon-headphones"></i> 无诚信借入者网络曝光：</strong></p>
 				<p>1、本页面为无诚信借入会员曝光黑名单；</p>
                 <p>2、借款无理由长期逾期会员，由系统自动编入本页面曝光黑名单列表，公布的内容包括但不限于<kbd>用户名</kbd>、<kbd>真实姓名</kbd>、<kbd>相片</kbd>等相关所有联系方式资料；</p>
                 <p>3、一旦会员还款，将从此曝光黑名单中移除；</p>
@@ -27,10 +27,10 @@
 			<div class="panel-body">
                 <ul class="nav nav-pills">
 					#foreach($itm in $years)
-					<li id="blacklist-id-${itm}"><a href="/user/blacklist-${itm}.htm">${itm}</a></li>
+                    <li id="blacklist-${itm}"><a href="$ctx/user/blacklist-${itm}.htm"><strong><i class="glyphicon glyphicon-remove-sign"></i> ${itm}</strong></a></li>
 					#end
                 </ul>
-				<br/>
+                <div>&nbsp;</div>
 				#parse("/user/inc/inc-blacklist-${year}.vm")
             </div>
 		</div>

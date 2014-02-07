@@ -26,7 +26,7 @@
         	</td>
         	<td class="text-right">
                 <p>&nbsp;</p>
-				<p><a class="btn btn-primary" href="/blacklist/detail.htm?user=tee">查看详情</a></p>
+				<p><a class="btn btn-primary" href="/blacklist/detail.htm?user=tee">查看详情 <i class="glyphicon glyphicon-step-forward"></i></a></p>
 				<p>&nbsp;</p>
         	</td>
         </tr>
@@ -48,7 +48,7 @@
         	</td>
         	<td class="text-right">
                 <p>&nbsp;</p>
-				<p><a class="btn btn-primary" href="/blacklist/detail.htm?user=gusong">查看详情</a></p>
+				<p><a class="btn btn-primary" href="/blacklist/detail.htm?user=gusong">查看详情 <i class="glyphicon glyphicon-step-forward"></i></a></p>
 				<p>&nbsp;</p>
         	</td>
         </tr>

@@ -5,6 +5,13 @@ if(typeof jQuery === 'undefined') {
 
 var AZD = {
 	// 设置CSS类
+	addClass: function(domId, clazz) {
+		if($("#" + domId).length > 0) {
+			$("#" + domId).addClass(clazz);
+		}
+	},
+
+	// 设置CSS类
 	setClass: function(object, clazz) {
 		object.attr("class", clazz);
 	},
@@ -25,7 +32,7 @@ var AZD = {
 		if(object.hasClass(remove)) {
 			object.removeClass(remove);
 		}
-		
+
 		if(!object.hasClass(add)) {
 			object.addClass(add);
 		}
