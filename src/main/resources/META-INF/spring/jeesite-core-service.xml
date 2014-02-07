@@ -2,6 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd" default-autowire="byName">
 
 	<!-- ===================================== -->
+	<!-- 通用票据服务配置 -->
+	<!-- ===================================== -->
+	<bean class="com.github.obullxl.jeesite.utils.TicketUtils" init-method="init">
+		<property name="topicTicketService">
+			<bean class="com.github.obullxl.ticket.support.DefaultTicketService" parent="abstractTicket">
+				<property name="name" value="TB-Topic-ID" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- ===================================== -->
 	<!-- 区域代码服务配置 -->
 	<!-- ===================================== -->
 	<bean class="com.github.obullxl.lang.area.DefaultAreaService" init-method="init">

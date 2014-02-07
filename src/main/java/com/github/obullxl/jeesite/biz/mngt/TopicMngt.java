@@ -155,13 +155,15 @@ public class TopicMngt extends AbstractMngt {
 
         topic = this.topicService.findByID(id);
         if (topic != null) {
-            TopicQueryForm form = new TopicQueryForm();
-            form.setModelEnum(TopicModelEnum.BLOG_REPLY);
-            form.setTopicId(id);
+            if (topic.getReplyCount() > 0) {
+                TopicQueryForm form = new TopicQueryForm();
+                form.setModelEnum(TopicModelEnum.BLOG_REPLY);
+                form.setTopicId(id);
 
-            List<TopicModel> replys = this.topicService.findPage(form);
-            if (replys != null && !replys.isEmpty()) {
-                topic.getExtData().put("replys", replys);
+                List<TopicModel> replys = this.topicService.findPage(form);
+                if (replys != null && !replys.isEmpty()) {
+                    topic.getExtData().put("replys", replys);
+                }
             }
         } else {
             topic = new TopicModel();
@@ -188,12 +190,12 @@ public class TopicMngt extends AbstractMngt {
 
             return topics;
         }
-        
+
         TopicQueryForm form = new TopicQueryForm();
         form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
         form.setPage(1);
         form.setPageSize(CfgWebX.findFrontTopSize());
-        
+
         form.setOrderbyEnum(OrderbyEnum.DESC);
         form.setOrderbyField(DAS.TOPIC.VISIT_COUNT);
 
@@ -201,7 +203,7 @@ public class TopicMngt extends AbstractMngt {
         if (CollectionUtils.isNotEmpty(catgs)) {
             form.setCatgs(catgs);
         }
-        
+
         topics = this.topicService.findPage(form);
 
         if (logger.isInfoEnabled()) {
@@ -230,7 +232,7 @@ public class TopicMngt extends AbstractMngt {
         form.setModelEnum(TopicModelEnum.BLOG_TOPIC);
         form.setPage(1);
         form.setPageSize(CfgWebX.findFrontTopSize());
-        
+
         form.setOrderbyEnum(OrderbyEnum.DESC);
         form.setOrderbyField(DAS.TOPIC.REPLY_COUNT);
 
@@ -238,7 +240,7 @@ public class TopicMngt extends AbstractMngt {
         if (CollectionUtils.isNotEmpty(catgs)) {
             form.setCatgs(catgs);
         }
-        
+
         topics = this.topicService.findPage(form);
 
         if (logger.isInfoEnabled()) {

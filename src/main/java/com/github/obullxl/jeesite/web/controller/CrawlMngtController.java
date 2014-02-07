@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.obullxl.jeesite.dal.dto.CrawlDTO;
+import com.github.obullxl.jeesite.utils.DBTicketUtils;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.lang.MapExt;
 import com.github.obullxl.lang.biz.BizResponse;
@@ -33,6 +34,7 @@ import com.github.obullxl.lang.utils.TextUtils;
 import com.github.obullxl.lang.web.crawl.CrawlData;
 import com.github.obullxl.lang.web.crawl.WebCrawler;
 import com.github.obullxl.model.topic.TopicModel;
+import com.github.obullxl.model.topic.TopicModelEnum;
 import com.github.obullxl.model.topic.enums.TopicMediaEnum;
 import com.github.obullxl.model.topic.enums.TopicStateEnum;
 import com.github.obullxl.model.topic.enums.TopicTopEnum;
@@ -171,6 +173,8 @@ public class CrawlMngtController extends AbstractController {
                 for (CrawlData data : datas) {
                     TopicModel topic = this.newInitTopic();
 
+                    topic.setId(DBTicketUtils.newTopicID());
+                    topic.setModelEnum(TopicModelEnum.BLOG_TOPIC);
                     topic.setStateEnum(TopicStateEnum.findDefault(MapUtils.getString(args, "topic.state")));
                     topic.setTopEnum(TopicTopEnum.findDefault(MapUtils.getString(args, "topic.top")));
                     topic.setEliteEnum(ValveBoolEnum.findDefault(MapUtils.getString(args, "topic.elite")));

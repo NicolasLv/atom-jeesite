@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.obullxl.jeesite.utils.DBTicketUtils;
 import com.github.obullxl.jeesite.web.enums.BizResponseEnum;
 import com.github.obullxl.jeesite.web.form.TopicSelectForm;
 import com.github.obullxl.jeesite.web.form.TopicStoreForm;
@@ -110,6 +111,7 @@ public class TopicMngtController extends AbstractController {
             this.fillTopic(form, topic);
 
             // 新增
+            topic.setId(DBTicketUtils.newTopicID());
             this.topicService.create(topic);
             response.getBizData().put(BizResponse.BIZ_ID_KEY, topic.getId());
         } catch (Exception e) {

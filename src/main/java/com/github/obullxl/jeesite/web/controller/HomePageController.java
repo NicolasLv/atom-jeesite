@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
+import com.github.obullxl.jeesite.utils.DBTicketUtils;
 import com.github.obullxl.jeesite.web.webx.CatgWebX;
 import com.github.obullxl.jeesite.web.webx.CfgWebX;
 import com.github.obullxl.model.topic.TopicModel;
@@ -94,6 +95,7 @@ public class HomePageController extends AbstractController {
     public String postReply(String uname, String uemail, String usite, String content, String ufrom, String topic, String title) {
         // 存储评论
         TopicModel reply = new TopicModel();
+        reply.setId(DBTicketUtils.newTopicID());
         reply.setModelEnum(TopicModelEnum.BLOG_REPLY);
         reply.setStateEnum(TopicStateEnum.findDefault());
         reply.setTopic(topic);
