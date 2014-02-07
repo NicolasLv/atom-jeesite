@@ -47,11 +47,6 @@ public class HomePageController extends AbstractController {
         return this.indexCatgPage("index", 1);
     }
 
-    @RequestMapping("/default.htm")
-    public String defaultHtml() {
-        return this.indexCatgPage("index", 1);
-    }
-
     /**
      * 分类分页主页
      */
