@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="col-md-12">
         <ol class="breadcrumb">
-            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i> 安众贷</a></li>
+            <li><a href="$ctx/index.htm"><i class="glyphicon glyphicon-hand-right"></i>  安众贷</a></li>
         	<li>帮助中心</li>
         </ol>
     </div>
@@ -14,60 +14,60 @@
         #parse("/help/inc/inc-help-list.vm")
     </div>
 	<div class="col-md-9">
-		<div class="alert alert-info"><i class="glyphicon glyphicon-cloud"></i> 帮助中心解决不了你的问题？请到 <a href="$ctx/help/consult.htm"><strong><i class="glyphicon glyphicon-info-sign"></i>客服中心</strong></a> 进行反馈，我们会尽快解决！</div>
+		<div class="alert alert-info"><i class="glyphicon glyphicon-cloud"></i>  帮助中心解决不了你的问题？请到 <a href="$ctx/help/consult.htm"><strong><i class="glyphicon glyphicon-info-sign"></i> 客服中心</strong></a> 进行反馈，我们会尽快解决！</div>
 		<div class="panel panel-default">
             <table class="table table-hover">
                 <tbody>
 					<tr class="success">
-                        <td><strong><i class="glyphicon glyphicon-question-sign"></i> 常见问题</strong></td>
+                        <td><strong><i class="glyphicon glyphicon-question-sign"></i>  常见问题</strong></td>
                     </tr>
 					<tr>
-						<td><a href="/help/detail-323.htm"><i class="question icon"></i>在安众贷上的借贷合法吗？</a></td>
+						<td><a href="/help/detail-323.htm"><i class="fa fa-question"></i> 在安众贷上的借贷合法吗？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-324.htm"><i class="question icon"></i>我的借款会不会因安众贷运营变动而变动？</a></td>
+						<td><a href="/help/detail-324.htm"><i class="fa fa-question"></i> 我的借款会不会因安众贷运营变动而变动？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-325.htm"><i class="question icon"></i>隐私和资料安全如何保证？</a></td>
+						<td><a href="/help/detail-325.htm"><i class="fa fa-question"></i> 隐私和资料安全如何保证？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-326.htm"><i class="question icon"></i>注册后用户名是否可以修改？姓名和身份证呢？</a></td>
+						<td><a href="/help/detail-326.htm"><i class="fa fa-question"></i> 注册后用户名是否可以修改？姓名和身份证呢？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-328.htm"><i class="question icon"></i>密码正确，为什么登录会提示密码错误或需重置安全问题？</a></td>
+						<td><a href="/help/detail-328.htm"><i class="fa fa-question"></i> 密码正确，为什么登录会提示密码错误或需重置安全问题？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-329.htm"><i class="question icon"></i>密码忘记了怎么办？</a></td>
+						<td><a href="/help/detail-329.htm"><i class="fa fa-question"></i> 密码忘记了怎么办？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-330.htm"><i class="question icon"></i>如何更换手机绑定号码</a></td>
+						<td><a href="/help/detail-330.htm"><i class="fa fa-question"></i> 如何更换手机绑定号码</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-331.htm"><i class="question icon"></i>借入信用等级、信用分是什么，有什么用？</a></td>
+						<td><a href="/help/detail-331.htm"><i class="fa fa-question"></i> 借入信用等级、信用分是什么，有什么用？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-332.htm"><i class="question icon"></i>借出信用分是什么？</a></td>
+						<td><a href="/help/detail-332.htm"><i class="fa fa-question"></i> 借出信用分是什么？</a></td>
                     </tr>
 					<tr>
-						<td><a href="/help/detail-334.htm"><i class="question icon"></i>新用户借款流程调整</a></td>
+						<td><a href="/help/detail-334.htm"><i class="fa fa-question"></i> 新用户借款流程调整</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-336.htm"><i class="question icon"></i>针对逾期如何处理？安众贷有什么措施?</a></td>
+						<td><a href="/help/detail-336.htm"><i class="fa fa-question"></i> 针对逾期如何处理？安众贷有什么措施?</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-343.htm"><i class="question icon"></i>安众贷的借款列表有哪些种类？</a></td>
+						<td><a href="/help/detail-343.htm"><i class="fa fa-question"></i> 安众贷的借款列表有哪些种类？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-346.htm"><i class="question icon"></i>非即时到账充值的到账时间</a></td>
+						<td><a href="/help/detail-346.htm"><i class="fa fa-question"></i> 非即时到账充值的到账时间</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-377.htm"><i class="question icon"></i>论坛为什么无法登录或发帖？</a></td>
+						<td><a href="/help/detail-377.htm"><i class="fa fa-question"></i> 论坛为什么无法登录或发帖？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-384.htm"><i class="question icon"></i>如何提高额度？</a></td>
+						<td><a href="/help/detail-384.htm"><i class="fa fa-question"></i> 如何提高额度？</a></td>
                     </tr>
                     <tr>
-						<td><a href="/help/detail-387.htm"><i class="question icon"></i>什么是拍币？它可以用来做什么？</a></td>
+						<td><a href="/help/detail-387.htm"><i class="fa fa-question"></i> 什么是拍币？它可以用来做什么？</a></td>
                     </tr>
                 </tbody>
             </table>

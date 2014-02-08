@@ -42,7 +42,7 @@ $(document).ready(function() {
 				$("#tickMsg").attr("class", "text-success");
 			} else {
 				$("#tickMsg").text("异常");
-				$("#tickMsg").attr("class", "text-error");
+				$("#tickMsg").attr("class", "text-danger");
 			}
 		});
     }

@@ -3,48 +3,51 @@
     <div class="panel panel-primary" #MarginBottom(3)>
     	<div class="panel-heading"><strong><i class="glyphicon glyphicon-minus-sign"></i> 系统管理</strong></div>
         <div class="list-group">
-            <a class="list-group-item" href="$ctx/mngt/index.htm" target="top"><i class="triangle right icon"></i> 管理后台</a>
-            <a class="list-group-item" href="$ctx/index.htm" target="_blank"><i class="triangle right icon"></i> 系统首页</a>
-			<a class="list-group-item" href="$ctx/mngt/catg-forum.htm" #TargetURL()><i class="triangle right icon"></i> 论坛管理</a>
-            <a class="list-group-item" href="$ctx/mngt/config/manage.htm" #TargetURL()><i class="triangle right icon"></i> 参数管理</a>
-            <a class="list-group-item" href="$ctx/mngt/config/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增参数</a>
-            <a class="list-group-item" href="$ctx/mngt/tmpt/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增模板</a>
-            <a class="list-group-item" href="$ctx/mngt/tmpt/manage.htm" #TargetURL()><i class="triangle right icon"></i> 模板管理</a>
-            <a class="list-group-item" href="$ctx/mngt/user/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增用户</a>
-            <a class="list-group-item" href="$ctx/mngt/user/manage.htm" #TargetURL()><i class="triangle right icon"></i> 用户管理</a>
-            <a class="list-group-item" href="$ctx/mngt/right/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增权限</a>
-            <a class="list-group-item" href="$ctx/mngt/right/manage.htm" #TargetURL()><i class="triangle right icon"></i> 权限管理</a>
-            <a class="list-group-item" href="$ctx/mngt/catg/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增分类</a>
-            <a class="list-group-item" href="$ctx/mngt/catg/manage.htm" #TargetURL()><i class="triangle right icon"></i> 分类管理</a>
-            <a class="list-group-item" href="$ctx/mngt/topic/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增主题</a>
-            <a class="list-group-item" href="$ctx/mngt/topic/manage.htm" #TargetURL()><i class="triangle right icon"></i> 主题管理</a>
-            <a class="list-group-item" href="$ctx/mngt/crawl/manage.htm" #TargetURL()><i class="triangle right icon"></i> 爬虫管理</a>
-            <a class="list-group-item" href="$ctx/mngt/crawl/create.htm" #TargetURL()><i class="triangle right icon"></i> 新增爬虫</a>
-            <a class="list-group-item" href="$ctx/mngt/crawl/input.htm" #TargetURL()><i class="triangle right icon"></i> 数据抓取</a>
-            <a class="list-group-item" href="$ctx/mngt/file/fetch.htm" #TargetURL()><i class="triangle right icon"></i> 文件下载</a>
+            <a class="list-group-item" href="$ctx/admin/index.htm" target="top">管理后台</a>
+            <a class="list-group-item" href="$ctx/index.htm" target="_blank">系统首页</a>
+			<a class="list-group-item" href="$ctx/admin/catg-forum.htm" #TargetURL()>论坛管理</a>
+            <a class="list-group-item" href="$ctx/admin/config/manage.htm" #TargetURL()>参数管理</a>
+            <a class="list-group-item" href="$ctx/admin/config/create.htm" #TargetURL()>新增参数</a>
+            <a class="list-group-item" href="$ctx/admin/tmpt/create.htm" #TargetURL()>新增模板</a>
+            <a class="list-group-item" href="$ctx/admin/tmpt/manage.htm" #TargetURL()>模板管理</a>
+            <a class="list-group-item" href="$ctx/admin/user/create.htm" #TargetURL()>新增用户</a>
+            <a class="list-group-item" href="$ctx/admin/user/manage.htm" #TargetURL()>用户管理</a>
+            <a class="list-group-item" href="$ctx/admin/right/create.htm" #TargetURL()>新增权限</a>
+            <a class="list-group-item" href="$ctx/admin/right/manage.htm" #TargetURL()>权限管理</a>
+            <a class="list-group-item" href="$ctx/admin/catg/create.htm" #TargetURL()>新增分类</a>
+            <a class="list-group-item" href="$ctx/admin/catg/manage.htm" #TargetURL()>分类管理</a>
+            <a class="list-group-item" href="$ctx/admin/topic/create.htm" #TargetURL()>新增主题</a>
+            <a class="list-group-item" href="$ctx/admin/topic/manage.htm" #TargetURL()>主题管理</a>
+            <a class="list-group-item" href="$ctx/admin/crawl/manage.htm" #TargetURL()>爬虫管理</a>
+            <a class="list-group-item" href="$ctx/admin/crawl/create.htm" #TargetURL()>新增爬虫</a>
+            <a class="list-group-item" href="$ctx/admin/crawl/input.htm" #TargetURL()>数据抓取</a>
+            <a class="list-group-item" href="$ctx/admin/file/fetch.htm" #TargetURL()>文件下载</a>
         </div>
     </div>
 	
 	<div class="panel panel-primary" #MarginBottom(3)>
     	<div class="panel-heading"><strong><i class="glyphicon glyphicon-plus-sign"></i> 用户中心</strong></div>
         <div class="list-group hide">
-            <a class="list-group-item" href="$ctx/user/detail-basic.htm" #TargetURL()><i class="triangle right icon"></i> 基本设置</a>
-            <a class="list-group-item" href="$ctx/user/detail-basic.htm" #TargetURL()><i class="triangle right icon"></i> 编辑资料</a>
-            <a class="list-group-item" href="$ctx/user/safety.htm" #TargetURL()><i class="triangle right icon"></i> 安全中心</a>
-        	<a class="list-group-item" href="$ctx/user/identify.htm" #TargetURL()><i class="triangle right icon"></i> 身份认证</a>
-            <a class="list-group-item" href="$ctx/user/binding.htm" #TargetURL()><i class="triangle right icon"></i> 关联账户</a>
-        	<a class="list-group-item" href="$ctx/user/mobile.htm" #TargetURL()><i class="triangle right icon"></i> 手机绑定</a>
-        	<a class="list-group-item" href="$ctx/user/email.htm" #TargetURL()><i class="triangle right icon"></i> 邮箱绑定</a>
-            <a class="list-group-item" href="$ctx/user/userface.htm" #TargetURL()><i class="triangle right icon"></i> 更新头像</a>
-        	<a class="list-group-item" href="$ctx/user/question.htm" #TargetURL()><i class="triangle right icon"></i> 密保问题</a>
-            <a class="list-group-item" href="$ctx/user/password.htm" #TargetURL()><i class="triangle right icon"></i> 修改密码</a>
+            <a class="list-group-item" href="$ctx/user/detail-basic.htm" #TargetURL()>基本设置</a>
+            <a class="list-group-item" href="$ctx/user/detail-basic.htm" #TargetURL()>编辑资料</a>
+            <a class="list-group-item" href="$ctx/user/safety.htm" #TargetURL()>安全中心</a>
+        	<a class="list-group-item" href="$ctx/user/identify.htm" #TargetURL()>身份认证</a>
+            <a class="list-group-item" href="$ctx/user/binding.htm" #TargetURL()>关联账户</a>
+        	<a class="list-group-item" href="$ctx/user/mobile.htm" #TargetURL()>手机绑定</a>
+        	<a class="list-group-item" href="$ctx/user/email.htm" #TargetURL()>邮箱绑定</a>
+            <a class="list-group-item" href="$ctx/user/userface.htm" #TargetURL()>更新头像</a>
+        	<a class="list-group-item" href="$ctx/user/question.htm" #TargetURL()>密保问题</a>
+            <a class="list-group-item" href="$ctx/user/password.htm" #TargetURL()>修改密码</a>
         </div>
     </div>
 </div>
 <style type="text/css">
 #wrap {
 	margin:0;
-	padding:0;
+	padding-top:0px;
+	padding-bottom:0px;
+	padding-left:3px;
+	padding-right:3px;
 	width:100%;
 	height:100%;
 }
@@ -55,6 +58,8 @@
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
+	$(".list-group a").prepend("<i class=\"fa fa-caret-right\"></i> ");
+
 	var speed = 300;
 	
 	var init = function() {
@@ -80,7 +85,7 @@ $(document).ready(function() {
 	});
 	
 	$(".list-group a").click(function() {
-		$(".list-group i").attr("class", "triangle right icon");
+		$(".list-group i").attr("class", "fa fa-caret-right");
 		$(".list-group a").removeClass("list-group-item-success");
 		
 		$(this).addClass("list-group-item-success");

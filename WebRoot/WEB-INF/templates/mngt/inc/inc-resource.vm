@@ -1,12 +1,11 @@
-<link rel="stylesheet" type="text/css" href="$ctx/public/smtui/css/semantic.min.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="$ctx/public/twbs3/css/bootstrap.min.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="$ctx/public/twbs3/css/bootstrap-theme.min.css" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/twbs/css/bootstrap.min.css?v=3.1.0" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/twbs/css/bootstrap-theme.min.css?v=3.1.0" media="screen" />
+<link rel="stylesheet" type="text/css" href="$ctx/public/fa/css/font-awesome.min.css?v=4.0.3" media="screen" />
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/toastr.min.css" />
-<link rel="stylesheet" type="text/css" href="$ctx/public/css/mngt.css" />
-<script type="text/javascript" charset="utf-8" src="$ctx/public/smtui/js/semantic.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="$ctx/public/twbs3/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="$ctx/public/css/azdai-mngt.css?v=2.0.1" />
+<script type="text/javascript" charset="utf-8" src="$ctx/public/twbs/js/bootstrap.min.js?v=3.1.0"></script>
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/toastr.min.js"></script>
-<script type="text/javascript" charset="utf-8" src="$ctx/public/js/mngt.js"></script>
+<script type="text/javascript" charset="utf-8" src="$ctx/public/js/anzhongdai.js?v=2.0.1"></script>
 <!--[if lt IE 9]>
 	<script type="text/javascript" charset="utf-8" src="$ctx/public/js/html5shiv.js"></script>
 <![endif]-->
@@ -20,26 +19,3 @@
 <link rel="stylesheet" type="text/css" href="$ctx/public/css/password-strength.css" />
 <script type="text/javascript" charset="utf-8" src="$ctx/public/js/jquery.password-strength.js"></script>
 #end
-<script type="text/javascript">
-$(document).ready(function() {
-	// Tooltip插件
-	$(".otip").tooltip({animation:false, trigger:"hover", placement:"bottom"});
-	$(".ktip").tooltip({animation:false, trigger:"click", placement:"bottom"});
-	
-	// Toastr提示
-    toastr.options = {
-        "closeButton": true,
-        "debug": false,
-        "positionClass": "toast-bottom-full-width",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    };
-});
-</script>

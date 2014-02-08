@@ -1,45 +1,109 @@
+/*!
+ * anzhongdai v2.0.1
+ * Copyright 2014 anzhongdai.com, Inc.
+ */
 ;
 if(typeof jQuery === 'undefined') {
 	throw new Error('AZD requires jQuery')
 }
 
-var AZD = {
-	// 设置CSS类
-	addClass: function(domId, clazz) {
-		if($("#" + domId).length > 0) {
-			$("#" + domId).addClass(clazz);
-		}
-	},
+/**
+ * 安众贷工具类
+ */
+var AZD = {};
 
-	// 设置CSS类
-	setClass: function(object, clazz) {
-		object.attr("class", clazz);
-	},
+// 设置CSS类
+AZD.addClass = function(domId, clazz) {
+	if($("#" + domId).length > 0) {
+		$("#" + domId).addClass(clazz);
+	}
+};
 
-	// CSS类切换
-	switchClass: function(object, one, two) {
-		if(object.hasClass(one)) {
-			object.removeClass(one);
-			object.addClass(two);
-		} else {
-			object.removeClass(two);
-			object.addClass(one);
-		}
-	},
+// 设置CSS类
+AZD.setClass = function(object, clazz) {
+	object.attr("class", clazz);
+};
 
-	// 删除+增加CSS类
-	toggleClass: function(object, remove, add) {
-		if(object.hasClass(remove)) {
-			object.removeClass(remove);
-		}
+// CSS类切换
+AZD.switchClass = function(object, one, two) {
+	if(object.hasClass(one)) {
+		object.removeClass(one);
+		object.addClass(two);
+	} else {
+		object.removeClass(two);
+		object.addClass(one);
+	}
+};
 
-		if(!object.hasClass(add)) {
-			object.addClass(add);
-		}
+// 删除+增加CSS类
+AZD.toggleClass = function(object, remove, add) {
+	if(object.hasClass(remove)) {
+		object.removeClass(remove);
 	}
 
-//
+	if(!object.hasClass(add)) {
+		object.addClass(add);
+	}
 };
+
+/**
+ * 初始化
+ */
+$(document).ready(function() {
+	// 回到顶部
+	$("body").append("<p id=\"back-to-top\" title=\"返回顶部\"><a href=\"#body\"><span></span></a></p>");
+	$("#back-to-top").hide();
+	$(window).scroll(function() {
+		if($(window).scrollTop() > 100) {
+			$("#back-to-top").fadeIn(300);
+		} else {
+			$("#back-to-top").fadeOut(300);
+		}
+	});
+	$("#back-to-top").click(function() {
+		$("body,html").animate({
+			scrollTop: 0
+		}, 300);
+		return false;
+	});
+	
+	$("#back-to-top").tooltip({
+		animation: false,
+		trigger: "hover",
+		placement: "left"
+	});
+
+	// Tooltip插件
+	$(".otip").tooltip({
+		animation: false,
+		trigger: "hover",
+		placement: "bottom"
+	});
+	$(".ktip").tooltip({
+		animation: false,
+		trigger: "click",
+		placement: "bottom"
+	});
+
+	// Toastr提示
+	if(typeof toastr !== 'undefined') {
+		toastr.options = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-bottom-full-width",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+	}
+	;
+});
 
 function fadeProgressModal(visiable) {
 	if(visiable) {

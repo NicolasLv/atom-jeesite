@@ -5,8 +5,10 @@
 <title>#if($title)$title -#end 后台管理</title>
 #parse("/mngt/inc/inc-header.vm")
 </head>
-<body>
+<body id="body">
+<div id="wrap">
 $screen_placeholder
+</div>
 #parse("/mngt/inc/inc-resource.vm")
 </body>
 </html>

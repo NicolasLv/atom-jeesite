@@ -15,6 +15,7 @@ $screen_placeholder
 #parse("/public/uniform-footer.vm")
 <script type="text/javascript">
 $(document).ready(function() {
+	$(".list-group a").prepend("<i class=\"fa fa-caret-right\"></i> ");
 #if($StringUtils.isNotBlank($userOperation))
 	if($("#user-$!userOperation").length > 0) {
 		$("#user-$!userOperation").addClass("list-group-item-success");
