@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+<title>FireBase测试</title>
+<script type="text/javascript" src="https://cdn.firebase.com/js/client/1.0.3/firebase.js"></script>
+</head>
+
+<body onload="init()">
+Name:
+<input type="text" id="name" />
+Value:
+<input type="text" id="value" />
+<input type="button" value="设置值" onclick="setValue()" />
+
+<br/>
+JavaScript01:
+<textarea id="js01" rows="3" style="width:100%">
+fb.child('version').set('2.0.1');
+fb.child('first').set('林');
+fb.child('last').set('徐');
+fb.child('name').set('JeeSite(JES)');
+fb.child('compay').set('支付宝');
+</textarea>
+<input type="button" value="执行代码01" onclick="evalValue('01')" />
+
+<br/>
+JavaScript02:
+<textarea id="js02" rows="3" style="width:100%">
+fb.child('message1').set({user_id: 'wilma', text: 'Hello'});
+fb.child('message2').set({user_id: 'fred', text: 'How are you?'});
+fb.child('message3').set({user_id: 'wilma', text: 'I’m doing well, thank you!'});
+</textarea>
+<input type="button" value="执行代码02" onclick="evalValue('02')" />
+
+<br/>
+JavaScript03:
+<textarea id="js03" rows="5" style="width:100%">
+fb.child('topic').child('20140001').set({id:'20140001', text:'测试01'});
+fb.child('topic').child('20140002').set({id:'20140002', text:'测试02'});
+fb.child('topic').child('20140003').set({id:'20140003', text:'测试03'});
+fb.child('topic').child('20140004').set({id:'20140004', text:'测试04'});
+fb.child('topic').child('20140005').set({id:'20140005', text:'测试05'});
+</textarea>
+<input type="button" value="执行代码03" onclick="evalValue('03')" />
+
+<br/>
+ReadData01:
+<p id="data01"></p>
+<input type="button" value="读取数据01" onclick="readData01('01')" />
+
+<br/>
+ReadData02:
+<p id="data02"></p>
+<input type="button" value="读取数据02" onclick="readData02('02')" />
+
+<script type="text/javascript">
+var fb;
+var fb_topic;
+var init = function() {
+	fb = new Firebase("https://jeesite.firebaseio.com/");
+	fb_topic = new Firebase("https://jeesite.firebaseio.com/topic");
+};
+
+var setValue = function() {
+	var name = document.getElementById("name").value;
+	var value = document.getElementById("value").value;
+	console.log("Name:" + name + ", Value:" + value);
+	fb.set({ name: value });
+};
+
+var evalValue = function(idx) {
+	var js = document.getElementById("js" + idx).value;
+	console.log("JS" + idx + ": " + js);
+	window.eval(js);
+};
+
+var readData01 = function(idx) {
+	fb_topic.on("child_added", function(msg) {
+		var data = msg.val();
+		
+		console.log("Raw Data: " + msg.val().toString());
+		
+		var text = "ID: " + data.id + ", Text: " + data.text;
+		// console.log("Data: " + text);
+		var dataObj = document.getElementById("data" + idx);
+		dataObj.innerHTML = dataObj.innerHTML + "<br/>" + text;
+	});
+};
+
+var readData02 = function(idx) {
+	var limit = fb_topic.endAt().limit(3);
+	limit.on("child_added", function(msg) {
+		var data = msg.val();
+		
+		console.log("Raw Data: " + msg.val().toString());
+		
+		var text = "ID: " + data.id + ", Text: " + data.text;
+		// console.log("Data: " + text);
+		var dataObj = document.getElementById("data" + idx);
+		dataObj.innerHTML = dataObj.innerHTML + "<br/>" + text;
+	});
+};
+</script>
+</body>
+</html>
