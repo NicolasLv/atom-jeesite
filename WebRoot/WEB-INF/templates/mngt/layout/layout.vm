@@ -10,5 +10,6 @@
 $screen_placeholder
 </div>
 #parse("/mngt/inc/inc-resource.vm")
+<link rel="stylesheet" type="text/css" media="screen" href="$ctx/public/css/back-to-top.css?v=2.0.1" />
 </body>
 </html>

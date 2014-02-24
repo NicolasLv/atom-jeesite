@@ -1,7 +1,7 @@
 p#back-to-top {
 	position: fixed;
-	bottom: 110px;
-	right: 18px;
+	bottom: 0px;
+	right: 0px;
 }
 
 p#back-to-top a {

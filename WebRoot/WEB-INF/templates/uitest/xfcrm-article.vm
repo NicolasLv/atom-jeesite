@@ -1,0 +1,42 @@
+<div class="container">
+	<div class="col-md-12">
+<div id="content">
+	<h1>首页 > 新闻管理 > 文章管理</h1>
+    <h2>
+    	<div class="h2_left">
+        	<a href="javascript:;" class="f5" onclick="f5();">刷新</a>
+            <a href="javascript:history.back();" class="Retreat">后退</a>
+            <a href="javascript:history.go(1);" class="Advance">前进</a>
+        </div>
+    </h2>
+    <h4>
+    	<a href="javascript:;" class="list">分类筛选：</a>
+    	<a class="list" href="/index.php/News/news/sid/1">内部新闻</a>
+        </if><a class="lista" href="/index.php/News/news/sid/2">焦点新闻</a>
+        </if>    </h4>
+    <div id="article">
+    	<div class="title">支付宝已不值得信任<div class="all">作者：admin | 浏览数：25</div></div>
+        <div class="article"><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">支付宝昨天爆发了数据泄露丑闻，超过20g的支付数据资料被支付宝前员工从系统中窃取出去，并出售给第三方，后被媒体曝光。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">这已经不是支付宝第一次发生此类事件了，前期谷歌等搜索引擎在网上能搜索到数百万条支付宝用户信息的事情，在引发了一些关注后戛然而止，从此很少被提及，此次用户隐私数据丑闻在支付宝公关部的努力下，也很可能很快远离公众视野，消弭于无形。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">不过，丑闻毕竟是丑闻，还是要引起一些重视。尤其是，支付宝的用户数据包含大量用户隐私，如电话、地址、身份证
+号、购物习惯、账户余额等。如果这些资料被不法分子掌握，理论上他们可以用来实施很多犯罪行为，威胁到用户个人财务安全。但在记者时候的采访中，支付宝公
+关部认为这些数据并没有被传到网上，对社会不构成公共性危害。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">从一开始，支付宝就给这件事情定了调子，那就是对社会没危害，对用户数据安全没威胁，支付宝没做错。随后支付宝就此事在微博上发表的公开致歉，证实了这一点。那么，让我们分析一下高大上企业支付宝的这份声明，看看这到底是怎样一家企业吧。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">这份声明总共数百字，分为六个部分。以下为原文，括号里是我的评论。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">第一部分：今天，我们关注到有媒体报道支付宝前员工李某的案件，在此向关心此事的广大用户做几点说明。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">（注意了，这是个正常的开篇，但这短短几十个字能看出很多信息。首先，支付宝做这份声明的原因是注意到有媒体报
+道这件事了，做声明是为了在信息外泄后解释一下，而非为了提醒用户注意安全。其次，这个开篇中真正的主语是支付宝前员工李某的案件（不提隐私泄露）），说
+的是李某的问题，而非支付宝的问题。从开篇来看，支付宝铁了心要把这件事的责任推卸出去，这个开篇就是后面内容的基调。）<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">第二部分：1、基于已有的数据安全体系，阿里巴巴廉正部在2012年例行内部审计时发现了前员工李某在数据处理上的不正当行为，并在调查后将李某移送公安机关进行侦办。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">（首先强调这件事是阿里巴巴内部审计时调查出来的，是阿里巴巴主动报案拿人的，这是先把主动权抓在手里的姿态。
+其次，提到了李某因不正当行为被扭送公安机关，拜托，不正当行为是不归公安机关管的。既用不正当行为这个词来轻描淡写这件事情本身的性质，结果还要扭送公
+安机关，自相矛盾。洗地的性质和捡肥皂不一样，要注意姿态。）<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">第三部分：2、据李某自述，其销售的数据为了，2010年之前不含密码，不含核心身份信息的部分非敏感交易内容，不涉及用户隐私及安全。同时，我们一直以来对于敏感数据如身份证信息、卡号、密码等全部采用先进加密技术处理，无论是在该事件之前还是之后，任何人都无法获取。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">（强调这批泄露的数据不是敏感数据，强调是2010年前不包含密码的数据，强调支付宝的技术固若金汤，强调谁也
+得不到敏感数据。用好几个正面的强调，构成一个他们很不好意思说出来的事实，那就是数据已经泄露了，而且还抓了人。话说，如果这些泄露的数据无关紧要，为
+什么要抓人？公众有权知道这批信息泄露的程度，对用户信息安全到底有何种威胁。对于这些，支付宝只字未提，只是在强调他们有理，技术高大上等等，一贯的操
+作手法。）<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">第四部分：3、对于李某的行为我们深感痛心，并对由此给用户带来的不安深表歉意！但我们对此类事件会一查到底绝不姑息。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">（这部分道歉了，替李某道歉，并表明决心。对于支付宝在这一过程中要承担何种责任，则闪烁其词，让人不明白支付宝是为李某的行为向公众道歉，还是为了自己在这个过程中承担的责任向公众道歉。混淆重点的手法，我们领教很久，已成习惯。）<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">第五部分：4、支付宝相关安全体系已经通过了包括国家信息安全测评中心、dci、dss等众多国内国际权威机构的检测认证，并设立了首席安全官体系以完善内部安全架构，确保用户信息的安全永远是我们至高无上的首要任务。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">（这一段是广告，是要告诉人们支付宝的安全技术有多牛，他们对此做出了多大努力来维护用户信息安全等等。但他们还是没说清楚，支付宝在这个过程中到底该承担何种责任。）<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">第六部分：大数据时代，信息安全成为了所有互联网公司所面临的最严峻挑战之一，没有一家公司可以独善其身。如这
+篇报道所言，包括即时聊天工具的用户资料，酒店住客信息也已经成为数据盗取及贩卖的主要领域。因此，支付宝呼吁全行业的各个参与者一起行动起来，完善自身
+的同时更要共同斩断贩卖数据的黑色产业链，为数据的自由、安全流动贡献全部的力量！<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">（这一段结尾点题，扯到了大数据，即时通讯和酒店等的数据泄露。支付宝一家的事情，要把所有企业拉进来一起陪
+绑。这就像是小学生在课堂上看漫画被老师抓住了，被追问时说旁边的同学也看了，那边的同学还画漫画呢。对自己的问题避重就轻，东拉西扯的落脚点竟然是呼吁
+企业团结起来斩断数据贩卖的黑色产业链。这就像是小偷被抓住了之后，对自己的罪行只字不提，却大谈特谈起个人生存环境，社会公平正义，社会保障等议题。把
+微观问题扯到宏观上去，似乎可以减轻支付宝的过错，让人们不再关注这件事的本身。这个手法，过去阿里巴巴在历次公关危机中屡试不爽。）<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">我对这件事的看法：<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">支付宝的这份声明中，还有很多问题没有回答，也许他们根本就不想回答。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">首先，这名前支付宝员工在3年前就开始窃取支付数据，这是孤立行为还是普遍行为，支付宝那些通过了多重安全鉴定的内部管控机制到底能否起作用？<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">本次数据泄露事件是否如支付宝轻描淡写的那样，仅是违规操作行为，不涉及敏感信息。如果真是这样的话，为什么要动用公安机关抓人。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">支付宝在数据泄露事件中要承担什么责任？这么大一个公司，要对自己的行为负责，李某的职务身份是支付宝员工，履行的是公司职责，这个责任不能简单推给个人或是全社会就完事儿了。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">被交易的用户数据既然有交易价值，为何支付宝还要死硬抵赖说不涉及用户的敏感信息？什么算敏感信息？那些电商网站买去那些没有人名，没有ip地址、信用卡、身份证的信息回去是要做什么？真的没有敏感信息吗？<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">既然支付宝已说这些用来交易的用户信息并没有被传到网上，必然是已经弄清了数据流动的一切来龙去脉，为何不公布这些事实真相，并积极检讨自身，而是要努力推卸责任，并东拉西扯把别的企业牵扯进来？<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">结论<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">支付宝和阿里巴巴的关系大家都清楚，这两家公司的行事风格一脉相承，不管什么事情都是别人的错，社会的错，他们
+自己什么都没做错。支付宝的用户信息泄露事件不是第一次，表明其内部管控机制已失灵，就像筛子一样漏的到处都是。可关键问题是，支付宝在公开声明中的推卸
+责任、闪烁其词、东拉西扯、让人非常怀疑他们对待数据安全这个问题上的诚信。<br style="text-indent: 2em; text-align: left;"/></span></p><p style="line-height: 1.75em; text-indent: 2em; text-align: left;"><span style="font-size: 14px;">一份没有任何歉意的致歉声明，把自己的责任推得干干净净，却反而还要指责别人的数据泄露事件，以洗白自身。支付
+宝已成为一家傲慢的公司，面对三番五次出出现的安全事故不知反省，调整内部安全防范机制，却积极动用公关力量去为自己涂脂抹粉。在支付宝的眼里，亿万用户
+的信息安全威胁，也比不上他们自己浮华的面子，支付宝未来必将为自己所做过的一切，付出代价。&nbsp;</span></p><p><br style="text-indent: 2em; text-align: left;"/></p></div>
+    </div>
+</div>
+</div>
+</div>
+	

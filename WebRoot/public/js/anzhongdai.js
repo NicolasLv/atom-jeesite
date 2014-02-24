@@ -102,6 +102,12 @@ $(document).ready(function() {
 			"hideMethod": "fadeOut"
 		};
 	}
+	
+	// F12页面提示
+	if(window.console) {
+		window.console.info("%c对于那些看到一个页面就要按F12的web开发者来说，你是喜欢我们的代码呢，还是发现了什么bug？不如直接和我们联系吧！", "font-size:14px;");
+		window.console.info("%c邮件联系 老牛啊 obullxl@gmail.com", "color:red;font-size:14px;");
+	}
 	;
 });
 
